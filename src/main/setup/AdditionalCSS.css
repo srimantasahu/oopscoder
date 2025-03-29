@@ -1,0 +1,103 @@
+/*Header and Logo*/
+.site-header {
+    max-height: 81px !important; /* Adjust header height */
+}
+.site-logo img {
+    max-width: 250px !important; /* Adjust the size as needed */
+    height: auto !important;
+}
+
+/*Navbar styles*/
+.main-navigation .inside-navigation {
+    display: flex;
+    justify-content: space-between;
+}
+.main-navigation .main-nav {
+    flex: 1;
+    text-align: right;
+}
+@media (max-width: 768px) {
+    .main-navigation .inside-navigation {
+        flex-direction: column;
+        align-items: end;
+    }
+    .main-navigation .main-nav {
+        margin-left: 0;
+        text-align: center;
+		background-color: #F8F9FA; /* Light gray background */
+    }
+}
+
+/* Ensure full height */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Make the site container a flexbox */
+.site {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Push content to fill available space */
+.site-content {
+    flex: 1; /* Expands to push footer down */
+}
+
+/* Optional styling for the footer */
+.site-footer {
+    padding: 5px;
+    text-align: center;
+}
+
+/*Improve Typography & Line Spacing*/
+body {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+    background-color: #f9f9f9;
+}
+h1, h2, h3, h4 {
+    font-weight: bold;
+    color: #222;
+}
+
+/*Improve Sidebar Styling*/
+.sidebar {
+    padding: 0px 5px 5px 5px;
+    border-radius: 5px;
+}
+.sidebar a {
+    color: #0073aa;
+    font-weight: bold;
+}
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+/*Optimize Blog Post Width for Readability*/
+.single-post .inside-article {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/*Style Code Blocks for Tech Blogs*/
+pre {
+    background: #282c34;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+code {
+    background: #f4f4f4;
+    padding: 3px 6px;
+    border-radius: 3px;
+    color: #d63384;
+}
+

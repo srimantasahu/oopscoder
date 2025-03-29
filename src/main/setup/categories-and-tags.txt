@@ -1,0 +1,77 @@
+---------------------------------------------Categories----------------------------------------
+architecture
+cloud-computing
+database
+domain-knowledge
+dsa
+    algorithm
+    data-structures
+    problem-solving
+java
+    concurrency
+    problem-solving
+    programming-basics
+javascript
+messaging
+    jms
+    kafka
+miscellaneous
+security
+servlets
+spring
+system-design
+    design-concepts
+    design-implementation
+uncategorized
+---------------------------------------------Tags----------------------------------------------
+algorithm
+annotations
+architecture
+askedininterview
+authentication
+bits
+cloud
+collections
+database
+datastructure
+dateandcalendar
+designconcepts
+designimpl
+designpattern
+differences
+domain
+dsalgo
+easy
+encryption
+enumerations
+generics
+hard
+io
+iterable
+java
+java11
+java17
+java21
+java8
+javabasics
+javascript
+jms
+jwt
+kafka
+leetcode
+medium
+messaging
+misc
+nosql
+problems
+problemsolving
+security
+serialisation
+servlets
+spring
+sql
+ssl
+strings
+systemdesign
+threads
+-----------------------------------------------------------------------------------------------
