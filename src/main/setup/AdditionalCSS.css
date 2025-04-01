@@ -101,8 +101,18 @@ code {
     color: #d63384;
 }
 
+/*Increase Spacing Above & Below Headings*/
+h1, h2, h3 {
+    margin-bottom: 25px; /* Space below */
+}
+
 /*Increase Line Spacing for headers (Line Height)*/
-h2 {
-    line-height: 1.5; /* Adjust as needed */
+h1, h2, h3 {
+    line-height: 1.2; /* Adjust as needed */
+}
+
+/*Increase Spacing Below TOC Contents*/
+#toc_container, .ez-toc-container, .rank-math-toc {
+    margin-bottom: 45px !important;  /* Adjust space below TOC */
 }
 
