@@ -7,15 +7,6 @@
     height: auto !important;
 }
 
-/*Navbar styles*/
-.main-navigation .inside-navigation {
-    display: flex;
-    justify-content: space-between;
-}
-.main-navigation .main-nav {
-    flex: 1;
-    text-align: right;
-}
 @media (max-width: 768px) {
     .main-navigation .inside-navigation {
         flex-direction: column;
@@ -26,6 +17,24 @@
         text-align: center;
 		background-color: #F8F9FA; /* Light gray background */
     }
+
+		.responsive-table {
+			overflow-x: auto;
+			display: block;
+		}
+  	.responsive-table table {
+			min-width: 600px; /* Ensures the table remains readable */
+		}
+}
+
+/*Navbar styles*/
+.main-navigation .inside-navigation {
+    display: flex;
+    justify-content: space-between;
+}
+.main-navigation .main-nav {
+    flex: 1;
+    text-align: right;
 }
 
 /* Ensure full height */
@@ -116,3 +125,29 @@ h1, h2, h3 {
     margin-bottom: 45px !important;  /* Adjust space below TOC */
 }
 
+/*Remove underline from links*/
+a {
+  text-decoration: none !important;
+}
+
+/* Wrap tables on small screens */
+.responsive-table {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Make the table not exceed its container */
+.responsive-table table {
+  width: 100%;
+  border-collapse: collapse;
+  word-break: break-word;
+}
+
+/* Prevent table cells from forcing layout overflow */
+.responsive-table th,
+.responsive-table td {
+  padding: 10px;
+  white-space: nowrap; /* Or set to normal if you want wrapping */
+  text-align: left;
+}
