@@ -37,6 +37,11 @@
     text-align: right;
 }
 
+.main-navigation .main-nav ul li a {
+  font-size: 15px !important; /* Adjust size as needed */
+}
+
+
 /* Ensure full height */
 html, body {
     height: 100%;
@@ -73,6 +78,10 @@ h1, h2, h3, h4 {
     font-weight: bold;
     color: #222;
 }
+hr {
+    margin-top: 1em;
+    margin-bottom: 3em;
+}
 
 /*Improve Sidebar Styling*/
 .sidebar {
@@ -108,6 +117,17 @@ code {
     padding: 3px 6px;
     border-radius: 3px;
     color: #d63384;
+}
+code[class*="language-"] {
+  padding-left: 0 !important;
+}
+.lazy-code {
+  background: #f9f9f9;
+  color: #666;
+  padding: 1em;
+  border-radius: 6px;
+  font-family: monospace;
+  white-space: pre-wrap;
 }
 
 /*Increase Spacing Above & Below Headings*/
@@ -150,4 +170,107 @@ a {
   padding: 10px;
   white-space: nowrap; /* Or set to normal if you want wrapping */
   text-align: left;
+}
+
+/*Hide wordpress login form*/
+#loginform {
+  display: none;
+}
+
+/*Custom login form styles*/
+.page-id-417 .inside-article {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2em;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.page-id-417 .nsl-container-buttons {
+    margin-top: 20px;
+}
+.page-id-417 .nsl-button {
+    margin: 10px 0;
+    width: 100%;
+}
+
+/*Collapsible directory structure*/
+/* Top-level menu items */
+.widget_nav_menu > div > ul > li {
+  margin-bottom: 5px;
+}
+
+/* Menu links */
+.widget_nav_menu li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  display: inline-block;
+  padding: 4px 0;
+}
+
+/* Hover state */
+.widget_nav_menu li a:hover {
+  color: #0073aa;
+}
+
+/* Submenu styles */
+.widget_nav_menu ul ul {
+  display: none;
+  padding-left: 4px;
+  border-left: 2px solid #eee;
+  margin-top: 4px;
+}
+
+/* Open submenu */
+.widget_nav_menu ul ul.open {
+  display: block;
+}
+
+/* Material icon toggle (pointer) */
+.toggle-icon {
+  color: #0073aa;
+  cursor: pointer;
+	display: inline-block;
+  font-size: 12px;
+  margin-right: 4px;
+  vertical-align: middle;
+  transition: transform 0.2s ease;
+}
+
+/* Align icon and text properly */
+.menu-item-has-children > .toggle-icon + a {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Desktop Layout */
+@media (min-width: 768px) {
+  /* Squeeze Sidebar */
+  .sidebar {
+    width: 18%;            /* Reduce the width of the sidebar */
+		font-size: 15px !important; /* Adjust size as needed */
+  }
+
+  /* Main Content Area */
+	 .content-area {
+    flex: 1 !important;
+    width: auto !important;
+    max-width: 64% !important;
+  }
+}
+
+/* Mobile Layout */
+@media (max-width: 767px) {
+  /* Squeeze Sidebar */
+  .sidebar {
+    width: 20%;            /* Adjust the width of the sidebar */
+		font-size: 15px !important; /* Adjust size as needed */
+  }
+
+  /* Main Content Area */
+  .content {
+    width: 60%;            /* Content area takes up more space on mobile */
+  }
 }

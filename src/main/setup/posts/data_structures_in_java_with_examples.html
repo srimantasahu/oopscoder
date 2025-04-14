@@ -8,10 +8,10 @@
 <ul>
     <li data-start="286" data-end="347"><strong data-start="286" data-end="300">Fixed-size</strong>, stores elements <strong data-start="318" data-end="334">contiguously</strong> in memory.</li>
     <li data-start="350" data-end="420"><strong data-start="350" data-end="372">Fast random access</strong> (<code data-start="374" data-end="380">O(1)</code>), but resizing is expensive (<code data-start="410" data-end="416">O(n)</code>).</li>
-    <li data-start="423" data-end="468"><strong data-start="423" data-end="435">Example</strong>:</li>
+    <li data-start="423" data-end="468"><strong data-start="423" data-end="435">Example:</strong></li>
 </ul>
 <div>
-<pre>private void array() {
+<pre class="lazy-code" data-code='private void array() {
     // Fixed-size array
     int[] array = new int[10];
     array[4] = 5;
@@ -23,10 +23,12 @@
 
     System.out.println("Array output:\t array: " + Arrays.toString(array) + ", list: " + list);
     // array: [0, 0, 0, 0, 5, 0, 0, 0, 0, 0], list: [0, 1]
-}</pre>
+}' data-lang="language-java">
+Loading code...
+</pre>
 </div>
 <ul>
-    <li data-start="471" data-end="527"><strong data-start="471" data-end="484">Use Case</strong>: Static lists, lookup-heavy applications.</li>
+    <li data-start="471" data-end="527"><strong data-start="471" data-end="484">Use Case:</strong> Static lists, lookup-heavy applications.</li>
     <li><strong data-start="6251" data-end="6282">Use <code data-start="6257" data-end="6268">ArrayList</code> over arrays</strong> for dynamic storage.</li>
 </ul>
 <hr class="" data-start="195" data-end="198" />
@@ -34,11 +36,11 @@
 <ul>
     <li data-start="575" data-end="643"><strong>An immutable</strong> sequence of characters, implemented as a <strong data-start="2225" data-end="2237"><code data-start="2227" data-end="2235">char[]</code></strong> internally.</li>
     <li data-start="575" data-end="643"><strong data-start="2563" data-end="2588">Stored in String Pool</strong> for optimization.</li>
-    <li data-start="798" data-end="861"><strong data-start="798" data-end="810">Example</strong>:</li>
+    <li data-start="798" data-end="861"><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
     <div>
-<pre>private void string() {
+<pre class="lazy-code" data-code='private void string() {
     // Immutable
     String str = "Hello";
     str = str + " World"; // A new object is created, old one is discarded
@@ -49,26 +51,28 @@
 
     // Thread-safe
     StringBuffer sbuf = new StringBuffer("Hello");
-    sbuf.append(" ").append("World").append('!');
+    sbuf.append(" ").append("World").append(&#39;!&#39;);
 
-    System.out.println("String output:\t str: " + str + ", sb: " + sb + ", sbuf: " + sbuf);
-    // str: Hello World, sb: Hello World, sbuf: Hello World!
-}</pre>
+        System.out.println("String output:\t str: " + str + ", sb: " + sb + ", sbuf: " + sbuf);
+        // str: Hello World, sb: Hello World, sbuf: Hello World!
+        }' data-lang="language-java">
+        Loading code...
+        </pre>
     </div>
 </div>
 <ul>
-    <li data-start="798" data-end="861"><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="864" data-end="877">Use Case</strong>:<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> Text processing, encoding, and pattern matching.</span></li>
+    <li data-start="798" data-end="861"><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="864" data-end="877">Use Case<strong data-start="798" data-end="810">:</strong></strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> Text processing, encoding, and pattern matching.</span></li>
 </ul>
 <hr class="" data-start="195" data-end="198" />
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><strong data-start="533" data-end="570">Linked List</strong></h3>
 <ul>
     <li data-start="575" data-end="643"><strong data-start="575" data-end="591">Dynamic size</strong>, each element (node) has a reference to the next.</li>
     <li data-start="646" data-end="718"><strong data-start="646" data-end="684">Fast insertions/deletions (<code data-start="675" data-end="681">O(1)</code>)</strong>, but <strong data-start="690" data-end="715">slow lookups (<code data-start="706" data-end="712">O(n)</code>)</strong>.</li>
-    <li data-start="721" data-end="795"><strong data-start="721" data-end="731">Types</strong>: Singly Linked List, Doubly Linked List, Circular Linked List.</li>
-    <li><strong data-start="798" data-end="810">Example</strong>:</li>
+    <li data-start="721" data-end="795"><strong data-start="721" data-end="731">Types:</strong> Singly Linked List, Doubly Linked List, Circular Linked List.</li>
+    <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
-<pre>private void list() {
+<pre class="lazy-code" data-code='private void list() {
     // Use ArrayList for fast access (random access) to elements and fewer insertions/removals.
     List&lt;Integer&gt; arrayList = new ArrayList&lt;&gt;();
     arrayList.add(1);
@@ -82,50 +86,92 @@
 
     System.out.println("List output:\t arrayList: [" + arrayList.get(0) + ", " + arrayList.get(1) + "], linkedList: " + linkedList);
     // arrayList: [1, 2], linkedList: [5, 6, 7]
-}</pre>
+}' data-lang="language-java">
+Loading code...
+</pre>
 </div>
 <ul>
-    <li><strong data-start="864" data-end="877">Use Case</strong>: Undo operations, chaining in HashMaps.</li>
+    <li><strong data-start="864" data-end="877">Use Case:</strong> Undo operations, chaining in HashMaps.</li>
 </ul>
 <hr class="" data-start="195" data-end="198" />
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><strong data-start="533" data-end="570">Map</strong></h3>
 <ul>
     <li data-start="575" data-end="643"><strong data-start="1815" data-end="1834">Stores key-value pairs</strong>, and provides <strong style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="1845" data-end="1870">fast lookups </strong><span style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">based on keys.</span></li>
     <li data-start="575" data-end="643"><strong data-start="319" data-end="334">Unique keys</strong>, and values can be duplicated.</li>
-    <li><strong data-start="798" data-end="810">Example</strong>:</li>
+    <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
     <div>
-        <pre>private void map() {<br />    // HashMap: No order guarantee, fast lookups (O(1))<br />    Map&lt;Integer, String&gt; hashMap = new HashMap&lt;&gt;();<br />    hashMap.put(3, "C++");<br />    hashMap.put(1, "Java");<br />    hashMap.put(2, "Python");<br /><br />    // TreeMap: Sorted by keys (Natural Ordering)<br />    Map&lt;Integer, String&gt; treeMap = new TreeMap&lt;&gt;(hashMap);<br /><br />    // LinkedHashMap: Maintains insertion order<br />    Map&lt;Integer, String&gt; linkedHashMap = new LinkedHashMap&lt;&gt;();<br />    linkedHashMap.put(3, "C++");<br />    linkedHashMap.put(1, "Java");<br />    linkedHashMap.put(2, "Python");<br /><br />    System.out.println("Map output:\t\t hashMap: " + hashMap + ", treeMap: " + treeMap + ", linkedHashMap: " + linkedHashMap);<br />    // hashMap: {1=Java, 2=Python, 3=C++}, treeMap: {1=Java, 2=Python, 3=C++}, linkedHashMap: {3=C++, 1=Java, 2=Python}<br />}</pre>
+<pre class="lazy-code" data-code='private void map() {
+        // HashMap: No order guarantee, fast lookups (O(1))
+        Map<Integer, String> hashMap = new HashMap<>();
+        hashMap.put(3, "C++");
+        hashMap.put(1, "Java");
+        hashMap.put(2, "Python");
+
+        // TreeMap: Sorted by keys (Natural Ordering)
+        Map<Integer, String> treeMap = new TreeMap<>(hashMap);
+
+        // LinkedHashMap: Maintains insertion order
+        Map<Integer, String> linkedHashMap = new LinkedHashMap<>();
+        linkedHashMap.put(3, "C++");
+        linkedHashMap.put(1, "Java");
+        linkedHashMap.put(2, "Python");
+
+        System.out.println("Map output:\t\t hashMap: " + hashMap + ", treeMap: " + treeMap + ", linkedHashMap: " + linkedHashMap);
+        // hashMap: {1=Java, 2=Python, 3=C++}, treeMap: {1=Java, 2=Python, 3=C++}, linkedHashMap: {3=C++, 1=Java, 2=Python}
+    }' data-lang="language-java">
+Loading code...
+</pre>
     </div>
 </div>
 <ul>
-    <li><strong data-start="1939" data-end="1952">Use Case</strong>: Caching, indexing, counting occurrences.</li>
+    <li><strong data-start="1939" data-end="1952">Use Case:</strong> Caching, indexing, counting occurrences.</li>
 </ul>
 <hr class="" data-start="195" data-end="198" />
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><strong data-start="533" data-end="570">Set</strong></h3>
 <ul>
     <li><strong data-start="2329" data-end="2355">Stores unique elements</strong>, no duplicates allowed.</li>
     <li><strong data-start="1227" data-end="1259">Efficient membership testing</strong> (contains operation).</li>
-    <li><strong data-start="798" data-end="810">Example</strong>:</li>
+    <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
     <div>
-        <pre>private void set() {<br />    // HashSet: Unordered, fast access (O(1)), internally uses a HashMap<br />    Set&lt;String&gt; hashSet = new HashSet&lt;&gt;();<br />    hashSet.add("Java");<br />    hashSet.add("Python");<br />    hashSet.add("C++");<br /><br />    // TreeSet: Sorted order (Natural Ordering)<br />    Set&lt;String&gt; treeSet = new TreeSet&lt;&gt;(hashSet);<br /><br />    // LinkedHashSet: Maintains insertion order<br />    Set&lt;String&gt; linkedHashSet = new LinkedHashSet&lt;&gt;();<br />    linkedHashSet.add("Java");<br />    linkedHashSet.add("Python");<br />    linkedHashSet.add("C++");<br /><br />    System.out.println("Set output:\t\t hashSet: " + hashSet + ", treeSet: " + treeSet + ", linkedHashSet: " + linkedHashSet);<br />    // hashSet: [Java, C++, Python], treeSet: [C++, Java, Python], linkedHashSet: [Java, Python, C++]<br />}</pre>
+<pre class="lazy-code" data-code='private void set() {
+        // HashSet: Unordered, fast access (O(1)), internally uses a HashMap
+        Set<String> hashSet = new HashSet<>();
+        hashSet.add("Java");
+        hashSet.add("Python");
+        hashSet.add("C++");
+
+        // TreeSet: Sorted order (Natural Ordering)
+        Set<String> treeSet = new TreeSet<>(hashSet);
+
+        // LinkedHashSet: Maintains insertion order
+        Set<String> linkedHashSet = new LinkedHashSet<>();
+        linkedHashSet.add("Java");
+        linkedHashSet.add("Python");
+        linkedHashSet.add("C++");
+
+        System.out.println("Set output:\t\t hashSet: " + hashSet + ", treeSet: " + treeSet + ", linkedHashSet: " + linkedHashSet);
+        // hashSet: [Java, C++, Python], treeSet: [C++, Java, Python], linkedHashSet: [Java, Python, C++]
+    }' data-lang="language-java">
+Loading code...
+</pre>
     </div>
 </div>
 <ul>
-    <li><strong data-start="2502" data-end="2515">Use Case</strong>: Removing duplicates, membership checks.</li>
+    <li><strong data-start="2502" data-end="2515">Use Case:</strong> Removing duplicates, membership checks.</li>
 </ul>
 <hr class="" data-start="195" data-end="198" />
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><strong style="font-family: inherit; font-style: inherit;" data-start="924" data-end="950">Stack</strong></h3>
 <ul>
     <li data-start="955" data-end="997"><strong data-start="955" data-end="984">LIFO (Last In, First Out)</strong> structure.</li>
     <li data-start="1000" data-end="1042"><strong data-start="1000" data-end="1030">Push, Pop, Peek operations</strong> (<code data-start="1032" data-end="1038">O(1)</code>).</li>
-    <li data-start="1045" data-end="1099"><strong data-start="1045" data-end="1057">Example</strong>:</li>
+    <li data-start="1045" data-end="1099"><strong data-start="1045" data-end="1057">Example:</strong></li>
 </ul>
 <div>
-<pre>private void stack() {
+<pre class="lazy-code" data-code='private void stack() {
     // Stack (Legacy API) is a subclass of Vector, which is synchronized and generally slower due to thread safety overhead.
     Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();
     stack.push(10);
@@ -140,20 +186,22 @@
 
     System.out.println("Stack output:\t top element: " + arrayDequeAsStack.peek() + ", arrayDequeAsStack:  " + arrayDequeAsStack);
     // top element: 20, arrayDequeAsStack:  [20, 10]
-}</pre>
+}' data-lang="language-java">
+Loading code...
+</pre>
 </div>
 <ul>
-    <li data-start="1102" data-end="1164"><strong data-start="1102" data-end="1115">Use Case</strong>: Backtracking, function calls, browser history.</li>
+    <li data-start="1102" data-end="1164"><strong data-start="1102" data-end="1115">Use Case:</strong> Backtracking, function calls, browser history.</li>
 </ul>
 <hr class="" data-start="195" data-end="198" />
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><strong data-start="1170" data-end="1214">Queue</strong></h3>
 <ul>
     <li data-start="1219" data-end="1262"><strong data-start="1219" data-end="1249">FIFO (First In, First Out)</strong> structure.</li>
-    <li data-start="1265" data-end="1313"><strong data-start="1265" data-end="1280">Operations:</strong> <code data-start="1281" data-end="1288">add()</code>, <code data-start="1290" data-end="1300">remove()</code>, <code data-start="1302" data-end="1310">peek()</code>.</li>
-    <li data-start="1316" data-end="1375"><strong data-start="1316" data-end="1328">Example</strong>:</li>
+    <li data-start="1265" data-end="1313"><strong data-start="1265" data-end="1280">Operations:</strong> <code data-start="1281" data-end="1288">add()</code>, <code data-start="1290" data-end="1300">remove()</code>, <code data-start="1302" data-end="1310">peek()</code>.</li>
+    <li data-start="1316" data-end="1375"><strong data-start="1316" data-end="1328">Example:</strong></li>
 </ul>
 <div>
-<pre>private void queue() {
+<pre class="lazy-code" data-code='private void queue() {
     // LinkedList uses a doubly linked list, which requires O(1) for enqueue/dequeue but has extra memory overhead (pointers for each node).
     // LinkedList suffers from pointer chasing, which increases cache misses and degrades performance.
     Queue&lt;Integer&gt; linkedListAsQueue = new LinkedList&lt;&gt;();
@@ -172,28 +220,30 @@
 
     System.out.println("Queue output:\t top element: " + arrayDequeAsQueue.peek() + ", arrayDequeAsQueue: " + arrayDequeAsQueue);
     // top element: 20, arrayDequeAsQueue: [20, 30]
-}</pre>
+}' data-lang="language-java">
+Loading code...
+</pre>
 </div>
 <ul>
-    <li data-start="1378" data-end="1429"><strong data-start="1378" data-end="1391">Use Case</strong>: Job scheduling, request processing.</li>
+    <li data-start="1378" data-end="1429"><strong data-start="1378" data-end="1391">Use Case:</strong> Job scheduling, request processing.</li>
 </ul>
 <hr class="" data-start="195" data-end="198" />
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><strong data-start="1435" data-end="1479">Deque</strong></h3>
 <ul>
     <li data-start="1484" data-end="1552"><strong data-start="1484" data-end="1506">A double-ended queue</strong>, allows insertions/removals from both ends.</li>
     <li data-start="1555" data-end="1610"><strong data-start="1555" data-end="1584">Faster than Stack &amp; Queue</strong> in some cases (<code data-start="1600" data-end="1606">O(1)</code>).</li>
-    <li data-start="1613" data-end="1672"><strong data-start="1613" data-end="1625">Example</strong>: Refer Stack/Queue example.</li>
-    <li data-start="1675" data-end="1728"><strong data-start="1675" data-end="1688">Use Case</strong>: Sliding window problems, palindromes.</li>
+    <li data-start="1613" data-end="1672"><strong data-start="1613" data-end="1625">Example:</strong> Refer Stack/Queue example.</li>
+    <li data-start="1675" data-end="1728"><strong data-start="1675" data-end="1688">Use Case:</strong> Sliding window problems, palindromes.</li>
 </ul>
 <hr class="" data-start="1730" data-end="1733" />
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><strong data-start="4110" data-end="4153">Priority Queue</strong></h3>
 <ul>
     <li data-start="4158" data-end="4203"><strong data-start="4158" data-end="4201">Elements are ordered based on priority.</strong></li>
     <li data-start="4206" data-end="4247"><strong data-start="4206" data-end="4244">Implemented as a Heap (<code data-start="4231" data-end="4241">O(log n)</code>)</strong>.</li>
-    <li data-start="4250" data-end="4317"><strong data-start="4250" data-end="4262">Example</strong>:</li>
+    <li data-start="4250" data-end="4317"><strong data-start="4250" data-end="4262">Example:</strong></li>
 </ul>
 <div>
-<pre>private void priorityQueue() {
+<pre class="lazy-code" data-code='private void priorityQueue() {
     PriorityQueue&lt;Integer&gt; priorityQueueAsMinHeap = new PriorityQueue&lt;&gt;(); // Min-Heap
     // Adding elements
     priorityQueueAsMinHeap.offer(30);
@@ -207,20 +257,22 @@
 
     System.out.println("Heap output:\t top element: " + priorityQueueAsMinHeap.peek() + ", priorityQueueAsMinHeap: " + priorityQueueAsMinHeap);
     // top element: 10, priorityQueueAsMinHeap: [10, 30, 20]
-}</pre>
+}' data-lang="language-java">
+Loading code...
+</pre>
 </div>
 <ul>
-    <li data-start="4320" data-end="4369"><strong data-start="4320" data-end="4333">Use Case</strong>: Scheduling, Dijkstra’s Algorithm.</li>
+    <li data-start="4320" data-end="4369"><strong data-start="4320" data-end="4333">Use Case:</strong> Scheduling, Dijkstra’s Algorithm.</li>
 </ul>
 <hr class="" data-start="1730" data-end="1733" />
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><strong data-start="3221" data-end="3255">Binary Tree</strong></h3>
 <ul>
     <li data-start="3260" data-end="3313"><strong data-start="3260" data-end="3296">Each node has at most 2 children</strong> (left, right).</li>
     <li data-start="3316" data-end="3364"><strong data-start="3316" data-end="3362">Used for hierarchical data representation.</strong></li>
-    <li data-start="3367" data-end="3381"><strong data-start="3367" data-end="3379">Example</strong>:</li>
+    <li data-start="3367" data-end="3381"><strong data-start="3367" data-end="3379">Example:</strong></li>
 </ul>
 <div>
-<pre>class TreeNode&lt;T&gt; {
+<pre class="lazy-code" data-code='class TreeNode&lt;T&gt; {
     T data;
     TreeNode&lt;T&gt; left, right;
 
@@ -276,10 +328,12 @@ private void tree() {
     System.out.print("Tree output:\t level order traversal: ");
     tree.levelOrder();
     // level order traversal: 1 2 3 4 5 6 7
-}</pre>
+}' data-lang="language-java">
+Loading code...
+</pre>
 </div>
 <ul>
-    <li data-start="3466" data-end="3525"><strong data-start="3466" data-end="3479">Use Case</strong>: Search trees, expression trees, game trees.</li>
+    <li data-start="3466" data-end="3525"><strong data-start="3466" data-end="3479">Use Case:</strong> Search trees, expression trees, game trees.</li>
 </ul>
 <hr class="" data-start="1730" data-end="1733" />
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><strong data-start="3221" data-end="3255">Binary Search Tree</strong></h3>
@@ -287,11 +341,11 @@ private void tree() {
     <li data-start="2039" data-end="2105"><strong data-start="3568" data-end="3604">Sorted tree, left &lt; root &lt; right</strong>.</li>
     <li data-start="2108" data-end="2157"><strong data-start="3610" data-end="3665">Search, Insert, Delete operations take (<code data-start="3652" data-end="3662">O(log n)</code>)</strong>.</li>
     <li data-start="2108" data-end="2157"><strong data-start="2710" data-end="2767">Unbalanced BST can degrade to O(n) (linked list form)</strong>.</li>
-    <li data-start="2160" data-end="2228"><strong data-start="2160" data-end="2172">Example</strong>:</li>
+    <li data-start="2160" data-end="2228"><strong data-start="2160" data-end="2172">Example:</strong></li>
 </ul>
 <div>
     <div>
-<pre>class BinarySearchTree {
+<pre class="lazy-code" data-code='class BinarySearchTree {
     private TreeNode&lt;Integer&gt; root;
 
     public void insert(int key) {
@@ -342,11 +396,13 @@ private void binarySearchTree() {
     System.out.print("BST output:\t\t search 4: " + bst.search(4) + ", search 7: " + bst.search(7) + ", in-order traversal: ");
     bst.inorder();
     // search 4: true, search 7: false, in-order traversal: 2 3 4 5 6 8 9
-}</pre>
+}' data-lang="language-java">
+Loading code...
+</pre>
     </div>
 </div>
 <ul>
-    <li data-start="2231" data-end="2288"><strong data-start="3707" data-end="3720">Use Case</strong>: Auto-suggestions, range queries.</li>
+    <li data-start="2231" data-end="2288"><strong data-start="3707" data-end="3720">Use Case:</strong> Auto-suggestions, range queries.</li>
 </ul>
 <hr class="" data-start="1730" data-end="1733" />
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><strong data-start="2001" data-end="2034">Red-Black Tree</strong></h3>
@@ -354,10 +410,10 @@ private void binarySearchTree() {
     <li data-start="2039" data-end="2105"><strong data-start="3012" data-end="3034">Self-balancing BST</strong> that ensures logarithmic time complexity <strong data-start="3610" data-end="3665">(<code data-start="3652" data-end="3662">O(log n)</code>)</strong> for insertion, deletion, and search operations.</li>
     <li data-start="2108" data-end="2157"><strong data-start="2108" data-end="2139">Slower lookups (<code data-start="2126" data-end="2136">O(log n)</code>)</strong> than <code data-start="2145" data-end="2154">HashMap</code>.</li>
     <li data-start="2108" data-end="2157"><code data-start="2046" data-end="2055">TreeMap</code> and <code data-start="2060" data-end="2069">TreeSet</code> internally use <strong data-start="2085" data-end="2104">Red-Black Trees</strong>.</li>
-    <li data-start="2160" data-end="2228"><strong data-start="2160" data-end="2172">Example</strong>:</li>
+    <li data-start="2160" data-end="2228"><strong data-start="2160" data-end="2172">Example:</strong></li>
 </ul>
 <div>
-<pre>private void redBlackTree() {
+<pre class="lazy-code" data-code='private void redBlackTree() {
     // A TreeMap in Java is a sorted map implementation based on a Red-Black Tree.
     // It maintains keys in sorted order and provides O(log n) time complexity for insertion, deletion, and lookup.
     TreeMap&lt;Integer, String&gt; treeMap = new TreeMap&lt;&gt;(); // keys sorted in natural order
@@ -375,22 +431,24 @@ private void binarySearchTree() {
     // Displaying the TreeMap (keys are sorted)
     System.out.println("RedBlackTree:\t first key: " + treeMap.firstKey() + ", last key: " + treeMap.lastKey() + ", treeMap: " + treeMap);
     // first key: 1, last key: 5, treeMap: {1=One, 3=Three, 4=Four, 5=Five}
-}</pre>
+}' data-lang="language-java">
+Loading code...
+</pre>
 </div>
 <ul>
-    <li data-start="2160" data-end="2228"><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="2231" data-end="2244">Use Case</strong>:<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> Ordered key-value storage, range queries.</span></li>
+    <li data-start="2160" data-end="2228"><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="2231" data-end="2244">Use Case<strong data-start="798" data-end="810">:</strong></strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> Ordered key-value storage, range queries.</span></li>
 </ul>
 <hr class="" data-start="1730" data-end="1733" />
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><strong data-start="3221" data-end="3255">Graph</strong></h3>
 <ul>
     <li data-start="2039" data-end="2105"><strong data-start="2903" data-end="2958">Used to represent networks (social, transport, web)</strong>.</li>
-    <li data-start="2108" data-end="2157"><strong data-start="2964" data-end="2974">Types</strong>: <strong>Directed</strong> (edges have direction), <strong>Undirected</strong> (edges have no direction), <strong>Weighted</strong> (edges have weights), <strong>Unweighted</strong> (all edges are equal).</li>
-    <li data-start="2108" data-end="2157"><strong>Representations</strong>: <strong>Adjacency List</strong> (efficient for sparse graphs), <strong>Adjacency Matrix</strong> (efficient for dense graphs).</li>
-    <li data-start="2160" data-end="2228"><strong data-start="2160" data-end="2172">Example</strong>:</li>
+    <li data-start="2108" data-end="2157"><strong data-start="2964" data-end="2974">Types:</strong> <strong>Directed</strong> (edges have direction), <strong>Undirected</strong> (edges have no direction), <strong>Weighted</strong> (edges have weights), <strong>Unweighted</strong> (all edges are equal).</li>
+    <li data-start="2108" data-end="2157"><strong>Representations:</strong> <strong>Adjacency List</strong> (efficient for sparse graphs), <strong>Adjacency Matrix</strong> (efficient for dense graphs).</li>
+    <li data-start="2160" data-end="2228"><strong data-start="2160" data-end="2172">Example:</strong></li>
 </ul>
 <div>
     <div>
-<pre>class Graph {
+<pre class="lazy-code" data-code='class Graph {
     private final Map&lt;Integer, List&lt;Integer&gt;&gt; adjList;
 
     public Graph() {
@@ -433,21 +491,23 @@ private void graph() {
     System.out.print("Graph output:\t ");
     graph.printGraph();
     // 1 -&gt; [2, 4]; 2 -&gt; [1, 3]; 3 -&gt; [2, 4]; 4 -&gt; [3, 1];
-}</pre>
+}' data-lang="language-java">
+Loading code...
+</pre>
     </div>
 </div>
 <ul>
-    <li data-start="2231" data-end="2288"><strong data-start="3145" data-end="3158">Use Case</strong>: Route finding (Dijkstra’s Algorithm), Social Networks.</li>
+    <li data-start="2231" data-end="2288"><strong data-start="3145" data-end="3158">Use Case:</strong> Route finding (Dijkstra’s Algorithm), Social Networks.</li>
 </ul>
 <hr class="" data-start="1730" data-end="1733" />
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><strong data-start="3221" data-end="3255">Trie</strong></h3>
 <ul>
     <li data-start="2039" data-end="2105"><strong data-start="3792" data-end="3866">Used for fast prefix-based searching (<code data-start="3832" data-end="3838">O(m)</code>, where <code data-start="3846" data-end="3849">m</code> is key length)</strong>.</li>
-    <li data-start="2160" data-end="2228"><strong data-start="2160" data-end="2172">Example</strong>:</li>
+    <li data-start="2160" data-end="2228"><strong data-start="2160" data-end="2172">Example:</strong></li>
 </ul>
 <div>
     <div>
-<pre>class TrieNode {
+<pre class="lazy-code" data-code='class TrieNode {
     Map&lt;Character, TrieNode&gt; children = new HashMap&lt;&gt;();
     boolean endOfWord;
 
@@ -505,16 +565,18 @@ private void trie() {
     trie.insert("application");
 
     System.out.println("Trie output:\t " +
-                       "search 'apple': " + trie.search("apple") +
-                       ", search 'app': " + trie.search("app") +
-                       ", search 'appl': " + trie.search("appl") +
-                       ", starts with 'app': " + trie.startsWith("app"));
-    // search 'apple': true, search 'app': true, search 'appl': false, starts with 'app': true
-}</pre>
+                       "search &#39;apple&#39;: " + trie.search("apple") +
+        ", search &#39;app&#39;: " + trie.search("app") +
+        ", search &#39;appl&#39;: " + trie.search("appl") +
+        ", starts with &#39;app&#39;: " + trie.startsWith("app"));
+        // search &#39;apple&#39;: true, search &#39;app&#39;: true, search &#39;appl&#39;: false, starts with &#39;app&#39;: true
+}' data-lang="language-java">
+        Loading code...
+        </pre>
     </div>
 </div>
 <ul>
-    <li data-start="2231" data-end="2288"><strong data-start="4014" data-end="4027">Use Case</strong>: Auto-complete, spell checkers, word games.</li>
+    <li data-start="2231" data-end="2288"><strong data-start="4014" data-end="4027">Use Case:</strong> Auto-complete, spell checkers, word games.</li>
 </ul>
 <hr class="" data-start="5001" data-end="5004" />
 <h3 style="text-align: left;" data-start="5006" data-end="5029"><strong data-start="5009" data-end="5029">📌 Summary Table</strong></h3>
@@ -601,12 +663,12 @@ private void trie() {
 <hr class="" data-start="6219" data-end="6222" />
 <h3 style="text-align: left;" data-start="6224" data-end="6248"><strong data-start="6227" data-end="6248">🚀 Final Thoughts</strong></h3>
 <ul>
-    <li data-start="116" data-end="178"><strong data-start="116" data-end="126">Arrays</strong>: <code data-start="5265" data-end="5271">O(1)</code> random access, but <code data-start="5397" data-end="5403">O(n)</code> insertion/deletion.</li>
-    <li data-start="181" data-end="250"><strong data-start="181" data-end="197">Linked Lists</strong>: <code data-start="5265" data-end="5271">O(1)</code> insert/delete at head/tail, but <code data-start="5397" data-end="5403">O(n)</code> search.</li>
-    <li data-start="659" data-end="754"><strong data-start="659" data-end="684">HashMap</strong>: <code data-start="5265" data-end="5271">O(1)</code> average-time operations, but <code data-start="5397" data-end="5403">O(n)</code> worst-case with collisions.</li>
-    <li data-start="253" data-end="311"><strong data-start="253" data-end="272">Stacks &amp; Queues</strong>: <code data-start="5265" data-end="5271">O(1)</code> insertion/deletion at one end.</li>
-    <li data-start="314" data-end="393"><strong data-start="314" data-end="333">Heaps (Min/Max)</strong>: <code data-start="5990" data-end="6000">O(log n)</code> insert/delete due to heap property maintenance.</li>
-    <li data-start="396" data-end="484"><strong data-start="396" data-end="404">BSTs</strong>: <code data-start="5990" data-end="6000">O(log n)</code> search/insert/delete (balanced), but <code data-start="5397" data-end="5403">O(n)</code> worst-case if unbalanced.</li>
-    <li data-start="396" data-end="484"><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="487" data-end="518">Red-Black Trees</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">: Always balanced, ensuring <code data-start="5990" data-end="6000">O(log n)</code></span><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> operations.</span></li>
+    <li data-start="116" data-end="178"><strong data-start="116" data-end="126">Arrays:</strong> <code data-start="5265" data-end="5271">O(1)</code> random access, but <code data-start="5397" data-end="5403">O(n)</code> insertion/deletion.</li>
+    <li data-start="181" data-end="250"><strong data-start="181" data-end="197">Linked Lists:</strong> <code data-start="5265" data-end="5271">O(1)</code> insert/delete at head/tail, but <code data-start="5397" data-end="5403">O(n)</code> search.</li>
+    <li data-start="659" data-end="754"><strong data-start="659" data-end="684">HashMap:</strong> <code data-start="5265" data-end="5271">O(1)</code> average-time operations, but <code data-start="5397" data-end="5403">O(n)</code> worst-case with collisions.</li>
+    <li data-start="253" data-end="311"><strong data-start="253" data-end="272">Stacks &amp; Queues:</strong> <code data-start="5265" data-end="5271">O(1)</code> insertion/deletion at one end.</li>
+    <li data-start="314" data-end="393"><strong data-start="314" data-end="333">Heaps (Min/Max):</strong> <code data-start="5990" data-end="6000">O(log n)</code> insert/delete due to heap property maintenance.</li>
+    <li data-start="396" data-end="484"><strong data-start="396" data-end="404">BSTs:</strong> <code data-start="5990" data-end="6000">O(log n)</code> search/insert/delete (balanced), but <code data-start="5397" data-end="5403">O(n)</code> worst-case if unbalanced.</li>
+    <li data-start="396" data-end="484"><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="487" data-end="518">Red-Black Trees<strong data-start="798" data-end="810">:</strong></strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> Always balanced, ensuring <code data-start="5990" data-end="6000">O(log n)</code></span><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> operations.</span></li>
 </ul>
 <hr class="" data-start="5001" data-end="5004" /><!-- /wp:paragraph -->
