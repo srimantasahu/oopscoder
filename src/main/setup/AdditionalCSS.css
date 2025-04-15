@@ -7,41 +7,6 @@
     height: auto !important;
 }
 
-@media (max-width: 768px) {
-    .main-navigation .inside-navigation {
-        flex-direction: column;
-        align-items: end;
-    }
-    .main-navigation .main-nav {
-        margin-left: 0;
-        text-align: center;
-		background-color: #F8F9FA; /* Light gray background */
-    }
-
-		.responsive-table {
-			overflow-x: auto;
-			display: block;
-		}
-  	.responsive-table table {
-			min-width: 600px; /* Ensures the table remains readable */
-		}
-}
-
-/*Navbar styles*/
-.main-navigation .inside-navigation {
-    display: flex;
-    justify-content: space-between;
-}
-.main-navigation .main-nav {
-    flex: 1;
-    text-align: right;
-}
-
-.main-navigation .main-nav ul li a {
-  font-size: 15px !important; /* Adjust size as needed */
-}
-
-
 /* Ensure full height */
 html, body {
     height: 100%;
@@ -66,56 +31,32 @@ html, body {
     text-align: center;
 }
 
-/*Improve Typography & Line Spacing*/
-body {
-    font-family: 'Inter', sans-serif;
-    font-size: 18px;
-    line-height: 1.8;
-    color: #333;
-    background-color: #f9f9f9;
+/* Use Inter for general text */
+body, p, li, .site {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 18px;
+  line-height: 1.75;
+  color: #333;
 }
-h1, h2, h3, h4 {
-    font-weight: bold;
-    color: #222;
+/* Use Fira Code for code blocks */
+pre, code, kbd, samp {
+  font-family: 'Fira Code', monospace !important;
+  font-size: 16px;
+  line-height: 1.6;
+  background: #f5f5f5;
+  padding: 0.4em 0.6em;
+  border-radius: 4px;
 }
-hr {
-    margin-top: 1em;
-    margin-bottom: 3em;
-}
-
-/*Improve Sidebar Styling*/
-.sidebar {
-    padding: 0px 5px 5px 5px;
-    border-radius: 5px;
-}
-.sidebar a {
-    color: #0073aa;
-    font-weight: bold;
-}
-.sidebar a:hover {
-    text-decoration: underline;
-}
-
-/*Optimize Blog Post Width for Readability*/
-.single-post .inside-article {
-    max-width: 850px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/*Style Code Blocks for Tech Blogs*/
+/* Improve code block appearance */
 pre {
-    background: #282c34;
-    color: #fff;
-    font-family: 'Courier New', monospace;
-    padding: 15px;
-    border-radius: 5px;
-    overflow-x: auto;
+  overflow-x: auto;
+  background: #2d2d2d;
+  color: #fff;
+  padding: 1em;
+  border-radius: 8px;
 }
+/*Style Code Blocks for Tech Blogs*/
 code {
-    background: #f4f4f4;
-    padding: 3px 6px;
-    border-radius: 3px;
     color: #d63384;
 }
 code[class*="language-"] {
@@ -129,15 +70,23 @@ code[class*="language-"] {
   font-family: monospace;
   white-space: pre-wrap;
 }
-
-/*Increase Spacing Above & Below Headings*/
+/* Headings (optional) */
 h1, h2, h3 {
-    margin-bottom: 25px; /* Space below */
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #222;
+}
+hr {
+    margin-top: 1em;
+    margin-bottom: 3em;
 }
 
-/*Increase Line Spacing for headers (Line Height)*/
-h1, h2, h3 {
-    line-height: 1.2; /* Adjust as needed */
+/*Optimize Blog Post Width for Readability*/
+.single-post .inside-article {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 /*Increase Spacing Below TOC Contents*/
@@ -195,6 +144,44 @@ a {
     width: 100%;
 }
 
+/*Navbar styles*/
+@media (max-width: 768px) {
+    .main-navigation .inside-navigation {
+        flex-direction: column;
+        align-items: end;
+    }
+    .main-navigation .main-nav {
+        margin-left: 0;
+        text-align: center;
+		background-color: #F8F9FA; /* Light gray background */
+    }
+
+		.responsive-table {
+			overflow-x: auto;
+			display: block;
+		}
+  	.responsive-table table {
+			min-width: 600px; /* Ensures the table remains readable */
+		}
+}
+.main-navigation .inside-navigation {
+    display: flex;
+    justify-content: space-between;
+}
+.main-navigation .main-nav {
+    flex: 1;
+    text-align: right;
+}
+.main-navigation .main-nav ul li a {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 15px;
+  color: #333;
+	font-weight: 500;
+}
+.main-navigation .main-nav .menu > li.current-menu-item > a {
+    color: grey; /* active/selected menu */
+}
+
 /*Collapsible directory structure*/
 /* Top-level menu items */
 .widget_nav_menu > div > ul > li {
@@ -204,10 +191,12 @@ a {
 /* Menu links */
 .widget_nav_menu li a {
   text-decoration: none;
+	font-family: 'Inter', sans-serif;
+  font-size: 15px;
   color: #333;
   font-weight: 500;
   display: inline-block;
-  padding: 4px 0;
+  padding: 6px 0;
 }
 
 /* Hover state */
@@ -215,12 +204,16 @@ a {
   color: #0073aa;
 }
 
+.widget_nav_menu li.current-menu-item > a {
+    color: grey; /* active/selected menu */
+}
+
 /* Submenu styles */
 .widget_nav_menu ul ul {
   display: none;
-  padding-left: 4px;
+  margin-left: 15px;
   border-left: 2px solid #eee;
-  margin-top: 4px;
+  padding-left: 10px;
 }
 
 /* Open submenu */
@@ -230,13 +223,18 @@ a {
 
 /* Material icon toggle (pointer) */
 .toggle-icon {
-  color: #0073aa;
+  color: #333;
   cursor: pointer;
 	display: inline-block;
   font-size: 12px;
   margin-right: 4px;
   vertical-align: middle;
   transition: transform 0.2s ease;
+}
+
+/* Hover state */
+.toggle-icon:hover {
+  color: #0073aa;
 }
 
 /* Align icon and text properly */
