@@ -11,7 +11,8 @@
     <li data-start="423" data-end="468"><strong data-start="423" data-end="435">Example:</strong></li>
 </ul>
 <div>
-<pre class="lazy-code" data-code='private void array() {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">private void array() {
     // Fixed-size array
     int[] array = new int[10];
     array[4] = 5;
@@ -23,8 +24,7 @@
 
     System.out.println("Array output:\t array: " + Arrays.toString(array) + ", list: " + list);
     // array: [0, 0, 0, 0, 5, 0, 0, 0, 0, 0], list: [0, 1]
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
 </div>
 <ul>
@@ -40,7 +40,8 @@ Loading code...
 </ul>
 <div>
     <div>
-<pre class="lazy-code" data-code='private void string() {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">private void string() {
     // Immutable
     String str = "Hello";
     str = str + " World"; // A new object is created, old one is discarded
@@ -53,12 +54,11 @@ Loading code...
     StringBuffer sbuf = new StringBuffer("Hello");
     sbuf.append(" ").append("World").append(&#39;!&#39;);
 
-        System.out.println("String output:\t str: " + str + ", sb: " + sb + ", sbuf: " + sbuf);
-        // str: Hello World, sb: Hello World, sbuf: Hello World!
-        }' data-lang="language-java">
-        Loading code...
-        </pre>
-    </div>
+    System.out.println("String output:\t str: " + str + ", sb: " + sb + ", sbuf: " + sbuf);
+    // str: Hello World, sb: Hello World, sbuf: Hello World!
+}</code>
+</pre>
+</div>
 </div>
 <ul>
     <li data-start="798" data-end="861"><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="864" data-end="877">Use Case<strong data-start="798" data-end="810">:</strong></strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> Text processing, encoding, and pattern matching.</span></li>
@@ -72,7 +72,8 @@ Loading code...
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
-<pre class="lazy-code" data-code='private void list() {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">private void list() {
     // Use ArrayList for fast access (random access) to elements and fewer insertions/removals.
     List&lt;Integer&gt; arrayList = new ArrayList&lt;&gt;();
     arrayList.add(1);
@@ -86,8 +87,7 @@ Loading code...
 
     System.out.println("List output:\t arrayList: [" + arrayList.get(0) + ", " + arrayList.get(1) + "], linkedList: " + linkedList);
     // arrayList: [1, 2], linkedList: [5, 6, 7]
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
 </div>
 <ul>
@@ -102,28 +102,28 @@ Loading code...
 </ul>
 <div>
     <div>
-<pre class="lazy-code" data-code='private void map() {
-        // HashMap: No order guarantee, fast lookups (O(1))
-        Map<Integer, String> hashMap = new HashMap<>();
-        hashMap.put(3, "C++");
-        hashMap.put(1, "Java");
-        hashMap.put(2, "Python");
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">private void map() {
+    // HashMap: No order guarantee, fast lookups (O(1))
+    Map&lt;Integer, String&gt; hashMap = new HashMap<>();
+    hashMap.put(3, "C++");
+    hashMap.put(1, "Java");
+    hashMap.put(2, "Python");
 
-        // TreeMap: Sorted by keys (Natural Ordering)
-        Map<Integer, String> treeMap = new TreeMap<>(hashMap);
+    // TreeMap: Sorted by keys (Natural Ordering)
+    Map&lt;Integer, String&gt; treeMap = new TreeMap<>(hashMap);
 
-        // LinkedHashMap: Maintains insertion order
-        Map<Integer, String> linkedHashMap = new LinkedHashMap<>();
-        linkedHashMap.put(3, "C++");
-        linkedHashMap.put(1, "Java");
-        linkedHashMap.put(2, "Python");
+    // LinkedHashMap: Maintains insertion order
+    Map&lt;Integer, String&gt; linkedHashMap = new LinkedHashMap<>();
+    linkedHashMap.put(3, "C++");
+    linkedHashMap.put(1, "Java");
+    linkedHashMap.put(2, "Python");
 
-        System.out.println("Map output:\t\t hashMap: " + hashMap + ", treeMap: " + treeMap + ", linkedHashMap: " + linkedHashMap);
-        // hashMap: {1=Java, 2=Python, 3=C++}, treeMap: {1=Java, 2=Python, 3=C++}, linkedHashMap: {3=C++, 1=Java, 2=Python}
-    }' data-lang="language-java">
-Loading code...
+    System.out.println("Map output:\t\t hashMap: " + hashMap + ", treeMap: " + treeMap + ", linkedHashMap: " + linkedHashMap);
+    // hashMap: {1=Java, 2=Python, 3=C++}, treeMap: {1=Java, 2=Python, 3=C++}, linkedHashMap: {3=C++, 1=Java, 2=Python}
+}</code>
 </pre>
-    </div>
+</div>
 </div>
 <ul>
     <li><strong data-start="1939" data-end="1952">Use Case:</strong> Caching, indexing, counting occurrences.</li>
@@ -137,28 +137,28 @@ Loading code...
 </ul>
 <div>
     <div>
-<pre class="lazy-code" data-code='private void set() {
-        // HashSet: Unordered, fast access (O(1)), internally uses a HashMap
-        Set<String> hashSet = new HashSet<>();
-        hashSet.add("Java");
-        hashSet.add("Python");
-        hashSet.add("C++");
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">private void set() {
+    // HashSet: Unordered, fast access (O(1)), internally uses a HashMap
+    Set&lt;String&gt; hashSet = new HashSet<>();
+    hashSet.add("Java");
+    hashSet.add("Python");
+    hashSet.add("C++");
 
-        // TreeSet: Sorted order (Natural Ordering)
-        Set<String> treeSet = new TreeSet<>(hashSet);
+    // TreeSet: Sorted order (Natural Ordering)
+    Set&lt;String&gt; treeSet = new TreeSet<>(hashSet);
 
-        // LinkedHashSet: Maintains insertion order
-        Set<String> linkedHashSet = new LinkedHashSet<>();
-        linkedHashSet.add("Java");
-        linkedHashSet.add("Python");
-        linkedHashSet.add("C++");
+    // LinkedHashSet: Maintains insertion order
+    Set&lt;String&gt; linkedHashSet = new LinkedHashSet<>();
+    linkedHashSet.add("Java");
+    linkedHashSet.add("Python");
+    linkedHashSet.add("C++");
 
-        System.out.println("Set output:\t\t hashSet: " + hashSet + ", treeSet: " + treeSet + ", linkedHashSet: " + linkedHashSet);
-        // hashSet: [Java, C++, Python], treeSet: [C++, Java, Python], linkedHashSet: [Java, Python, C++]
-    }' data-lang="language-java">
-Loading code...
+    System.out.println("Set output:\t\t hashSet: " + hashSet + ", treeSet: " + treeSet + ", linkedHashSet: " + linkedHashSet);
+    // hashSet: [Java, C++, Python], treeSet: [C++, Java, Python], linkedHashSet: [Java, Python, C++]
+}</code>
 </pre>
-    </div>
+</div>
 </div>
 <ul>
     <li><strong data-start="2502" data-end="2515">Use Case:</strong> Removing duplicates, membership checks.</li>
@@ -171,7 +171,8 @@ Loading code...
     <li data-start="1045" data-end="1099"><strong data-start="1045" data-end="1057">Example:</strong></li>
 </ul>
 <div>
-<pre class="lazy-code" data-code='private void stack() {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">private void stack() {
     // Stack (Legacy API) is a subclass of Vector, which is synchronized and generally slower due to thread safety overhead.
     Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();
     stack.push(10);
@@ -186,8 +187,7 @@ Loading code...
 
     System.out.println("Stack output:\t top element: " + arrayDequeAsStack.peek() + ", arrayDequeAsStack:  " + arrayDequeAsStack);
     // top element: 20, arrayDequeAsStack:  [20, 10]
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
 </div>
 <ul>
@@ -201,7 +201,8 @@ Loading code...
     <li data-start="1316" data-end="1375"><strong data-start="1316" data-end="1328">Example:</strong></li>
 </ul>
 <div>
-<pre class="lazy-code" data-code='private void queue() {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">private void queue() {
     // LinkedList uses a doubly linked list, which requires O(1) for enqueue/dequeue but has extra memory overhead (pointers for each node).
     // LinkedList suffers from pointer chasing, which increases cache misses and degrades performance.
     Queue&lt;Integer&gt; linkedListAsQueue = new LinkedList&lt;&gt;();
@@ -220,8 +221,7 @@ Loading code...
 
     System.out.println("Queue output:\t top element: " + arrayDequeAsQueue.peek() + ", arrayDequeAsQueue: " + arrayDequeAsQueue);
     // top element: 20, arrayDequeAsQueue: [20, 30]
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
 </div>
 <ul>
@@ -243,7 +243,8 @@ Loading code...
     <li data-start="4250" data-end="4317"><strong data-start="4250" data-end="4262">Example:</strong></li>
 </ul>
 <div>
-<pre class="lazy-code" data-code='private void priorityQueue() {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">private void priorityQueue() {
     PriorityQueue&lt;Integer&gt; priorityQueueAsMinHeap = new PriorityQueue&lt;&gt;(); // Min-Heap
     // Adding elements
     priorityQueueAsMinHeap.offer(30);
@@ -257,8 +258,7 @@ Loading code...
 
     System.out.println("Heap output:\t top element: " + priorityQueueAsMinHeap.peek() + ", priorityQueueAsMinHeap: " + priorityQueueAsMinHeap);
     // top element: 10, priorityQueueAsMinHeap: [10, 30, 20]
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
 </div>
 <ul>
@@ -272,7 +272,8 @@ Loading code...
     <li data-start="3367" data-end="3381"><strong data-start="3367" data-end="3379">Example:</strong></li>
 </ul>
 <div>
-<pre class="lazy-code" data-code='class TreeNode&lt;T&gt; {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">class TreeNode&lt;T&gt; {
     T data;
     TreeNode&lt;T&gt; left, right;
 
@@ -328,8 +329,7 @@ private void tree() {
     System.out.print("Tree output:\t level order traversal: ");
     tree.levelOrder();
     // level order traversal: 1 2 3 4 5 6 7
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
 </div>
 <ul>
@@ -345,7 +345,8 @@ Loading code...
 </ul>
 <div>
     <div>
-<pre class="lazy-code" data-code='class BinarySearchTree {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">class BinarySearchTree {
     private TreeNode&lt;Integer&gt; root;
 
     public void insert(int key) {
@@ -396,10 +397,9 @@ private void binarySearchTree() {
     System.out.print("BST output:\t\t search 4: " + bst.search(4) + ", search 7: " + bst.search(7) + ", in-order traversal: ");
     bst.inorder();
     // search 4: true, search 7: false, in-order traversal: 2 3 4 5 6 8 9
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
-    </div>
+</div>
 </div>
 <ul>
     <li data-start="2231" data-end="2288"><strong data-start="3707" data-end="3720">Use Case:</strong> Auto-suggestions, range queries.</li>
@@ -413,7 +413,8 @@ Loading code...
     <li data-start="2160" data-end="2228"><strong data-start="2160" data-end="2172">Example:</strong></li>
 </ul>
 <div>
-<pre class="lazy-code" data-code='private void redBlackTree() {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">private void redBlackTree() {
     // A TreeMap in Java is a sorted map implementation based on a Red-Black Tree.
     // It maintains keys in sorted order and provides O(log n) time complexity for insertion, deletion, and lookup.
     TreeMap&lt;Integer, String&gt; treeMap = new TreeMap&lt;&gt;(); // keys sorted in natural order
@@ -431,8 +432,7 @@ Loading code...
     // Displaying the TreeMap (keys are sorted)
     System.out.println("RedBlackTree:\t first key: " + treeMap.firstKey() + ", last key: " + treeMap.lastKey() + ", treeMap: " + treeMap);
     // first key: 1, last key: 5, treeMap: {1=One, 3=Three, 4=Four, 5=Five}
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
 </div>
 <ul>
@@ -448,7 +448,8 @@ Loading code...
 </ul>
 <div>
     <div>
-<pre class="lazy-code" data-code='class Graph {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">class Graph {
     private final Map&lt;Integer, List&lt;Integer&gt;&gt; adjList;
 
     public Graph() {
@@ -491,10 +492,9 @@ private void graph() {
     System.out.print("Graph output:\t ");
     graph.printGraph();
     // 1 -&gt; [2, 4]; 2 -&gt; [1, 3]; 3 -&gt; [2, 4]; 4 -&gt; [3, 1];
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
-    </div>
+</div>
 </div>
 <ul>
     <li data-start="2231" data-end="2288"><strong data-start="3145" data-end="3158">Use Case:</strong> Route finding (Dijkstra’s Algorithm), Social Networks.</li>
@@ -507,7 +507,8 @@ Loading code...
 </ul>
 <div>
     <div>
-<pre class="lazy-code" data-code='class TrieNode {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">class TrieNode {
     Map&lt;Character, TrieNode&gt; children = new HashMap&lt;&gt;();
     boolean endOfWord;
 
@@ -569,11 +570,10 @@ private void trie() {
         ", search &#39;app&#39;: " + trie.search("app") +
         ", search &#39;appl&#39;: " + trie.search("appl") +
         ", starts with &#39;app&#39;: " + trie.startsWith("app"));
-        // search &#39;apple&#39;: true, search &#39;app&#39;: true, search &#39;appl&#39;: false, starts with &#39;app&#39;: true
-}' data-lang="language-java">
-        Loading code...
-        </pre>
-    </div>
+    // search &#39;apple&#39;: true, search &#39;app&#39;: true, search &#39;appl&#39;: false, starts with &#39;app&#39;: true
+}</code>
+</pre>
+</div>
 </div>
 <ul>
     <li data-start="2231" data-end="2288"><strong data-start="4014" data-end="4027">Use Case:</strong> Auto-complete, spell checkers, word games.</li>

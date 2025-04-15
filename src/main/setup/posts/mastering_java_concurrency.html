@@ -33,7 +33,8 @@
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
-<pre class="lazy-code" data-code='static class MyThread extends Thread {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">static class MyThread extends Thread {
     public void run() {
         System.out.println("MyThread&#39;s thread: " + Thread.currentThread().getName());
     }
@@ -43,11 +44,11 @@ static class MyRunnable implements Runnable {
     public void run() {
         System.out.println("MyRunnable&#39;s thread: " + Thread.currentThread().getName());
     }
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
     <div>
-<pre class="lazy-code" data-code='// test code
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
 System.out.println("Current thread: " + Thread.currentThread().getName());
 // Current thread: main
 
@@ -57,8 +58,7 @@ t1.start(); // Starts a new thread
 
 Thread t2 = new Thread(new MyRunnable());
 t2.start(); // Starts a new thread
-// MyRunnable&#39;s thread: Thread-1' data-lang="language-java">
-Loading code...
+// MyRunnable&#39;s thread: Thread-1</code>
 </pre>
     </div>
 </div>
@@ -89,7 +89,8 @@ Loading code...
 </ul>
 <div>
     <div>
-<pre class="lazy-code" data-code='static class SharedResource {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">static class SharedResource {
     private final Object lock = new Object();
     private int count = 1;
 
@@ -114,12 +115,12 @@ Loading code...
             }
         }
     }
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
     </div>
     <div>
-<pre class="lazy-code" data-code='// test code
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
 SharedResource resource = new SharedResource();
 new Thread(resource::incrementUsingSynchronizedMethod).start();
 new Thread(resource::incrementUsingSynchronizedBlock).start();
@@ -133,8 +134,7 @@ new Thread(resource::incrementUsingSynchronizedLockObject).start();
 // [Synchronized Lock Object] Thread-4: 6
 // [Synchronized Block] Thread-3: 7
 // [Synchronized Block] Thread-3: 8
-// [Synchronized Block] Thread-3: 9' data-lang="language-java">
-Loading code...
+// [Synchronized Block] Thread-3: 9</code>
 </pre>
     </div>
 </div>
@@ -154,7 +154,8 @@ Loading code...
 </ul>
 <div>
     <div>
-<pre class="lazy-code" data-code='static class SimpleProducerConsumer {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">static class SimpleProducerConsumer {
     private int data;
     private boolean ready = false;
 
@@ -174,12 +175,12 @@ Loading code...
         System.out.println("Consumer: Data received = " + data);
         return data;
     }
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
     </div>
     <div>
-<pre class="lazy-code" data-code='// test code
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
 SimpleProducerConsumer simpleProducerConsumer = new SimpleProducerConsumer();
 
 Thread producer = new Thread(() -&gt; {
@@ -208,8 +209,7 @@ System.out.println("Main thread: Producer and Consumer finished.");
 // Producer: Producing data...
 // Producer: Data produced and notified.
 // Consumer: Data received = 19
-// Main thread: Producer and Consumer finished.' data-lang="language-java">
-Loading code...
+// Main thread: Producer and Consumer finished.</code>
 </pre>
     </div>
 </div>
@@ -241,7 +241,8 @@ Loading code...
 </ul>
 <div>
     <div>
-<pre class="lazy-code" data-code='static class Worker {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">static class Worker {
     private volatile boolean running = true;  // visible across threads
 
     public void run() {
@@ -254,12 +255,12 @@ Loading code...
     public void stopRunning() {
         running = false;
     }
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
     </div>
     <div>
-<pre class="lazy-code" data-code='// test code
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
 Worker worker = new Worker();
 Thread t3 = new Thread(worker::run);
 t3.start();
@@ -277,8 +278,7 @@ System.out.println("Main thread: worker has stopped.");
 // Thread-5: started.
 // Main thread: stopping worker...
 // Thread-5: stopped.
-// Main thread: worker has stopped.' data-lang="language-java">
-Loading code...
+// Main thread: worker has stopped.</code>
 </pre>
     </div>
 </div>
@@ -298,7 +298,8 @@ Loading code...
 </ul>
 <div>
     <div>
-<pre class="lazy-code" data-code='AtomicInteger counter = new AtomicInteger(0);
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">AtomicInteger counter = new AtomicInteger(0);
 AtomicBoolean printed = new AtomicBoolean(false);
 
 Runnable task = () -&gt; {
@@ -328,8 +329,7 @@ System.out.println("Main thread: Final Count = " + counter.get());
 // Thread-2: Count reached 1! (printed only once)
 // Thread-1: Count = 3
 // Thread-2: Count = 4
-// Main thread: Final Count = 4' data-lang="language-java">
-Loading code...
+// Main thread: Final Count = 4</code>
 </pre>
     </div>
 </div>
@@ -353,7 +353,8 @@ Loading code...
 <div>
     <div>
         <div>
-<pre class="lazy-code" data-code='static class SimplePrinterQueue {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">static class SimplePrinterQueue {
 
     private final ReentrantLock lock = new ReentrantLock(true); // fair lock
     private final Condition colorQueue = lock.newCondition();
@@ -398,11 +399,11 @@ Loading code...
             }
         }
     }
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
             <div>
-<pre class="lazy-code" data-code='// test code
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
 SimplePrinterQueue printer = new SimplePrinterQueue();
 
 Runnable colorTask = () -&gt; printer.printJob("color");
@@ -418,8 +419,7 @@ for (int i = 0; i &lt; 2; i++) {
 // BWThread-0: Printing a bw job...
 // BWThread-1: Could not acquire lock. Skipping bw job.
 // ColorThread-1: Could not acquire lock. Skipping color job.
-// BWThread-0: Finished printing.' data-lang="language-java">
-Loading code...
+// BWThread-0: Finished printing.</code>
 </pre>
             </div>
         </div>
@@ -455,7 +455,8 @@ Loading code...
 </ul>
 <div>
     <div>
-<pre class="lazy-code" data-code='ConcurrentHashMap&lt;String, Integer&gt; counter1 = new ConcurrentHashMap&lt;&gt;();
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">ConcurrentHashMap&lt;String, Integer&gt; counter1 = new ConcurrentHashMap&lt;&gt;();
 
 Runnable task1 = () -&gt; {
     for (int i = 0; i &lt; 1000; i++) {
@@ -471,8 +472,7 @@ t6.join(); t7.join();
 
 System.out.println("Thread-safe total count: " + counter1.get("count"));
 
-// Thread-safe total count: 2000' data-lang="language-java">
-Loading code...
+// Thread-safe total count: 2000</code>
 </pre>
     </div>
 </div>
@@ -493,7 +493,8 @@ Loading code...
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
-<pre class="lazy-code" data-code='static class SumTask extends RecursiveTask&lt;Long&gt; {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">static class SumTask extends RecursiveTask&lt;Long&gt; {
     private static final int THRESHOLD = 3;
     private final int[] arr;
     private final int start, end;
@@ -524,11 +525,11 @@ Loading code...
             return leftResult + rightResult;
         }
     }
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
     <div>
-<pre class="lazy-code" data-code='// test code
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
 int[] array = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 try (ForkJoinPool pool = ForkJoinPool.commonPool()) {
@@ -538,8 +539,7 @@ try (ForkJoinPool pool = ForkJoinPool.commonPool()) {
     System.out.println("Sum of [1..10] = " + result);
 }
 
-// Sum of [1..10] = 55' data-lang="language-java">
-Loading code...
+// Sum of [1..10] = 55</code>
 </pre>
         <div>
             <ul>
@@ -578,12 +578,12 @@ Loading code...
 <div>
     <div>
         <div>
-<pre class="lazy-code" data-code='Executor executor = Executors.newSingleThreadExecutor();
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">Executor executor = Executors.newSingleThreadExecutor();
 executor.execute(() -&gt; System.out.println("Running in background"));
 ((ExecutorService) executor).shutdown();    // Hack to shut down the executor
 
-// Running in background' data-lang="language-java">
-Loading code...
+// Running in background</code>
 </pre>
         </div>
     </div>
@@ -617,29 +617,29 @@ Loading code...
 <div>
     <div>
         <div>
-<pre class="lazy-code" data-code='static class MyCallable implements Callable&lt;Integer&gt; {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">static class MyCallable implements Callable&lt;Integer&gt; {
 
     @Override
     public Integer call() throws Exception {
         Thread.sleep(1000); // sleeps for a second
         return 1;
     }
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
         </div>
     </div>
     <div>
         <div>
-<pre class="lazy-code" data-code='ExecutorService executorService = Executors.newFixedThreadPool(2);
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">ExecutorService executorService = Executors.newFixedThreadPool(2);
 Future&lt;Integer&gt; future = executorService.submit(new MyCallable());
 System.out.println("Task done: " + future.isDone());    // false
 System.out.println("Future result: " + future.get());   // blocks until the task is done, then prints 1
 executorService.shutdown();
 
 // Task done: false
-// Future result: 1' data-lang="language-java">
-Loading code...
+// Future result: 1</code>
 </pre>
         </div>
     </div>
@@ -657,7 +657,8 @@ Loading code...
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
-<pre class="lazy-code" data-code='ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 scheduler.schedule(() -&gt; System.out.println("Delayed task"), 1, TimeUnit.SECONDS);
 scheduler.scheduleAtFixedRate(() -&gt; System.out.println("Fixed-Rate scheduled task"), 1, 1, TimeUnit.SECONDS);
 scheduler.scheduleWithFixedDelay(() -&gt; System.out.println("Fixed-Delay scheduled task"), 1, 2, TimeUnit.SECONDS);
@@ -674,8 +675,7 @@ System.out.println("Scheduler terminated: " + terminated);
 // Fixed-Rate scheduled task
 // Fixed-Rate scheduled task
 // Fixed-Delay scheduled task
-// Scheduler terminated: true' data-lang="language-java">
-Loading code...
+// Scheduler terminated: true</code>
 </pre>
 </div>
 <h4 data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 </strong>ThreadPoolExecutor</h4>
@@ -720,7 +720,8 @@ Loading code...
 </ul>
 <div>
     <div>
-<pre class="lazy-code" data-code='ThreadPoolExecutor tpe = new ThreadPoolExecutor(
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">ThreadPoolExecutor tpe = new ThreadPoolExecutor(
         2,  // Core threads
         3, // Max threads
         60, // Keep-alive
@@ -749,8 +750,7 @@ tpe.shutdown(); // Graceful shutdown
 // Task running in pool-4-thread-1 [Active threads: 3, Queue size: 4, Completed tasks: 1]
 // Task running in pool-4-thread-2 [Active threads: 3, Queue size: 3, Completed tasks: 2]
 // Task running in pool-4-thread-3 [Active threads: 3, Queue size: 1, Completed tasks: 5]
-// Task running in pool-4-thread-1 [Active threads: 3, Queue size: 0, Completed tasks: 6]' data-lang="language-java">
-Loading code...
+// Task running in pool-4-thread-1 [Active threads: 3, Queue size: 0, Completed tasks: 6]</code>
 </pre>
     </div>
 </div>
@@ -777,7 +777,8 @@ Loading code...
 </ul>
 <div>
     <div>
-<pre class="lazy-code" data-code='static CompletableFuture&lt;Integer&gt; getUserId() {
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">static CompletableFuture&lt;Integer&gt; getUserId() {
     return CompletableFuture.supplyAsync(() -&gt; {
         System.out.println("Fetching user ID...");
         // simulate response
@@ -791,11 +792,11 @@ static CompletableFuture&lt;String&gt; getUserDetails(int userId) {
         // simulate query result
         return "User{id=" + userId + ", name=&#39;Ray&#39;}";
     });
-}' data-lang="language-java">
-Loading code...
+}</code>
 </pre>
         <div>
-<pre class="lazy-code" data-code='// test code
+<pre class="language-java line-numbers lazy-load" data-loaded="false">
+<code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
 CompletableFuture&lt;String&gt; result = getUserId()
         .thenCompose(userId -&gt; getUserDetails(userId))
         .thenApply(String::toUpperCase)
@@ -808,8 +809,7 @@ System.out.println("User Details: " + result.get());
 
 // Fetching user ID...
 // Fetching details for user ID: 19
-// User Details: USER{ID=19, NAME=&#39;RAY&#39;}' data-lang="language-java">
-Loading code...
+// User Details: USER{ID=19, NAME=&#39;RAY&#39;}</code>
 </pre>
         </div>
     </div>

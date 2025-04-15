@@ -41,13 +41,13 @@ body, p, li, .site {
 /* Use Fira Code for code blocks */
 pre, code, kbd, samp {
   font-family: 'Fira Code', monospace !important;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.6;
   background: #f5f5f5;
   padding: 0.4em 0.6em;
   border-radius: 4px;
 }
-/* Improve code block appearance */
+/*Style Code Blocks for Tech Blogs*/
 pre {
   overflow-x: auto;
   background: #2d2d2d;
@@ -55,21 +55,31 @@ pre {
   padding: 1em;
   border-radius: 8px;
 }
-/*Style Code Blocks for Tech Blogs*/
+pre[class*="language-"] {
+  background: #2d2d2d;
+  color: #ccc;
+  padding: 1em;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+.prism-toolbar {
+  background: #1e1e1e;
+  border-radius: 0 0 5px 5px;
+}
+.prism-toolbar button {
+  color: #fff !important;
+  background: transparent !important;
+  border: none;
+  font-size: 0.85em;
+}
 code {
     color: #d63384;
 }
 code[class*="language-"] {
   padding-left: 0 !important;
 }
-.lazy-code {
-  background: #f9f9f9;
-  color: #666;
-  padding: 1em;
-  border-radius: 6px;
-  font-family: monospace;
-  white-space: pre-wrap;
-}
+
 /* Headings (optional) */
 h1, h2, h3 {
   font-family: 'Inter', sans-serif;
@@ -272,3 +282,4 @@ a {
     width: 60%;            /* Content area takes up more space on mobile */
   }
 }
+
