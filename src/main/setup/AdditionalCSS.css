@@ -123,27 +123,6 @@
     /* Or set to normal if you want wrapping */
      text-align: left;
 }
-/*Hide wordpress login form*/
- #loginform {
-     display: none;
-}
-/*Custom login form styles*/
- .page-id-417 .inside-article {
-     max-width: 400px;
-     margin: 0 auto;
-     padding: 2em;
-     background: #f9f9f9;
-     border-radius: 10px;
-     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-     text-align: center;
-}
- .page-id-417 .nsl-container-buttons {
-     margin-top: 20px;
-}
- .page-id-417 .nsl-button {
-     margin: 10px 0;
-     width: 100%;
-}
 /*Navbar styles*/
  .main-navigation .inside-navigation {
      display: flex;
