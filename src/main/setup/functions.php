@@ -4,8 +4,12 @@ if ( ! function_exists( 'generate_setup' ) ) {
 
     function generate_setup() {
 
-        // Added towards the end - to suppress SyntaxHighlighter Evolved
-        // turning double quotes (") into &quot; in the Java code area
+        // Remove Wordpress Admin Bar for Non-Admins
+        if (!current_user_can('administrator')) {
+            add_filter('show_admin_bar', '__return_false');
+        }
+
+        // Added for removing &amp; text for & in code
         remove_filter('the_content', 'wptexturize');
     }
 

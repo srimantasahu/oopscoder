@@ -142,6 +142,12 @@
      color: #005f8c;
     /* active/selected menu */
 }
+ .main-navigation .main-nav ul.sub-menu {
+     min-width: 100px;
+    /* You can reduce this */
+     max-width: 120px;
+     width: auto;
+}
 /*Collapsible directory structure*/
 /* Top-level menu items */
  .widget_nav_menu > div > ul > li {
@@ -195,6 +201,10 @@
      display: inline-block;
      vertical-align: middle;
 }
+/* Hide dropdown toggle icon from all menu items */
+ .main-navigation .menu-item-has-children .toggle-icon {
+     display: none !important;
+}
 /* Desktop Layout */
  @media (min-width: 768px) {
     /* Squeeze Sidebar */
@@ -209,9 +219,6 @@
          flex: 1 !important;
          width: auto !important;
          max-width: 64% !important;
-    }
-     .main-navigation .menu-item a[href*="login"], .main-navigation .menu-item a[href*="logout"] {
-         margin-left: 15px;
     }
 }
 /* Mobile Layout */
@@ -237,9 +244,6 @@
          text-align: center;
          background-color: #F8F9FA;
         /* Light gray background */
-    }
-     .main-navigation .menu-item a[href*="login"], .main-navigation .menu-item a[href*="logout"] {
-         margin-top: 5px;
     }
      .responsive-table {
          overflow-x: auto;
