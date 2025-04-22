@@ -8,7 +8,8 @@
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Linear_search">Linear Search</a></strong></h3>
 <ul>
-    <li data-start="543" data-end="657">Iterates through an array <strong data-start="662" data-end="676">one by one</strong> to find an element.</li>
+    <li data-start="543" data-end="657">Iterates through a list or array <strong data-start="198" data-end="220">element by element</strong> to find a target value.</li>
+    <li data-start="543" data-end="657">Compares each element until the value is <strong data-start="288" data-end="314">found or the list ends</strong>.</li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
@@ -29,17 +30,24 @@ System.out.println("Linear Search:\t\t "
     </div>
 </div>
 <ul>
-    <li data-start="660" data-end="690"><strong data-start="660" data-end="679">Time Complexity:</strong> <code data-start="410" data-end="416">O(n)</code>.</li>
-    <li data-start="693" data-end="724"><strong data-start="693" data-end="713">Space Complexity:</strong> <code data-start="374" data-end="380">O(1)</code>.</li>
-    <li data-start="727" data-end="814"><strong data-start="727" data-end="739">Use Case:</strong> Searching in unsorted arrays or small datasets.</li>
+    <li data-start="660" data-end="690"><strong data-start="660" data-end="679">Time Complexity:</strong> <code data-start="410" data-end="416">O(n)</code> – worst case is checking all elements.</li>
+    <li data-start="693" data-end="724"><strong data-start="693" data-end="713">Space Complexity:</strong> <code data-start="374" data-end="380">O(1)</code> – does not use any extra memory.</li>
+    <li data-start="727" data-end="814"><strong data-start="727" data-end="739">Use Case:</strong> Unsorted arrays, <strong>small datasets</strong>, <strong data-start="517" data-end="544">quick, one-time lookups</strong> without needing pre-processing.</li>
+    <li data-start="727" data-end="814"><strong>Note:</strong> Works with any data structure that supports iteration (e.g., arrays, lists).</li>
 </ul>
 
 <hr class="" data-start="1125" data-end="1128" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Binary_search"><strong data-start="1134" data-end="1157">Binary Search</strong></a></h3>
 <ul>
-    <li data-start="848" data-end="936">A <strong data-start="1015" data-end="1037">divide-and-conquer</strong> approach that halves the search space at every step.</li>
-    <li data-start="848" data-end="936">Efficient search for sorted arrays or lists.</li>
+    <li data-start="848" data-end="936">A <strong data-start="166" data-end="198">divide-and-conquer algorithm</strong> that repeatedly <strong data-start="215" data-end="242">halves the search space</strong> to locate a target element.</li>
+    <li data-start="848" data-end="936">Requires the input array or list to be <strong data-start="312" data-end="322">sorted</strong> in advance.</li>
+    <li data-start="848" data-end="936">At each step:
+        <ul>
+            <li data-start="848" data-end="936">Compares the target with the <strong data-start="595" data-end="613">middle element</strong></li>
+            <li data-start="848" data-end="936">Eliminates half of the remaining search space</li>
+        </ul>
+    </li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
@@ -62,16 +70,160 @@ System.out.println("Binary Search:\t\t "
     </div>
 </div>
 <ul>
-    <li data-start="939" data-end="973"><strong data-start="939" data-end="958">Time Complexity:</strong> <code data-start="5836" data-end="5846">O(log n)</code>.</li>
-    <li data-start="976" data-end="1066"><strong data-start="976" data-end="996">Space Complexity:</strong> <code data-start="374" data-end="380">O(1)</code> (iterative) or <code data-start="5836" data-end="5846">O(log n)</code> (recursive due to stack space).</li>
-    <li data-start="1069" data-end="1123"><strong data-start="1069" data-end="1081">Use Case:</strong> Searching in sorted arrays or lists, database indexing and search engines.</li>
+    <li data-start="939" data-end="973"><strong data-start="939" data-end="958">Time Complexity:</strong> <code data-start="5836" data-end="5846">O(log n)</code> – very efficient, even for large datasets</li>
+    <li data-start="976" data-end="1066"><strong data-start="976" data-end="996">Space Complexity:</strong> <code data-start="374" data-end="380">O(1)</code> for <strong data-start="460" data-end="481">iterative version</strong> or <code data-start="5836" data-end="5846">O(log n)</code> for <strong data-start="504" data-end="525">recursive version</strong> (due to call stack)</li>
+    <li data-start="1069" data-end="1123"><strong data-start="1069" data-end="1081">Use Case:</strong> Sorted arrays/lists, <strong>database indexing</strong>, and <strong>search engines</strong> and <strong>dictionary lookups</strong>.</li>
+    <li data-start="1069" data-end="1123"><strong>Note:</strong> Use <code data-start="793" data-end="821">Collections.binarySearch()</code> for lists and <code data-start="836" data-end="859">Arrays.binarySearch()</code> for arrays.</li>
+</ul>
+
+<hr class="" data-start="771" data-end="774" />
+
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> <a href="https://en.wikipedia.org/wiki/Hash_function">Hashing</a></strong></h3>
+<ul>
+    <li data-start="287" data-end="444">Uses a <strong data-start="185" data-end="202">hash function</strong> to map keys to fixed-size <strong data-start="229" data-end="243">hash codes</strong>, which determine where values are stored in memory.</li>
+    <li data-start="287" data-end="444"><strong data-start="459" data-end="478">Hash collisions</strong> (when two keys generate the same hash) are typically handled using:
+        <ul>
+            <li data-start="287" data-end="444"><strong data-start="551" data-end="563">Chaining</strong> – storing multiple values at the same index using linked lists or buckets</li>
+            <li data-start="287" data-end="444"><strong data-start="642" data-end="661">Open addressing</strong> – probing to find the next available slot</li>
+        </ul>
+    </li>
+    <li>Common hashing-based data structures in Java:
+        <ul>
+            <li><code data-start="962" data-end="971">HashMap</code> – stores key-value pairs</li>
+            <li><code data-start="1004" data-end="1013">HashSet</code> – stores unique keys</li>
+            <li><code data-start="1042" data-end="1061">ConcurrentHashMap</code> – thread-safe concurrent access</li>
+        </ul>
+    </li>
+    <li><strong data-start="798" data-end="810">Example:</strong></li>
+</ul>
+<div>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static Map&lt;String, Integer&gt; hashing() {
+    Map&lt;String, Integer&gt; nameAndAgeMap = new HashMap&lt;&gt;();
+    nameAndAgeMap.put("Alice", 25);
+    nameAndAgeMap.put("Bob", 30);
+    return nameAndAgeMap;
+}</code></pre>
+    <div>
+        <div>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+Map&lt;String, Integer&gt; nameAndAgeMap = hashing();
+Set&lt;String&gt; namesSet = nameAndAgeMap.keySet();
+System.out.println("Hashing output:\t\t "
+                   + "Bob's age: " + nameAndAgeMap.get("Bob")
+                   + ", Candice exists? " + nameAndAgeMap.containsKey("Candice")
+                   + ", Set of names: " + namesSet);
+// Bob's age: 30, Candice exists? false, Set of names: [Bob, Alice]</code></pre>
+        </div>
+    </div>
+</div>
+<ul>
+    <li data-start="287" data-end="444"><strong data-start="259" data-end="278">Time Complexity:</strong> <code data-start="374" data-end="380">O(1)</code> <strong data-start="306" data-end="338">average-case operations</strong> for insert, search, and delete; <code data-start="410" data-end="416">O(n)</code> <strong data-start="380" data-end="394">worst case</strong> (due to hash collisions).</li>
+    <li data-start="287" data-end="444"><strong data-start="345" data-end="365">Space Complexity:</strong> <code data-start="410" data-end="416">O(n)</code> where <strong data-start="740" data-end="745">n</strong> is the number of elements stored.</li>
+    <li data-start="287" data-end="444"><strong data-start="450" data-end="463">Use Case:</strong> <strong>Caching</strong>, <strong>indexing large datasets</strong>, <strong>duplicate detection</strong>, <strong>fast lookups</strong> with unique keys.</li>
+</ul>
+
+<hr class="" data-start="3327" data-end="3330" />
+
+<h3 class="" data-start="3332" data-end="3357"><strong data-start="3336" data-end="3355">🔹 <a href="https://en.wikipedia.org/wiki/Recursion_(computer_science)">Recursion</a></strong></h3>
+<ul>
+    <li data-start="2676" data-end="2791">A technique where a <strong data-start="218" data-end="243">function calls itself</strong>, each time with a <strong data-start="262" data-end="290">reduced or simpler input</strong>, to solve complex problems by reaching a <strong data-start="332" data-end="350">base condition</strong>.</li>
+    <li data-start="2676" data-end="2791">Breaks a problem into <strong data-start="376" data-end="399">smaller subproblems</strong>, solving each recursively until reaching the simplest form.</li>
+    <li data-start="2676" data-end="2791">Requires:
+        <ul>
+            <li data-start="2676" data-end="2791">A <strong data-start="478" data-end="491">base case</strong> (termination condition)</li>
+            <li data-start="2676" data-end="2791">A <strong data-start="522" data-end="540">recursive step</strong> (the function calls itself with reduced input)</li>
+        </ul>
+    </li>
+    <li data-start="2676" data-end="2791"><strong>Problem:</strong>
+        <ul>
+            <li data-start="2676" data-end="2791">📌 <a href="https://en.wikipedia.org/wiki/Longest_common_subsequence">Longest common subsequence (LCS)</a><br data-start="866" data-end="869" />Input: <code data-start="880" data-end="889">"abcde"</code> and <code data-start="894" data-end="901">"ace"</code><br data-start="901" data-end="904" />Output: <code data-start="916" data-end="919">3</code> → LCS is <code data-start="929" data-end="936">"ace"</code></li>
+        </ul>
+    </li>
+    <li><strong data-start="798" data-end="810">Solution:</strong></li>
+</ul>
+<div>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static int lcsRecursive(String s1, String s2, int m, int n) {
+    // Base Case: If either string is empty
+    if (m == 0 || n == 0) return 0;
+
+    // If last characters match, add 1 and check remaining
+    if (s1.charAt(m - 1) == s2.charAt(n - 1)) {
+        return 1 + lcsRecursive(s1, s2, m - 1, n - 1);
+    } else {
+        // If last characters don't match, take max of excluding either character
+        return Math.max(lcsRecursive(s1, s2, m - 1, n), lcsRecursive(s1, s2, m, n - 1));
+    }
+}</code></pre>
+    <div>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+String s1 = "abcde", s2 = "ace";
+System.out.println("\nRecursion output:\t "
+                   + "LCS length of " + s1 + ", " + s2 + " is: "
+                   + lcsRecursive(s1, s2, s1.length(), s2.length()));
+// LCS length of abcde, ace is: 3</code></pre>
+    </div>
+</div>
+<ul>
+    <li data-start="2794" data-end="2899"><strong data-start="2794" data-end="2813">Time Complexity:</strong> Varies by problem e.g., <code data-start="2874" data-end="2883">O(2ⁿ)</code> for LCS, <code data-start="2874" data-end="2883">O(2ⁿ)</code> for Fibonacci (naïve), <code data-start="410" data-end="416">O(n)</code> for factorial.</li>
+    <li data-start="2902" data-end="3036"><strong data-start="2902" data-end="2922">Space Complexity:</strong> Depends on recursion depth – <code data-start="410" data-end="416">O(n)</code> for linear recursion, <code data-start="5836" data-end="5846">O(log n)</code> for binary recursion.</li>
+    <li data-start="3039" data-end="3189"><strong data-start="3039" data-end="3051">Use Case:</strong> <strong data-start="612" data-end="631">Tree traversals</strong> (e.g., in-order, pre-order), <strong data-start="664" data-end="697">divide-and-conquer algorithms</strong> (e.g., Merge Sort, Quick Sort), <strong data-start="733" data-end="758">mathematical problems</strong> (e.g., factorial, Fibonacci).</li>
+    <li data-start="3039" data-end="3189"><strong>Note:</strong> Use <strong data-start="1189" data-end="1204">memoization</strong> or <strong data-start="1208" data-end="1231">dynamic programming</strong> to optimize recursive algorithms and avoid repeated calculations.</li>
+</ul>
+
+<hr class="" data-start="1575" data-end="1578" />
+
+<h3 class="" data-start="1580" data-end="1606"><strong data-start="1584" data-end="1604">🔹 <a href="https://en.wikipedia.org/wiki/Bubble_sort">Bubble Sort</a></strong></h3>
+<ul>
+    <li data-start="1154" data-end="1258">A <strong data-start="190" data-end="234">basic comparison-based sorting algorithm</strong> that repeatedly swaps <strong data-start="257" data-end="278">adjacent elements</strong> if they are in the wrong order.</li>
+    <li data-start="1154" data-end="1258">Elements “bubble up” to their correct position in each pass — largest elements move to the end of the list.</li>
+    <li data-start="1154" data-end="1258"><strong data-start="423" data-end="448">Compares each element</strong> with every adjacent element in the list, effectively sorting the array one step at a time.</li>
+    <li><strong data-start="798" data-end="810">Example:</strong></li>
+</ul>
+<div>
+    <div>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static void bubbleSort(int[] arr) {
+    int n = arr.length;
+    boolean swapped;
+
+    for (int i = 0; i &lt; n - 1; i++) {
+        swapped = false;
+        for (int j = 0; j &lt; n - i - 1; j++) {
+            if (arr[j] &gt; arr[j + 1]) {
+                // Swap arr[j] and arr[j+1]
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                swapped = true;
+            }
+        }
+        // Optimization: break early if no swaps occurred (array is sorted)
+        if (!swapped) break;
+    }
+}</code></pre>
+        <div>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+int[] arr = {9, 3, 6, 2, 4};
+bubbleSort(arr);
+System.out.println("Bubble Sort:\t\t "
+                   + "Sorted array: " + Arrays.toString(arr));
+// Sorted array: [2, 3, 4, 6, 9]</code></pre>
+        </div>
+    </div>
+</div>
+<ul>
+    <li data-start="1261" data-end="1297"><strong data-start="1261" data-end="1280">Time Complexity: </strong><code data-start="1636" data-end="1645">O(n²)</code> worst &amp; average case, <code data-start="410" data-end="416">O(n)</code> best case (already sorted).</li>
+    <li data-start="1300" data-end="1376"><strong data-start="1300" data-end="1320">Space Complexity:</strong> <code data-start="374" data-end="380">O(1)</code> – in-place sorting with no additional memory usage.</li>
+    <li><strong data-start="1379" data-end="1391">Use Case:</strong> Educational purposes, very <strong data-start="776" data-end="785">small</strong> or <strong data-start="789" data-end="815">nearly sorted datasets</strong>.</li>
 </ul>
 
 <hr class="" data-start="1575" data-end="1578" />
 
 <h3 class="" data-start="1580" data-end="1606"><strong data-start="1584" data-end="1604">🔹 <a href="https://en.wikipedia.org/wiki/Merge_sort">Merge Sort</a></strong></h3>
 <ul>
-    <li data-start="1154" data-end="1258">A <strong data-start="1378" data-end="1418">divide-and-conquer sorting algorithm</strong> that splits an array, sorts both halves, and merges them.</li>
+    <li data-start="1154" data-end="1258">A <strong data-start="184" data-end="216">divide-and-conquer algorithm</strong> that recursively <strong data-start="234" data-end="266">splits the array into halves</strong>, sorts them, and <strong data-start="284" data-end="294">merges</strong> the sorted halves back together.</li>
+    <li data-start="1154" data-end="1258">Operates by <strong data-start="342" data-end="359">breaking down</strong> the problem (splitting) and <strong data-start="388" data-end="411">combining solutions</strong> (merging sorted halves).</li>
+    <li data-start="1154" data-end="1258">Recursively processes smaller subarrays until size is 1, then merges them in sorted order as it returns back up the call stack.</li>
+    <li data-start="1154" data-end="1258">Maintains <strong data-start="449" data-end="462">stability</strong> — preserves the original order of equal elements.</li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
@@ -108,16 +260,25 @@ System.out.println("Merge Sort:\t\t\t "
     </div>
 </div>
 <ul>
-    <li data-start="1261" data-end="1297"><strong data-start="1261" data-end="1280">Time Complexity:</strong> <code data-start="410" data-end="416">O(n log n)</code>.</li>
-    <li data-start="1300" data-end="1376"><strong data-start="1300" data-end="1320">Space Complexity:</strong> <code data-start="410" data-end="416">O(n)</code> (for the temporary arrays during merge step).</li>
-    <li><strong data-start="1379" data-end="1391">Use Case:</strong> Sorting large datasets, stable sorting (preserves order of equal elements), sorting linked lists (since it avoids excessive swapping)</li>
+    <li data-start="1261" data-end="1297"><strong data-start="1261" data-end="1280">Time Complexity:</strong> <code data-start="410" data-end="416">O(n log n)</code> always</li>
+    <li data-start="1300" data-end="1376"><strong data-start="1300" data-end="1320">Space Complexity:</strong> <code data-start="410" data-end="416">O(n)</code> – requires temporary arrays for merging</li>
+    <li><strong data-start="1379" data-end="1391">Use Case:</strong> Large datasets, <strong data-start="716" data-end="732">linked lists</strong> (due to non-reliance on random access or swapping), situations where <strong data-start="805" data-end="823">stable sorting</strong> is important (e.g., sorting records by multiple fields).</li>
+    <li><strong>Note:</strong> Slower than in-place sorts like Quick Sort in practice (due to memory overhead), but <strong data-start="1097" data-end="1125">predictable and reliable</strong>.</li>
 </ul>
 
 <hr class="" data-start="2003" data-end="2006" />
 
 <h3 class="" data-start="2008" data-end="2034"><strong data-start="2012" data-end="2032">🔹 <a href="https://en.wikipedia.org/wiki/Quicksort">Quick Sort</a></strong></h3>
 <ul>
-    <li data-start="1466" data-end="1586">A <strong data-start="1761" data-end="1801">divide-and-conquer sorting algorithm</strong> that picks a <strong data-start="1815" data-end="1824">pivot</strong>, partitions the array, and sorts both halves recursively.</li>
+    <li data-start="1466" data-end="1586">A <strong data-start="223" data-end="263">divide-and-conquer sorting algorithm</strong> that selects a <strong data-start="279" data-end="288">pivot</strong> element and <strong data-start="301" data-end="315">partitions</strong> the array into two sub-arrays:
+        <ul>
+            <li data-start="1466" data-end="1586">One with elements <strong data-start="369" data-end="382">less than</strong> the pivot</li>
+            <li data-start="1466" data-end="1586">One with elements <strong data-start="417" data-end="433">greater than</strong> the pivot</li>
+        </ul>
+    </li>
+    <li>Recursively applies the same logic to each partition until the entire array is sorted.</li>
+    <li>Efficient for <strong data-start="549" data-end="567">large datasets</strong> and often faster than Merge Sort due to in-place partitioning.</li>
+    <li>Not a <strong data-start="1205" data-end="1220">stable sort</strong> (relative order of equal elements is not guaranteed).</li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
@@ -158,85 +319,20 @@ System.out.println("Quick Sort:\t\t\t "
     </div>
 </div>
 <ul>
-    <li data-start="1589" data-end="1659"><strong data-start="1589" data-end="1608">Time Complexity:</strong> <code data-start="1610" data-end="1624">O(n log n)</code> (average), <code data-start="1636" data-end="1645">O(n²)</code> for worst case (If bad pivots are chosen).</li>
-    <li data-start="1662" data-end="1787"><strong data-start="1662" data-end="1682">Space Complexity:</strong> <code data-start="5836" data-end="5846">O(log n)</code> (average) for recursion stack, <code data-start="410" data-end="416">O(n)</code> for worst case if tail recursion is not optimized.</li>
-    <li data-start="1790" data-end="1897"><strong data-start="1790" data-end="1802">Use Case:</strong> Efficient sorting for large datasets, used in Java’s <strong data-start="1583" data-end="1629">Arrays.sort()</strong> (for primitive types).</li>
-</ul>
-
-<hr class="" data-start="771" data-end="774" />
-
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> <a href="https://en.wikipedia.org/wiki/Hash_function">Hashing</a></strong></h3>
-<ul>
-    <li data-start="287" data-end="444">Uses a <strong data-start="321" data-end="338">hash function</strong> to map data to fixed-size values (hash codes), for efficient lookups.</li>
-    <li><strong data-start="798" data-end="810">Example:</strong></li>
-</ul>
-<div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static Map&lt;String, Integer&gt; hashing() {
-    Map&lt;String, Integer&gt; nameAndAgeMap = new HashMap&lt;&gt;();
-    nameAndAgeMap.put("Alice", 25);
-    nameAndAgeMap.put("Bob", 30);
-    return nameAndAgeMap;
-}</code></pre>
-    <div>
-        <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
-Map&lt;String, Integer&gt; nameAndAgeMap = hashing();
-Set&lt;String&gt; namesSet = nameAndAgeMap.keySet();
-System.out.println("Hashing output:\t\t "
-                   + "Bob's age: " + nameAndAgeMap.get("Bob")
-                   + ", Candice exists? " + nameAndAgeMap.containsKey("Candice")
-                   + ", Set of names: " + namesSet);
-// Bob's age: 30, Candice exists? false, Set of names: [Bob, Alice]</code></pre>
-        </div>
-    </div>
-</div>
-<ul>
-    <li data-start="287" data-end="444"><strong data-start="259" data-end="278">Time Complexity:</strong> <code data-start="374" data-end="380">O(1)</code> average-case operations (insert, search, delete); <code data-start="410" data-end="416">O(n)</code> worst-case (due to hash collisions and chaining).</li>
-    <li data-start="287" data-end="444"><strong data-start="345" data-end="365">Space Complexity:</strong> <code data-start="410" data-end="416">O(n)</code> (where n is the number of elements stored).</li>
-    <li data-start="287" data-end="444"><strong data-start="450" data-end="463">Use Case:</strong> Implementing caches, indexing, and duplicate detection.</li>
-</ul>
-
-<hr class="" data-start="3327" data-end="3330" />
-
-<h3 class="" data-start="3332" data-end="3357"><strong data-start="3336" data-end="3355">🔹 <a href="https://en.wikipedia.org/wiki/Recursion_(computer_science)">Recursion</a></strong></h3>
-<ul>
-    <li data-start="2676" data-end="2791">A technique where a function <strong data-start="2961" data-end="2977">calls itself</strong> to break down complex problems into smaller subproblems.</li>
-    <li data-start="2676" data-end="2791"><strong>Problem:</strong> <a href="https://en.wikipedia.org/wiki/Longest_common_subsequence">Longest common subsequence (LCS)</a> Input: "abcde", "ace" Output: 3 Explanation: The LCS is "ace", so the length is 3.</li>
-    <li><strong data-start="798" data-end="810">Example:</strong></li>
-</ul>
-<div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static int lcsRecursive(String s1, String s2, int m, int n) {
-    // Base Case: If either string is empty
-    if (m == 0 || n == 0) return 0;
-
-    // If last characters match, add 1 and check remaining
-    if (s1.charAt(m - 1) == s2.charAt(n - 1)) {
-        return 1 + lcsRecursive(s1, s2, m - 1, n - 1);
-    } else {
-        // If last characters don't match, take max of excluding either character
-        return Math.max(lcsRecursive(s1, s2, m - 1, n), lcsRecursive(s1, s2, m, n - 1));
-    }
-}</code></pre>
-    <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
-String s1 = "abcde", s2 = "ace";
-System.out.println("\nRecursion output:\t "
-                   + "LCS length of " + s1 + ", " + s2 + " is: "
-                   + lcsRecursive(s1, s2, s1.length(), s2.length()));
-// LCS length of abcde, ace is: 3</code></pre>
-    </div>
-</div>
-<ul>
-    <li data-start="2794" data-end="2899"><strong data-start="2794" data-end="2813">Time Complexity:</strong> Varies based on the problem (e.g., <code data-start="2874" data-end="2883">O(2ⁿ)</code> for LCS, <code data-start="2874" data-end="2883">O(2ⁿ)</code> for Fibonacci, <code data-start="410" data-end="416">O(n)</code> for factorial).</li>
-    <li data-start="2902" data-end="3036"><strong data-start="2902" data-end="2922">Space Complexity:</strong> Varies based on the depth of recursion (e.g., <code data-start="410" data-end="416">O(n)</code> for linear recursion, <code data-start="5836" data-end="5846">O(log n)</code> for binary recursion).</li>
-    <li data-start="3039" data-end="3189"><strong data-start="3039" data-end="3051">Use Case:</strong> Tree traversals, divide-and-conquer algorithms, and mathematical problems (e.g., factorial, Fibonacci).</li>
+    <li data-start="1589" data-end="1659"><strong data-start="1589" data-end="1608">Time Complexity:</strong> <code data-start="1610" data-end="1624">O(n log n)</code> average case, <code data-start="1636" data-end="1645">O(n²)</code> worst case (when poor pivots are chosen — e.g., already sorted array with naive pivot).</li>
+    <li data-start="1662" data-end="1787"><strong data-start="1662" data-end="1682">Space Complexity:</strong> <code data-start="5836" data-end="5846">O(log n)</code> average (for recursion stack), <code data-start="410" data-end="416">O(n)</code> worst case (deep recursion without tail call optimization).</li>
+    <li data-start="1790" data-end="1897"><strong data-start="1790" data-end="1802">Use Case:</strong> General-purpose <strong>high-performance sorting</strong>, scenarios where <strong data-start="1143" data-end="1155">in-place</strong> and <strong data-start="1160" data-end="1174">non-stable</strong> sorting is acceptable.</li>
+    <li data-start="1790" data-end="1897"><strong>Note:</strong> Java’s <code data-start="947" data-end="962">Arrays.sort()</code> for primitive types uses a <strong data-start="990" data-end="1015">dual-pivot Quick Sort</strong> under the hood for its speed and efficiency.</li>
 </ul>
 
 <hr class="" data-start="2520" data-end="2523" />
 
 <h3 class="" data-start="2525" data-end="2567"><strong data-start="2529" data-end="2565">🔹 <a href="https://en.wikipedia.org/wiki/Breadth-first_search">Breadth First Search</a></strong></h3>
 <ul>
-    <li data-start="1944" data-end="2053">A <strong data-start="2232" data-end="2261">graph traversal algorithm</strong> that explores all neighbors of a node before moving deeper.</li>
+    <li data-start="1944" data-end="2053">A <strong data-start="201" data-end="230">graph traversal algorithm</strong> that explores all the <strong data-start="253" data-end="296">neighbors of a node before going deeper</strong> into the graph.</li>
+    <li data-start="1944" data-end="2053">Uses a <strong data-start="322" data-end="331">queue</strong> to keep track of nodes to visit — processes nodes <strong data-start="382" data-end="400">level by level</strong>.</li>
+    <li data-start="1944" data-end="2053">Suitable for both <strong data-start="422" data-end="442">graphs and trees</strong> (non-recursive approach).</li>
+    <li data-start="1944" data-end="2053">Requires a <code data-start="885" data-end="896">visited[]</code> or <code data-start="900" data-end="905">Set</code> to avoid infinite loops in cyclic graphs.</li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
@@ -272,16 +368,19 @@ bfs(graph, 0);
     </div>
 </div>
 <ul>
-    <li data-start="2056" data-end="2116"><strong data-start="2056" data-end="2075">Time Complexity:</strong> <code data-start="2077" data-end="2089">O(V + E)</code> (V = vertices, E = edges).</li>
-    <li data-start="2119" data-end="2184"><strong data-start="2119" data-end="2139">Space Complexity:</strong> <code data-start="2141" data-end="2149">O(V)</code> (for the queue and visited array).</li>
-    <li data-start="2187" data-end="2270"><strong data-start="2187" data-end="2199">Use Case:</strong> Shortest path in unweighted graphs (e.g., GPS navigation), finding connected components in graphs.</li>
+    <li data-start="2056" data-end="2116"><strong data-start="2056" data-end="2075">Time Complexity:</strong> <code data-start="2077" data-end="2089">O(V + E)</code> where V = number of vertices, E = number of edges</li>
+    <li data-start="2119" data-end="2184"><strong data-start="2119" data-end="2139">Space Complexity:</strong> <code data-start="2141" data-end="2149">O(V)</code> – for the queue and the visited tracking structure</li>
+    <li data-start="2187" data-end="2270"><strong data-start="2187" data-end="2199">Use Case:</strong> <strong data-start="671" data-end="700">Finding the shortest path</strong> in unweighted graphs (e.g., GPS navigation), detecting connected components, <strong data-start="794" data-end="814">crawling the web</strong>, <strong data-start="816" data-end="844">social network expansion</strong>.</li>
 </ul>
 
 <hr class="" data-start="2928" data-end="2931" />
 
 <h3 class="" data-start="2933" data-end="2973"><strong data-start="2937" data-end="2971">🔹 <a href="https://en.wikipedia.org/wiki/Depth-first_search">Depth First Search</a></strong></h3>
 <ul>
-    <li data-start="2315" data-end="2422">A <strong data-start="2621" data-end="2650">graph traversal algorithm</strong> that explores as deep as possible along one branch before backtracking.</li>
+    <li data-start="2315" data-end="2422">A <strong data-start="195" data-end="224">graph traversal algorithm</strong> that explores as <strong data-start="242" data-end="280">deep as possible along each branch</strong>, then <strong data-start="287" data-end="301">backtracks</strong> when no further nodes are available.</li>
+    <li data-start="2315" data-end="2422">Can be implemented using <strong data-start="366" data-end="379">recursion</strong> or an explicit <strong data-start="395" data-end="404">stack</strong>.</li>
+    <li data-start="2315" data-end="2422">Uses a <strong data-start="415" data-end="439">visited set or array</strong> to avoid revisiting nodes in cyclic graphs.</li>
+    <li data-start="2315" data-end="2422">Recursively dives down one path before moving to others — mimics exploring one trail to the end before backtracking.</li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
@@ -306,18 +405,29 @@ dfs(graph, 0, new HashSet&lt;&gt;());
     </div>
 </div>
 <ul>
-    <li data-start="2425" data-end="2485"><strong data-start="2425" data-end="2444">Time Complexity:</strong> <code data-start="2446" data-end="2458">O(V + E)</code> (V = vertices, E = edges).</li>
-    <li data-start="2488" data-end="2554"><strong data-start="2488" data-end="2508">Space Complexity:</strong> <code data-start="2510" data-end="2518">O(V)</code> (for the stack or recursion stack).</li>
-    <li data-start="2557" data-end="2646"><strong data-start="2557" data-end="2569">Use Case:</strong> Topological sorting, cycle detection, and pathfinding in unweighted graphs.</li>
+    <li data-start="2425" data-end="2485"><strong data-start="2425" data-end="2444">Time Complexity:</strong> <code data-start="2446" data-end="2458">O(V + E)</code> where V = number of vertices, E = number of edges</li>
+    <li data-start="2488" data-end="2554"><strong data-start="2488" data-end="2508">Space Complexity:</strong> <code data-start="2510" data-end="2518">O(V)</code> – due to the recursion stack or explicit stack for traversal</li>
+    <li data-start="2557" data-end="2646"><strong data-start="2557" data-end="2569">Use Case:</strong> <strong data-start="696" data-end="719">Topological sorting</strong> of <a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">DAG</a>s, <strong data-start="735" data-end="754">cycle detection</strong> in graphs, <strong data-start="772" data-end="787">pathfinding</strong> in unweighted graphs (all possible paths), <strong data-start="837" data-end="853">maze solving</strong>, <strong>connected components identification</strong>.</li>
 </ul>
 
 <hr class="" data-start="3907" data-end="3910" />
 
 <h3 class="" data-start="3332" data-end="3357"><strong data-start="3336" data-end="3355">🔹 <a href="https://en.wikipedia.org/wiki/Dynamic_programming">Dynamic Programming</a></strong></h3>
 <ul>
-    <li data-start="2676" data-end="2791">A technique that optimizes recursive solutions by storing computed results (memoization) or filling a table iteratively (tabulation).</li>
-    <li><strong>Problem:</strong> <a href="https://en.wikipedia.org/wiki/Longest_common_subsequence">Longest common subsequence (LCS)</a> Input: "abcde", "ace" Output: 3 Explanation: The LCS is "ace", so the length is 3.</li>
-    <li><strong data-start="798" data-end="810">Example:</strong></li>
+    <li data-start="2676" data-end="2791">A technique for solving problems with <strong data-start="240" data-end="267">overlapping subproblems</strong> and <strong data-start="272" data-end="296">optimal substructure</strong>.</li>
+    <li data-start="2676" data-end="2791">Improves performance by <strong data-start="324" data-end="359">avoiding redundant calculations</strong> through:
+        <ul>
+            <li data-start="2676" data-end="2791"><strong data-start="376" data-end="391">Memoization</strong> – top-down approach using recursion + caching</li>
+            <li data-start="2676" data-end="2791"><strong data-start="445" data-end="459">Tabulation</strong> – bottom-up approach using an iterative DP table</li>
+        </ul>
+    </li>
+    <li>Reduces <strong data-start="519" data-end="549">exponential recursive time</strong> to <strong data-start="553" data-end="572">polynomial time</strong> in many classic problems.</li>
+    <li data-start="2676" data-end="2791"><strong>Problem:</strong>
+        <ul>
+            <li data-start="2676" data-end="2791">📌 <a href="https://en.wikipedia.org/wiki/Longest_common_subsequence">Longest common subsequence (LCS)</a><br data-start="866" data-end="869" />Input: <code data-start="880" data-end="889">"abcde"</code> and <code data-start="894" data-end="901">"ace"</code><br data-start="901" data-end="904" />Output: <code data-start="916" data-end="919">3</code> → LCS is <code data-start="929" data-end="936">"ace"</code></li>
+        </ul>
+    </li>
+    <li><strong data-start="798" data-end="810">Solution:</strong></li>
 </ul>
 <div>
     <div>
@@ -350,18 +460,31 @@ System.out.println("DP output:\t\t\t "
     </div>
 </div>
 <ul>
-    <li data-start="2794" data-end="2899"><strong data-start="2794" data-end="2813">Time Complexity:</strong> <code data-start="768" data-end="780">O(m × n)</code> (where m and n are the lengths of the input strings).</li>
-    <li data-start="2902" data-end="3036"><strong data-start="2902" data-end="2922">Space Complexity:</strong> <code data-start="1205" data-end="1217">O(m × n)</code> (for DP table) or <code data-start="1236" data-end="1252">O(min(m, n))</code> (for space-optimized version).</li>
-    <li data-start="3039" data-end="3189"><strong data-start="3039" data-end="3051">Use Case:</strong> Optimizing overlapping subproblems in problems like Fibonacci, LCS, Knapsack, and Matrix Chain Multiplication.</li>
+    <li data-start="2794" data-end="2899"><strong data-start="2794" data-end="2813">Time Complexity:</strong> <code data-start="768" data-end="780">O(m × n)</code> for problems like <strong data-start="669" data-end="676">LCS</strong>, <strong data-start="678" data-end="690">Knapsack</strong>, etc</li>
+    <li data-start="2902" data-end="3036"><strong data-start="2902" data-end="2922">Space Complexity:</strong> <code data-start="1205" data-end="1217">O(m × n)</code> for a full DP table, or can be optimized to <code data-start="1236" data-end="1252">O(min(m, n))</code> in certain problems</li>
+    <li data-start="3039" data-end="3189"><strong data-start="3039" data-end="3051">Use Case:</strong> Fibonacci numbers, 0/1 Knapsack problem, matrix chain multiplication, <strong data-start="994" data-end="1009">coin change</strong>, <strong data-start="1011" data-end="1028">edit distance</strong>, <strong data-start="1030" data-end="1044">subset sum</strong>.</li>
 </ul>
 
 <hr class="" data-start="3907" data-end="3910" />
 
 <h3 class="" data-start="3332" data-end="3357"><strong data-start="3336" data-end="3355">🔹 <a href="https://en.wikipedia.org/wiki/Backtracking">Backtracking</a></strong></h3>
 <ul>
-    <li data-start="2676" data-end="2791">A technique where we explore all possible solutions <strong data-start="305" data-end="320">recursively</strong> and discard those that don't meet the problem's constraints.</li>
-    <li><strong>Problem:</strong> <a href="https://en.wikipedia.org/wiki/Longest_common_subsequence">Longest common subsequence (LCS)</a> Input: "abcde", "ace" Output: "ace"</li>
-    <li><strong data-start="798" data-end="810">Example:</strong></li>
+    <li data-start="2676" data-end="2791">A technique that <strong data-start="198" data-end="245">recursively explores all possible solutions</strong>, <strong data-start="247" data-end="276">abandoning (backtracking)</strong> paths that violate constraints or lead to dead ends.</li>
+    <li data-start="2676" data-end="2791">Works by <strong data-start="341" data-end="360">trying a choice</strong>, moving forward, and if the solution path fails, it <strong data-start="413" data-end="433">undoes (unmarks)</strong> the previous step and <strong data-start="456" data-end="481">tries the next option</strong>.</li>
+    <li data-start="2676" data-end="2791">Typically involves:
+        <ul>
+            <li data-start="2676" data-end="2791">A <strong data-start="1128" data-end="1150">recursive function</strong></li>
+            <li data-start="2676" data-end="2791">A way to <strong data-start="1164" data-end="1194">mark/unmark visited states</strong></li>
+            <li data-start="2676" data-end="2791">A <strong data-start="1201" data-end="1214">base case</strong> to accept valid results</li>
+        </ul>
+    </li>
+    <li data-start="2676" data-end="2791">Often modeled as a <strong data-start="504" data-end="532">depth-first search (DFS)</strong> with additional constraint checking.</li>
+    <li data-start="2676" data-end="2791"><strong>Problem:</strong>
+        <ul>
+            <li data-start="2676" data-end="2791">📌 <a href="https://en.wikipedia.org/wiki/Longest_common_subsequence">Longest common subsequence (LCS)</a><br data-start="866" data-end="869" />Input: <code data-start="880" data-end="889">"abcde"</code> and <code data-start="894" data-end="901">"ace"</code><br data-start="901" data-end="904" />Output: <code data-start="929" data-end="936">"ace"</code></li>
+        </ul>
+    </li>
+    <li><strong data-start="798" data-end="810">Solution:</strong></li>
 </ul>
 <div>
     <div>
@@ -409,9 +532,9 @@ System.out.println("Backtracking output: "
     </div>
 </div>
 <ul>
-    <li data-start="2794" data-end="2899"><strong data-start="2794" data-end="2813">Time Complexity:</strong> <code data-start="1520" data-end="1532">O(m + n)</code> (tracing the table).</li>
-    <li data-start="2902" data-end="3036"><strong data-start="2902" data-end="2922">Space Complexity:</strong> <code data-start="374" data-end="380">O(1)</code> (if using the existing DP table).</li>
-    <li data-start="3039" data-end="3189"><strong data-start="3039" data-end="3051">Use Case:</strong> Solving combinatorial problems like N-Queens, Sudoku Solver, Subset Sum, and Word Search.</li>
+    <li data-start="2794" data-end="2899"><strong data-start="2794" data-end="2813">Time Complexity: </strong>Varies by problem — for tracing a filled DP table like in LCS <code data-start="1520" data-end="1532">O(m + n)</code>, can be <strong data-start="688" data-end="703">exponential</strong> (e.g., N-Queens) in brute-force combinatorial problems</li>
+    <li data-start="2902" data-end="3036"><strong data-start="2902" data-end="2922">Space Complexity:</strong> <code data-start="374" data-end="380">O(1)</code> when using existing DP tables, <code data-start="410" data-end="416">O(n)</code> for recursion stack in deep recursive calls</li>
+    <li data-start="3039" data-end="3189"><strong data-start="3039" data-end="3051">Use Case:</strong> <strong>N-Queens</strong>, <strong>sudoku solver</strong>, subset sum, <strong>word search</strong> in grids, <strong>permutation &amp; combination </strong>generation.</li>
 </ul>
 
 <hr class="" data-start="3907" data-end="3910" />
