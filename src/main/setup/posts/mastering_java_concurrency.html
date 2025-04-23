@@ -1,6 +1,7 @@
-<p class="" data-start="107" data-end="384">Concurrency is a <strong data-start="124" data-end="167">core aspect of modern Java applications</strong>, enabling them to efficiently handle multiple tasks in parallel. Whether you're building <strong data-start="257" data-end="336">high-performance systems, real-time applications, or scalable microservices</strong>, understanding Java concurrency is essential.</p>
-<p class="" data-start="386" data-end="910">In this guide, we’ll explore <strong data-start="415" data-end="452">Java’s concurrency model in depth</strong>, covering <strong data-start="463" data-end="535">threads, synchronization, executors, and advanced locking mechanisms</strong>. You’ll learn: <br data-start="550" data-end="553" />✔️ How <strong data-start="560" data-end="571">threads</strong> work and how to create them efficiently <br data-start="611" data-end="614" />✔️ The role of <strong data-start="629" data-end="648">synchronization</strong> and how to avoid race conditions <br data-start="681" data-end="684" />✔️ How <strong data-start="691" data-end="720">Executors and ThreadPools</strong> improve performance <br data-start="740" data-end="743" />✔️ Advanced concepts like <strong data-start="769" data-end="821">ReentrantLocks, Semaphores, and Atomic variables </strong><br data-start="821" data-end="824" />✔️ Best practices for writing <strong data-start="854" data-end="908">deadlock-free and scalable concurrent applications </strong></p>
-<p class="" data-start="912" data-end="1107">With <strong data-start="917" data-end="947">step-by-step code examples</strong> and real-world use cases, this guide will help you <strong data-start="999" data-end="1026">master Java concurrency</strong> and write robust, multi-threaded applications with confidence. 🚀 Let’s dive in!</p>
+<p class="" data-start="430" data-end="706"><strong data-start="430" data-end="460">Mastering Java concurrency</strong> is essential for building high-performance, scalable, and responsive applications. In modern development, concurrency enables Java programs to execute multiple tasks simultaneously—maximizing CPU utilization and ensuring smooth user experiences.</p>
+<p class="" data-start="708" data-end="875">In this complete guide, we’ll dive deep into <strong data-start="753" data-end="773">Java concurrency</strong>, covering everything from basic thread creation to advanced synchronization techniques. You’ll learn:</p>
+<p class="" data-start="877" data-end="1199">✔️ How to create and manage threads efficiently<br data-start="924" data-end="927" />✔️ The importance of synchronization and avoiding race conditions<br data-start="992" data-end="995" />✔️ How the Executor framework and thread pools boost performance<br data-start="1059" data-end="1062" />✔️ Advanced tools like ReentrantLocks, Semaphores, and Atomic variables<br data-start="1133" data-end="1136" />✔️ Best practices for writing deadlock-free, thread-safe code</p>
+<p class="" data-start="1201" data-end="1390">With <strong data-start="1206" data-end="1259">real-world examples and step-by-step explanations</strong>, this guide will help you <strong data-start="1286" data-end="1313">master Java concurrency</strong> and confidently build robust, multi-threaded applications. 🚀 Let’s dive in!</p>
 <p data-start="912" data-end="1107">[toc]</p>
 
 
@@ -8,26 +9,27 @@
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><a href="https://en.wikipedia.org/wiki/Java_concurrency"><strong data-start="267" data-end="284"> Thread vs Runnable</strong></a></h3>
 <ul>
-    <li class="p1">A <b>thread is a single sequential flow of control</b> and takes an independent path of execution within a program.</li>
-    <li class="p1">Threads are basically <b>used to do background processing and parallel processing when the order of execution doesn't matter</b>.</li>
-    <li data-start="39" data-end="90">In Java, we can create threads in two main ways
+    <li class="p1">A <strong data-start="189" data-end="199">Thread</strong> is a single, sequential unit of execution that runs <strong data-start="252" data-end="269">independently</strong> within a program.</li>
+    <li class="p1">Commonly used for <strong data-start="308" data-end="322">background</strong> and <strong data-start="327" data-end="350">parallel processing</strong> when the order of execution doesn’t matter.</li>
+    <li data-start="39" data-end="90">In Java, there are <strong data-start="418" data-end="457">two primary ways to create a thread</strong>:
         <ol>
             <li><strong data-start="94" data-end="126">Extending the <code data-start="110" data-end="118">Thread</code> class</strong>
                 <ul>
-                    <li data-start="94" data-end="128">The class directly inherits from <code data-start="435" data-end="443">Thread</code> and overrides the <code data-start="462" data-end="469">run()</code> method.</li>
-                    <li data-start="94" data-end="128">The <code data-start="484" data-end="493">start()</code> method is used to begin execution in a separate thread.</li>
+                    <li data-start="94" data-end="128">The class directly extends <code data-start="536" data-end="544">Thread</code> and overrides the <code data-start="563" data-end="570">run()</code> method to define the task.</li>
+                    <li data-start="94" data-end="128">Call the <code data-start="609" data-end="618">start()</code> method to begin execution in a new thread.</li>
+                    <li data-start="94" data-end="128"><strong data-start="667" data-end="681">Limitation</strong>: Java supports <strong data-start="697" data-end="724">only single inheritance</strong>, so extending <code data-start="739" data-end="747">Thread</code> prevents the class from extending any other.</li>
                 </ul>
             </li>
-            <li data-start="132" data-end="175"><strong data-start="132" data-end="173">Implementing the <code data-start="151" data-end="161">Runnable</code> interface</strong>
+            <li data-start="132" data-end="175"><strong data-start="132" data-end="173">Implementing the <code data-start="151" data-end="161">Runnable</code> interface </strong>(<em>Recommended</em>)
                 <ul>
-                    <li data-start="132" data-end="175">The class implements <code data-start="1269" data-end="1279">Runnable</code> and overrides the <code data-start="1298" data-end="1305">run()</code> method.</li>
-                    <li data-start="132" data-end="175">The <code data-start="1320" data-end="1328">Thread</code> class is used to execute the <code data-start="1358" data-end="1368">Runnable</code> instance.</li>
+                    <li data-start="132" data-end="175">The class implements <code data-start="891" data-end="901">Runnable</code> and overrides the <code data-start="920" data-end="927">run()</code> method.</li>
+                    <li data-start="132" data-end="175">A <code data-start="940" data-end="948">Thread</code> object is created with the <code data-start="976" data-end="986">Runnable</code> instance and started using <code data-start="1014" data-end="1023">start()</code>.</li>
+                    <li data-start="132" data-end="175">This approach promotes <strong data-start="1052" data-end="1078">separation of concerns</strong>, making code more <strong data-start="1097" data-end="1108">modular</strong> and <strong data-start="1113" data-end="1129">maintainable</strong>.</li>
+                    <li>Allows the class to <strong data-start="1155" data-end="1179">extend another class</strong> or implement multiple interfaces — offering greater <strong data-start="1232" data-end="1247">flexibility</strong> in design.</li>
                 </ul>
             </li>
         </ol>
     </li>
-</ul>
-<ul>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
@@ -56,25 +58,28 @@ t2.start(); // Starts a new thread
 // MyRunnable's thread: Thread-1</code></pre>
     </div>
 </div>
-<ul>
-    <li>Using <code data-start="512" data-end="522">Runnable</code> is generally preferred as it promotes better design by <strong data-start="578" data-end="633">separating the task from the thread execution logic</strong>, making the code more flexible (e.g., allows extending other classes) and maintainable.</li>
-</ul>
 
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://wiki.openjdk.org/display/HotSpot/Synchronization">Synchronized Keyword</a></strong></h3>
 <ul>
-    <li data-start="62" data-end="210">The <code data-start="66" data-end="80">synchronized</code> keyword in Java is used to <strong data-start="108" data-end="135">prevent race conditions</strong> when multiple threads try to access shared resources <strong data-start="189" data-end="209">at the same time</strong>. It ensures that <strong data-start="228" data-end="247">only one thread</strong> can execute a block of code or method <strong data-start="286" data-end="299">at a time</strong>, keeping data <strong data-start="314" data-end="337">safe and consistent</strong> in multithreaded environments.</li>
-    <li data-start="62" data-end="210">Two Ways to Use <code data-start="586" data-end="600">synchronized</code>
+    <li data-start="62" data-end="210">The <code data-start="238" data-end="252">synchronized</code> keyword is used to <strong data-start="272" data-end="299">prevent race conditions</strong> in multithreaded environments.</li>
+    <li data-start="333" data-end="419">Ensures that <strong data-start="346" data-end="375">only one thread at a time</strong> can execute a <strong data-start="390" data-end="410">critical section</strong> of code.</li>
+    <li data-start="333" data-end="419">Provides <strong data-start="431" data-end="451">mutual exclusion</strong> by using a <strong data-start="463" data-end="479">monitor lock</strong> to synchronize access to shared resources.</li>
+    <li data-start="62" data-end="210">Two ways to use <code data-start="677" data-end="691">synchronized</code>
         <ol>
             <li data-start="62" data-end="210"><strong>Synchronized Method</strong>
                 <ul>
-                    <li data-start="62" data-end="210">Locks on the object (<code data-start="657" data-end="663">this</code>) for instance methods or on the class for static methods.</li>
+                    <li data-start="62" data-end="210">Declares an entire method as synchronized.</li>
+                    <li data-start="62" data-end="210">Locks on the <strong data-start="790" data-end="817">current object (<code data-start="808" data-end="814">this</code>)</strong> for instance methods.</li>
+                    <li data-start="62" data-end="210">Locks on the <strong data-start="855" data-end="871">class object</strong> for static methods.</li>
                 </ul>
             </li>
             <li data-start="62" data-end="210"><strong>Synchronized Block</strong>
                 <ul>
-                    <li data-start="62" data-end="210">Allows us to synchronize <strong data-start="1057" data-end="1065">part</strong> of a method, giving more fine-grained control.</li>
+                    <li data-start="62" data-end="210">Synchronizes only a specific portion of code inside a method.</li>
+                    <li data-start="62" data-end="210">Allows for <strong data-start="1113" data-end="1137">fine-grained control</strong> over what is locked.</li>
+                    <li data-start="62" data-end="210">Can specify the object to lock on (any non-null object).</li>
                 </ul>
             </li>
         </ol>
@@ -129,17 +134,40 @@ new Thread(resource::incrementUsingSynchronizedLockObject).start();
     </div>
 </div>
 <ul>
-    <li> Note that Synchronized Method and Synchronized Block are using the same shared lock (<code data-start="657" data-end="663">this</code>), so the second one (i.e., <code data-start="657" data-end="663">Thread-3</code>) starts after the first thread (i.e., <code data-start="657" data-end="663">Thread-2</code>) releases the lock.</li>
+    <li><strong data-start="76" data-end="85">Note:</strong> In the example above, both the synchronized method and the synchronized block use the same shared lock (<code data-start="190" data-end="196">this</code>). As a result, the second thread (e.g., Thread-3) must wait until the first thread (e.g., Thread-2) releases the lock before it can proceed.</li>
 </ul>
 
 <hr class="" data-start="771" data-end="774" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html"><strong data-start="267" data-end="284"> wait(), notify(), and join()</strong></a></h3>
 <ul>
-    <li><strong><code>wait()</code></strong><strong>:</strong> Releases the lock and makes the thread <strong>wait</strong> until another thread calls <code>notify()</code>.</li>
-    <li><strong><code>notify()</code></strong><strong data-start="798" data-end="810">:</strong> Wakes up <strong>one</strong> waiting thread (randomly chosen).</li>
-    <li><strong><code>notifyAll()</code></strong><strong data-start="798" data-end="810">:</strong> Wakes up <strong>all</strong> waiting threads.</li>
-    <li><strong><code>join()</code></strong><strong data-start="798" data-end="810">:</strong> <strong>Waits for a thread to complete</strong> before proceeding.</li>
+    <li>These methods are used to coordinate the behavior of threads — to <strong data-start="251" data-end="277">acquire, release locks</strong>, and <strong data-start="283" data-end="313">wait for thread completion</strong> in a controlled way.</li>
+    <li><strong><code>wait()</code></strong>
+        <ul>
+            <li>Causes the <strong data-start="374" data-end="400">current thread to wait</strong> until another thread invokes <code data-start="430" data-end="440">notify()</code> or <code data-start="444" data-end="457">notifyAll()</code> on the same object.</li>
+            <li><strong data-start="480" data-end="509">Releases the monitor lock</strong>, allowing other threads to enter synchronized blocks on that object.</li>
+            <li>Must be called <strong data-start="596" data-end="629">within a synchronized context</strong>.</li>
+        </ul>
+    </li>
+    <li><strong><code>notify()</code></strong>
+        <ul>
+            <li>Wakes up <strong data-start="670" data-end="692">one waiting thread</strong> (chosen arbitrarily) that is waiting on the object’s monitor.</li>
+            <li>The awakened thread will not run immediately; it must first <strong data-start="817" data-end="840">re-acquire the lock</strong>.</li>
+            <li>Used within a synchronized block or method.</li>
+        </ul>
+    </li>
+    <li><strong><code>notifyAll()</code></strong>
+        <ul>
+            <li>Wakes up <strong data-start="930" data-end="945">all threads</strong> that are waiting on the object's monitor.</li>
+            <li>Only one of them will acquire the lock and continue; others will wait until the lock is released again.</li>
+        </ul>
+    </li>
+    <li><strong><code>join()</code></strong>
+        <ul>
+            <li>Called on a thread to <strong data-start="1144" data-end="1179">wait for it to finish execution</strong>.</li>
+            <li>The calling thread is <strong data-start="1205" data-end="1250">blocked until the target thread completes</strong>.</li>
+        </ul>
+    </li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
@@ -202,13 +230,14 @@ System.out.println("Main thread: Producer and Consumer finished.");
 
         <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/locks/LockSupport.html">LockSupport</a></strong></h3>
         <ul>
-            <li>Provides<strong data-start="250" data-end="286"> basic thread blocking primitives</strong>. It's a more flexible alternative to <code data-start="324" data-end="339">Object.wait()</code>/<code data-start="340" data-end="350">notify()</code> or even <code data-start="359" data-end="375">Thread.sleep()</code>.</li>
+            <li>Provides basic primitives for <strong data-start="273" data-end="305">thread parking and unparking</strong>.</li>
+            <li>It serves as a <strong data-start="322" data-end="346">flexible alternative</strong> to <code data-start="350" data-end="374">Object.wait()/notify()</code> and <code data-start="379" data-end="395">Thread.sleep()</code>.</li>
             <li><strong>Key Features</strong>
                 <ul>
-                    <li><strong>Park/unpark</strong> threads (alternative to <code>wait()</code>/<code>notify()</code>)</li>
-                    <li><strong>No monitor requirement</strong> (unlike synchronized blocks)</li>
-                    <li><strong>Permit-based</strong> (1 permit per thread)</li>
-                    <li><strong data-start="657" data-end="691">Unpark before park still works</strong> (token-style behavior)</li>
+                    <li><strong data-start="433" data-end="458"><code data-start="435" data-end="443">park()</code> / <code data-start="446" data-end="456">unpark()</code></strong> – Blocks and unblocks threads (like <code data-start="495" data-end="503">wait()</code>/<code data-start="504" data-end="514">notify()</code> but cleaner and more flexible).</li>
+                    <li><strong data-start="551" data-end="574">No monitor required</strong> – Does <strong data-start="582" data-end="619">not rely on <code data-start="596" data-end="610">synchronized</code> blocks</strong> or object monitors.</li>
+                    <li><strong data-start="644" data-end="670">Permit-based mechanism</strong> – Each thread has a <strong data-start="691" data-end="708">single permit</strong> that controls its parked state.</li>
+                    <li><strong data-start="745" data-end="773">Unpark-before-park works</strong> – If <code data-start="779" data-end="789">unpark()</code> is called before <code data-start="807" data-end="815">park()</code>, the permit is saved and prevents blocking — behaves like a <strong data-start="876" data-end="885">token</strong>.</li>
                 </ul>
             </li>
             <li><strong data-start="798" data-end="810">Example:</strong></li>
@@ -255,8 +284,8 @@ System.out.println("Main thread: Unparked worker thread.");
             </div>
         </div>
         <ul>
-            <li><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Use Case: </strong>Custom locks, Task scheduling, Timeouts without <code data-start="876" data-end="892">Thread.sleep()</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span></li>
-            <li><strong>Note:</strong> <strong>Prefer over wait()/notify()</strong> for low-level synchronization.</li>
+            <li><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Use Case: </strong><strong data-start="99" data-end="130">Custom lock implementations</strong>, <strong data-start="132" data-end="162">task scheduling frameworks</strong>, and <strong data-start="168" data-end="189">managing timeouts</strong> without blocking threads using <code data-start="221" data-end="237">Thread.sleep()</code>.</li>
+            <li><strong>Note:</strong> <strong>Prefer over </strong><code data-start="495" data-end="503">wait()</code><span style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">/</span><code data-start="504" data-end="514">notify()</code><span style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> for </span><strong style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="1422" data-end="1450">low-level thread control</strong><span style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> and </span><strong style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="1455" data-end="1482">non-blocking algorithms</strong><span style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span></li>
         </ul>
     </div>
 </div>
@@ -265,43 +294,72 @@ System.out.println("Main thread: Unparked worker thread.");
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Thread_(computing)">Thread Lifecycle</a></strong></h3>
 <ul>
-    <li data-start="579" data-end="613"><strong data-start="579" data-end="587">NEW:</strong> Thread is <strong>created but not started</strong> (<code>start()</code> not called yet).</li>
-    <li data-start="619" data-end="664"><strong data-start="619" data-end="632">RUNNABLE</strong><strong data-start="579" data-end="587">:</strong> Thread is <strong>ready to run</strong> (after calling <code>start()</code>) but may not be executing yet (depends on the OS scheduler).</li>
-    <li data-start="670" data-end="737"><strong data-start="670" data-end="690">BLOCKED:</strong> Thread is <strong>waiting for a monitor lock</strong> (e.g., trying to enter a <code>synchronized</code> block).</li>
-    <li><strong data-start="670" data-end="690">WAITING</strong><strong data-start="579" data-end="587">:</strong> Thread <strong>waits indefinitely</strong> for another thread to notify it (via <code>wait()</code>, <code>join()</code>, or <code>LockSupport.park()</code>).</li>
-    <li data-start="743" data-end="798"><strong data-start="743" data-end="761">TIMED_WAITING</strong><strong data-start="579" data-end="587">:</strong> Thread <strong>waits for a specified time</strong> (via <code>sleep(time)</code>, <code>wait(timeout)</code>, <code>join(timeout)</code>).</li>
-    <li data-start="804" data-end="841"><strong data-start="804" data-end="819">TERMINATED</strong><strong data-start="579" data-end="587">:</strong> Thread <strong>has finished execution</strong> (<code>run()</code> method completed).</li>
+    <li data-start="579" data-end="613"><strong data-start="579" data-end="587">NEW</strong>
+        <ul>
+            <li data-start="221" data-end="307">The thread is created using <code data-start="249" data-end="263">new Thread()</code>, but <strong data-start="269" data-end="302"><code data-start="271" data-end="280">start()</code> has not been called</strong> yet.</li>
+            <li data-start="310" data-end="348">It is not yet eligible for scheduling.</li>
+        </ul>
+    </li>
+    <li data-start="619" data-end="664"><strong data-start="619" data-end="632">RUNNABLE</strong>
+        <ul>
+            <li data-start="619" data-end="664">After <code data-start="384" data-end="393">start()</code> is called, the thread enters the <strong data-start="427" data-end="439">RUNNABLE</strong> state.</li>
+            <li data-start="619" data-end="664">It is <strong data-start="455" data-end="471">ready to run</strong>, but may not be <strong data-start="488" data-end="513">executing immediately</strong> — depends on the <strong data-start="531" data-end="554">OS thread scheduler</strong>.</li>
+        </ul>
+    </li>
+    <li data-start="670" data-end="737"><strong data-start="670" data-end="690">BLOCKED</strong>
+        <ul>
+            <li data-start="670" data-end="737">The thread is <strong data-start="597" data-end="634">waiting to acquire a monitor lock</strong> (e.g., trying to enter a <code data-start="660" data-end="674">synchronized</code> block or method).</li>
+            <li data-start="670" data-end="737">It will remain blocked <strong data-start="718" data-end="749">until the lock is available</strong>.</li>
+        </ul>
+    </li>
+    <li><strong data-start="670" data-end="690">WAITING</strong>
+        <ul>
+            <li>The thread is waiting <strong data-start="800" data-end="816">indefinitely</strong> for another thread to perform an action.</li>
+            <li data-start="860" data-end="874">Common methods that lead to this state – <code data-start="879" data-end="894">Object.wait()</code>, <code data-start="901" data-end="916">Thread.join()</code> (without timeout), <code data-start="941" data-end="961">LockSupport.park()</code>.</li>
+        </ul>
+    </li>
+    <li data-start="743" data-end="798"><strong data-start="743" data-end="761">TIMED_WAITING</strong>
+        <ul>
+            <li data-start="743" data-end="798">The thread is <strong data-start="1010" data-end="1051">waiting for a specified time duration</strong>, after which it becomes RUNNABLE again.</li>
+            <li data-start="1094" data-end="1133">Common methods that lead to this state – <code data-start="1138" data-end="1158">Thread.sleep(time)</code>, <code data-start="1165" data-end="1187">Object.wait(timeout)</code>, <code data-start="1194" data-end="1216">Thread.join(timeout)</code>, <code data-start="1223" data-end="1248">LockSupport.parkNanos()</code> or <code data-start="1252" data-end="1265">parkUntil()</code>.</li>
+        </ul>
+    </li>
+    <li data-start="804" data-end="841"><strong data-start="804" data-end="819">TERMINATED</strong>
+        <ul>
+            <li data-start="804" data-end="841">The thread has <strong data-start="1311" data-end="1334">completed execution</strong> (i.e., its <code data-start="1346" data-end="1353">run()</code> method has finished).</li>
+            <li data-start="804" data-end="841">It can no longer be restarted.</li>
+        </ul>
+    </li>
 </ul>
 
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Volatile_(computer_programming)#In_Java">Volatile Keyword</a></strong></h3>
 <ul>
-    <li data-start="176" data-end="229">In multithreaded programs, threads can <strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="419" data-end="438">cache variables</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> locally (in CPU registers or thread stacks) for performance. </span></li>
-    <li data-start="176" data-end="229">The <code data-start="180" data-end="190">volatile</code> keyword tells the <strong data-start="209" data-end="228">JVM and threads</strong>
-        <ul>
-            <li>“Hey! This variable is shared between threads, so don’t cache it. Always read and write directly from main memory.”</li>
-        </ul>
-    </li>
-    <li data-start="176" data-end="229">Without <code style="font-size: inherit;" data-start="509" data-end="519">volatile</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">, a thread might keep </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="541" data-end="566">reading a stale value</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> — never seeing the latest value written by another thread.</span></li>
+    <li data-start="176" data-end="229">In multithreaded applications, threads can <strong data-start="248" data-end="275">cache variables locally</strong> (e.g., in CPU registers or thread stacks) for performance.</li>
+    <li data-start="176" data-end="229">The <code data-start="341" data-end="351">volatile</code> keyword ensures that a <strong data-start="375" data-end="438">variable is always read from and written to the main memory</strong>, <strong data-start="440" data-end="473">not from a thread-local cache</strong>.</li>
+    <li>Without <code data-start="649" data-end="659">volatile</code>, a thread may <strong data-start="674" data-end="715">keep reading a stale (outdated) value</strong>, unaware that another thread has updated it.</li>
+    <li><code data-start="763" data-end="773">volatile</code> guarantees <strong data-start="785" data-end="799">visibility</strong>, not atomicity — ensures all threads <strong data-start="843" data-end="872">see the most recent value</strong>, but <strong data-start="878" data-end="921">doesn’t protect against race conditions</strong> in compound actions (like <code data-start="948" data-end="957">count++</code>).</li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
     <div>
+        <div>
 <pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">static class Worker {
-    private volatile boolean running = true;  // visible across threads
+    private volatile boolean isRunning = true;  // visible across threads
 
     public void run() {
         System.out.println(Thread.currentThread().getName() + ": started.");
-        while (running) { /* simulate some work */ }
-        // stops when running=false (reads from main memory)
+        while (isRunning) { /* simulate some work */ }
+        // stops when isRunning=false (reads from main memory)
         System.out.println(Thread.currentThread().getName() + ": stopped.");
     }
 
     public void stopRunning() {
-        running = false;
+        isRunning = false;
     }
 }</code></pre>
+        </div>
     </div>
     <div>
 <pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
@@ -326,17 +384,24 @@ System.out.println("Main thread: worker has stopped.");
     </div>
 </div>
 <ul>
-    <li><strong data-start="727" data-end="739">Use Case:</strong> One thread <strong data-start="2115" data-end="2125">writes</strong>, and many threads <strong data-start="2144" data-end="2152">read</strong>. We need to communicate <strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="2180" data-end="2189">flags</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">, like: </span><code data-start="2201" data-end="2212">isRunning</code>, <code data-start="2217" data-end="2229">isShutdown</code>, <code data-start="2234" data-end="2246">shouldStop</code>.</li>
+    <li><strong data-start="727" data-end="739">Use Case:</strong> <strong data-start="995" data-end="1024">Flags and control signals</strong> shared between threads (e.g., <code data-start="1053" data-end="1064">isRunning</code>, <code data-start="1066" data-end="1078">shouldStop</code>), scenarios where <strong data-start="1123" data-end="1144">one thread writes</strong>, and <strong data-start="1150" data-end="1175">multiple threads read</strong>.</li>
 </ul>
 
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Linearizability#High-level_atomic_operations">Atomic Variables</a></strong></h3>
 <ul>
-    <li class="p1">Provide <strong data-start="193" data-end="206">lock-free</strong>, <strong data-start="208" data-end="223">thread-safe</strong> operations on single variables.</li>
-    <li>Use <strong data-start="355" data-end="388">CPU-level atomic instructions</strong>, like Compare-And-Swap (CAS), to ensure thread safety without <code data-start="451" data-end="465">synchronized</code>.</li>
-    <li class="p1">Common types – <code data-start="273" data-end="288">AtomicInteger</code>, <code data-start="291" data-end="303">AtomicLong</code>, <code data-start="306" data-end="321">AtomicBoolean</code>, <code data-start="324" data-end="344">AtomicReference&lt;T&gt;</code></li>
-    <li class="p1">Supports atomic operations like <code data-start="95" data-end="114">incrementAndGet()</code> – Atomic counter increment, <code data-start="148" data-end="181">compareAndSet(expected, update)</code> – Conditional update (CAS), etc.</li>
+    <li class="p1">Provide <strong data-start="222" data-end="235">lock-free</strong>, <strong data-start="237" data-end="263">thread-safe operations</strong> on <strong data-start="267" data-end="287">single variables</strong>.</li>
+    <li>Built on <strong data-start="300" data-end="333">CPU-level atomic instructions</strong> like <strong data-start="339" data-end="365">Compare-And-Swap (CAS)</strong> to avoid using <code data-start="381" data-end="395">synchronized</code>.</li>
+    <li class="p1">Common Atomic types – <code data-start="837" data-end="852">AtomicInteger</code>, <code data-start="885" data-end="897">AtomicLong</code>, <code data-start="927" data-end="942">AtomicBoolean</code>, <code data-start="969" data-end="989">AtomicReference&lt;T&gt;</code>.</li>
+    <li>Useful Methods
+        <ul>
+            <li data-start="1058" data-end="1143"><code data-start="1058" data-end="1077">incrementAndGet()</code> – Atomically increments the value and returns the updated result.</li>
+            <li data-start="1146" data-end="1211"><code data-start="1146" data-end="1165">getAndIncrement()</code> – Returns the current value, then increments.</li>
+            <li data-start="1214" data-end="1326"><code data-start="1214" data-end="1247">compareAndSet(expected, update)</code> – Atomically sets the value <strong data-start="1276" data-end="1287">only if</strong> the current value equals the expected.</li>
+            <li data-start="1329" data-end="1397"><code data-start="1329" data-end="1336">set()</code> / <code data-start="1339" data-end="1346">get()</code> – For direct reading/writing (volatile semantics).</li>
+        </ul>
+    </li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
@@ -372,6 +437,9 @@ System.out.println("Main thread: Final Count = " + counter.get());
 // Thread-1: Count = 3
 // Thread-2: Count = 4
 // Main thread: Final Count = 4</code></pre>
+        <ul>
+            <li><strong data-start="727" data-end="739">Use Case:</strong> <strong data-start="1427" data-end="1446">Atomic counters</strong> (e.g., request count, task completion tracking), <strong data-start="1497" data-end="1524">CAS-based control flags</strong> (e.g., <code data-start="1532" data-end="1547">isInitialized</code>).</li>
+        </ul>
     </div>
 </div>
 
@@ -379,16 +447,17 @@ System.out.println("Main thread: Final Count = " + counter.get());
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Reentrancy_(computing)">Reentrant Lock</a></strong></h3>
 <ul>
-    <li><strong data-start="318" data-end="331">Reentrant</strong> means - the same thread can acquire the same lock multiple times without getting blocked or causing a deadlock.</li>
-    <li>
-        <div>Provides <strong data-start="244" data-end="264">explicit locking</strong> with more features than the <code data-start="293" data-end="307">synchronized</code> keyword.</div></li>
+    <li><code data-start="257" data-end="272">ReentrantLock</code> is a <strong data-start="278" data-end="332">flexible alternative to the <code data-start="308" data-end="322">synchronized</code> keyword</strong>.</li>
+    <li><strong data-start="336" data-end="349">Reentrant</strong> means the <strong data-start="360" data-end="411">same thread can acquire the lock multiple times</strong> without blocking or causing a deadlock.</li>
     <li><strong>Key Features</strong>
         <ul>
-            <li><strong>Try-lock:</strong> attempt to acquire lock without blocking</li>
-            <li><strong>Fairness policy: </strong>prevents thread starvation</li>
-            <li><strong>Condition support: </strong>for complex wait/notify scenarios</li>
+            <li><strong data-start="567" data-end="581">Reentrancy</strong> – A thread can re-enter a lock it already holds without being blocked.</li>
+            <li><strong data-start="657" data-end="670">tryLock()</strong> – Try to acquire the lock <strong data-start="697" data-end="717">without blocking</strong>; useful to avoid deadlocks.</li>
+            <li><strong data-start="750" data-end="769">Fairness policy</strong> – Option to ensure <strong data-start="789" data-end="816">first-come-first-served</strong> access to avoid thread starvation.</li>
+            <li><strong data-start="856" data-end="877">Condition support</strong> – Advanced alternative to <code data-start="904" data-end="912">wait()</code>/<code data-start="913" data-end="923">notify()</code>, allowing <strong data-start="934" data-end="956">multiple wait sets</strong> using <code data-start="963" data-end="974">Condition</code> objects.</li>
         </ul>
     </li>
+    <li>The thread <strong data-start="465" data-end="515">must release the lock the same number of times</strong> it acquired it.</li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
 <div>
@@ -465,9 +534,9 @@ for (int i = 0; i &lt; 2; i++) {
         <ul>
             <li><strong>Best Practices</strong>
                 <ul>
-                    <li>Use try-lock to avoid deadlocks.</li>
-                    <li>Always release lock in <code>finally</code> block.</li>
-                    <li>Consider fairness only if thread starvation is a concern.</li>
+                    <li>Use <code data-start="1246" data-end="1257">tryLock()</code> when you want to avoid <strong data-start="1281" data-end="1300">waiting forever</strong> and handle contention gracefully.</li>
+                    <li>Always <strong data-start="1347" data-end="1388">release the lock in a <code data-start="1371" data-end="1380">finally</code> block</strong> to avoid deadlock and ensure proper cleanup.</li>
+                    <li>Use <strong data-start="1443" data-end="1457">fair locks</strong> only when <strong data-start="1468" data-end="1494">starvation is an issue</strong>, as they come with performance overhead.</li>
                 </ul>
             </li>
         </ul>
@@ -476,8 +545,16 @@ for (int i = 0; i &lt; 2; i++) {
 
         <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Semaphore_(programming)">Semaphore</a></strong></h3>
         <ul>
-            <li>A synchronization mechanism that <strong>controls access to shared resources through permits</strong>.</li>
-            <li>Allows a limited number of threads to access a particular section of code or resource at the same time.</li>
+            <li>A <strong data-start="199" data-end="232">concurrency control mechanism</strong> that manages access to shared resources using a <strong data-start="281" data-end="308">fixed number of permits</strong>.</li>
+            <li>Allows <strong data-start="319" data-end="367">multiple threads (but only a limited number)</strong> to enter a critical section simultaneously.</li>
+            <li>Think of it as a <strong data-start="431" data-end="447">"gatekeeper"</strong> that lets N threads in, while others wait their turn.</li>
+            <li><strong>How It Works</strong>
+                <ul>
+                    <li>Threads <strong data-start="543" data-end="562">acquire permits</strong> before accessing the shared resource and <strong data-start="604" data-end="615">release</strong> them after completing their task.</li>
+                    <li>If no permits are available, the thread <strong data-start="692" data-end="729">blocks until a permit is released</strong>.</li>
+                    <li>Can be <strong data-start="740" data-end="760">fair or non-fair</strong> (fairness decides the order of waiting threads).</li>
+                </ul>
+            </li>
             <li><strong data-start="798" data-end="810">Example:</strong></li>
         </ul>
         <div>
@@ -519,7 +596,7 @@ for (int i = 0; i &lt; 5; i++) {
             </div>
         </div>
         <ul>
-            <li><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Use Case: </strong><strong>Resource Pooling</strong> (Database connections, thread pools)<span style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">, </span><strong>Rate Limiting</strong> (allow only N concurrent requests), <strong>Producer-Consumer</strong> (Bounded buffer problem)<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span></li>
+            <li><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Use Case: </strong><strong data-start="83" data-end="103">Resource pooling</strong> (e.g., limiting access to a fixed number of database connections), <strong data-start="171" data-end="188">rate limiting</strong> (restricting concurrent access to APIs), and <strong data-start="234" data-end="265">producer-consumer scenarios</strong> (controlling access to a bounded buffer).</li>
         </ul>
     </div>
 </div>
@@ -528,13 +605,21 @@ for (int i = 0; i &lt; 5; i++) {
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Fork%E2%80%93join_model">Fork and Join Framework</a></strong></h3>
 <ul>
-    <li>Designed to <strong data-start="92" data-end="119">leverage multiple cores</strong> efficiently, especially for <strong data-start="148" data-end="186">parallel, divide-and-conquer tasks</strong>.</li>
-    <li>Supports <strong data-start="2761" data-end="2778">work-stealing</strong> (idle threads "steal" tasks from busy ones) to optimize multi-core processor utilization.</li>
-    <li><strong>Key Classes</strong>
+    <li>Designed to <strong data-start="267" data-end="295">leverage multi-core CPUs</strong> by <strong data-start="299" data-end="318">splitting tasks</strong> into smaller subtasks and executing them in parallel.</li>
+    <li>Ideal for <strong data-start="385" data-end="409">recursive algorithms</strong> that can be broken into independent subproblems.</li>
+    <li>Uses <strong data-start="466" data-end="483">work-stealing</strong>, where idle threads dynamically "steal" tasks from busy threads to <strong data-start="551" data-end="579">maximize CPU utilization</strong>.</li>
+    <li><strong>Key Components</strong>
         <ul>
-            <li><strong><code>ForkJoinPool</code></strong><strong data-start="579" data-end="587">:</strong> A special thread pool for running <code>ForkJoinTask</code>s</li>
-            <li><strong><code>RecursiveTask&lt;V&gt;</code></strong><strong data-start="579" data-end="587">:</strong> Use for task that <strong data-start="807" data-end="827">returns a result</strong></li>
-            <li><strong><code>RecursiveAction</code></strong><strong data-start="579" data-end="587">:</strong> Use for task that <strong data-start="871" data-end="899">does not return a result</strong></li>
+            <li><code data-start="619" data-end="633">ForkJoinPool</code>: A specialized thread pool for managing and executing <code data-start="688" data-end="702">ForkJoinTask</code> instances.</li>
+            <li><code data-start="719" data-end="737">RecursiveTask&lt;V&gt;</code>: For tasks that return a result (e.g., computing a sum).</li>
+            <li><code data-start="800" data-end="817">RecursiveAction</code>: For tasks that perform actions but return no result (e.g., sorting an array).</li>
+        </ul>
+    </li>
+    <li><strong>How It Works</strong>
+        <ul>
+            <li>Tasks are <strong data-start="940" data-end="950">forked</strong> (split into subtasks), which may themselves fork further.</li>
+            <li>Once subtasks complete, their results are <strong data-start="1053" data-end="1063">joined</strong> to compute the final result.</li>
+            <li>All tasks are managed by the <strong data-start="1124" data-end="1140">ForkJoinPool</strong>, which uses an <strong data-start="1156" data-end="1185">internal deque per thread</strong> and <strong data-start="1190" data-end="1207">work-stealing</strong> to distribute load efficiently.</li>
         </ul>
     </li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
@@ -588,12 +673,12 @@ try (ForkJoinPool pool = ForkJoinPool.commonPool()) {
             <ul>
                 <li><strong>Performance Tips</strong>:
                     <ul>
-                        <li><strong>Set a good threshold</strong> (too small → overhead, too large → underutilization).</li>
-                        <li><strong>Avoid blocking calls</strong> in tasks (defeats work-stealing).</li>
-                        <li><strong>Use <code>commonPool()</code></strong> instead of creating new ForkJoinPool().</li>
+                        <li>Choose a <strong data-start="1288" data-end="1310">sensible threshold</strong> for splitting tasks: Too small = too many tasks = high overhead; Too large = fewer tasks = poor parallelism.</li>
+                        <li>Avoid <strong data-start="1439" data-end="1462">blocking operations</strong> (e.g., I/O, <code data-start="1475" data-end="1491">Thread.sleep()</code>) inside tasks — it prevents efficient thread reuse.</li>
+                        <li>Use the <strong data-start="1557" data-end="1602">common pool (<code data-start="1572" data-end="1599">ForkJoinPool.commonPool()</code>)</strong> instead of creating new pools unless isolation is needed.</li>
                     </ul>
                 </li>
-                <li><strong>Use Case</strong>: Merge sort, Tree traversal, Matrix operations.</li>
+                <li><strong>Use Case</strong>: <strong data-start="95" data-end="128">Divide-and-conquer algorithms</strong> like <strong data-start="134" data-end="148">Merge Sort</strong> and <strong data-start="153" data-end="167">Quick Sort</strong>, <strong data-start="169" data-end="188">tree traversals</strong> (e.g., summing values in a binary tree), <strong data-start="230" data-end="255">matrix multiplication</strong>, <strong data-start="257" data-end="277">image processing</strong>.</li>
             </ul>
         </div>
     </div>
@@ -603,17 +688,19 @@ try (ForkJoinPool pool = ForkJoinPool.commonPool()) {
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/exinter.html">Executor Framework</a></strong></h3>
 <ul>
-    <li>A powerful set of <strong data-start="157" data-end="183">interfaces and classes</strong> in Java used to manage and control <strong data-start="219" data-end="230">threads</strong> more efficiently and cleanly than using <code data-start="271" data-end="279">Thread</code> directly.</li>
-    <li>It simplifies - Thread creation and management, Task submission, and Concurrency handling.</li>
-    <li>Key components in Executor Framework are:</li>
+    <li>A high-level API introduced in Java to <strong data-start="295" data-end="355">simplify thread creation, management, and task execution</strong>.</li>
+    <li>It abstracts the complexities of directly using <code data-start="405" data-end="413">Thread</code> by offering a flexible and powerful thread pool model.</li>
+    <li>It simplifies concurrency with easy <strong data-start="117" data-end="136">task submission</strong>, <strong data-start="138" data-end="156">thread pooling</strong> for <strong data-start="161" data-end="176">performance</strong>, and <strong data-start="182" data-end="211">fine-tuned task execution</strong>.</li>
 </ul>
+<h5><strong>Key Components of Executor Framework</strong></h5>
 <h4 data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 </strong><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html">Executor</a></h4>
 <ul>
-    <li>Basic interface to execute a task.</li>
-    <li>Think of it as a way to <strong data-start="645" data-end="688">decouple task submission from execution</strong>.</li>
+    <li>The <strong data-start="196" data-end="210"><code data-start="198" data-end="208">Executor</code></strong> is the <strong data-start="218" data-end="244">foundational interface</strong> in the Executor Framework (<code data-start="272" data-end="294">java.util.concurrent</code>).</li>
+    <li>Designed to <strong data-start="311" data-end="387">decouple task submission from the mechanics of how each task is executed</strong>.</li>
+    <li>It represents a simple abstraction for running tasks asynchronously.</li>
     <li><strong>Key method</strong>
         <ul>
-            <li><code data-start="861" data-end="871">void execute(Runnable command)</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> submits a fire-and-forget task</span></li>
+            <li><code data-start="861" data-end="871">void execute(Runnable command)</code> – Submits a <strong data-start="573" data-end="592">fire-and-forget </strong>task for execution — no result is returned and no future is tracked.</li>
         </ul>
     </li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
@@ -631,16 +718,17 @@ executor.execute(() -&gt; System.out.println("Running in background"));
     </div>
     <h4 data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 </strong><a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Future.html">Future</a></h4>
     <ul>
-        <li>Represents the <strong>result of an asynchronous computation</strong>.</li>
+        <li><code data-start="176" data-end="184">Future</code> represents the <strong data-start="200" data-end="241">result of an asynchronous computation</strong>, submitted via <code data-start="257" data-end="274">ExecutorService</code>.</li>
+        <li>It allows you to <strong data-start="295" data-end="316">check task status</strong>, <strong data-start="318" data-end="338">retrieve results</strong>, or <strong data-start="343" data-end="362">cancel the task</strong>.</li>
         <li><strong>Key methods</strong>
             <ul>
-                <li><code data-start="861" data-end="871">get()</code> – blocks until result is available</li>
-                <li><code data-start="861" data-end="871">get(timeout, unit)</code> – waits with a timeout</li>
-                <li><code data-start="861" data-end="871">isDone()</code> – checks if computation is complete</li>
-                <li><code data-start="1327" data-end="1337">cancel()</code> – attempts cancellation</li>
+                <li><code data-start="861" data-end="871">get()</code> – <strong data-start="410" data-end="420">Blocks</strong> until the result is available. Throws exceptions if the task failed or was cancelled.</li>
+                <li><code data-start="861" data-end="871">get(timeout, unit)</code> – Waits up to the specified time for the result, then throws <code data-start="616" data-end="634">TimeoutException</code> if not done.</li>
+                <li><code data-start="861" data-end="871">isDone()</code> – Returns <code data-start="676" data-end="682">true</code> if the task is completed (successfully, with error, or cancelled).</li>
+                <li><code data-start="1327" data-end="1337">cancel()</code> – Attempts to <strong data-start="811" data-end="821">cancel</strong> execution. If the task has already completed, it won't have any effect.</li>
             </ul>
         </li>
-        <li>Limited functionality (no chaining or composition).</li>
+        <li>Limited functionality — cannot <strong data-start="941" data-end="950">chain</strong> actions or handle results asynchronously, no <strong data-start="1000" data-end="1020">callback support</strong> or <strong data-start="1024" data-end="1041">composability</strong>.</li>
     </ul>
 
     <hr class="" data-start="733" data-end="736" />
@@ -648,13 +736,24 @@ executor.execute(() -&gt; System.out.println("Running in background"));
 </div>
 <h4 data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 </strong><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a></h4>
 <ul>
-    <li>Manages a pool of threads and provides lifecycle methods.</li>
-    <li>Extends <code data-start="861" data-end="871">Executor</code> with methods
+    <li><code data-start="219" data-end="236">ExecutorService</code> is an <strong data-start="243" data-end="291">enhanced version of the <code data-start="269" data-end="279">Executor</code> interface</strong>, designed to manage a <strong data-start="314" data-end="333">pool of threads</strong> and handle <strong data-start="345" data-end="376">asynchronous task execution</strong>.</li>
+    <li>It provides additional methods to manage <strong data-start="421" data-end="440">task submission</strong>, <strong data-start="442" data-end="463">lifecycle control</strong>, and <strong data-start="469" data-end="488">result tracking</strong>.</li>
+    <li><strong>Key Features</strong>
         <ul>
-            <li><code data-start="880" data-end="890">submit(Callable task)</code> – submits a value-returning task</li>
-            <li><code data-start="956" data-end="969">invokeAll()</code>|<code data-start="971" data-end="984">invokeAny()</code> – for batch task execution</li>
-            <li><code data-start="913" data-end="925">shutdown()</code> – graceful shutdown</li>
-            <li><code data-start="956" data-end="969">awaitTermination()</code> – waits for shutdown</li>
+            <li>Manages a <strong data-start="533" data-end="548">thread pool</strong> internally to improve efficiency and reuse.</li>
+            <li>Supports <strong data-start="604" data-end="638">both <code data-start="611" data-end="621">Runnable</code> and <code data-start="626" data-end="636">Callable</code></strong> tasks.</li>
+            <li>Returns a <strong data-start="658" data-end="670"><code data-start="660" data-end="668">Future</code></strong> object for tracking task progress and results.</li>
+        </ul>
+    </li>
+    <li><strong>Common Methods</strong>
+        <ul>
+            <li><code data-start="880" data-end="890">submit(Callable task)</code> – Submits a <strong data-start="796" data-end="820">value-returning task</strong> and returns a <code data-start="835" data-end="846">Future&lt;T&gt;</code>.</li>
+            <li><code data-start="851" data-end="874">submit(Runnable task)</code> – Submits a task that does not return a value (still returns a <code data-start="942" data-end="953">Future&lt;?&gt;</code><span style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> for tracking).</span></li>
+            <li><code data-start="972" data-end="1014">invokeAll(Collection&lt;Callable&lt;T&gt;&gt; tasks)</code> – Executes all tasks and returns a list of <code data-start="1062" data-end="1073">Future&lt;T&gt;</code> results (waits for all to complete).</li>
+            <li><code data-start="1114" data-end="1156">invokeAny(Collection&lt;Callable&lt;T&gt;&gt; tasks)</code> – Executes the tasks and returns the result of <strong style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="1208" data-end="1244">the first successfully completed</strong><span style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> one.</span></li>
+            <li><code data-start="913" data-end="925">shutdown()</code> – Initiates a <strong data-start="1284" data-end="1305">graceful shutdown</strong>, allowing existing tasks to finish.</li>
+            <li><code data-start="1345" data-end="1360">shutdownNow()</code> – Attempts to <strong style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="1379" data-end="1399">immediately stop</strong><span style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> all executing tasks and returns a list of pending ones.</span></li>
+            <li><code data-start="1459" data-end="1492">awaitTermination(timeout, unit)</code> – Waits for all tasks to complete after shutdown, within the specified timeout.</li>
         </ul>
     </li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
@@ -690,12 +789,14 @@ executorService.shutdown();
 </div>
 <h4 data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 </strong><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ScheduledExecutorService.html">ScheduledExecutorService</a></h4>
 <ul>
-    <li>Allows to <strong data-start="1250" data-end="1302">schedule tasks with delays or periodic execution</strong>.</li>
+    <li><code data-start="220" data-end="246">ScheduledExecutorService</code> is a subinterface of <code data-start="268" data-end="285">ExecutorService</code> used to <strong data-start="294" data-end="346">schedule tasks for delayed or periodic execution</strong>.</li>
+    <li>A <strong data-start="352" data-end="402">modern replacement for <code data-start="377" data-end="384">Timer</code> and <code data-start="389" data-end="400">TimerTask</code></strong>, offering better thread control and exception handling.</li>
+    <li>Ideal for <strong data-start="471" data-end="498">running cron-style jobs</strong>, <strong data-start="500" data-end="520">heartbeat checks</strong>, <strong data-start="522" data-end="533">retries</strong>, or <strong data-start="538" data-end="560">polling mechanisms</strong>.</li>
     <li><strong>Key methods</strong>
         <ul>
-            <li><code data-start="861" data-end="871">schedule()</code> – <strong>schedules a one-time task</strong> to run after a specified delay</li>
-            <li><code data-start="861" data-end="871">scheduleAtFixedRate(timeout, unit)</code> – <strong>schedules a task to run repeatedly</strong> at a <strong data-start="947" data-end="961">fixed rate</strong>, regardless of how long the task takes</li>
-            <li><code data-start="861" data-end="871">scheduleWithFixedDelay()</code> – schedules a task to run repeatedly with a <strong data-start="1454" data-end="1469">fixed delay</strong> <strong data-start="1470" data-end="1506">after the previous task finishes</strong></li>
+            <li><code data-start="594" data-end="655">schedule()</code> – Schedules a <strong data-start="674" data-end="691">one-time task</strong> to execute <strong data-start="703" data-end="730">after a specified delay</strong>.</li>
+            <li><code data-start="735" data-end="821">scheduleAtFixedRate()</code> – Runs the task <strong data-start="842" data-end="861">at a fixed rate</strong>, starting after <code data-start="878" data-end="892">initialDelay</code>, and <strong data-start="898" data-end="927">ignores the task duration</strong>. If a task takes longer than the interval, <strong data-start="977" data-end="1001">next run may overlap</strong> (not ideal for heavy tasks).</li>
+            <li><code data-start="1034" data-end="1122">scheduleWithFixedDelay()</code> – Schedules a task to run repeatedly with a <strong data-start="1171" data-end="1240">fixed delay between the end of one task and the start of the next</strong>. Ensures <strong data-start="1256" data-end="1270">no overlap</strong> — next task starts <strong data-start="1290" data-end="1330">only after the previous one finishes</strong>.</li>
         </ul>
     </li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
@@ -725,41 +826,41 @@ System.out.println("Scheduler terminated: " + terminated);
 </div>
 <h4 data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 </strong><a href="https://en.wikipedia.org/wiki/Thread_pool">ThreadPoolExecutor</a></h4>
 <ul>
-    <li><strong data-start="165" data-end="188">Core implementation</strong> of Java's thread pooling mechanism.</li>
-    <li>Offers <strong data-start="333" data-end="357">fine-grained control</strong> over threading behaviour, i.e., number of threads, task queue, thread life cycle, task rejection policy, etc.</li>
+    <li>The <strong data-start="232" data-end="255">core implementation</strong> behind most thread pool factories (like <code data-start="296" data-end="328">Executors.newFixedThreadPool()</code>).</li>
+    <li>Offers <strong data-start="340" data-end="364">fine-grained control</strong> over thread creation, lifecycle, queuing, and task rejection.</li>
     <li><strong>Key Parameters</strong>
         <ul>
-            <li><code data-start="1821" data-end="1835">corePoolSize</code> – minimum threads to keep alive, even if idle</li>
-            <li><code data-start="1821" data-end="1835">maximumPoolSize</code> – maximum number of threads allowed</li>
-            <li><code data-start="1821" data-end="1835">keepAliveTime</code> – maximum time that excess idle threads will wait before being killed</li>
-            <li><code data-start="1821" data-end="1835">unit</code> – time unit for <code data-start="961" data-end="976">keepAliveTime</code></li>
-            <li><code data-start="1821" data-end="1835">workQueue</code> – queue for holding pending tasks</li>
-            <li><code data-start="1821" data-end="1835">threadFactory</code> – custom thread creation</li>
-            <li><code data-start="1821" data-end="1835">handler</code> – policy to use for rejected tasks</li>
+            <li><strong data-start="497" data-end="515"><code data-start="499" data-end="513">corePoolSize</code></strong> – Minimum number of threads kept alive, even if idle.</li>
+            <li><strong data-start="572" data-end="593"><code data-start="574" data-end="591">maximumPoolSize</code></strong> – Maximum number of threads allowed in the pool.</li>
+            <li><strong data-start="645" data-end="664"><code data-start="647" data-end="662">keepAliveTime</code></strong> – Time to wait before killing excess idle threads (above core size).</li>
+            <li><strong data-start="736" data-end="746"><code data-start="738" data-end="744">unit</code></strong> – Time unit for <code data-start="763" data-end="778">keepAliveTime</code> (e.g., <code data-start="786" data-end="804">TimeUnit.SECONDS</code>).</li>
+            <li><strong data-start="809" data-end="824"><code data-start="811" data-end="822">workQueue</code></strong> – A blocking queue to hold <strong data-start="852" data-end="869">pending tasks</strong> before execution.</li>
+            <li><strong data-start="890" data-end="909"><code data-start="892" data-end="907">threadFactory</code></strong> – Used to create new threads (can be customized).</li>
+            <li><strong data-start="962" data-end="975"><code data-start="964" data-end="973">handler</code></strong> – Defines the <strong data-start="990" data-end="1010">rejection policy</strong> when tasks can't be accepted.</li>
         </ul>
     </li>
-    <li><strong>Queue Strategies</strong>
+    <li><strong>Queue Strategies (for <code data-start="1078" data-end="1089">workQueue</code>)</strong>
         <ul>
-            <li><code data-start="1821" data-end="1835">ArrayBlockingQueue</code> – bounded queue</li>
-            <li><code data-start="1821" data-end="1835">LinkedBlockingQueue</code> – unbounded queue</li>
-            <li><code data-start="1821" data-end="1835">PriorityBlockingQueue</code> – priority-based ordering</li>
+            <li><strong data-start="1096" data-end="1120"><code data-start="1098" data-end="1118">ArrayBlockingQueue</code></strong> – Bounded FIFO queue (fixed capacity).</li>
+            <li><strong data-start="1162" data-end="1187"><code data-start="1164" data-end="1185">LinkedBlockingQueue</code></strong> – Unbounded FIFO queue (default for <code data-start="1224" data-end="1246">newFixedThreadPool()</code>).</li>
+            <li><strong data-start="1251" data-end="1278"><code data-start="1253" data-end="1276">PriorityBlockingQueue</code></strong> – Orders tasks based on priority (must implement <code data-start="1328" data-end="1340">Comparable</code>).</li>
         </ul>
     </li>
-    <li><strong>Rejection Policies</strong>
+    <li><strong>Rejection Policies (for <code data-start="1381" data-end="1390">handler</code>)</strong>
         <ul>
-            <li><code data-start="1821" data-end="1835">AbortPolicy</code> (default) – throws <code>RejectedExecutionException</code></li>
-            <li><code data-start="1821" data-end="1835">CallerRunsPolicy</code> – executes task in caller's thread</li>
-            <li><code data-start="1821" data-end="1835">DiscardPolicy</code> – silently discards task</li>
-            <li><code data-start="1821" data-end="1835">DiscardOldestPolicy</code> – discards oldest queued task</li>
+            <li><strong data-start="1397" data-end="1414"><code data-start="1399" data-end="1412">AbortPolicy</code></strong> <em data-start="1415" data-end="1426">(default)</em> – Throws <code data-start="1436" data-end="1464">RejectedExecutionException</code>.</li>
+            <li><strong data-start="1468" data-end="1490"><code data-start="1470" data-end="1488">CallerRunsPolicy</code></strong> – Executes the task in the <strong data-start="1518" data-end="1537">caller’s thread</strong>.</li>
+            <li><strong data-start="1541" data-end="1560"><code data-start="1543" data-end="1558">DiscardPolicy</code></strong> – Silently <strong data-start="1572" data-end="1593">discards the task</strong>.</li>
+            <li><strong data-start="1597" data-end="1622"><code data-start="1599" data-end="1620">DiscardOldestPolicy</code></strong> – Removes the <strong data-start="1637" data-end="1665">oldest task in the queue</strong> and retries submission.</li>
         </ul>
     </li>
     <li><strong>Task Execution Flow</strong>
-        <ul>
-            <li>New tasks go to <strong>core threads</strong> if available</li>
-            <li>If core threads busy, tasks go to <strong>work queue</strong></li>
-            <li>If queue full, new threads created up to <code>maximumPoolSize</code></li>
-            <li>If max threads reached, <strong>rejection policy</strong> triggers</li>
-        </ul>
+        <ol>
+            <li>New tasks are executed by <strong data-start="1757" data-end="1773">core threads</strong> if any are free.</li>
+            <li>If all core threads are busy, tasks go into the <strong data-start="1842" data-end="1856">work queue</strong>.</li>
+            <li>If the queue is full, and the pool hasn’t reached <code data-start="1911" data-end="1928">maximumPoolSize</code>, new threads are created.</li>
+            <li>If max threads are also busy, the <strong data-start="1992" data-end="2012">rejection policy</strong> is triggered.</li>
+        </ol>
     </li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
 </ul>
@@ -802,18 +903,31 @@ tpe.shutdown(); // Graceful shutdown
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a></strong></h3>
 <ul>
-    <li>Provides a powerful way to write <strong data-start="2661" data-end="2677">non-blocking</strong>, <strong data-start="2679" data-end="2695">asynchronous</strong>, and <strong data-start="2701" data-end="2715">composable</strong> code that's easier to read and maintain than raw threads or callbacks.</li>
-    <li>It helps to run code in the <strong data-start="297" data-end="311">background</strong>, chain dependent tasks (one after another), run <strong data-start="352" data-end="382">multiple tasks in parallel</strong>, combine multiple async results, and handle<strong data-start="392" data-end="415"> failure</strong> scenarios.</li>
+    <li>Introduced in Java 8, <code data-start="306" data-end="325">CompletableFuture</code> enables <strong data-start="334" data-end="350">non-blocking</strong>, <strong data-start="352" data-end="368">asynchronous</strong>, and <strong data-start="374" data-end="387">lock-free</strong> programming.</li>
+    <li>Provides a clean and powerful way to:
+        <ul>
+            <li>Run tasks in the <strong data-start="462" data-end="476">background</strong></li>
+            <li><strong data-start="481" data-end="511">Chain dependent operations</strong></li>
+            <li><strong data-start="516" data-end="550">Combine multiple async results</strong></li>
+            <li><strong data-start="555" data-end="576">Handle exceptions</strong> gracefully</li>
+        </ul>
+    </li>
     <li><strong data-start="798" data-end="810">Key Methods</strong>
         <ul>
-            <li><code data-start="861" data-end="871">runAsync()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> starts a task that returns void</span></li>
-            <li><code data-start="861" data-end="871">supplyAsync()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> starts a task that returns a result</span></li>
-            <li><code data-start="861" data-end="871">thenAccept()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> consumes the result</span></li>
-            <li><code data-start="861" data-end="871">thenApply()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> transforms the result</span></li>
-            <li><code data-start="861" data-end="871">thenRun()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> runs next task without result</span></li>
-            <li><code data-start="861" data-end="871">thenCompose()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> triggers another async task, based on the previous result</span></li>
-            <li><code data-start="861" data-end="871">thenCombine()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> combine results from two futures</span></li>
-            <li><code data-start="861" data-end="871">exceptionally()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> handle exceptions gracefully</span></li>
+            <li><code data-start="861" data-end="871">runAsync()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> Run a task <strong data-start="1069" data-end="1087">asynchronously</strong> that returns <code data-start="1101" data-end="1107">void</code></span></li>
+            <li><code data-start="861" data-end="871">supplyAsync()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> Run a task that <strong data-start="1151" data-end="1171">returns a result</strong> asynchronously</span></li>
+            <li><code data-start="861" data-end="871">thenAccept()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> <strong data-start="1214" data-end="1225">Consume</strong> the result (no return value)</span></li>
+            <li><code data-start="861" data-end="871">thenApply()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> <strong data-start="1291" data-end="1304">Transform</strong> the result</span></li>
+            <li><code data-start="861" data-end="871">thenRun()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> Run next task <strong data-start="1382" data-end="1411">without result dependency</strong></span></li>
+            <li><code data-start="861" data-end="871">thenCompose()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> Chain another <strong data-start="1459" data-end="1489">async task based on result</strong></span></li>
+            <li><code data-start="861" data-end="871">thenCombine()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> Combine results of <strong data-start="1541" data-end="1568">two independent futures</strong></span></li>
+            <li><code data-start="861" data-end="871">exceptionally()</code> –<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> Handle errors/exceptions <strong data-start="1624" data-end="1638">gracefully</strong></span></li>
+        </ul>
+    </li>
+    <li><strong>Advantages</strong>
+        <ul>
+            <li><strong data-start="2252" data-end="2275">Lock-free execution</strong> using thread pools (default: <code data-start="2305" data-end="2332">ForkJoinPool.commonPool()</code>)</li>
+            <li><strong data-start="2394" data-end="2410">Non-blocking</strong> by design – suitable for high-performance apps</li>
         </ul>
     </li>
     <li><strong data-start="798" data-end="810">Example:</strong></li>
@@ -879,13 +993,23 @@ CompletableFuture.supplyAsync(() -&gt; "Process data")
             if (ex != null) return "Error occurred";
             return result2.toUpperCase();
         });</code></pre>
+    <ul>
+        <li><strong>Use Case</strong>: <strong data-start="92" data-end="127">Chaining asynchronous workflows</strong> (e.g., fetch → transform → store), <strong data-start="163" data-end="196">running parallel computations</strong> and combining their results, and executing <strong data-start="240" data-end="281">background I/O or CPU-intensive tasks</strong> without blocking main application threads.</li>
+    </ul>
 
     <hr class="" data-start="733" data-end="736" />
 
     <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Thread-local_storage#Java">ThreadLocal Variables</a></strong></h3>
     <ul>
-        <li>Allows us to create <strong data-start="180" data-end="220">variables that are local to a thread</strong>.</li>
-        <li>Each thread has its <strong data-start="245" data-end="266">own isolated copy</strong> of the variable and other threads <strong data-start="300" data-end="327">cannot access or modify</strong> that variable.</li>
+        <li><code data-start="216" data-end="229">ThreadLocal</code> allows you to create <strong data-start="251" data-end="291">variables that are local to a thread</strong>.</li>
+        <li>Each thread gets its <strong data-start="316" data-end="337">own isolated copy</strong> of the variable — <strong data-start="356" data-end="376">no shared access</strong> between threads.</li>
+        <li>It provides a way to <strong data-start="417" data-end="464">maintain state across multiple method calls</strong> <strong data-start="465" data-end="491">within the same thread</strong>, without passing variables explicitly.</li>
+        <li><strong>How It Works</strong>
+            <ul>
+                <li>Internally uses a <strong data-start="582" data-end="604">map-like structure</strong> tied to each thread.</li>
+                <li>Once a thread sets a value, that value is accessible <strong data-start="681" data-end="704">only to that thread</strong>, until it’s removed or the thread dies.</li>
+            </ul>
+        </li>
         <li><strong data-start="798" data-end="810">Example:</strong></li>
     </ul>
     <div>
@@ -940,7 +1064,7 @@ System.out.println("Processing order for Transaction ID: " + txnId);</code></pre
         </div>
     </div>
     <ul>
-        <li><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Use Case: </strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Storing </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="643" data-end="664">user session data</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> per thread, </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="757" data-end="781">database connections</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> or request-scoped objects in web servers.</span></li>
+        <li><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Use Case: </strong><strong data-start="119" data-end="148">Storing user session data</strong> (e.g., current user context in web applications), <strong data-start="199" data-end="246">maintaining per-thread database connections</strong>, <strong data-start="270" data-end="305">managing request-scoped objects</strong> in multi-threaded web servers, and <strong data-start="341" data-end="387">propagating transaction or logging context</strong> (such as correlation IDs) across method calls within the same thread lifecycle.</li>
         <li><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Note: </strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">If you're using </span><code style="font-size: inherit;" data-start="1614" data-end="1627">ThreadLocal</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> in environments like </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="1649" data-end="1665">thread pools</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">, remember to </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="1679" data-end="1708">remove the value manually</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> to prevent </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="1720" data-end="1736">memory leaks</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span></li>
     </ul>
 
@@ -948,13 +1072,14 @@ System.out.println("Processing order for Transaction ID: " + txnId);</code></pre
 
     <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CountDownLatch.html">CountDownLatch</a></strong></h3>
     <ul>
-        <li>Allows <strong data-start="199" data-end="230">one or more threads to wait</strong> until a set of operations being performed by other threads <strong data-start="290" data-end="303">completes</strong>.</li>
+        <li>A <strong data-start="235" data-end="258">synchronization aid</strong> that allows one or more threads to <strong data-start="294" data-end="338">wait until a set of operations completes</strong> in other threads.</li>
+        <li>Ideal for scenarios where a thread must <strong data-start="399" data-end="434">wait for multiple other threads</strong> to finish before proceeding.</li>
         <li><strong>Key Characteristics</strong>
             <ul>
-                <li><strong>Initialized with a count</strong> (number of events to wait for)</li>
-                <li><strong>Threads call <code>countDown()</code></strong> when an event completes</li>
-                <li><strong>Awaiting threads block</strong> until count reaches zero</li>
-                <li><strong>One-time use</strong> (cannot be reset)</li>
+                <li>Initialized with a <strong data-start="525" data-end="534">count</strong> (number of events or threads to wait for).</li>
+                <li><strong data-start="582" data-end="617">Each thread calls <code data-start="602" data-end="615">countDown()</code></strong> when it completes its task.</li>
+                <li><strong data-start="650" data-end="688">One or more threads call <code data-start="677" data-end="686">await()</code></strong> to <strong data-start="692" data-end="730">block until the count reaches zero</strong>.</li>
+                <li><strong data-start="737" data-end="753">One-time use</strong> – Once the count hits zero, the latch <strong data-start="792" data-end="821">cannot be reset or reused</strong>.</li>
             </ul>
         </li>
         <li><strong data-start="798" data-end="810">Example:</strong></li>
@@ -1007,24 +1132,21 @@ System.out.println("All services are ready! Starting application...");
         </div>
     </div>
     <ul>
-        <li><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Use Case: </strong>Multi-stage dependency (e.g., load config → start server), <strong>Parallel Processing</strong> - Wait for multiple threads to complete before proceeding<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span></li>
+        <li><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Use Case: </strong><strong>Multi-stage application startup</strong> (e.g., load configuration → connect to the database → start services), <strong data-start="336" data-end="362">batch job coordination</strong>, where a final action is triggered <strong data-start="398" data-end="445">only after all worker threads have finished</strong>.</li>
     </ul>
-    <div>
-        <div></div>
-    </div>
 
     <hr class="" data-start="733" data-end="736" />
 
     <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Java_ConcurrentMap#ConcurrentHashMap">ConcurrentHashMap</a></strong></h3>
     <ul>
-        <li>A<strong data-start="168" data-end="183"> thread-safe</strong> and <strong data-start="188" data-end="208">high-performance</strong> implementation of <code data-start="227" data-end="232">Map</code> that allows <strong data-start="712" data-end="732">concurrent reads</strong> and <strong data-start="737" data-end="773">fine-grained synchronized writes</strong>.</li>
-        <li>Achieves <strong>High concurrency</strong> through segment-level locking (Java 7) or CAS (Compare-And-Swap) operations (Java 8+).</li>
+        <li>A <strong data-start="232" data-end="247">thread-safe</strong>, <strong data-start="249" data-end="269">high-concurrency</strong> alternative to <code data-start="285" data-end="294">HashMap</code> designed for <strong data-start="308" data-end="339">multi-threaded environments</strong>.</li>
+        <li>Allows <strong data-start="350" data-end="390">concurrent read and write operations</strong> without blocking the entire map.</li>
         <li><strong>Key Features</strong>
             <ul>
-                <li>Allows <strong data-start="894" data-end="914">concurrent reads</strong> (no lock at all)</li>
-                <li>Allows <strong data-start="941" data-end="967">safe concurrent writes</strong> (locks only buckets, not whole map)</li>
-                <li><strong>Weakly consistent</strong> iterators (don't throw ConcurrentModificationException)</li>
-                <li>For compound operations (like <code data-start="1320" data-end="1333">putIfAbsent</code>, <code data-start="1335" data-end="1344">compute</code>, <code data-start="1346" data-end="1353">merge</code>), internal atomic mechanisms are used</li>
+                <li><strong data-start="840" data-end="860">Concurrent Reads</strong> – Multiple threads can read without any locking.</li>
+                <li><strong data-start="914" data-end="935">Concurrent Writes</strong> – Updates are synchronized at <strong data-start="966" data-end="991">bucket-level (Java 7)</strong> or via <strong data-start="999" data-end="1016">CAS (Compare-And-Swap, Java 8+)</strong>, allowing multiple threads to write safely <strong data-start="1060" data-end="1093">to different segments or keys</strong>.</li>
+                <li><strong data-start="1284" data-end="1315">Weakly consistent iterators</strong> – Iterators reflect the current state but <strong data-start="1358" data-end="1372">don’t fail</strong> on concurrent modifications.</li>
+                <li>Supports <strong data-start="1415" data-end="1445">atomic compound operations</strong> – <code data-start="1320" data-end="1333">putIfAbsent()</code>, <code data-start="1335" data-end="1344">compute()</code>, <code data-start="1346" data-end="1353">merge()</code>.</li>
             </ul>
         </li>
         <li><strong data-start="798" data-end="810">Example:</strong></li>
@@ -1048,6 +1170,9 @@ t6.join(); t7.join();
 System.out.println("Thread-safe total count: " + counter1.get("count"));
 
 // Thread-safe total count: 2000</code></pre>
+            <ul>
+                <li><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Use Case: </strong><strong data-start="128" data-end="178">Shared data structures across multiple threads</strong>, managing <strong data-start="189" data-end="211">real-time counters</strong>, maintaining <strong data-start="225" data-end="242">shared caches</strong> and <strong data-start="247" data-end="267">connection pools</strong>, and supporting <strong data-start="284" data-end="325">parallel computations or aggregations</strong>.</li>
+            </ul>
         </div>
     </div>
 
@@ -1055,37 +1180,39 @@ System.out.println("Thread-safe total count: " + counter1.get("count"));
 
     <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Virtual_thread">Virtual Threads</a></strong></h3>
     <ul>
-        <li>Lightweight threads <strong data-start="229" data-end="274">managed by the Java Virtual Machine (JVM)</strong>, not the operating system.</li>
-        <li>Introduced in <strong data-start="96" data-end="116">Java 21 (stable)</strong> as part of <a href="https://wiki.openjdk.org/display/loom/Main"><strong data-start="128" data-end="144">Project Loom</strong></a>.</li>
-        <li>Ideal for highly concurrent applications — like web servers, APIs, and reactive pipelines.</li>
+        <li><strong data-start="226" data-end="245">Virtual threads</strong> are <strong data-start="250" data-end="273">lightweight threads</strong> managed entirely by the <strong data-start="298" data-end="305">JVM</strong>, not by the operating system.</li>
+        <li><span style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Introduced in <strong data-start="352" data-end="363">Java 21</strong> as a stable feature under </span><a style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" href="https://wiki.openjdk.org/display/loom/Main"><strong data-start="128" data-end="144">Project Loom</strong></a><span style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span></li>
+        <li>Designed to handle <strong data-start="397" data-end="420">massive concurrency</strong> — making it possible to create <strong data-start="452" data-end="493">thousands or even millions of threads</strong> efficiently.</li>
+        <li>Ideal for <strong data-start="519" data-end="545">I/O-heavy applications</strong> where traditional platform threads are too costly.</li>
         <li><strong>Execution Lifecycle</strong>
-            <ul>
+            <ol>
                 <li><strong>Mount Phase</strong>
                     <ul>
-                        <li>Virtual thread is scheduled on a carrier thread (from ForkJoinPool)</li>
-                        <li>Stack frames live in OS thread stack</li>
+                        <li>Virtual thread is <strong data-start="1020" data-end="1053">scheduled on a carrier thread</strong> (from the <code data-start="1064" data-end="1078">ForkJoinPool</code> or custom pool).</li>
+                        <li>Execution stack resides on the <strong data-start="1132" data-end="1161">carrier thread's OS stack</strong>.</li>
                     </ul>
                 </li>
-                <li><strong>Yield Phase</strong> (on blocking ops — IO/sleep)
+                <li><strong>Yield Phase</strong> (<em>during blocking operations like I/O or <code data-start="1224" data-end="1240">Thread.sleep()</code></em>)
                     <ul>
-                        <li>Stack copied to heap as continuation</li>
-                        <li>Carrier thread freed for other Virtual threads</li>
+                        <li>The thread <strong data-start="1326" data-end="1348">suspends execution</strong>, and its stack is <strong data-start="1367" data-end="1384">moved to heap</strong> (as a continuation).</li>
+                        <li>The <strong data-start="1415" data-end="1445">carrier thread is released</strong> to run other tasks.</li>
                     </ul>
                 </li>
                 <li><strong>Resume Phase</strong>
                     <ul>
-                        <li>Continuation restored to a carrier thread</li>
-                        <li>Execution continues exactly where it left off</li>
+                        <li>When the blocking call completes, the <strong data-start="1460" data-end="1488">continuation is restored</strong>.</li>
+                        <li>Resumes on <strong data-start="1506" data-end="1538">any available carrier thread</strong>, picking up <strong data-start="1551" data-end="1580">exactly where it left off</strong>.</li>
                     </ul>
                 </li>
-            </ul>
+            </ol>
         </li>
         <li><strong>Key Features</strong>
             <ul>
-                <li>Fully integrated into the Java concurrency model (<code data-start="633" data-end="641">Thread</code>, <code data-start="643" data-end="660">ExecutorService</code>, etc.)</li>
-                <li>Each virtual thread maps to a <strong data-start="523" data-end="553">carrier thread (OS thread)</strong> only when actively running</li>
-                <li><strong>No pooling needed</strong> (cheap to create/discard per-task)</li>
-                <li>Thousands or millions of threads without exhausting OS resources</li>
+                <li>Fully compatible with the <strong data-start="1644" data-end="1669">existing <code data-start="1655" data-end="1663">Thread</code> API</strong></li>
+                <li>Each virtual thread is mapped to a <strong data-start="1710" data-end="1750">carrier thread only during execution</strong></li>
+                <li><strong data-start="1756" data-end="1777">No thread pooling</strong> required — just create one per task (<code data-start="1815" data-end="1847">Thread.startVirtualThread(...)</code>)</li>
+                <li>Designed for <strong data-start="1933" data-end="1959">structured concurrency</strong> (e.g., scoped task management)</li>
+                <li data-start="1730" data-end="1843"><strong data-start="1733" data-end="1766">Non-blocking <code data-start="1748" data-end="1764">Thread.sleep()</code></strong> – JVM handles it by <strong data-start="1787" data-end="1810">yielding the thread</strong> instead of blocking the carrier</li>
             </ul>
         </li>
         <li><strong data-start="798" data-end="810">Example:</strong></li>
@@ -1147,8 +1274,7 @@ for (int i = 0; i &lt; 1_000_000; i++) {
         </div>
     </div>
     <ul>
-        <li><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Use Case: </strong>Web servers (e.g., handle each request in a virtual thread), File and network I/O, Replacing <code data-start="2420" data-end="2437">ExecutorService</code> or <code data-start="3854" data-end="3873">CompletableFuture</code> chains with simpler thread-per-task model<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span></li>
-        <li><strong><strong><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Note</strong>: </strong></strong>In Java virtual threads, <code style="font-size: inherit;" data-start="273" data-end="289">Thread.sleep()</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> is implemented as a </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="310" data-end="336">non-blocking operation</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">, meaning it </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="349" data-end="406">does not block the underlying operating system thread</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> (also known as the </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="426" data-end="444">carrier thread</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">). </span>Instead, the <strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="468" data-end="502">JVM’s virtual thread scheduler</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> temporarily suspends the virtual thread, freeing up the carrier thread to execute other virtual threads.</span></li>
+        <li><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Use Case: </strong><strong>Web servers</strong> — where each incoming request can be handled in its own virtual thread (e.g., in servlet containers or HTTP handlers); performing <strong data-start="317" data-end="349">blocking file or network I/O</strong> without occupying OS threads; and building <strong data-start="540" data-end="567">high-throughput systems</strong> capable of scheduling <strong data-start="590" data-end="623">millions of lightweight tasks</strong> without exhausting system resources.</li>
     </ul>
 
     <hr class="" data-start="733" data-end="736" />
