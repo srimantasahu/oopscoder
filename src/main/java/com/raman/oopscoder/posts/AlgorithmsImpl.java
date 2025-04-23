@@ -24,7 +24,14 @@ public class AlgorithmsImpl {
                            + binarySearch(new int[]{2, 5, 7, 10, 14}, 7));
         // Searching 7 in [2, 5, 7, 10, 14]: 2
 
-        int[] arr = {10, 3, 8, 2, 5};
+        /* *** *** *** *** *** test code *** *** *** *** *** */
+        int[] arr = {9, 3, 6, 2, 4};
+        bubbleSort(arr);
+        System.out.println("Bubble Sort:\t\t "
+                           + "Sorted array: " + Arrays.toString(arr));
+        // Sorted array: [2, 3, 4, 6, 9]
+
+        arr = new int[]{10, 3, 8, 2, 5};
         mergeSort(arr, 0, arr.length - 1);
         System.out.println("Merge Sort:\t\t\t "
                            + "Sorted array: " + Arrays.toString(arr));
@@ -70,16 +77,7 @@ public class AlgorithmsImpl {
         // LCS sequence of abcde, ace is: ace
     }
 
-    // 1. Hashing (Using HashMap)
-    // Hashing is commonly implemented using HashMap/HashSet in Java. Efficient O(1) average-time complexity for insert/search.
-    public static Map<String, Integer> hashing() {
-        Map<String, Integer> nameAndAgeMap = new HashMap<>();
-        nameAndAgeMap.put("Alice", 25);
-        nameAndAgeMap.put("Bob", 30);
-        return nameAndAgeMap;
-    }
-
-    // 2. Linear Search (O(N))
+    // 1. Linear Search (O(N))
     // Sequentially checks each element to find a target value.
     public static int linearSearch(int[] arr, int target) {
         for (int i = 0; i < arr.length; i++) {
@@ -101,7 +99,53 @@ public class AlgorithmsImpl {
         return -1;
     }
 
-    // 3. Merge Sort (O(N log N))
+    // 3. Hashing (Using HashMap)
+    // Hashing is commonly implemented using HashMap/HashSet in Java. Efficient O(1) average-time complexity for insert/search.
+    public static Map<String, Integer> hashing() {
+        Map<String, Integer> nameAndAgeMap = new HashMap<>();
+        nameAndAgeMap.put("Alice", 25);
+        nameAndAgeMap.put("Bob", 30);
+        return nameAndAgeMap;
+    }
+
+    // 4. Bubble sort
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
+        boolean swapped;
+
+        for (int i = 0; i < n - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    // Swap arr[j] and arr[j+1]
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+            // Optimization: break early if no swaps occurred (array is sorted)
+            if (!swapped) break;
+        }
+    }
+
+    // 5. Recursive Solution of LCS (Exponential Time - O(2^min(m,n)))
+    // A simple recursive approach tries all possibilities by either including or excluding a character from each string.
+    // Drawback: Overlapping sub-problems → Solving the same sub-problems multiple times.
+    public static int lcsRecursive(String s1, String s2, int m, int n) {
+        // Base Case: If either string is empty
+        if (m == 0 || n == 0) return 0;
+
+        // If last characters match, add 1 and check remaining
+        if (s1.charAt(m - 1) == s2.charAt(n - 1)) {
+            return 1 + lcsRecursive(s1, s2, m - 1, n - 1);
+        } else {
+            // If last characters don't match, take max of excluding either character
+            return Math.max(lcsRecursive(s1, s2, m - 1, n), lcsRecursive(s1, s2, m, n - 1));
+        }
+    }
+
+    // 6. Merge Sort (O(N log N))
     // Merge Sort is a divide-and-conquer sorting algorithm. O(N log N) time complexity, stable sorting.
     public static void mergeSort(int[] arr, int left, int right) {
         if (left >= right) return;
@@ -123,7 +167,7 @@ public class AlgorithmsImpl {
         while (j <= right) arr[k++] = temp[j++ - left];
     }
 
-    // 4. Quick Sort (O(N log N) Average)
+    // 7. Quick Sort (O(N log N) Average)
     // QuickSort is another divide-and-conquer sorting algorithm. O(N log N) average, but O(N²) worst case.
     public static void quickSort(int[] arr, int low, int high) {
         if (low < high) {
@@ -151,7 +195,7 @@ public class AlgorithmsImpl {
         arr[j] = temp;
     }
 
-    // 5. Graph BFS (O(V + E))
+    // 8. Graph BFS (O(V + E))
     // Uses a queue for level-order traversal.
     public static void bfs(Map<Integer, List<Integer>> graph, int start) {
         Queue<Integer> queue = new LinkedList<>();
@@ -171,7 +215,7 @@ public class AlgorithmsImpl {
         }
     }
 
-    // 6. Graph DFS (O(V + E))
+    // 9. Graph DFS (O(V + E))
     // Recursive depth-first traversal.
     public static void dfs(Map<Integer, List<Integer>> graph, int node, Set<Integer> visited) {
         if (visited.contains(node)) return;
@@ -182,23 +226,7 @@ public class AlgorithmsImpl {
         }
     }
 
-    // 7. Recursive Solution of LCS (Exponential Time - O(2^min(m,n)))
-    // A simple recursive approach tries all possibilities by either including or excluding a character from each string.
-    // Drawback: Overlapping sub-problems → Solving the same sub-problems multiple times.
-    public static int lcsRecursive(String s1, String s2, int m, int n) {
-        // Base Case: If either string is empty
-        if (m == 0 || n == 0) return 0;
-
-        // If last characters match, add 1 and check remaining
-        if (s1.charAt(m - 1) == s2.charAt(n - 1)) {
-            return 1 + lcsRecursive(s1, s2, m - 1, n - 1);
-        } else {
-            // If last characters don't match, take max of excluding either character
-            return Math.max(lcsRecursive(s1, s2, m - 1, n), lcsRecursive(s1, s2, m, n - 1));
-        }
-    }
-
-    // 8. Dynamic Programming (Bottom-Up) Solution of LCS (𝑂(𝑚×𝑛), space complexity can be optimized to O(n) with rolling arrays)
+    // 10. Dynamic Programming (Bottom-Up) Solution of LCS (𝑂(𝑚×𝑛), space complexity can be optimized to O(n) with rolling arrays)
     // To avoid redundant calculations, use a DP table to store already computed results.
     public static int lcsDP(String s1, String s2) {
         int m = s1.length(), n = s2.length();
@@ -217,7 +245,7 @@ public class AlgorithmsImpl {
         return dp[m][n];
     }
 
-    // 9. Backtracking to Print the LCS
+    // 11. Backtracking to Print the LCS
     // To print the actual LCS sequence, backtrack from the DP table.
     public static String findLCS(String s1, String s2) {
         int m = s1.length(), n = s2.length();
