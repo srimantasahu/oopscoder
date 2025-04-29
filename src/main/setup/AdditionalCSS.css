@@ -234,14 +234,72 @@
      border-bottom: none !important;
     /* No border under last comment */
 }
- a.wp-block-latest-comments__comment-author , a.wp-block-latest-comments__comment-link {
+ a.wp-block-latest-comments__comment-author {
      font-size: 14px !important;
      font-weight: 600;
 }
- .widget_recent_comments .comment-excerpt {
-     display: block;
-     font-size: 12px !important;
-     margin-top: 4px !important;
+ a.wp-block-latest-comments__comment-link {
+     font-size: 15px !important;
+     font-weight: 500;
+}
+ .wp-block-latest-comments__comment-date {
+     font-size: 12px;
+     color: #777;
+}
+ .wp-block-latest-comments__comment-excerpt {
+     font-size: 15px;
+     color: #222;
+     line-height: 1.6;
+     margin-top: 8px;
+}
+/* Removed extra padding of 20px around left n right widgets */
+ .widget-area .widget {
+     padding: 18px !important;
+}
+/* Removed extra margin of 50px above article rating */
+ #comments {
+     margin: 0px !important;
+}
+/* Base layout for each comment */
+ .wpd-comment {
+     border: 1px solid #e0e0e0;
+     border-radius: 8px;
+     padding: 15px 20px;
+     margin-bottom: 15px;
+     background-color: #fff;
+     box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+ .wpd-comment-date {
+     font-size: 13px;
+     color: #777;
+     margin-left: 10px;
+}
+/* Comment text */
+ .wpd-comment-text p {
+     font-size: 15px;
+     color: #222;
+     line-height: 1.6;
+     margin-top: 8px;
+}
+/* Reply button */
+ .wpd-reply-button {
+     font-size: 13px;
+     padding: 5px 12px;
+     background-color: #f3f3f3;
+     border-radius: 6px;
+     color: #333;
+     border: none;
+     margin-top: 10px;
+     transition: background-color 0.3s ease;
+}
+ .wpd-reply-button:hover {
+     background-color: #e0e0e0;
+     cursor: pointer;
+}
+/* Threaded replies indent */
+ .wpd-comment.wpd-comment-level-1, .wpd-comment.wpd-comment-level-2, .wpd-comment.wpd-comment-level-3 {
+     margin-left: 25px;
+     background-color: #f9f9f9;
 }
 /* Desktop Layout */
  @media (min-width: 768px) {
