@@ -42,7 +42,6 @@
 }
  a:hover {
      color: #333 !important;
-    ;
     /* Normal dark text */
 }
 /* Use Inter for general text */
@@ -236,42 +235,13 @@
     /* No border under last comment */
 }
  a.wp-block-latest-comments__comment-author , a.wp-block-latest-comments__comment-link {
-     font-size: 15px !important;
-     font-weight: 500;
+     font-size: 14px !important;
+     font-weight: 600;
 }
  .widget_recent_comments .comment-excerpt {
      display: block;
      font-size: 12px !important;
      margin-top: 4px !important;
-}
-/* Shrink comment form & list */
- .comment-list, .comment-respond {
-     padding: 0 !important;
-     margin: 0 0 1em 0 !important;
-    /* Reduce spacing */
-}
-/* Smaller text inputs */
- .comment-form input[type="text"], .comment-form input[type="email"], .comment-form textarea {
-     padding: 8px !important;
-     font-size: 15px !important;
-     width: 100% !important;
-    /* Full-width but compact */
-     max-width: 600px;
-    /* Limit width */
-}
-/* Tiny submit button */
- .comment-form input[type="submit"] {
-     padding: 6px 12px !important;
-     font-size: 15px !important;
-}
-/* Hide labels (optional) */
- .comment-form label {
-     display: none !important;
-}
-/* Nested comments indent */
- .comment-list .children {
-     margin-left: 15px !important;
-    /* Reduce indentation */
 }
 /* Desktop Layout */
  @media (min-width: 768px) {

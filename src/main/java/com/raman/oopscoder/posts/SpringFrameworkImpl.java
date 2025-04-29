@@ -1,13 +1,18 @@
 package com.raman.oopscoder.posts;
 
+public class SpringFrameworkImpl {
+
+
+
+}
+
+/* comments
+
 @Autowired
 private JdbcTemplate jdbcTemplate;
 
 public List<User> findAllUsers() {
     return jdbcTemplate.query("SELECT * FROM users", new BeanPropertyRowMapper<>(User.class));
-}
-
-public class SpringFrameworkImpl {
 }
 
 @Component
@@ -66,4 +71,4 @@ public class SecurityConfig {
         return http.build();
     }
 }
-
+ */
