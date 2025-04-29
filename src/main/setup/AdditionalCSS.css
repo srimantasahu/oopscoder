@@ -34,13 +34,22 @@
      overflow: hidden;
     /* Prevent child content from breaking border */
 }
+ .inside-article {
+     padding: 20px 25px !important;
+}
+/*Optimize Blog Post Width for Readability*/
+ .single-post .inside-article {
+     max-width: 850px;
+     margin: 0 auto;
+}
 /*Remove underline from links*/
- a {
+ a:not(h1 a):not(h2 a):not(h3 a) {
      text-decoration: none !important;
      font-family: 'Inter', sans-serif !important;
      color: #0073aa !important;
+     transition: color 0.3s ease;
 }
- a:hover {
+ a:not(h1 a):not(h2 a):not(h3 a):hover {
      color: #333 !important;
     /* Normal dark text */
 }
@@ -105,12 +114,6 @@
  hr.end-of-content {
      margin-top: 2em;
      margin-bottom: 1em;
-}
-/*Optimize Blog Post Width for Readability*/
- .single-post .inside-article {
-     max-width: 850px;
-     margin: 0 auto;
-     padding: 20px;
 }
 /*Increase Spacing Below TOC Contents*/
  #toc_container, .ez-toc-container, .rank-math-toc {
@@ -254,7 +257,7 @@
 }
 /* Removed extra padding of 20px around left n right widgets */
  .widget-area .widget {
-     padding: 18px !important;
+     padding: 20px 10px !important;
 }
 /* Removed extra margin of 50px above article rating */
  #comments {
