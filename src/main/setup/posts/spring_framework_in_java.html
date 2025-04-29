@@ -52,60 +52,62 @@ app:
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Spring_Framework#Autowiring"><span style="font-family: inherit; font-size: 35px; font-style: inherit;">Essential Spring Annotations</span></a></strong></h3>
-<table class="min-w-full" data-start="338" data-end="1853">
-    <thead data-start="338" data-end="444">
-    <tr data-start="338" data-end="444">
-        <th data-start="338" data-end="365">Annotation</th>
-        <th data-start="365" data-end="444">Description</th>
-    </tr>
-    </thead>
-    <tbody data-start="553" data-end="1853">
-    <tr data-start="553" data-end="712">
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="553" data-end="580"><code data-start="555" data-end="567">@Component</code></td>
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="580" data-end="712">Generic stereotype to mark a class as a Spring-managed bean. Enables automatic detection and registration in the Spring context.</td>
-    </tr>
-    <tr data-start="713" data-end="835">
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="713" data-end="740"><code data-start="715" data-end="725">@Service</code></td>
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="740" data-end="835">Specialized <code data-start="754" data-end="766">@Component</code> for service-layer classes (business logic). Adds semantic clarity.</td>
-    </tr>
-    <tr data-start="836" data-end="952">
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="836" data-end="863"><code data-start="838" data-end="851">@Repository</code></td>
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="863" data-end="952">Specialized <code data-start="877" data-end="889">@Component</code> for data access layer (DAOs). Enables exception translation.</td>
-    </tr>
-    <tr data-start="953" data-end="1059">
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="953" data-end="980"><code data-start="955" data-end="968">@Controller</code></td>
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/3)]" data-start="980" data-end="1059">Declares a class as a Spring MVC controller for handling web requests.</td>
-    </tr>
-    <tr data-start="1060" data-end="1176">
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1060" data-end="1087"><code data-start="1062" data-end="1079">@RestController</code></td>
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="1087" data-end="1176">Combines <code data-start="1098" data-end="1111">@Controller</code> and <code data-start="1116" data-end="1131">@ResponseBody</code> to simplify building RESTful web services.</td>
-    </tr>
-    <tr data-start="1177" data-end="1289">
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1177" data-end="1204"><code data-start="1179" data-end="1191">@Autowired</code></td>
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="1204" data-end="1289">Automatically injects dependencies by type into constructors, setters, or fields.</td>
-    </tr>
-    <tr data-start="1290" data-end="1411">
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1290" data-end="1317"><code data-start="1292" data-end="1304">@Qualifier</code></td>
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="1317" data-end="1411">Helps resolve ambiguity when multiple beans of the same type exist—used with <code data-start="1396" data-end="1408">@Autowired</code>.</td>
-    </tr>
-    <tr data-start="1412" data-end="1526">
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1412" data-end="1439"><code data-start="1414" data-end="1424">@Primary</code></td>
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="1439" data-end="1526">Marks one bean as the default to use during autowiring when multiple options exist.</td>
-    </tr>
-    <tr data-start="1527" data-end="1636">
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1527" data-end="1554"><code data-start="1529" data-end="1553">@ConditionalOnProperty</code></td>
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/3)]" data-start="1554" data-end="1636">Registers a bean only if a specific property exists in the configuration file.</td>
-    </tr>
-    <tr data-start="1637" data-end="1733">
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1637" data-end="1664"><code data-start="1639" data-end="1653">@Conditional</code></td>
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/3)]" data-start="1664" data-end="1733">Registers a bean based on custom logic or environment conditions.</td>
-    </tr>
-    <tr data-start="1734" data-end="1853">
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1734" data-end="1761"><code data-start="1736" data-end="1747">@Provided</code> <em data-start="1748" data-end="1758">(custom)</em></td>
-        <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="1761" data-end="1853">Used in non-Spring DI frameworks or with manual configuration (not part of Spring Core).</td>
-    </tr>
-    </tbody>
-</table>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="min-w-full" data-start="338" data-end="1853">
+        <thead data-start="338" data-end="444">
+        <tr data-start="338" data-end="444">
+            <th data-start="338" data-end="365">Annotation</th>
+            <th data-start="365" data-end="444">Description</th>
+        </tr>
+        </thead>
+        <tbody data-start="553" data-end="1853">
+        <tr data-start="553" data-end="712">
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="553" data-end="580"><code data-start="555" data-end="567">@Component</code></td>
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="580" data-end="712">Generic stereotype to mark a class as a Spring-managed bean. Enables automatic detection and registration in the Spring context.</td>
+        </tr>
+        <tr data-start="713" data-end="835">
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="713" data-end="740"><code data-start="715" data-end="725">@Service</code></td>
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="740" data-end="835">Specialized <code data-start="754" data-end="766">@Component</code> for service-layer classes (business logic). Adds semantic clarity.</td>
+        </tr>
+        <tr data-start="836" data-end="952">
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="836" data-end="863"><code data-start="838" data-end="851">@Repository</code></td>
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="863" data-end="952">Specialized <code data-start="877" data-end="889">@Component</code> for data access layer (DAOs). Enables exception translation.</td>
+        </tr>
+        <tr data-start="953" data-end="1059">
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="953" data-end="980"><code data-start="955" data-end="968">@Controller</code></td>
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/3)]" data-start="980" data-end="1059">Declares a class as a Spring MVC controller for handling web requests.</td>
+        </tr>
+        <tr data-start="1060" data-end="1176">
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1060" data-end="1087"><code data-start="1062" data-end="1079">@RestController</code></td>
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="1087" data-end="1176">Combines <code data-start="1098" data-end="1111">@Controller</code> and <code data-start="1116" data-end="1131">@ResponseBody</code> to simplify building RESTful web services.</td>
+        </tr>
+        <tr data-start="1177" data-end="1289">
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1177" data-end="1204"><code data-start="1179" data-end="1191">@Autowired</code></td>
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="1204" data-end="1289">Automatically injects dependencies by type into constructors, setters, or fields.</td>
+        </tr>
+        <tr data-start="1290" data-end="1411">
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1290" data-end="1317"><code data-start="1292" data-end="1304">@Qualifier</code></td>
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="1317" data-end="1411">Helps resolve ambiguity when multiple beans of the same type exist—used with <code data-start="1396" data-end="1408">@Autowired</code>.</td>
+        </tr>
+        <tr data-start="1412" data-end="1526">
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1412" data-end="1439"><code data-start="1414" data-end="1424">@Primary</code></td>
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="1439" data-end="1526">Marks one bean as the default to use during autowiring when multiple options exist.</td>
+        </tr>
+        <tr data-start="1527" data-end="1636">
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1527" data-end="1554"><code data-start="1529" data-end="1553">@ConditionalOnProperty</code></td>
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/3)]" data-start="1554" data-end="1636">Registers a bean only if a specific property exists in the configuration file.</td>
+        </tr>
+        <tr data-start="1637" data-end="1733">
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1637" data-end="1664"><code data-start="1639" data-end="1653">@Conditional</code></td>
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/3)]" data-start="1664" data-end="1733">Registers a bean based on custom logic or environment conditions.</td>
+        </tr>
+        <tr data-start="1734" data-end="1853">
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1734" data-end="1761"><code data-start="1736" data-end="1747">@Provided</code> <em data-start="1748" data-end="1758">(custom)</em></td>
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="1761" data-end="1853">Used in non-Spring DI frameworks or with manual configuration (not part of Spring Core).</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <hr class="" data-start="733" data-end="736" />
 
@@ -149,34 +151,36 @@ public class OrderService {
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 </strong><a href="https://spring.io/blog/2007/07/11/setter-injection-versus-constructor-injection-and-the-use-of-required"><strong data-start="742" data-end="765"><span style="font-family: inherit; font-size: 35px; font-style: inherit;">Constructor vs Setter vs Field Injection</span></strong></a></h3>
-<table data-pm-slice="3 3 []">
-    <tbody>
-    <tr>
-        <th>Injection Type</th>
-        <th>Use Case</th>
-        <th>Pros</th>
-        <th>Cons</th>
-    </tr>
-    <tr>
-        <td>Constructor</td>
-        <td>Required dependencies</td>
-        <td>Immutable, testable</td>
-        <td>Verbose for many dependencies</td>
-    </tr>
-    <tr>
-        <td>Setter</td>
-        <td>Optional/configurable props</td>
-        <td>Simple to override</td>
-        <td>Risk of partial injection</td>
-    </tr>
-    <tr>
-        <td>Field</td>
-        <td>Convenience</td>
-        <td>Less boilerplate</td>
-        <td>Not recommended for testing</td>
-    </tr>
-    </tbody>
-</table>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table data-pm-slice="3 3 []">
+        <tbody>
+        <tr>
+            <th>Injection Type</th>
+            <th>Use Case</th>
+            <th>Pros</th>
+            <th>Cons</th>
+        </tr>
+        <tr>
+            <td>Constructor</td>
+            <td>Required dependencies</td>
+            <td>Immutable, testable</td>
+            <td>Verbose for many dependencies</td>
+        </tr>
+        <tr>
+            <td>Setter</td>
+            <td>Optional/configurable props</td>
+            <td>Simple to override</td>
+            <td>Risk of partial injection</td>
+        </tr>
+        <tr>
+            <td>Field</td>
+            <td>Convenience</td>
+            <td>Less boilerplate</td>
+            <td>Not recommended for testing</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <hr class="" data-start="733" data-end="736" />
 

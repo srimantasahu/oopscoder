@@ -25,6 +25,26 @@
      flex: 1;
     /* Expands to push footer down */
 }
+/* Add rounded corners to main container boxes */
+ .inside-article, .widget, .gb-container,
+/* For GenerateBlocks containers */
+ .entry-content, .page-header, .pagination {
+     border-radius: 12px;
+    /* Adjust px to your liking */
+     overflow: hidden;
+    /* Prevent child content from breaking border */
+}
+/*Remove underline from links*/
+ a {
+     text-decoration: none !important;
+     font-family: 'Inter', sans-serif !important;
+     color: #0073aa !important;
+}
+ a:hover {
+     color: #333 !important;
+    ;
+    /* Normal dark text */
+}
 /* Use Inter for general text */
  body, p, li, .site {
      font-family: 'Inter', sans-serif !important;
@@ -76,13 +96,16 @@
 /* Headings (optional) */
  h1, h2, h3 {
      font-family: 'Inter', sans-serif;
-     font-weight: 700;
+     font-weight: 600;
      line-height: 1.2;
-     color: #222;
 }
  hr {
-     margin-top: 1em;
+     margin-top: 2em;
      margin-bottom: 3em;
+}
+ hr.end-of-content {
+     margin-top: 2em;
+     margin-bottom: 1em;
 }
 /*Optimize Blog Post Width for Readability*/
  .single-post .inside-article {
@@ -94,10 +117,6 @@
  #toc_container, .ez-toc-container, .rank-math-toc {
      margin-bottom: 45px !important;
     /* Adjust space below TOC */
-}
-/*Remove underline from links*/
- a {
-     text-decoration: none !important;
 }
 /* Wrap tables on small screens */
  .responsive-table {
@@ -128,9 +147,7 @@
      text-align: right;
 }
  .main-navigation .main-nav ul li a {
-     font-family: 'Inter', sans-serif !important;
      font-size: 15px;
-     color: #333333;
      font-weight: 500;
 }
  .main-navigation .main-nav ul.sub-menu {
@@ -144,7 +161,7 @@
      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
  .main-navigation .main-nav .menu > li.current-menu-item > a {
-     color: #005f8c;
+     color: #222 !important;
     /* active/selected menu */
 }
 /*Collapsible directory structure*/
@@ -155,19 +172,13 @@
 /* Menu links */
  .widget_nav_menu li a {
      text-decoration: none;
-     font-family: 'Inter', sans-serif;
      font-size: 15px;
-     color: #333333;
      font-weight: 500;
      display: inline-block;
      padding: 6px 0;
 }
-/* Hover state */
- .widget_nav_menu li a:hover {
-     color: #0073aa;
-}
  .widget_nav_menu li.current-menu-item > a {
-     color: #005f8c;
+     color: #222 !important;
     /* active/selected menu */
 }
 /* Submenu styles */
@@ -183,7 +194,7 @@
 }
 /* Material icon toggle (pointer) */
  .toggle-icon {
-     color: #333;
+     color: #0073aa;
      cursor: pointer;
      display: inline-block;
      font-size: 12px;
@@ -193,7 +204,7 @@
 }
 /* Hover state */
  .toggle-icon:hover {
-     color: #0073aa;
+     color: #333;
 }
 /* Align icon and text properly */
  .menu-item-has-children > .toggle-icon + a {
@@ -204,11 +215,69 @@
  .main-navigation .menu-item-has-children .toggle-icon {
      display: none !important;
 }
+/* Compact Style for Latest Comments Widget */
+ .widget_recent_comments ul {
+     list-style: none;
+     margin: 0;
+     padding: 0;
+}
+ .widget_recent_comments li {
+     margin-bottom: 6px;
+    /* Tighter space between comments */
+     padding: 6px 0;
+     font-size: 15px !important;
+    /* Smaller readable font */
+     line-height: 1.4;
+     border-bottom: 1px solid #f0f0f0 !important;
+    /* Subtle separator line */
+}
+ .widget_recent_comments li:last-child {
+     border-bottom: none !important;
+    /* No border under last comment */
+}
+ a.wp-block-latest-comments__comment-author , a.wp-block-latest-comments__comment-link {
+     font-size: 15px !important;
+     font-weight: 500;
+}
+ .widget_recent_comments .comment-excerpt {
+     display: block;
+     font-size: 12px !important;
+     margin-top: 4px !important;
+}
+/* Shrink comment form & list */
+ .comment-list, .comment-respond {
+     padding: 0 !important;
+     margin: 0 0 1em 0 !important;
+    /* Reduce spacing */
+}
+/* Smaller text inputs */
+ .comment-form input[type="text"], .comment-form input[type="email"], .comment-form textarea {
+     padding: 8px !important;
+     font-size: 15px !important;
+     width: 100% !important;
+    /* Full-width but compact */
+     max-width: 600px;
+    /* Limit width */
+}
+/* Tiny submit button */
+ .comment-form input[type="submit"] {
+     padding: 6px 12px !important;
+     font-size: 15px !important;
+}
+/* Hide labels (optional) */
+ .comment-form label {
+     display: none !important;
+}
+/* Nested comments indent */
+ .comment-list .children {
+     margin-left: 15px !important;
+    /* Reduce indentation */
+}
 /* Desktop Layout */
  @media (min-width: 768px) {
     /* Squeeze Sidebar */
-     .sidebar {
-         width: 18%;
+     #left-sidebar {
+         width: 16%;
         /* Reduce the width of the sidebar */
          font-size: 15px !important;
         /* Adjust size as needed */
@@ -217,23 +286,17 @@
      .content-area {
          flex: 1 !important;
          width: auto !important;
-         max-width: 64% !important;
+         max-width: 66% !important;
+    }
+     #right-sidebar {
+         width: 18%;
+        /* Reduce the width of the sidebar */
+         font-size: 15px !important;
+        /* Adjust size as needed */
     }
 }
 /* Mobile Layout */
  @media (max-width: 767px) {
-    /* Squeeze Sidebar */
-     .sidebar {
-         width: 20%;
-        /* Adjust the width of the sidebar */
-         font-size: 15px !important;
-        /* Adjust size as needed */
-    }
-    /* Main Content Area */
-     .content {
-         width: 60%;
-        /* Content area takes up more space on mobile */
-    }
      .main-navigation .inside-navigation {
          flex-direction: column;
          align-items: end;
