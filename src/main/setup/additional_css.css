@@ -34,8 +34,13 @@
      overflow: hidden;
     /* Prevent child content from breaking border */
 }
+/* Refactored padding of 40px from inside article */
  .inside-article {
-     padding: 20px 25px !important;
+     padding: 20px 30px !important;
+}
+/* Removed extra padding of 20px around left n right widgets */
+ .widget-area .widget {
+     padding: 20px 10px !important;
 }
 /*Optimize Blog Post Width for Readability*/
  .single-post .inside-article {
@@ -43,11 +48,12 @@
      margin: 0 auto;
 }
 /*Remove underline from links*/
+ a {
+		 text-decoration: none !important;
+	 	 font-family: 'Inter', sans-serif !important;
+}
  a:not(h1 a):not(h2 a):not(h3 a) {
-     text-decoration: none !important;
-     font-family: 'Inter', sans-serif !important;
      color: #0073aa !important;
-     transition: color 0.3s ease;
 }
  a:not(h1 a):not(h2 a):not(h3 a):hover {
      color: #333 !important;
@@ -169,7 +175,7 @@
 /*Collapsible directory structure*/
 /* Top-level menu items */
  .widget_nav_menu > div > ul > li {
-     margin-bottom: 5px;
+     margin-bottom: 10px;
 }
 /* Menu links */
  .widget_nav_menu li a {
@@ -177,7 +183,6 @@
      font-size: 15px;
      font-weight: 500;
      display: inline-block;
-     padding: 6px 0;
 }
  .widget_nav_menu li.current-menu-item > a {
      color: #222 !important;
@@ -224,9 +229,9 @@
      padding: 0;
 }
  .widget_recent_comments li {
-     margin-bottom: 6px;
+     margin-bottom: 10px;
     /* Tighter space between comments */
-     padding: 6px 0;
+     padding: 8px 0;
      font-size: 15px !important;
     /* Smaller readable font */
      line-height: 1.4;
@@ -237,8 +242,8 @@
      border-bottom: none !important;
     /* No border under last comment */
 }
- a.wp-block-latest-comments__comment-author {
-     font-size: 14px !important;
+ a.wp-block-latest-comments__comment-author  {
+     font-size: 15px !important;
      font-weight: 600;
 }
  a.wp-block-latest-comments__comment-link {
@@ -250,14 +255,10 @@
      color: #777;
 }
  .wp-block-latest-comments__comment-excerpt {
-     font-size: 15px;
+     font-size: 16px;
      color: #222;
      line-height: 1.6;
-     margin-top: 8px;
-}
-/* Removed extra padding of 20px around left n right widgets */
- .widget-area .widget {
-     padding: 20px 10px !important;
+     margin-top: 6px;
 }
 /* Removed extra margin of 50px above article rating */
  #comments {

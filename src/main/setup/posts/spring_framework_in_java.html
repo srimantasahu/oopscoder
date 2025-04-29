@@ -9,41 +9,50 @@
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://spring.io/projects/spring-boot">Getting Started with Spring Boot</a></strong></h3>
+Spring Boot makes it incredibly easy to bootstrap a new Spring application. Here's how to create a new Spring Boot project using <strong>Spring Initializr</strong>:
+
+<strong>Steps to Create a Spring Boot App:</strong>
 <ul>
-    <li data-pm-slice="1 1 []">Spring Boot makes it incredibly easy to bootstrap a new Spring application. Here's how to create a new Spring Boot project using <strong>Spring Initializr</strong>:</li>
-    <li data-pm-slice="1 1 []"><strong>Steps to Create a Spring Boot App:</strong>
+    <li>Go to <a href="https://start.spring.io">https://start.spring.io</a></li>
+    <li>Choose the following settings:
         <ul>
-            <li>Go to <a href="https://start.spring.io">https://start.spring.io</a></li>
-            <li>Choose the following settings:
-                <ul>
-                    <li><strong>Project</strong>: Maven or Gradle</li>
-                    <li><strong>Language</strong>: Java</li>
-                    <li><strong>Spring Boot version</strong>: Latest stable (e.g., 3.x.x)</li>
-                    <li><strong>Group</strong>: <code>com.example</code></li>
-                    <li><strong>Artifact</strong>: <code>myapp</code></li>
-                    <li><strong>Name</strong>: <code>MyApp</code></li>
-                    <li><strong>Dependencies</strong>: Select (as needed) <code>Spring Web</code>, <code>Spring Data JPA</code>, and <code>Spring Security</code></li>
-                </ul>
-            </li>
-            <li>Click <strong>Generate</strong> to download a <code>.zip</code> file.</li>
-            <li>Unzip and open it in your favorite IDE (e.g., IntelliJ IDEA or Eclipse).</li>
-            <li>Run the application using:</li>
+            <li><strong>Project</strong>: Maven or Gradle</li>
+            <li><strong>Language</strong>: Java</li>
+            <li><strong>Spring Boot version</strong>: Latest stable (e.g., 3.x.x)</li>
+            <li><strong>Group</strong>: <code>com.example</code></li>
+            <li><strong>Artifact</strong>: <code>myapp</code></li>
+            <li><strong>Name</strong>: <code>MyApp</code></li>
+            <li><strong>Packaging</strong>: Jar</li>
+            <li><strong>Java</strong>: Latest version (e.g., 21)</li>
+            <li><strong>Dependencies</strong>: Add <code>Spring Web</code>; (others as needed) <code>Spring Data JPA</code>, <code>Spring Security</code></li>
         </ul>
     </li>
+    <li>Click <strong>Generate</strong> to download a <code>.zip</code> file.</li>
+    <li>Unzip and Run the application directly in command line using:</li>
 </ul>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">./mvnw spring-boot:run</code></pre>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">./mvnw spring-boot:run
+or
+./gradlew bootRun</code></pre>
 <ul>
-    <li>Your Spring Boot application is now up and running! You can visit <code>http://localhost:8080</code> to verify.</li>
+    <li>Also, open and run it in your favorite IDE (e.g., IntelliJ IDEA or Eclipse).</li>
 </ul>
+You can verify the following lines in logs to confirm the application started successfully:
+
+<code>INFO 3638 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8080 (http) with context path '/'
+    INFO 3638 --- [MyApp] [ main] com.example.myapp.MyAppApplication : Started MyAppApplication in 0.598 seconds (process running for 0.72)</code>
+
+Your Spring Boot application is now up and running! You can visit <code>http://localhost:8080</code> to verify.
+
+Press Ctrl+C to stop the server.
 
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Spring_Boot"><span style="font-family: inherit; font-size: 35px; font-style: inherit;">Spring Boot Configuration</span></a></strong></h3>
-<ul data-spread="false">
-    <li>Spring Boot simplifies configuration via <code style="font-size: inherit;">application.properties</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> or </span><code style="font-size: inherit;">application.yml</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span></li>
-    <li>Use <code>@SpringBootConfiguration</code> (meta-annotated on <code>@SpringBootApplication</code>) for bootstrapping custom config classes.</li>
-    <li><strong data-start="798" data-end="810">Example:</strong></li>
-</ul>
+Spring Boot simplifies configuration via <code style="font-size: inherit;">application.properties</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> or </span><code style="font-size: inherit;">application.yml</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span>
+
+Use <code>@SpringBootConfiguration</code> (meta-annotated on <code>@SpringBootApplication</code>) for bootstrapping custom config classes.
+
+<strong data-start="798" data-end="810">Example:</strong>
 <pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">server:
   port: 8081
 app:
@@ -112,28 +121,24 @@ app:
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Inversion_of_control">Inversion of Control (IoC)</a></strong></h3>
-<ul>
-    <li data-pm-slice="1 1 [&quot;list&quot;,{&quot;spread&quot;:false,&quot;start&quot;:604,&quot;end&quot;:816},&quot;regular_list_item&quot;,{&quot;start&quot;:604,&quot;end&quot;:717}]"><strong>IoC</strong> is a design principle where control over object creation and lifecycle is handed over to the framework.</li>
-    <li>
-        <p data-pm-slice="1 1 [&quot;list&quot;,{&quot;spread&quot;:false,&quot;start&quot;:604,&quot;end&quot;:816},&quot;regular_list_item&quot;,{&quot;start&quot;:718,&quot;end&quot;:816}]">Promotes loose coupling and testability by delegating object management to a container (Spring).</p>
-    </li>
-</ul>
+<strong>IoC</strong> is a design principle where control over object creation and lifecycle is handed over to the framework.
+<p data-pm-slice="1 1 [&quot;list&quot;,{&quot;spread&quot;:false,&quot;start&quot;:604,&quot;end&quot;:816},&quot;regular_list_item&quot;,{&quot;start&quot;:718,&quot;end&quot;:816}]">Promotes loose coupling and testability by delegating object management to a container (Spring).</p>
+
 
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection (DI)</a></strong></h3>
+Core of Spring's IoC principle.
+
+Enables injecting dependencies rather than constructing them manually.
+
+<strong>Types of injection:</strong>
 <ul>
-    <li>Core of Spring's IoC principle.</li>
-    <li>Enables injecting dependencies rather than constructing them manually.</li>
-    <li><strong>Types of injection:</strong>
-        <ul>
-            <li><strong>Constructor Injection</strong> – Preferred for required dependencies.</li>
-            <li><strong>Setter Injection</strong> – Useful for optional dependencies.</li>
-            <li><strong>Field Injection</strong> – Concise but harder to test.</li>
-        </ul>
-    </li>
-    <li><strong data-start="798" data-end="810">Example:</strong></li>
+    <li><strong>Constructor Injection</strong> – Preferred for required dependencies.</li>
+    <li><strong>Setter Injection</strong> – Useful for optional dependencies.</li>
+    <li><strong>Field Injection</strong> – Concise but harder to test.</li>
 </ul>
+<strong data-start="798" data-end="810">Example:</strong>
 <div>
     <div>
 <pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Component
@@ -185,30 +190,28 @@ public class OrderService {
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/beans.html">IoC Container &amp; Bean Lifecycle</a></strong></h3>
+Spring's <strong>IoC container</strong> is responsible for managing the lifecycle and configuration of beans.
+
+Main implementations: <code>ApplicationContext</code>, <code>BeanFactory</code>
+
+Bean lifecycle phases:
 <ul>
-    <li data-pm-slice="1 1 [&quot;list&quot;,{&quot;spread&quot;:false,&quot;start&quot;:1426,&quot;end&quot;:1591},&quot;regular_list_item&quot;,{&quot;start&quot;:1426,&quot;end&quot;:1524}]">Spring's <strong>IoC container</strong> is responsible for managing the lifecycle and configuration of beans.</li>
-    <li>Main implementations: <code>ApplicationContext</code>, <code>BeanFactory</code></li>
-    <li>Bean lifecycle phases:
-        <ul>
-            <li>Instantiation</li>
-            <li>Dependency injection</li>
-            <li>Initialization (<code>@PostConstruct</code>, <code>InitializingBean</code>)</li>
-            <li>Destruction (<code>@PreDestroy</code>, <code>DisposableBean</code>)</li>
-        </ul>
-    </li>
-    <li>
-        <p data-pm-slice="1 1 [&quot;list&quot;,{&quot;spread&quot;:false,&quot;start&quot;:1635,&quot;end&quot;:1876},&quot;regular_list_item&quot;,{&quot;start&quot;:1811,&quot;end&quot;:1876}]">Custom lifecycle logic can be hooked using lifecycle callbacks.</p>
-    </li>
+    <li>Instantiation</li>
+    <li>Dependency injection</li>
+    <li>Initialization (<code>@PostConstruct</code>, <code>InitializingBean</code>)</li>
+    <li>Destruction (<code>@PreDestroy</code>, <code>DisposableBean</code>)</li>
 </ul>
+<p data-pm-slice="1 1 [&quot;list&quot;,{&quot;spread&quot;:false,&quot;start&quot;:1635,&quot;end&quot;:1876},&quot;regular_list_item&quot;,{&quot;start&quot;:1811,&quot;end&quot;:1876}]">Custom lifecycle logic can be hooked using lifecycle callbacks.</p>
+
 
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming">Aspect-Oriented Programming (AOP)</a></strong></h3>
-<ul data-spread="false">
-    <li>AOP allows separation of cross-cutting concerns like logging, security, or transactions.</li>
-    <li>Uses annotations like <code>@Aspect</code>, <code>@Before</code>, <code>@After</code>, <code>@Around</code>.</li>
-    <li><strong data-start="798" data-end="810">Example:</strong></li>
-</ul>
+AOP allows separation of cross-cutting concerns like logging, security, or transactions.
+
+Uses annotations like <code>@Aspect</code>, <code>@Before</code>, <code>@After</code>, <code>@Around</code>.
+
+<strong data-start="798" data-end="810">Example:</strong>
 <div>
 <pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Aspect
 @Component
@@ -224,11 +227,11 @@ public class LoggingAspect {
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.spring.io/spring-framework/reference/web/webmvc.html">Spring Web MVC</a></strong></h3>
-<ul data-spread="false">
-    <li>Framework for building REST APIs and web applications.</li>
-    <li>Core annotations: <code>@RestController</code>, <code>@GetMapping</code>, <code>@PostMapping</code></li>
-    <li><strong data-start="798" data-end="810">Example:</strong></li>
-</ul>
+Framework for building REST APIs and web applications.
+
+Core annotations: <code>@RestController</code>, <code>@GetMapping</code>, <code>@PostMapping</code>
+
+<strong data-start="798" data-end="810">Example:</strong>
 <div>
 <pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@RestController
 public class HelloController {
@@ -243,11 +246,11 @@ public class HelloController {
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/message-converters.html">WebMvcConfigurer &amp; Message Converters</a></strong></h3>
-<ul data-spread="false">
-    <li>Customize Spring MVC behavior.</li>
-    <li>Add message converters, interceptors, CORS settings.</li>
-    <li><strong data-start="798" data-end="810">Example:</strong></li>
-</ul>
+Customize Spring MVC behavior.
+
+Add message converters, interceptors, CORS settings.
+
+<strong data-start="798" data-end="810">Example:</strong>
 <div>
 <pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -262,15 +265,13 @@ public class WebConfig implements WebMvcConfigurer {
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html">Spring Validations</a></strong></h3>
+Spring supports JSR-303/JSR-380 Bean Validation via annotations:
 <ul>
-    <li data-pm-slice="1 1 [&quot;list&quot;,{&quot;spread&quot;:false,&quot;start&quot;:4903,&quot;end&quot;:5018},&quot;regular_list_item&quot;,{&quot;start&quot;:4903,&quot;end&quot;:5018}]">Spring supports JSR-303/JSR-380 Bean Validation via annotations:
-        <ul>
-            <li><code>@NotNull</code>, <code>@Email</code>, <code>@Min</code>, <code>@Size</code></li>
-        </ul>
-    </li>
-    <li>Use <code>@Validated</code> and <code>@Valid</code> to trigger validations.</li>
-    <li><strong data-start="798" data-end="810">Example:</strong></li>
+    <li><code>@NotNull</code>, <code>@Email</code>, <code>@Min</code>, <code>@Size</code></li>
 </ul>
+Use <code>@Validated</code> and <code>@Valid</code> to trigger validations.
+
+<strong data-start="798" data-end="810">Example:</strong>
 <div>
 <pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public class User {
     @NotNull
@@ -284,11 +285,11 @@ public class WebConfig implements WebMvcConfigurer {
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html"><span style="font-family: inherit; font-size: 35px; font-style: inherit;">Spring JDBC Template</span></a></strong></h3>
-<ul data-spread="false">
-    <li>Simplifies JDBC operations (query, insert, update).</li>
-    <li>Reduces boilerplate code for database access.</li>
-    <li><strong data-start="798" data-end="810">Example:</strong></li>
-</ul>
+Simplifies JDBC operations (query, insert, update).
+
+Reduces boilerplate code for database access.
+
+<strong data-start="798" data-end="810">Example:</strong>
 <div>
 <pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Autowired
 private JdbcTemplate jdbcTemplate;
@@ -301,11 +302,11 @@ public List&lt;User&gt; findAllUsers() {
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.spring.io/spring-boot/reference/actuator/endpoints.html">Spring Boot Actuators</a></strong></h3>
-<ul data-spread="false">
-    <li>Provides production-ready monitoring and diagnostics.</li>
-    <li>Common endpoints: <code>/actuator/health</code>, <code>/actuator/metrics</code>, <code style="font-size: inherit;">/actuator/info</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span></li>
-    <li><strong data-start="798" data-end="810">Example:</strong></li>
-</ul>
+Provides production-ready monitoring and diagnostics.
+
+Common endpoints: <code>/actuator/health</code>, <code>/actuator/metrics</code>, <code style="font-size: inherit;">/actuator/info</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span>
+
+<strong data-start="798" data-end="810">Example:</strong>
 <pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">management:
   endpoints:
     web:
@@ -315,19 +316,18 @@ public List&lt;User&gt; findAllUsers() {
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://spring.io/projects/spring-security">Spring Security</a></strong></h3>
+Supports authentication and authorization.
+
+Integrates with OAuth2, JWT, session-based auth.
+
+Provides robust security with support for:
 <ul>
-    <li>Supports authentication and authorization.</li>
-    <li>Integrates with OAuth2, JWT, session-based auth.</li>
-    <li>Provides robust security with support for:
-        <ul>
-            <li>Basic/Auth login</li>
-            <li>OAuth2 &amp; JWT</li>
-            <li>Role-based authorization</li>
-            <li>Filter chains</li>
-        </ul>
-    </li>
-    <li><strong data-start="798" data-end="810">Example:</strong></li>
+    <li>Basic/Auth login</li>
+    <li>OAuth2 &amp; JWT</li>
+    <li>Role-based authorization</li>
+    <li>Filter chains</li>
 </ul>
+<strong data-start="798" data-end="810">Example:</strong>
 <div>
 <pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@EnableWebSecurity
 public class SecurityConfig {

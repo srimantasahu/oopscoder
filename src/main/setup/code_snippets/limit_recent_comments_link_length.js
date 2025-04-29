@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let originalText = link.textContent;
         if (originalText.includes(':')) {
             let trimmedText = originalText.split(':')[0]; // Get text before first colon
-            link.textContent = '`' + trimmedText.trim() + '`';
+            link.textContent = trimmedText.trim();
         }
     });
 });

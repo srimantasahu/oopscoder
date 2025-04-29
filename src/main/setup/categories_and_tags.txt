@@ -1,11 +1,11 @@
 ---------------------------------------------Categories----------------------------------------
+algorithms
 architecture
 cloud-computing
+data-structures
 database
 domain-knowledge
 dsa
-    algorithms
-    data-structures
     problem-solving
 java
     concurrency
@@ -26,6 +26,7 @@ uncategorized
 ---------------------------------------------Tags----------------------------------------------
 algorithms
 annotations
+aop
 architecture
 array
 askedininterview
@@ -38,7 +39,6 @@ binarytree
 bits
 blockingqueue
 breadthfirstsearch
-callabletask
 cloud
 collections
 completablefuture
@@ -46,6 +46,7 @@ countdownlatch
 database
 datastructures
 dateandcalendar
+dependencyinjection
 depthfirstsearch
 deque
 designconcepts
@@ -66,6 +67,7 @@ graph
 hard
 hashing
 heap
+inversionofcontrol
 io
 iterable
 java
@@ -88,7 +90,6 @@ medium
 mergesort
 messaging
 misc
-mutex
 nosql
 problems
 problemsolving
@@ -105,12 +106,17 @@ serialisation
 servlets
 set
 sorting
-spring
+springboot
+springbootactuators
+springframework
+springjdbctemplate
+springmvc
+springsecurity
+springvalidations
 sql
 ssl
 stack
 string
-suppliertask
 synchronized
 systemdesign
 threadlocal
