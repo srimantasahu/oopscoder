@@ -24,39 +24,41 @@ Spring Boot makes it incredibly easy to bootstrap a new Spring application. Here
             <li><strong>Name</strong>: <code>MyApp</code></li>
             <li><strong>Packaging</strong>: Jar</li>
             <li><strong>Java</strong>: Latest version (e.g., 21)</li>
-            <li><strong>Dependencies</strong>: Add <code>Spring Web</code>; (others as needed) <code>Spring Data JPA</code>, <code>Spring Security</code></li>
+            <li><strong>Dependencies</strong>: Add <code>Spring Web</code> <span data-preserver-spaces="true">for now. (Others as needed)</span> <code>Spring Data JPA</code>, <code>Spring Security</code>.</li>
         </ul>
     </li>
     <li>Click <strong>Generate</strong> to download a <code>.zip</code> file.</li>
-    <li>Unzip and Run the application directly in command line using:</li>
+    <li>Unzip and Run the application directly in the command line using:</li>
 </ul>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">./mvnw spring-boot:run
+<pre><code class="language-bash">./mvnw spring-boot:run
 or
 ./gradlew bootRun</code></pre>
 <ul>
     <li>Also, open and run it in your favorite IDE (e.g., IntelliJ IDEA or Eclipse).</li>
 </ul>
-You can verify the following lines in logs to confirm the application started successfully:
-
-<code>INFO 3638 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8080 (http) with context path '/'
-    INFO 3638 --- [MyApp] [ main] com.example.myapp.MyAppApplication : Started MyAppApplication in 0.598 seconds (process running for 0.72)</code>
-
+You can verify the following lines in the logs to confirm the application started successfully:
+<pre><code class="language-ini">INFO 3692 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8080 (http) with context path '/'
+INFO 3692 --- [MyApp] [ main] com.example.myapp.MyAppApplication : Started MyAppApplication in 0.792 seconds (process running for 0.975)</code></pre>
 Your Spring Boot application is now up and running! You can visit <code>http://localhost:8080</code> to verify.
 
-Press Ctrl+C to stop the server.
+You will get a <b>Whitelabel Error Page</b> as there are no request mappings yet. Press <code>Ctrl+C</code> to stop the server.
 
 <hr class="" data-start="733" data-end="736" />
 
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Spring_Boot"><span style="font-family: inherit; font-size: 35px; font-style: inherit;">Spring Boot Configuration</span></a></strong></h3>
 Spring Boot simplifies configuration via <code style="font-size: inherit;">application.properties</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> or </span><code style="font-size: inherit;">application.yml</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span>
 
-Use <code>@SpringBootConfiguration</code> (meta-annotated on <code>@SpringBootApplication</code>) for bootstrapping custom config classes.
+Add the below entries to the properties config file and restart the application.
+<pre><code class="language-ini"># Change default port from 8080 to something else
+server.port=8081
+# Set the base context path for the app
+server.servlet.context-path=/myapp</code></pre>
+You should see the updated logs as below:
+<pre><code class="language-bash">INFO 3786 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8081 (http) with context path '/myapp'
+INFO 3786 --- [MyApp] [ main] com.example.myapp.MyAppApplication : Started MyAppApplication in 0.747 seconds (process running for 0.927)</code></pre>
+You can visit <code>http://localhost:8081/myapp</code> to verify the application is up and running!
 
-<strong data-start="798" data-end="810">Example:</strong>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">server:
-  port: 8081
-app:
-  feature-enabled: true</code></pre>
+Use <code>@SpringBootConfiguration</code> (meta-annotated on <code>@SpringBootApplication</code>) for bootstrapping custom config classes.
 
 <hr class="" data-start="733" data-end="736" />
 
@@ -349,4 +351,4 @@ public class SecurityConfig {
 <p data-pm-slice="1 1 []">Spring empowers Java developers to build clean, maintainable, and scalable applications. With features like IoC, AOP, MVC, security, and powerful configuration management, it provides everything needed for full-stack enterprise development. Mastering these core concepts opens the door to productivity, flexibility, and production-grade performance in real-world applications.</p>
 
 
-<hr class="" data-start="733" data-end="736" />
+<hr />
