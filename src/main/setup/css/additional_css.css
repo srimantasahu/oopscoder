@@ -49,15 +49,18 @@
 }
 /*Remove underline from links*/
  a {
-		 text-decoration: none !important;
-	 	 font-family: 'Inter', sans-serif !important;
+     text-decoration: none !important;
+     font-family: 'Inter', sans-serif !important;
 }
  a:not(h1 a):not(h2 a):not(h3 a) {
-     color: #0073aa !important;
+     color: #005a9c !important;
 }
- a:not(h1 a):not(h2 a):not(h3 a):hover {
-     color: #333 !important;
+ a:not(h1 a):not(h2 a):not(h3 a):hover, a:not(h1 a):not(h2 a):not(h3 a):focus {
+     color: #003e6b !important;
     /* Normal dark text */
+}
+ a.read-more, .custom-footer a {
+     text-decoration: underline !important;
 }
 /* Use Inter for general text */
  body, p, li, .site {
@@ -169,7 +172,7 @@
      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
  .main-navigation .main-nav .menu > li.current-menu-item > a {
-     color: #222 !important;
+     color: #003e6b !important;
     /* active/selected menu */
 }
 /*Collapsible directory structure*/
@@ -185,7 +188,7 @@
      display: inline-block;
 }
  .widget_nav_menu li.current-menu-item > a {
-     color: #222 !important;
+     color: #003e6b !important;
     /* active/selected menu */
 }
 /* Submenu styles */
@@ -201,7 +204,7 @@
 }
 /* Material icon toggle (pointer) */
  .toggle-icon {
-     color: #0073aa;
+     color: #005a9c;
      cursor: pointer;
      display: inline-block;
      font-size: 12px;
@@ -242,7 +245,7 @@
      border-bottom: none !important;
     /* No border under last comment */
 }
- a.wp-block-latest-comments__comment-author  {
+ a.wp-block-latest-comments__comment-author {
      font-size: 15px !important;
      font-weight: 600;
 }
@@ -252,7 +255,7 @@
 }
  .wp-block-latest-comments__comment-date {
      font-size: 12px;
-     color: #777;
+     color: #666;
 }
  .wp-block-latest-comments__comment-excerpt {
      font-size: 16px;
@@ -275,7 +278,7 @@
 }
  .wpd-comment-date {
      font-size: 13px;
-     color: #777;
+     color: #666;
      margin-left: 10px;
 }
 /* Comment text */
@@ -305,11 +308,21 @@
      margin-left: 25px;
      background-color: #f9f9f9;
 }
+/* Fix: Touch targets do not have sufficient size or spacing */
+ .cat-links a, .tags-links a {
+     display: inline-block;
+     padding: 4px;
+     margin: 4px 6px 4px 0;
+     font-size: 14px;
+     line-height: 1.4;
+     border-radius: 4px;
+     background-color: #f0f4f8;
+}
 /* Desktop Layout */
  @media (min-width: 768px) {
     /* Squeeze Sidebar */
      #left-sidebar {
-         width: 16%;
+         width: 14%;
         /* Reduce the width of the sidebar */
          font-size: 15px !important;
         /* Adjust size as needed */
@@ -318,7 +331,7 @@
      .content-area {
          flex: 1 !important;
          width: auto !important;
-         max-width: 66% !important;
+         max-width: 68% !important;
     }
      #right-sidebar {
          width: 18%;
@@ -336,7 +349,7 @@
      .main-navigation .main-nav {
          margin-left: 0;
          text-align: center;
-         background-color: #F8F9FA;
+         background-color: #f0f4f8;
         /* Light gray background */
     }
      .main-navigation .main-nav ul.sub-menu {
@@ -356,3 +369,4 @@
         /* Ensures the table remains readable */
     }
 }
+ 
