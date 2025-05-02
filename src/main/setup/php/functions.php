@@ -38,7 +38,7 @@ if ( ! function_exists( 'generate_setup' ) ) {
 	function custom_generatepress_footer() {
         ?>
         <div class="custom-footer">
-            © <?php echo date('Y'); ?> OopsCoder.com • All rights reserved • <a href="/privacy-policy">Privacy</a>
+            © <?php echo date('Y'); ?> OopsCoder • All rights reserved • <a href="/privacy-policy">Privacy Policy</a>
         </div>
         <?php
     }

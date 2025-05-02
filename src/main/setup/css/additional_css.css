@@ -1,6 +1,6 @@
 /*Header, Logo, and Footer*/
  .site-header {
-     max-height: 80px;
+     max-height: 85px;
 }
  .site-logo img {
      max-width: 250px !important;
@@ -8,10 +8,10 @@
      height: auto !important;
 }
  .inside-header {
-     padding: 2px;
+     padding: 10px;
 }
  .inside-site-info {
-     padding: 10px;
+     padding: 15px;
 }
 /* Ensure full height */
  html, body {
@@ -161,13 +161,14 @@
  .main-navigation .main-nav ul li a {
      font-size: 15px;
      font-weight: 500;
+     min-width: 120px;
 }
  .main-navigation .main-nav ul.sub-menu {
      min-width: 120px;
     /* You can reduce this */
-     max-width: 150px;
+     max-width: 120px;
      text-align: center;
-     padding: 12px 16px;
+     padding: 2px 6px;
      width: auto;
      background-color: #f9f9f9;
      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -177,10 +178,6 @@
     /* active/selected menu */
 }
 /*Collapsible directory structure*/
-/* Top-level menu items */
- .widget_nav_menu > div > ul > li {
-     margin-bottom: 10px;
-}
 /* Menu links */
  .widget_nav_menu li a {
      text-decoration: none;
@@ -197,7 +194,7 @@
      display: none;
      margin-left: 15px;
      border-left: 2px solid #eee;
-     padding-left: 10px;
+     padding-left: 20px;
 }
 /* Open submenu */
  .widget_nav_menu ul ul.open {
@@ -208,7 +205,7 @@
      color: #005a9c;
      cursor: pointer;
      display: inline-block;
-     font-size: 12px;
+     font-size: 14px;
      margin-right: 4px;
      vertical-align: middle;
      transition: transform 0.2s ease;
@@ -320,7 +317,7 @@
      background-color: #f0f4f8;
 }
 /* Desktop Layout */
- @media (min-width: 768px) {
+ @media (min-width: 769px) {
     /* Squeeze Sidebar */
      #left-sidebar {
          width: 14%;
@@ -340,9 +337,14 @@
          font-size: 15px !important;
         /* Adjust size as needed */
     }
+    /* Top-level menu items */
+     .widget_nav_menu > div > ul > li {
+         margin-bottom: 10px;
+         margin-left: 10px;
+    }
 }
 /* Mobile Layout */
- @media (max-width: 767px) {
+ @media (max-width: 768px) {
      .main-navigation .inside-navigation {
          flex-direction: column;
          align-items: end;
@@ -360,6 +362,14 @@
      .main-navigation .main-nav ul.sub-menu li a {
          text-align: center;
          padding: 12px 16px;
+    }
+     .has-inline-mobile-toggle #site-navigation.toggled {
+         margin-top: 0px;
+    }
+    /* Top-level menu items */
+     .widget_nav_menu > div > ul > li {
+         margin-bottom: 10px;
+         margin-left: 20px;
     }
      .responsive-table {
          overflow-x: auto;
