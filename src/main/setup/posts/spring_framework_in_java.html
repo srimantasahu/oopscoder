@@ -37,7 +37,7 @@ or
     <li>Also, open and run it in your favorite IDE (e.g., IntelliJ IDEA or Eclipse).</li>
 </ul>
 You can verify the following lines in the logs to confirm the application started successfully:
-<pre><code class="language-ini">INFO 3692 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8080 (http) with context path '/'
+<pre><code class="language-bash">INFO 3692 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8080 (http) with context path '/'
 INFO 3692 --- [MyApp] [ main] com.example.myapp.MyAppApplication : Started MyAppApplication in 0.792 seconds (process running for 0.975)</code></pre>
 Your Spring Boot application is now up and running! You can visit <code>http://localhost:8080</code> to verify.
 
@@ -49,7 +49,7 @@ You will get a <b>Whitelabel Error Page</b> as there are no request mappings yet
 Spring Boot simplifies configuration via <code style="font-size: inherit;">application.properties</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> or </span><code style="font-size: inherit;">application.yml</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span>
 
 Add the below entries to the properties config file and restart the application.
-<pre><code class="language-ini"># Change default port from 8080 to something else
+<pre><code class="language-bash"># Change default port from 8080 to something else
 server.port=8081
 # Set the base context path for the app
 server.servlet.context-path=/myapp</code></pre>
@@ -141,18 +141,71 @@ Enables injecting dependencies rather than constructing them manually.
     <li><strong>Field Injection</strong> – Concise but harder to test.</li>
 </ul>
 <strong data-start="798" data-end="810">Example:</strong>
+
+<code data-start="295" data-end="301">User</code>
+<div>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public class User {
+
+    private String username;
+    private String email;
+    private String password;
+
+    // Getters
+    public String getUsername() {
+        return username;
+    }
+}</code></pre>
+</div>
+<code data-start="790" data-end="803">UserService</code>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Component
-public class OrderService {
-    private final PaymentService paymentService;
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Service
+public class UserService {
 
-    @Autowired    // Constructor injection (preferred)
-    public OrderService(PaymentService paymentService) {
-        this.paymentService = paymentService;
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
+    public void registerUser(User user) {
+        // You can connect this to a repository or database
+        logger.info("User registered: {}", user.getUsername());
     }
 }</code></pre>
     </div>
+</div>
+<code data-start="1098" data-end="1114">UserController</code>
+<div>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@RestController
+@RequestMapping("/api/users")
+public class UserController {
+
+    @Autowired  // Field injection
+    private UserService userService;
+
+    /*
+    @Autowired  // constructor injection (recommended)
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+    */
+
+    @PostMapping("/register")
+    public ResponseEntity&lt;?&gt; registerUser(@RequestBody User user) {
+        userService.registerUser(user);
+        return ResponseEntity.ok("User registered successfully");
+    }
+}</code></pre>
+</div>
+<div>
+
+    Sample cURL Test
+    <pre><code class="language-bash">curl -X POST http://localhost:8081/myapp/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+"username": "srimanta",
+"email": "srimanta@xmail.com",
+"password": "srimanta@123"
+}'</code></pre>
+    Response
+    <pre><code class="language-bash">User registered successfully</code></pre>
 </div>
 
 <hr class="" data-start="733" data-end="736" />
@@ -213,17 +266,49 @@ AOP allows separation of cross-cutting concerns like logging, security, or trans
 
 Uses annotations like <code>@Aspect</code>, <code>@Before</code>, <code>@After</code>, <code>@Around</code>.
 
+If you're using <strong data-start="402" data-end="411">Maven</strong>, add this to your <code data-start="430" data-end="439">pom.xml</code> dependencies:
+<div>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-aop&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">For <strong>Gradle</strong>, add to your <code data-start="430" data-end="439">build.gradle</code> file:</span>
+
+<code data-start="596" data-end="663">implementation 'org.springframework.boot:spring-boot-starter-aop'</code>
+
 <strong data-start="798" data-end="810">Example:</strong>
 <div>
+    <div>
 <pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Aspect
 @Component
 public class LoggingAspect {
 
-    @Before("execution(* com.example.service.*.*(..))")
-    public void logBefore() {
-        System.out.println("Method execution started");
+    private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
+
+    @Before("execution(* com.example.myapp.controller.*.*(..))")
+    public void logBefore(JoinPoint joinPoint) {
+        logger.info("Entering method: {}", joinPoint.getSignature().toShortString());
+    }
+
+    @AfterReturning(pointcut = "execution(* com.example.myapp.controller.*.*(..))", returning = "result")
+    public void logAfter(JoinPoint joinPoint, Object result) {
+        logger.info("Exiting method: {} with result = {}", joinPoint.getSignature().getName(), result);
     }
 }</code></pre>
+    </div>
+    Re-run the sample cURL test, and you can see the logging aspects being logged in the console.
+    <pre><code class="language-bash">INFO 5706 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
+INFO 5706 --- [MyApp] [nio-8081-exec-1] com.example.myapp.service.UserService : User registered: srimanta
+INFO 5706 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = &lt;200 OK OK,User registered successfully,[]&gt;</code></pre>
+    Breakdown of the <code data-start="492" data-end="508">execution(* com.example.myapp.controller.*.*(..))</code> expression:
+    <ul>
+        <li><code data-start="611" data-end="614">*</code>: Any return type.</li>
+        <li data-start="635" data-end="705"><code data-start="635" data-end="667">com.example.myapp.controller.*</code>: Any class in the controller package.</li>
+        <li data-start="708" data-end="764"><code data-start="708" data-end="716">.*(..)</code>: Any method with any number/type of parameters.</li>
+    </ul>
+    <strong data-start="727" data-end="739">Use Case:</strong> Great for logging entry into controller methods, auth checks, or input validation.
+
 </div>
 
 <hr class="" data-start="733" data-end="736" />
@@ -231,18 +316,120 @@ public class LoggingAspect {
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.spring.io/spring-framework/reference/web/webmvc.html">Spring Web MVC</a></strong></h3>
 Framework for building REST APIs and web applications.
 
-Core annotations: <code>@RestController</code>, <code>@GetMapping</code>, <code>@PostMapping</code>
+Core annotations: <code>@RestController</code>, <code>@PostMapping</code>, <code>@GetMapping</code>, <code data-start="214" data-end="229">@RequestBody</code>, <code data-start="214" data-end="229">@RequestParam</code>, <code data-start="234" data-end="249">@PathVariable</code>
 
 <strong data-start="798" data-end="810">Example:</strong>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@RestController
-public class HelloController {
 
-    @GetMapping("/hello")
-    public String greet() {
-        return "Hello, Spring!";
+    <code data-start="264" data-end="273">UserDTO</code> (data transfer object)
+    <div>
+        <div>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public class UserDTO {
+
+    private String username;
+    private String email;
+    private String password;
+
+    // Getters and Setters
+    public String getUsername() {
+        return username;
     }
 }</code></pre>
+        </div>
+    </div>
+    <code data-start="580" data-end="598">UserService</code> (business logic)
+    <div>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Service
+public class UserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
+    // Dummy in-memory storage
+    private final Map&lt;String, UserDTO&gt; userStore = new HashMap&lt;&gt;();
+
+    public String registerUser(UserDTO userDTO) {
+        userStore.put(userDTO.getUsername(), userDTO);
+        logger.info("User registered: {}", userDTO.getUsername());
+        return "User '" + userDTO.getUsername() + "' registered successfully!";
+    }
+
+    public UserDTO findByUsername(String username) {
+        logger.info("Finding by username: {}", username);
+        return userStore.get(username);
+    }
+}</code></pre>
+    </div>
+    <code data-start="1510" data-end="1531">UserController</code> (uses <code data-start="1538" data-end="1551">UserService</code>)
+    <div>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@RestController
+@RequestMapping("/api/users")
+public class UserController {
+
+    @Autowired  // Field injection
+    private UserService userService;
+
+    /*
+    @Autowired  // constructor injection (recommended)
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+    */
+
+    /**
+     * Register a new user via POST
+     * Example: POST /api/users/register
+     */
+    @PostMapping("/register")
+    public String registerUser(@RequestBody UserDTO userDTO) {
+        return userService.registerUser(userDTO);
+    }
+
+    /**
+     * Get user by query param
+     * Example: GET /api/users/find?username=srimanta
+     */
+    @GetMapping("/find")
+    public UserDTO getUserByQueryParam(@RequestParam String username) {
+        return userService.findByUsername(username);
+    }
+
+    /**
+     * Get user by path variable
+     * Example: GET /api/users/srimanta
+     */
+    @GetMapping("/{username}")
+    public UserDTO getUserByPath(@PathVariable String username) {
+        return userService.findByUsername(username);
+    }
+}</code></pre>
+    </div>
+    Sample cURL Test
+    <pre><code class="language-bash">myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+"username": "srimanta",
+"email": "srimanta@xmail.com",
+"password": "srimanta@123"
+}'
+User 'srimanta' registered successfully!%
+myapp %
+myapp % curl -X GET "http://localhost:8081/myapp/api/users/find?username=srimanta"
+{"username":"srimanta"}%
+myapp %
+myapp % curl http://localhost:8081/myapp/api/users/srimanta
+{"username":"srimanta"}%
+myapp %</code></pre>
+    Sample console logs
+    <pre><code class="language-bash">INFO 1401 --- [MyApp] [nio-8081-exec-9] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
+INFO 1401 --- [MyApp] [nio-8081-exec-9] com.example.myapp.service.UserService : User registered: srimanta
+INFO 1401 --- [MyApp] [nio-8081-exec-9] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = User 'srimanta' registered successfully!
+INFO 1401 --- [MyApp] [io-8081-exec-10] c.example.myapp.component.LoggingAspect : Entering method: UserController.getUserByQueryParam(..)
+INFO 1401 --- [MyApp] [io-8081-exec-10] com.example.myapp.service.UserService : Finding by username: srimanta
+INFO 1401 --- [MyApp] [io-8081-exec-10] c.example.myapp.component.LoggingAspect : Exiting method: getUserByQueryParam with result = com.example.myapp.dto.UserDTO@1ea2e9e1
+INFO 1401 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Entering method: UserController.getUserByPath(..)
+INFO 1401 --- [MyApp] [nio-8081-exec-2] com.example.myapp.service.UserService : Finding by username: srimanta
+INFO 1401 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Exiting method: getUserByPath with result = com.example.myapp.dto.UserDTO@1ea2e9e1
+</code></pre>
 </div>
 
 <hr class="" data-start="733" data-end="736" />
@@ -252,16 +439,144 @@ Customize Spring MVC behavior.
 
 Add message converters, interceptors, CORS settings.
 
-<strong data-start="798" data-end="810">Example:</strong>
+If you're using <strong data-start="402" data-end="411">Maven</strong>, add this to your <code data-start="430" data-end="439">pom.xml</code> dependencies:
 <div>
+    <div>
+<pre><code class="language-xml">&lt;!-- JSON (comes with Spring Boot Starter Web) --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+&lt;!-- XML support --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.dataformat&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-dataformat-xml&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+    </div>
+</div>
+<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">For <strong>Gradle</strong>, add to your <code data-start="430" data-end="439">build.gradle</code> file:</span>
+
+<code data-start="596" data-end="663">implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'</code>
+
+<strong data-start="798" data-end="810">Example:</strong>
+<div>UserDTO class (with Jackson annotations for better XML)
+    <div>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@JacksonXmlRootElement(localName = "user")
+public class UserDTO {
+
+    @JsonProperty("username")
+    private String username;
+
+    @JsonProperty("email")
+    private String email;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+
+    // Constructors
+    public UserDTO() {}
+
+    public UserDTO(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    // Getters and Setters
+    public String getUsername() {
+        return username;
+    }
+}</code></pre>
+    </div>
+    WebMvcConfigurer Configuration
+    <div>
 <pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
-    public void configureMessageConverters(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters) {
-        converters.add(new MappingJackson2HttpMessageConverter());
+    public void extendMessageConverters(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters) {
+        // JSON converter
+        converters.add(new MappingJackson2HttpMessageConverter(new ObjectMapper()));
+
+        // XML converter
+        converters.add(new MappingJackson2XmlHttpMessageConverter(new XmlMapper()));
     }
 }</code></pre>
+    </div>
+    Controller
+    <div>
+<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@RestController
+@RequestMapping("/api/users")
+public class UserController {
+
+    @Autowired  // Field injection
+    private UserService userService;
+
+    /*
+    @Autowired  // constructor injection (recommended)
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+    */
+
+    /**
+     * Register a new user via POST
+     * Example: POST /api/users/register
+     */
+    @PostMapping("/register")
+    public String registerUser(@RequestBody UserDTO userDTO) {
+        return userService.registerUser(userDTO);
+    }
+
+    /**
+     * Get user by query param
+     * Example: GET /api/users/find?username=srimanta
+     */
+    @GetMapping("/find")
+    public UserDTO getUserByQueryParam(@RequestParam String username) {
+        return userService.findByUsername(username);
+    }
+
+    /**
+     * Get user by path variable
+     * Example: GET /api/users/srimanta
+     */
+    @GetMapping(value = "/{username}", produces = { "application/json", "application/xml" })
+    public UserDTO getUserByPath(@PathVariable String username) {
+        return userService.findByUsername(username);
+    }
+}</code></pre>
+    </div>
+    Sample cURL Test
+    <pre><code class="language-bash">myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+"username": "srimanta",
+"email": "srimanta@xmail.com",
+"password": "srimanta@123"
+}'
+User 'srimanta' registered successfully!%
+myapp %
+myapp % curl http://localhost:8081/myapp/api/users/srimanta
+{"username":"srimanta","email":"srimanta@xmail.com"}%
+myapp %
+myapp % curl http://localhost:8081/myapp/api/users/srimanta \
+-H "Accept: application/xml"
+&lt;user&gt;&lt;username&gt;srimanta&lt;/username&gt;&lt;email&gt;srimanta@xmail.com&lt;/email&gt;&lt;/user&gt;%
+myapp %</code></pre>
+    Sample console logs
+    <pre><code class="language-bash">INFO 4036 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
+INFO 4036 --- [MyApp] [nio-8081-exec-1] com.example.myapp.service.UserService : User registered: srimanta
+INFO 4036 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = User 'srimanta' registered successfully!
+INFO 4036 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Entering method: UserController.getUserByPath(..)
+INFO 4036 --- [MyApp] [nio-8081-exec-2] com.example.myapp.service.UserService : Finding by username: srimanta
+INFO 4036 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Exiting method: getUserByPath with result = com.example.myapp.dto.UserDTO@3358f29a
+INFO 4036 --- [MyApp] [nio-8081-exec-4] c.example.myapp.component.LoggingAspect : Entering method: UserController.getUserByPath(..)
+INFO 4036 --- [MyApp] [nio-8081-exec-4] com.example.myapp.service.UserService : Finding by username: srimanta
+INFO 4036 --- [MyApp] [nio-8081-exec-4] c.example.myapp.component.LoggingAspect : Exiting method: getUserByPath with result = com.example.myapp.dto.UserDTO@3358f29a
+</code></pre>
 </div>
 
 <hr class="" data-start="733" data-end="736" />

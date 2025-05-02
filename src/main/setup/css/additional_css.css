@@ -1,12 +1,17 @@
-/*Header and Logo*/
+/*Header, Logo, and Footer*/
  .site-header {
-     max-height: 81px !important;
-    /* Adjust header height */
+     max-height: 80px;
 }
  .site-logo img {
      max-width: 250px !important;
     /* Adjust the size as needed */
      height: auto !important;
+}
+ .inside-header {
+     padding: 2px;
+}
+ .inside-site-info {
+     padding: 10px;
 }
 /* Ensure full height */
  html, body {
