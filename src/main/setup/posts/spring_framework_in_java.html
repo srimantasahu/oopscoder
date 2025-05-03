@@ -30,14 +30,14 @@ Spring Boot makes it incredibly easy to bootstrap a new Spring application. Here
     <li>Click <strong>Generate</strong> to download a <code>.zip</code> file.</li>
     <li>Unzip and Run the application directly in the command line using:</li>
 </ul>
-<pre><code class="language-bash">./mvnw spring-boot:run
+<pre><code class="language-bash line-numbers">./mvnw spring-boot:run
 or
 ./gradlew bootRun</code></pre>
 <ul>
     <li>Also, open and run it in your favorite IDE (e.g., IntelliJ IDEA or Eclipse).</li>
 </ul>
 You can verify the following lines in the logs to confirm the application started successfully:
-<pre><code class="language-bash">INFO 3692 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8080 (http) with context path '/'
+<pre><code class="language-bash line-numbers">INFO 3692 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8080 (http) with context path '/'
 INFO 3692 --- [MyApp] [ main] com.example.myapp.MyAppApplication : Started MyAppApplication in 0.792 seconds (process running for 0.975)</code></pre>
 Your Spring Boot application is now up and running! You can visit <code>http://localhost:8080</code> to verify.
 
@@ -49,12 +49,12 @@ You will get a <b>Whitelabel Error Page</b> as there are no request mappings yet
 Spring Boot simplifies configuration via <code style="font-size: inherit;">application.properties</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> or </span><code style="font-size: inherit;">application.yml</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span>
 
 Add the below entries to the properties config file and restart the application.
-<pre><code class="language-bash"># Change default port from 8080 to something else
+<pre><code class="language-bash line-numbers"># Change default port from 8080 to something else
 server.port=8081
 # Set the base context path for the app
 server.servlet.context-path=/myapp</code></pre>
 You should see the updated logs as below:
-<pre><code class="language-bash">INFO 3786 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8081 (http) with context path '/myapp'
+<pre><code class="language-bash line-numbers">INFO 3786 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8081 (http) with context path '/myapp'
 INFO 3786 --- [MyApp] [ main] com.example.myapp.MyAppApplication : Started MyAppApplication in 0.747 seconds (process running for 0.927)</code></pre>
 You can visit <code>http://localhost:8081/myapp</code> to verify the application is up and running!
 
@@ -144,7 +144,7 @@ Enables injecting dependencies rather than constructing them manually.
 
 <code data-start="295" data-end="301">User</code>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public class User {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class User {
 
     private String username;
     private String email;
@@ -159,7 +159,7 @@ Enables injecting dependencies rather than constructing them manually.
 <code data-start="790" data-end="803">UserService</code>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Service
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Service
 public class UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
@@ -173,7 +173,7 @@ public class UserService {
 </div>
 <code data-start="1098" data-end="1114">UserController</code>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@RestController
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestController
 @RequestMapping("/api/users")
 public class UserController {
 
@@ -197,7 +197,7 @@ public class UserController {
 <div>
 
     Sample cURL Test
-    <pre><code class="language-bash">curl -X POST http://localhost:8081/myapp/api/users/register \
+    <pre><code class="language-bash line-numbers">curl -X POST http://localhost:8081/myapp/api/users/register \
 -H "Content-Type: application/json" \
 -d '{
 "username": "srimanta",
@@ -205,7 +205,7 @@ public class UserController {
 "password": "srimanta@123"
 }'</code></pre>
     Response
-    <pre><code class="language-bash">User registered successfully</code></pre>
+    <pre><code class="language-bash line-numbers">User registered successfully</code></pre>
 </div>
 
 <hr class="" data-start="733" data-end="736" />
@@ -268,19 +268,17 @@ Uses annotations like <code>@Aspect</code>, <code>@Before</code>, <code>@After</
 
 If you're using <strong data-start="402" data-end="411">Maven</strong>, add this to your <code data-start="430" data-end="439">pom.xml</code> dependencies:
 <div>
-<pre><code class="language-xml">&lt;dependency&gt;
+<pre><code class="language-xml line-numbers">&lt;dependency&gt;
     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
     &lt;artifactId&gt;spring-boot-starter-aop&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 <span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">For <strong>Gradle</strong>, add to your <code data-start="430" data-end="439">build.gradle</code> file:</span>
-
-<code data-start="596" data-end="663">implementation 'org.springframework.boot:spring-boot-starter-aop'</code>
-
+<pre><code class="language-groovy line-numbers">implementation 'org.springframework.boot:spring-boot-starter-aop'</code></pre>
 <strong data-start="798" data-end="810">Example:</strong>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Aspect
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Aspect
 @Component
 public class LoggingAspect {
 
@@ -298,7 +296,7 @@ public class LoggingAspect {
 }</code></pre>
     </div>
     Re-run the sample cURL test, and you can see the logging aspects being logged in the console.
-    <pre><code class="language-bash">INFO 5706 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
+    <pre><code class="language-bash line-numbers">INFO 5706 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
 INFO 5706 --- [MyApp] [nio-8081-exec-1] com.example.myapp.service.UserService : User registered: srimanta
 INFO 5706 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = &lt;200 OK OK,User registered successfully,[]&gt;</code></pre>
     Breakdown of the <code data-start="492" data-end="508">execution(* com.example.myapp.controller.*.*(..))</code> expression:
@@ -324,7 +322,7 @@ Core annotations: <code>@RestController</code>, <code>@PostMapping</code>, <code
     <code data-start="264" data-end="273">UserDTO</code> (data transfer object)
     <div>
         <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public class UserDTO {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class UserDTO {
 
     private String username;
     private String email;
@@ -339,7 +337,7 @@ Core annotations: <code>@RestController</code>, <code>@PostMapping</code>, <code
     </div>
     <code data-start="580" data-end="598">UserService</code> (business logic)
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Service
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Service
 public class UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
@@ -361,7 +359,7 @@ public class UserService {
     </div>
     <code data-start="1510" data-end="1531">UserController</code> (uses <code data-start="1538" data-end="1551">UserService</code>)
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@RestController
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestController
 @RequestMapping("/api/users")
 public class UserController {
 
@@ -404,7 +402,7 @@ public class UserController {
 }</code></pre>
     </div>
     Sample cURL Test
-    <pre><code class="language-bash">myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
+    <pre><code class="language-bash line-numbers">myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
 -H "Content-Type: application/json" \
 -d '{
 "username": "srimanta",
@@ -420,7 +418,7 @@ myapp % curl http://localhost:8081/myapp/api/users/srimanta
 {"username":"srimanta"}%
 myapp %</code></pre>
     Sample console logs
-    <pre><code class="language-bash">INFO 1401 --- [MyApp] [nio-8081-exec-9] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
+    <pre><code class="language-bash line-numbers">INFO 1401 --- [MyApp] [nio-8081-exec-9] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
 INFO 1401 --- [MyApp] [nio-8081-exec-9] com.example.myapp.service.UserService : User registered: srimanta
 INFO 1401 --- [MyApp] [nio-8081-exec-9] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = User 'srimanta' registered successfully!
 INFO 1401 --- [MyApp] [io-8081-exec-10] c.example.myapp.component.LoggingAspect : Entering method: UserController.getUserByQueryParam(..)
@@ -442,7 +440,7 @@ Add message converters, interceptors, CORS settings.
 If you're using <strong data-start="402" data-end="411">Maven</strong>, add this to your <code data-start="430" data-end="439">pom.xml</code> dependencies:
 <div>
     <div>
-<pre><code class="language-xml">&lt;!-- JSON (comes with Spring Boot Starter Web) --&gt;
+<pre><code class="language-xml line-numbers">&lt;!-- JSON (comes with Spring Boot Starter Web) --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
     &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
@@ -456,14 +454,14 @@ If you're using <strong data-start="402" data-end="411">Maven</strong>, add this
     </div>
 </div>
 <span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">For <strong>Gradle</strong>, add to your <code data-start="430" data-end="439">build.gradle</code> file:</span>
-
-<code data-start="596" data-end="663">implementation 'com.fasterxml.jackson.core:jackson-databind'
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'</code>
-
+<pre><code class="language-groovy line-numbers">implementation 'com.fasterxml.jackson.core:jackson-databind'
+implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'</code></pre>
 <strong data-start="798" data-end="810">Example:</strong>
-<div>UserDTO class (with Jackson annotations for better XML)
+<div>
+
+    UserDTO class (with Jackson annotations for better XML)
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@JacksonXmlRootElement(localName = "user")
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@JacksonXmlRootElement(localName = "user")
 public class UserDTO {
 
     @JsonProperty("username")
@@ -492,7 +490,7 @@ public class UserDTO {
     </div>
     WebMvcConfigurer Configuration
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Configuration
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
@@ -507,7 +505,7 @@ public class WebConfig implements WebMvcConfigurer {
     </div>
     Controller
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@RestController
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestController
 @RequestMapping("/api/users")
 public class UserController {
 
@@ -550,7 +548,7 @@ public class UserController {
 }</code></pre>
     </div>
     Sample cURL Test
-    <pre><code class="language-bash">myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
+    <pre><code class="language-bash line-numbers">myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
 -H "Content-Type: application/json" \
 -d '{
 "username": "srimanta",
@@ -567,7 +565,7 @@ myapp % curl http://localhost:8081/myapp/api/users/srimanta \
 &lt;user&gt;&lt;username&gt;srimanta&lt;/username&gt;&lt;email&gt;srimanta@xmail.com&lt;/email&gt;&lt;/user&gt;%
 myapp %</code></pre>
     Sample console logs
-    <pre><code class="language-bash">INFO 4036 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
+    <pre><code class="language-bash line-numbers">INFO 4036 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
 INFO 4036 --- [MyApp] [nio-8081-exec-1] com.example.myapp.service.UserService : User registered: srimanta
 INFO 4036 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = User 'srimanta' registered successfully!
 INFO 4036 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Entering method: UserController.getUserByPath(..)
@@ -588,16 +586,121 @@ Spring supports JSR-303/JSR-380 Bean Validation via annotations:
 </ul>
 Use <code>@Validated</code> and <code>@Valid</code> to trigger validations.
 
-<strong data-start="798" data-end="810">Example:</strong>
+If you're using <strong data-start="402" data-end="411">Maven</strong>, add this to your <code data-start="430" data-end="439">pom.xml</code> dependencies:
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public class User {
-    @NotNull
-    private String name;
+<pre><code class="language-xml line-numbers">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">For <strong>Gradle</strong>, add to your <code data-start="430" data-end="439">build.gradle</code> file:</span>
+<pre><code class="language-groovy line-numbers">implementation 'org.springframework.boot:spring-boot-starter-validation'</code></pre>
+<strong data-start="798" data-end="810">Example:</strong>
 
-    @Email
+UserDTO with Constraints
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@JacksonXmlRootElement(localName = "user")
+public class UserDTO {
+
+    @NotBlank(message = "Username is required")
+    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
+    @JsonProperty("username")
+    private String username;
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
+    @JsonProperty("email")
     private String email;
+
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, message = "Password must be at least 6 characters")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+
+    // Constructors
+    public UserDTO() {}
+
+    public UserDTO(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    // Getters and Setters
+    public String getUsername() {
+        return username;
+    }
 }</code></pre>
 </div>
+Controller with <code data-start="1028" data-end="1040">@Validated</code> and <code data-start="1045" data-end="1053">@Valid</code>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestController
+@RequestMapping("/api/users")
+@Validated // Enables method-level validation (useful for path variables, service params, etc.)
+public class UserController {
+
+    @Autowired  // Field injection
+    private UserService userService;
+
+    /*
+    @Autowired  // constructor injection (recommended)
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+    */
+
+    /**
+     * Register a new user via POST
+     * Example: POST /api/users/register
+     */
+    @PostMapping("/register")
+    public String registerUser(@Valid @RequestBody UserDTO userDTO) {
+        return userService.registerUser(userDTO);
+    }
+
+    /**
+     * Get user by query param
+     * Example: GET /api/users/find?username=srimanta
+     */
+    @GetMapping("/find")
+    public UserDTO getUserByQueryParam(@RequestParam String username) {
+        return userService.findByUsername(username);
+    }
+
+    /**
+     * Get user by path variable
+     * Example: GET /api/users/srimanta
+     */
+    @GetMapping(value = "/{username}", produces = { "application/json", "application/xml" })
+    public UserDTO getUserByPath(@PathVariable String username) {
+        return userService.findByUsername(username);
+    }
+}</code></pre>
+</div>
+Handle Validation Errors Gracefully
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map&lt;String, String&gt; handleValidationErrors(MethodArgumentNotValidException ex) {
+        Map&lt;String, String&gt; errors = new HashMap&lt;&gt;();
+        ex.getBindingResult().getFieldErrors().forEach(error -&gt; errors.put(error.getField(), error.getDefaultMessage()));
+        return errors;
+    }
+}</code></pre>
+</div>
+Sample cURL Test
+<pre><code class="language-bash line-numbers">myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+"username": "du",
+"email": "dummy@.com",
+"password": ""
+}'
+{"password":"Password is required","username":"Username must be between 3 and 20 characters","email":"Invalid email format"}%
+myapp %</code></pre>
 
 <hr class="" data-start="733" data-end="736" />
 
@@ -606,14 +709,222 @@ Simplifies JDBC operations (query, insert, update).
 
 Reduces boilerplate code for database access.
 
-<strong data-start="798" data-end="810">Example:</strong>
+If you're using <strong data-start="402" data-end="411">Maven</strong>, add this to your <code data-start="430" data-end="439">pom.xml</code> dependencies:
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@Autowired
-private JdbcTemplate jdbcTemplate;
+    <div>
+<pre><code class="language-xml line-numbers">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt;
+&lt;/dependency&gt;
 
-public List&lt;User&gt; findAllUsers() {
-    return jdbcTemplate.query("SELECT * FROM users", new BeanPropertyRowMapper&lt;&gt;(User.class));
+&lt;dependency&gt;
+    &lt;groupId&gt;com.h2database&lt;/groupId&gt; &lt;!-- Use H2 for testing --&gt;
+    &lt;artifactId&gt;h2&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+    </div>
+</div>
+<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">For <strong>Gradle</strong>, add to your <code data-start="430" data-end="439">build.gradle</code> file:</span>
+<pre><code class="language-groovy line-numbers">implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+runtimeOnly 'com.h2database:h2'</code></pre>
+<strong data-start="798" data-end="810">Example:</strong>
+
+Add the below entries to the properties config file and restart the application.
+<div>
+<pre><code class="language-bash line-numbers">spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.h2.console.enabled=true
+spring.jpa.hibernate.ddl-auto=none</code></pre>
+    SQL Schema (schema.sql)
+    <pre><code class="language-sql line-numbers">CREATE TABLE users (
+id BIGINT AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(50) NOT NULL,
+email VARCHAR(100),
+password VARCHAR(100)
+);</code></pre>
+    Spring Boot will automatically pick this file from <code data-start="943" data-end="963">src/main/resources</code>.
+
+    User Model
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class User {
+    private Long id;
+    private String username;
+    private String email;
+    private String password;
+
+    // Getters &amp; Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }</code></pre>
+    </div>
+    UserRepository using <code data-start="1354" data-end="1368">JdbcTemplate</code>
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Repository
+public class UserRepository {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public int registerUser(UserDTO userDTO) {
+        String sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+        return jdbcTemplate.update(sql, userDTO.getUsername(), userDTO.getEmail(), userDTO.getPassword());
+    }
+
+    public User findUserByUsername(String username) {
+        String sql = "SELECT * FROM users WHERE username = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{username}, new BeanPropertyRowMapper&lt;&gt;(User.class));
+    }
+
+    public List&lt;User&gt; findAllUsers() {
+        String sql = "SELECT * FROM users";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper&lt;&gt;(User.class));
+    }
+}</code></pre>
+    </div>
+    UserService
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Service
+public class UserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public String registerUser(UserDTO userDTO) {
+        int update = userRepository.registerUser(userDTO);
+        String status = update == 1 ? "successful" : "failed";
+        logger.info("User '{}' registration {}!", userDTO.getUsername(), status);
+        return "User '" + userDTO.getUsername() + "' registration " + status;
+    }
+
+    public User findByUsername(String username) {
+        logger.info("Finding by username: {}", username);
+        return userRepository.findUserByUsername(username);
+    }
+
+    public ArrayList&lt;User&gt; findAllUsers() {
+        logger.info("Finding all users");
+        return new ArrayList&lt;&gt;(userRepository.findAllUsers());
+    }
+}</code></pre>
+    </div>
+    Controller
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestController
+@RequestMapping("/api/users")
+@Validated // Enables method-level validation (useful for path variables, service params, etc.)
+public class UserController {
+
+    @Autowired  // Field injection
+    private UserService userService;
+
+    /*
+    @Autowired  // constructor injection (recommended)
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+    */
+
+    /**
+     * Register a new user via POST
+     * Example: POST /api/users/register
+     */
+    @PostMapping("/register")
+    public String registerUser(@Valid @RequestBody UserDTO userDTO) {
+        return userService.registerUser(userDTO);
+    }
+
+    /**
+     * Get user by query param
+     * Example: GET /api/users/find?username=srimanta
+     */
+    @GetMapping("/find")
+    public User getUserByQueryParam(@RequestParam String username) {
+        return userService.findByUsername(username);
+    }
+
+    /**
+     * Get user by path variable
+     * Example: GET /api/users/srimanta
+     */
+    @GetMapping(value = "/{username}", produces = {"application/json", "application/xml"})
+    public User getUserByPath(@PathVariable String username) {
+        return userService.findByUsername(username);
+    }
+
+    /**
+     * Get all users
+     * Example: GET /api/users
+     */
+    @GetMapping
+    public List&lt;User&gt; getAllUser() {
+        return userService.findAllUsers();
+    }
+
+}</code></pre>
+    </div>
+    Sample cURL Test
+    <pre><code class="language-bash line-numbers">myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+"username": "dummy",
+"email": "dummy@mail.com",
+"password": "password"
+}'
+User 'dummy' registration successful%
+myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+"username": "another",
+"email": "another@mail.com",
+"password": "another"
+}'
+User 'another' registration successful%
+myapp % curl http://localhost:8081/myapp/api/users
+[{"id":1,"username":"dummy","email":"dummy@mail.com","password":"password"},{"id":2,"username":"another","email"
+myapp %</code></pre>
+    Sample console logs
+    <pre><code class="language-bash line-numbers">2025-05-03T16:16:00.259+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
+2025-05-03T16:16:00.263+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-2] com.example.myapp.service.UserService : User 'dummy' registration successful!
+2025-05-03T16:16:00.263+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = User 'dummy' registration successful
+2025-05-03T16:16:11.040+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-4] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
+2025-05-03T16:16:11.041+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-4] com.example.myapp.service.UserService : User 'another' registration successful!
+2025-05-03T16:16:11.041+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-4] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = User 'another' registration successful
+2025-05-03T16:16:19.179+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-6] c.example.myapp.component.LoggingAspect : Entering method: UserController.getAllUser()
+2025-05-03T16:16:19.180+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-6] com.example.myapp.service.UserService : Finding all users
+2025-05-03T16:16:19.185+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-6] c.example.myapp.component.LoggingAspect : Exiting method: getAllUser with result = [com.example.myapp.model.User@6e9323a5, com.example.myapp.model.User@25b998c2]</code></pre>
 </div>
 
 <hr class="" data-start="733" data-end="736" />
@@ -623,12 +934,66 @@ Provides production-ready monitoring and diagnostics.
 
 Common endpoints: <code>/actuator/health</code>, <code>/actuator/metrics</code>, <code style="font-size: inherit;">/actuator/info</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span>
 
-<strong data-start="798" data-end="810">Example:</strong>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">management:
-  endpoints:
-    web:
-      exposure:
-        include: health, metrics, info</code></pre>
+Add dependencies
+<div>
+<pre><code class="language-xml line-numbers">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+    Configure in <code data-start="362" data-end="386">application.properties</code>
+
+</div>
+<div>
+<pre><code class="language-bash line-numbers"># Expose useful actuator endpoints
+management.endpoints.web.exposure.include=health,info,metrics,env,beans
+management.info.env.enabled=true
+
+# Optional: Customize context path
+management.endpoints.web.base-path=/actuator
+
+# Optional: Info Metadata
+info.app.name=MyApp User API
+info.app.description=Spring Boot app with actuator endpoints
+info.app.version=1.0.0</code></pre>
+</div>
+Add <code data-start="797" data-end="813">UserController</code> (Already exists from previous)
+
+Accessing Actuator Endpoints
+<p class="" data-start="1449" data-end="1472">Once the app runs, try:</p>
+
+<ul>
+    <li data-start="1476" data-end="1517"><code data-start="1476" data-end="1515">http://localhost:8081/myapp/actuator/health</code></li>
+    <li data-start="1520" data-end="1559"><code data-start="1520" data-end="1557">http://localhost:8081/myapp/actuator/info</code></li>
+    <li data-start="1562" data-end="1604"><code data-start="1562" data-end="1602">http://localhost:8081/myapp/actuator/metrics</code></li>
+    <li data-start="1607" data-end="1645"><code data-start="1607" data-end="1645">http://localhost:8081/myapp/actuator/beans</code></li>
+</ul>
+You can create your own health check:
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Component
+public class CustomHealthIndicator implements HealthIndicator {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Override
+    public Health health() {
+        // perform health check logic (DB ping, dependent server ping, etc.)
+        try {
+            jdbcTemplate.execute("SELECT 1");
+            return Health.up().withDetail("H2 Database", "Available").build();
+        } catch (Exception e) {
+            return Health.down(e).withDetail("H2 Database", "Unavailable").build();
+        }
+    }
+}</code></pre>
+</div>
+
+Sample cURL Test
+<pre><code class="language-bash line-numbers">myapp % curl http://localhost:8081/myapp/actuator/health
+{"status":"UP"}%
+myapp % curl http://localhost:8081/myapp/actuator/info
+{"app":{"name":"MyApp User API","description":"Spring Boot app with actuator endpoints","version":"1.0.0"}}%
+myapp %</code></pre>
 
 <hr class="" data-start="733" data-end="736" />
 
@@ -646,7 +1011,7 @@ Provides robust security with support for:
 </ul>
 <strong data-start="798" data-end="810">Example:</strong>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">@EnableWebSecurity
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean

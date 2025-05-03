@@ -13,7 +13,7 @@ Compares each element until the value is <strong data-start="288" data-end="314"
 
 <strong data-start="798" data-end="810">Example:</strong>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static int linearSearch(int[] arr, int target) {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public static int linearSearch(int[] arr, int target) {
     for (int i = 0; i &lt; arr.length; i++) {
         if (arr[i] == target) return i;
     }
@@ -21,7 +21,7 @@ Compares each element until the value is <strong data-start="288" data-end="314"
 }</code></pre>
     <div>
         <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">/* *** *** *** *** *** test code *** *** *** *** *** */
 System.out.println("Linear Search:\t\t "
                    + "Searching 14 in [10, 7, 5, 14, 2]: "
                    + linearSearch(new int[]{10, 7, 5, 14, 2}, 14));
@@ -51,7 +51,7 @@ At each step:
 </ul>
 <strong data-start="798" data-end="810">Example:</strong>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static int binarySearch(int[] arr, int target) {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public static int binarySearch(int[] arr, int target) {
     int left = 0, right = arr.length - 1;
     while (left &lt;= right) {
         int mid = left + (right - left) / 2;
@@ -62,7 +62,7 @@ At each step:
     return -1;
 }</code></pre>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">/* *** *** *** *** *** test code *** *** *** *** *** */
 System.out.println("Binary Search:\t\t "
                    + "Searching 7 in [2, 5, 7, 10, 14]: "
                    + binarySearch(new int[]{2, 5, 7, 10, 14}, 7));
@@ -95,7 +95,7 @@ Common hashing-based data structures in Java:
 </ul>
 <strong data-start="798" data-end="810">Example:</strong>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static Map&lt;String, Integer&gt; hashing() {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public static Map&lt;String, Integer&gt; hashing() {
     Map&lt;String, Integer&gt; nameAndAgeMap = new HashMap&lt;&gt;();
     nameAndAgeMap.put("Alice", 25);
     nameAndAgeMap.put("Bob", 30);
@@ -103,7 +103,7 @@ Common hashing-based data structures in Java:
 }</code></pre>
     <div>
         <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">/* *** *** *** *** *** test code *** *** *** *** *** */
 Map&lt;String, Integer&gt; nameAndAgeMap = hashing();
 Set&lt;String&gt; namesSet = nameAndAgeMap.keySet();
 System.out.println("Hashing output:\t\t "
@@ -138,7 +138,7 @@ Requires:
 </ul>
 <strong data-start="798" data-end="810">Solution:</strong>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static int lcsRecursive(String s1, String s2, int m, int n) {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public static int lcsRecursive(String s1, String s2, int m, int n) {
     // Base Case: If either string is empty
     if (m == 0 || n == 0) return 0;
 
@@ -151,7 +151,7 @@ Requires:
     }
 }</code></pre>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">/* *** *** *** *** *** test code *** *** *** *** *** */
 String s1 = "abcde", s2 = "ace";
 System.out.println("\nRecursion output:\t "
                    + "LCS length of " + s1 + ", " + s2 + " is: "
@@ -179,7 +179,7 @@ Elements “bubble up” to their correct position in each pass — largest elem
 <strong data-start="798" data-end="810">Example:</strong>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static void bubbleSort(int[] arr) {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public static void bubbleSort(int[] arr) {
     int n = arr.length;
     boolean swapped;
 
@@ -199,7 +199,7 @@ Elements “bubble up” to their correct position in each pass — largest elem
     }
 }</code></pre>
         <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">/* *** *** *** *** *** test code *** *** *** *** *** */
 int[] arr = {9, 3, 6, 2, 4};
 bubbleSort(arr);
 System.out.println("Bubble Sort:\t\t "
@@ -228,7 +228,7 @@ Maintains <strong data-start="449" data-end="462">stability</strong> — preserv
 <strong data-start="798" data-end="810">Example:</strong>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static void mergeSort(int[] arr, int left, int right) {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public static void mergeSort(int[] arr, int left, int right) {
     if (left &gt;= right) return;
     int mid = left + (right - left) / 2;
 
@@ -250,7 +250,7 @@ private static void merge(int[] arr, int left, int mid, int right) {
     </div>
     <div>
         <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">/* *** *** *** *** *** test code *** *** *** *** *** */
 int[] arr = {10, 3, 8, 2, 5};
 mergeSort(arr, 0, arr.length - 1);
 System.out.println("Merge Sort:\t\t\t "
@@ -284,7 +284,7 @@ Not a <strong data-start="1205" data-end="1220">stable sort</strong> (relative o
 <strong data-start="798" data-end="810">Example:</strong>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static void quickSort(int[] arr, int low, int high) {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public static void quickSort(int[] arr, int low, int high) {
     if (low &lt; high) {
         int pivotIndex = partition(arr, low, high);
         quickSort(arr, low, pivotIndex - 1);
@@ -311,7 +311,7 @@ private static void swap(int[] arr, int i, int j) {
 }</code></pre>
     </div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">/* *** *** *** *** *** test code *** *** *** *** *** */
 int[] arr = new int[]{7, 3, 9, 1, 5};
 quickSort(arr, 0, arr.length - 1);
 System.out.println("Quick Sort:\t\t\t "
@@ -340,7 +340,7 @@ Requires a <code data-start="885" data-end="896">visited[]</code> or <code data-
 
 <strong data-start="798" data-end="810">Example:</strong>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static void bfs(Map&lt;Integer, List&lt;Integer&gt;&gt; graph, int start) {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public static void bfs(Map&lt;Integer, List&lt;Integer&gt;&gt; graph, int start) {
     Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
     Set&lt;Integer&gt; visited = new HashSet&lt;&gt;();
     queue.add(start);
@@ -359,7 +359,7 @@ Requires a <code data-start="885" data-end="896">visited[]</code> or <code data-
 }</code></pre>
     <div>
         <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">/* *** *** *** *** *** test code *** *** *** *** *** */
 Map&lt;Integer, List&lt;Integer&gt;&gt; graph = Map.of(
         0, List.of(1, 2),
         1, List.of(3, 4),
@@ -390,7 +390,7 @@ Recursively dives down one path before moving to others — mimics exploring one
 
 <strong data-start="798" data-end="810">Example:</strong>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static void dfs(Map&lt;Integer, List&lt;Integer&gt;&gt; graph, int node, Set&lt;Integer&gt; visited) {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public static void dfs(Map&lt;Integer, List&lt;Integer&gt;&gt; graph, int node, Set&lt;Integer&gt; visited) {
     if (visited.contains(node)) return;
     System.out.print(node + " ");
     visited.add(node);
@@ -399,7 +399,7 @@ Recursively dives down one path before moving to others — mimics exploring one
     }
 }</code></pre>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">/* *** *** *** *** *** test code *** *** *** *** *** */
 Map&lt;Integer, List&lt;Integer&gt;&gt; graph = Map.of(
         0, List.of(1, 2),
         1, List.of(3, 4),
@@ -435,7 +435,7 @@ Reduces <strong data-start="519" data-end="549">exponential recursive time</stro
 <strong data-start="798" data-end="810">Solution:</strong>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static int lcsDP(String s1, String s2) {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public static int lcsDP(String s1, String s2) {
     int m = s1.length(), n = s2.length();
     int[][] dp = new int[m + 1][n + 1];
 
@@ -454,7 +454,7 @@ Reduces <strong data-start="519" data-end="549">exponential recursive time</stro
     </div>
     <div>
         <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">/* *** *** *** *** *** test code *** *** *** *** *** */
 String s1 = "abcde", s2 = "ace";
 System.out.println("DP output:\t\t\t "
                    + "LCS length of " + s1 + ", " + s2 + " is: "
@@ -491,7 +491,7 @@ Often modeled as a <strong data-start="504" data-end="532">depth-first search (D
 <strong data-start="798" data-end="810">Solution:</strong>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">public static String findLCS(String s1, String s2) {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public static String findLCS(String s1, String s2) {
     int m = s1.length(), n = s2.length();
     int[][] dp = new int[m + 1][n + 1];
 
@@ -525,7 +525,7 @@ Often modeled as a <strong data-start="504" data-end="532">depth-first search (D
     </div>
     <div>
         <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">/* *** *** *** *** *** test code *** *** *** *** *** */
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">/* *** *** *** *** *** test code *** *** *** *** *** */
 String s1 = "abcde", s2 = "ace";
 System.out.println("Backtracking output: "
                    + "LCS sequence of " + s1 + ", " + s2 + " is: "

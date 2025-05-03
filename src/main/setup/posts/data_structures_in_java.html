@@ -10,7 +10,7 @@
 <p><strong data-start="500" data-end="524">Insertion or removal</strong> (except at the end) requires shifting elements, making it <strong data-start="690" data-end="715"><code data-start="706" data-end="712">O(n)</code></strong>.</p>
 <p><strong data-start="423" data-end="435">Example:</strong></p>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">private void array() {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void array() {
     // Fixed-size array
     int[] array = new int[10];
     array[4] = 5;
@@ -34,7 +34,7 @@
 <p><strong data-start="798" data-end="810">Example:</strong></p>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">private void string() {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void string() {
     // Immutable
     String str = "Hello";
     str = str + " World"; // A new object is created, old one is discarded
@@ -68,7 +68,7 @@
 </ul>
 <p><strong data-start="798" data-end="810">Example:</strong></p>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">private void list() {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void list() {
     // Use ArrayList for fast access (random access) to elements and fewer insertions/removals.
     List&lt;Integer&gt; arrayList = new ArrayList&lt;&gt;();
     arrayList.add(1);
@@ -101,7 +101,7 @@
 <p><strong data-start="798" data-end="810">Example:</strong></p>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">private void map() {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void map() {
     // HashMap: No order guarantee, fast lookups (O(1))
     Map&lt;Integer, String&gt; hashMap = new HashMap&lt;&gt;();
     hashMap.put(3, "C++");
@@ -136,7 +136,7 @@
 <p><strong data-start="798" data-end="810">Example:</strong></p>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">private void set() {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void set() {
     // HashSet: Unordered, fast access (O(1)), internally uses a HashMap
     Set&lt;String&gt; hashSet = new HashSet&lt;&gt;();
     hashSet.add("Java");
@@ -169,7 +169,7 @@
 </ul>
 <p><strong data-start="1045" data-end="1057">Example:</strong></p>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">private void stack() {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void stack() {
     // Stack (Legacy API) is a subclass of Vector, which is synchronized and generally slower due to thread safety overhead.
     Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();
     stack.push(10);
@@ -199,7 +199,7 @@
 </ul>
 <p><strong data-start="1316" data-end="1328">Example:</strong></p>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">private void queue() {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void queue() {
     // LinkedList uses a doubly linked list, which requires O(1) for enqueue/dequeue but has extra memory overhead (pointers for each node).
     // LinkedList suffers from pointer chasing, which increases cache misses and degrades performance.
     Queue&lt;Integer&gt; linkedListAsQueue = new LinkedList&lt;&gt;();
@@ -255,7 +255,7 @@
 </ul>
 <p><strong data-start="4250" data-end="4262">Example:</strong></p>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">private void priorityQueue() {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void priorityQueue() {
     PriorityQueue&lt;Integer&gt; priorityQueueAsMinHeap = new PriorityQueue&lt;&gt;(); // Min-Heap
     // Adding elements
     priorityQueueAsMinHeap.offer(30);
@@ -279,7 +279,7 @@
 <p>Not inherently sorted — structure depends on insertion order.</p>
 <p><strong data-start="3367" data-end="3379">Example:</strong></p>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">class TreeNode&lt;T&gt; {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">class TreeNode&lt;T&gt; {
     T data;
     TreeNode&lt;T&gt; left, right;
 
@@ -348,7 +348,7 @@ private void tree() {
 <p><strong data-start="2160" data-end="2172">Example:</strong></p>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">class BinarySearchTree {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">class BinarySearchTree {
     private TreeNode&lt;Integer&gt; root;
 
     public void insert(int key) {
@@ -417,7 +417,7 @@ private void binarySearchTree() {
 <p>Slightly <strong data-start="640" data-end="671">slower lookups than HashMap</strong>, but maintains <strong data-start="687" data-end="703">sorted order</strong> and supports <strong data-start="717" data-end="734">range queries</strong>.</p>
 <p><strong data-start="2160" data-end="2172">Example:</strong></p>
 <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">private void redBlackTree() {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void redBlackTree() {
     // A TreeMap in Java is a sorted map implementation based on a Red-Black Tree.
     // It maintains keys in sorted order and provides O(log n) time complexity for insertion, deletion, and lookup.
     TreeMap&lt;Integer, String&gt; treeMap = new TreeMap&lt;&gt;(); // keys sorted in natural order
@@ -456,7 +456,7 @@ private void binarySearchTree() {
 <p><strong data-start="2160" data-end="2172">Example:</strong></p>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">class Graph {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">class Graph {
     private final Map&lt;Integer, List&lt;Integer&gt;&gt; adjList;
 
     public Graph() {
@@ -512,7 +512,7 @@ private void graph() {
 <p><strong data-start="2160" data-end="2172">Example:</strong></p>
 <div>
     <div>
-<pre class="language-java line-numbers lazy-load" data-loaded="false"><code class="language-java">class TrieNode {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">class TrieNode {
     Map&lt;Character, TrieNode&gt; children = new HashMap&lt;&gt;();
     boolean endOfWord;
 
