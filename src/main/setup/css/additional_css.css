@@ -77,7 +77,7 @@
 /* Use Fira Code for code blocks */
  pre, code, kbd, samp {
      font-family: 'Fira Code', monospace !important;
-     font-size: 15px;
+     font-size: 15px !important;
      line-height: 1.6;
      background: #f5f5f5;
      border-radius: 4px;
@@ -314,6 +314,13 @@
      line-height: 1.4;
      border-radius: 4px;
      background-color: #f0f4f8;
+}
+/* Back-to-top button above footer content */
+.generate-back-to-top {
+  position: fixed;
+  bottom: 65px; /* Keeps it above footer content */
+  right: 20px;
+  z-index: 999;
 }
 /* Desktop Layout */
  @media (min-width: 769px) {
