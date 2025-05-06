@@ -987,7 +987,6 @@ public class CustomHealthIndicator implements HealthIndicator {
     }
 }</code></pre>
 </div>
-
 Sample cURL Test
 <pre><code class="language-bash line-numbers">myapp % curl http://localhost:8081/myapp/actuator/health
 {"status":"UP"}%
@@ -1009,18 +1008,286 @@ Provides robust security with support for:
     <li>Role-based authorization</li>
     <li>Filter chains</li>
 </ul>
-<strong data-start="798" data-end="810">Example:</strong>
 <div>
-<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@EnableWebSecurity
+    Add Dependencies (<code data-start="320" data-end="329">pom.xml</code>)
+    <div>
+<pre><code class="language-xml line-numbers">&lt;!-- Spring Security --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+&lt;!-- JWT --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.jsonwebtoken&lt;/groupId&gt;
+    &lt;artifactId&gt;jjwt-api&lt;/artifactId&gt;
+    &lt;version&gt;0.12.6&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.jsonwebtoken&lt;/groupId&gt;
+    &lt;artifactId&gt;jjwt-impl&lt;/artifactId&gt;
+    &lt;version&gt;0.12.6&lt;/version&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.jsonwebtoken&lt;/groupId&gt;
+    &lt;artifactId&gt;jjwt-jackson&lt;/artifactId&gt;
+    &lt;version&gt;0.12.6&lt;/version&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+    </div>
+    Security Configuration (Lambda DSL)
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
+
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -&gt; auth.anyRequest().authenticated())
-                .oauth2Login();
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -&gt; auth
+                        .requestMatchers("/api/users/register", "/api/auth/login", "/error").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .sessionManagement(sm -&gt; sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
+    @Bean
+    public AuthenticationManager authenticationManager(UserDetailsService uds, PasswordEncoder encoder) throws Exception {
+        return new ProviderManager(new DaoAuthenticationProvider() {{
+            setUserDetailsService(uds);
+            setPasswordEncoder(encoder);
+        }});
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public JwtAuthFilter jwtAuthFilter() {
+        return new JwtAuthFilter(jwtService(), userDetailsService);
+    }
+
+    @Bean
+    public JwtService jwtService() {
+        return new JwtService(jwtSecret);
+    }
 }</code></pre>
+    </div>
+    JWT Service
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Component
+public class JwtService {
+
+    private final SecretKey key;
+
+    public JwtService(String secret) {
+        this.key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secret));
+    }
+
+    public String generateToken(String username) {
+        return Jwts.builder()
+                .subject(username)
+                .issuedAt(Date.from(Instant.now()))
+                .expiration(Date.from(Instant.now().plus(Duration.ofHours(1)))) // 1 hour
+                .signWith(key)
+                .compact();
+    }
+
+    public String extractUsername(String token) {
+        return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
+    }
+
+    public boolean validateToken(String token, UserDetails userDetails) {
+        return extractUsername(token).equals(userDetails.getUsername());
+    }
+}</code></pre>
+    </div>
+    UserDetailsService Implementation
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Service
+public class CustomUserDetailsService implements UserDetailsService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional&lt;User&gt; user = userRepository.findUserByUsername(username);
+
+        if (user.isEmpty())
+            throw new UsernameNotFoundException("User not found");
+
+        return new org.springframework.security.core.userdetails.User(
+                user.get().getUsername(), user.get().getPassword(), new ArrayList&lt;&gt;()
+        );
+    }
+}</code></pre>
+    </div>
+    JWT Filter
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Component
+public class JwtAuthFilter extends OncePerRequestFilter {
+
+    private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
+
+    public JwtAuthFilter(JwtService jwtService, UserDetailsService userDetailsService) {
+        this.jwtService = jwtService;
+        this.userDetailsService = userDetailsService;
+    }
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws ServletException, IOException {
+
+        final String authHeader = request.getHeader("Authorization");
+
+        String username = null;
+        String jwt = null;
+
+        if (authHeader != null &amp;&amp; authHeader.startsWith("Bearer ")) {
+            jwt = authHeader.substring(7);
+            username = jwtService.extractUsername(jwt);
+        }
+
+        if (username != null &amp;&amp; SecurityContextHolder.getContext().getAuthentication() == null) {
+            try {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+                if (jwtService.validateToken(jwt, userDetails)) {
+                    UsernamePasswordAuthenticationToken token =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(token);
+                }
+            } catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType("application/json");
+                response.getWriter().write("{\"error\": \"" + e.getMessage() + "\"}");
+                return;
+            }
+        }
+
+        chain.doFilter(request, response);
+    }
+}</code></pre>
+    </div>
+    Auth Controller
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @PostMapping("/register")
+    public ResponseEntity&lt;?&gt; register(@RequestBody UserDTO userDTO) {
+        userService.registerUser(userDTO);
+        return ResponseEntity.ok("User registered");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity&lt;?&gt; login(@RequestBody UserDTO userDTO) {
+        Authentication auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(userDTO.getUsername(), userDTO.getPassword()));
+        String token = jwtService.generateToken(userDTO.getUsername());
+        return ResponseEntity.ok(Collections.singletonMap("token", token));
+    }
+
+    @GetMapping("/secure-check")
+    public ResponseEntity&lt;String&gt; secureCheck(Principal principal) {
+        return ResponseEntity.ok("Authenticated user: " + principal.getName());
+    }
+}</code></pre>
+    </div>
+    <code>application.properties</code>
+    <div>
+<pre><code class="language-bash line-numbers"># Secret Key (YOUR_GENERATED_BASE64_SECRET_KEY)
+jwt.secret=wXRc/fUYMb2IAyXRvB4NYzyLws9oimd226c7nqNqs/fT1dbUewJGN/SEuq/5lQROLVDj62NhyR7AhbTI5gY/FA==</code></pre>
+    </div>
+    Generate a secret key like:
+    <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">byte[] key = new byte[64];
+new SecureRandom().nextBytes(key);
+System.out.println(Base64.getEncoder().encodeToString(key));</code></pre>
+
+    Sample cURL Test
+    <pre><code class="language-bash line-numbers">myapp % curl http://localhost:8081/myapp/api/auth/secure-check
+{"timestamp":"2025-05-06T01:58:28.835+00:00","status":403,"error":"Forbidden","path":"/myapp/api/auth/secure-check"}%
+myapp %
+myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+"username": "srimanta",
+"email": "srimanta@xmail.com",
+"password": "srimanta@123"
+}'
+User 'srimanta' registration successful%
+myapp %
+myapp % curl -X POST http://localhost:8081/myapp/api/auth/login \
+-H "Content-Type: application/json" \
+-d '{
+"username": "srimanta",
+"password": "srimanta@123"
+}'
+{"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcmltYW50YSIsImlhdCI6MTc0NjQ5Njc1MCwiZXhwIjoxNzQ2NTAwMzUwfQ.IzjyhJZWGBI2jOou4HfdLKGb5ZAaxA6dALT5AMTT1MPwQpjDpacffryQR-s7E3o9fiFK-59FvRUJRNHFDhS-VA"}%
+myapp %
+myapp % curl -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcmltYW50YSIsImlhdCI6MTc0NjQ5Njc1MCwiZXhwIjoxNzQ2NTAwMzUwfQ.IzjyhJZWGBI2jOou4HfdLKGb5ZAaxA6dALT5AMTT1MPwQpjDpacffryQR-s7E3o9fiFK-59FvRUJRNHFDhS-VA" http://localhost:8081/myapp/api/auth/secure-check
+Authenticated user: srimanta%
+myapp %</code></pre>
+
+    Console Logs
+    <pre><code class="language-bash line-numbers">INFO 1997 --- [MyApp] [ main] com.example.myapp.MyAppApplication : Started MyAppApplication in 1.695 seconds (process running for 1.865)
+INFO 1997 --- [MyApp] [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/myapp] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+INFO 1997 --- [MyApp] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+INFO 1997 --- [MyApp] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet : Completed initialization in 1 ms
+DEBUG 1997 --- [MyApp] [nio-8081-exec-1] o.s.security.web.FilterChainProxy : Securing GET /api/auth/secure-check
+DEBUG 1997 --- [MyApp] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter : Set SecurityContextHolder to anonymous SecurityContext
+DEBUG 1997 --- [MyApp] [nio-8081-exec-1] o.s.s.w.a.Http403ForbiddenEntryPoint : Pre-authenticated entry point called. Rejecting access
+DEBUG 1997 --- [MyApp] [nio-8081-exec-1] o.s.security.web.FilterChainProxy : Securing GET /error
+DEBUG 1997 --- [MyApp] [nio-8081-exec-1] o.s.security.web.FilterChainProxy : Secured GET /error
+DEBUG 1997 --- [MyApp] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter : Set SecurityContextHolder to anonymous SecurityContext
+DEBUG 1997 --- [MyApp] [nio-8081-exec-2] o.s.security.web.FilterChainProxy : Securing POST /api/users/register
+DEBUG 1997 --- [MyApp] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter : Set SecurityContextHolder to anonymous SecurityContext
+DEBUG 1997 --- [MyApp] [nio-8081-exec-2] o.s.security.web.FilterChainProxy : Secured POST /api/users/register
+INFO 1997 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
+INFO 1997 --- [MyApp] [nio-8081-exec-2] com.example.myapp.service.UserService : Finding by username: srimanta
+INFO 1997 --- [MyApp] [nio-8081-exec-2] com.example.myapp.service.UserService : User 'srimanta' registration successful!
+INFO 1997 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = User 'srimanta' registration successful
+DEBUG 1997 --- [MyApp] [nio-8081-exec-3] o.s.security.web.FilterChainProxy : Securing POST /api/auth/login
+DEBUG 1997 --- [MyApp] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter : Set SecurityContextHolder to anonymous SecurityContext
+DEBUG 1997 --- [MyApp] [nio-8081-exec-3] o.s.security.web.FilterChainProxy : Secured POST /api/auth/login
+INFO 1997 --- [MyApp] [nio-8081-exec-3] c.example.myapp.component.LoggingAspect : Entering method: AuthController.login(..)
+INFO 1997 --- [MyApp] [nio-8081-exec-3] c.example.myapp.component.LoggingAspect : Exiting method: login with result = &lt;200 OK OK,{token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcmltYW50YSIsImlhdCI6MTc0NjQ5Njc1MCwiZXhwIjoxNzQ2NTAwMzUwfQ.IzjyhJZWGBI2jOou4HfdLKGb5ZAaxA6dALT5AMTT1MPwQpjDpacffryQR-s7E3o9fiFK-59FvRUJRNHFDhS-VA},[]&gt;
+DEBUG 1997 --- [MyApp] [nio-8081-exec-5] o.s.security.web.FilterChainProxy : Securing GET /api/auth/secure-check
+DEBUG 1997 --- [MyApp] [nio-8081-exec-5] o.s.security.web.FilterChainProxy : Secured GET /api/auth/secure-check
+INFO 1997 --- [MyApp] [nio-8081-exec-5] c.example.myapp.component.LoggingAspect : Entering method: AuthController.secureCheck(..)
+INFO 1997 --- [MyApp] [nio-8081-exec-5] c.example.myapp.component.LoggingAspect : Exiting method: secureCheck with result = &lt;200 OK OK,Authenticated user: srimanta,[]&gt;
+</code></pre>
 </div>
 <div>
 
