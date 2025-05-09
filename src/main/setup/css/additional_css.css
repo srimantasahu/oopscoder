@@ -39,6 +39,19 @@
      overflow: hidden;
     /* Prevent child content from breaking border */
 }
+ .entry-content {
+     margin-top: 1.5em !important;
+}
+ .entry-summary {
+     margin-top: 1em !important;
+}
+ .entry-meta {
+     margin-top: 0.5em !important;
+    /* Small space between summary and meta info */
+     font-size: 14px;
+     color: #666;
+    /* Light gray for subtle metadata */
+}
 /* Refactored padding of 40px from inside article */
  .inside-article {
      padding: 20px 30px !important;
@@ -73,6 +86,13 @@
      font-size: 18px;
      line-height: 1.75;
      color: #333;
+}
+ p {
+     margin-bottom: 1em;
+     line-height: 1.7;
+     max-width: 700px;
+     padding-left: 0;
+     padding-right: 0;
 }
 /* Use Fira Code for code blocks */
  pre, code, kbd, samp {
@@ -134,12 +154,14 @@
      width: 100%;
      overflow-x: auto;
      -webkit-overflow-scrolling: touch;
+     margin-bottom: 1em;
 }
 /* Make the table not exceed its container */
  .responsive-table table {
      width: 100%;
      border-collapse: collapse;
      word-break: break-word;
+     margin-bottom: 0em;
 }
 /* Prevent table cells from forcing layout overflow */
  .responsive-table th, .responsive-table td {
@@ -316,11 +338,12 @@
      background-color: #f0f4f8;
 }
 /* Back-to-top button above footer content */
-.generate-back-to-top {
-  position: fixed;
-  bottom: 65px; /* Keeps it above footer content */
-  right: 20px;
-  z-index: 999;
+ .generate-back-to-top {
+     position: fixed;
+     bottom: 65px;
+    /* Keeps it above footer content */
+     right: 20px;
+     z-index: 999;
 }
 /* Desktop Layout */
  @media (min-width: 769px) {

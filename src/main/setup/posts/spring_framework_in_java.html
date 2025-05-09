@@ -1,4 +1,3 @@
-<p data-start="173" data-end="419">✍️ <strong data-start="201" data-end="222">Work in Progress:</strong> I'm still refining this guide and adding more examples. Have feedback or want to see something specific covered? Drop a comment below—I’d love to hear from you!</p>
 <p class="" data-start="173" data-end="419">The <strong data-start="177" data-end="197">Spring Framework</strong> is the backbone of modern Java development. From building robust web applications to creating scalable microservices, Spring empowers developers with tools that promote clean architecture, testability, and modular design.</p>
 <p class="" data-start="421" data-end="737">In this complete guide, we’ll walk through everything you need to know about <strong data-start="498" data-end="526">Spring Framework in Java</strong> — starting from core concepts like <strong data-start="562" data-end="592">Inversion of Control (IoC)</strong> and <strong data-start="597" data-end="621">Dependency Injection</strong>, all the way to advanced features like <strong data-start="661" data-end="675">Spring MVC</strong>, <strong data-start="677" data-end="696">Spring Security</strong>, <strong data-start="698" data-end="705">AOP</strong>, and <strong data-start="711" data-end="736">Spring Boot Actuators</strong>.</p>
 <p class="" data-start="739" data-end="1035">Whether you’re a beginner looking to understand the fundamentals or an experienced developer seeking to refresh and level up your skills, this guide provides real-world examples, annotations, configurations, and best practices to help you build production-ready Java applications with confidence.</p>
@@ -8,61 +7,63 @@
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://spring.io/projects/spring-boot">Getting Started with Spring Boot</a></strong></h3>
-Spring Boot makes it incredibly easy to bootstrap a new Spring application. Here's how to create a new Spring Boot project using <strong>Spring Initializr</strong>:
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Inversion_of_control">Inversion of Control (IoC)</a></strong></h3>
+<p class="" data-start="208" data-end="474"><strong data-start="208" data-end="238">Inversion of Control (IoC)</strong> is a core design principle where the responsibility for creating and managing objects is handed over to a framework. In Spring, this responsibility is handled by the <strong data-start="405" data-end="422">IoC container</strong>, usually accessed through the <code data-start="453" data-end="473">ApplicationContext</code>.</p>
+<p class="" data-start="476" data-end="767">Rather than having classes instantiate their own dependencies, you define these dependencies (beans) through configuration—using annotations like <code data-start="622" data-end="634">@Component</code>, <code data-start="636" data-end="648">@Autowired</code>, or XML/Java-based config. At runtime, the Spring container creates the beans and injects their required dependencies.</p>
+<p class="" data-start="769" data-end="1011">This approach promotes <strong data-start="792" data-end="810">loose coupling</strong>, as classes no longer need to know <em data-start="846" data-end="851">how</em> their dependencies are created or <em data-start="886" data-end="893">where</em> they come from. They simply rely on abstractions (such as interfaces), making the codebase more modular and flexible.</p>
+<p class="" data-start="1013" data-end="1231">Additionally, because dependencies are injected, it's easy to <strong data-start="1075" data-end="1110">substitute mock implementations</strong> during testing—without modifying the actual business logic. This leads to better <strong data-start="1192" data-end="1207">testability</strong> and cleaner unit tests.</p>
 
-<strong>Steps to Create a Spring Boot App:</strong>
-<ul>
-    <li>Go to <a href="https://start.spring.io">https://start.spring.io</a></li>
-    <li>Choose the following settings:
-        <ul>
-            <li><strong>Project</strong>: Maven or Gradle</li>
-            <li><strong>Language</strong>: Java</li>
-            <li><strong>Spring Boot version</strong>: Latest stable (e.g., 3.x.x)</li>
-            <li><strong>Group</strong>: <code>com.example</code></li>
-            <li><strong>Artifact</strong>: <code>myapp</code></li>
-            <li><strong>Name</strong>: <code>MyApp</code></li>
-            <li><strong>Packaging</strong>: Jar</li>
-            <li><strong>Java</strong>: Latest version (e.g., 21)</li>
-            <li><strong>Dependencies</strong>: Add <code>Spring Web</code> <span data-preserver-spaces="true">for now. (Others as needed)</span> <code>Spring Data JPA</code>, <code>Spring Security</code>.</li>
-        </ul>
-    </li>
-    <li>Click <strong>Generate</strong> to download a <code>.zip</code> file.</li>
-    <li>Unzip and Run the application directly in the command line using:</li>
-</ul>
-<pre><code class="language-bash line-numbers">./mvnw spring-boot:run
-or
-./gradlew bootRun</code></pre>
-<ul>
-    <li>Also, open and run it in your favorite IDE (e.g., IntelliJ IDEA or Eclipse).</li>
-</ul>
-You can verify the following lines in the logs to confirm the application started successfully:
-<pre><code class="language-bash line-numbers">INFO 3692 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8080 (http) with context path '/'
-INFO 3692 --- [MyApp] [ main] com.example.myapp.MyAppApplication : Started MyAppApplication in 0.792 seconds (process running for 0.975)</code></pre>
-Your Spring Boot application is now up and running! You can visit <code>http://localhost:8080</code> to verify.
-
-You will get a <b>Whitelabel Error Page</b> as there are no request mappings yet. Press <code>Ctrl+C</code> to stop the server.
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Spring_Boot"><span style="font-family: inherit; font-size: 35px; font-style: inherit;">Spring Boot Configuration</span></a></strong></h3>
-Spring Boot simplifies configuration via <code style="font-size: inherit;">application.properties</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> or </span><code style="font-size: inherit;">application.yml</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span>
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection (DI)</a></strong></h3>
+<p class="" data-start="182" data-end="454"><strong data-start="214" data-end="243">Dependency Injection (DI)</strong> is the <strong data-start="251" data-end="309">core mechanism that enables Inversion of Control (IoC)</strong> in the Spring Framework. Instead of classes creating their own dependencies, Spring takes care of supplying them—usually via the <strong data-start="439" data-end="463">Spring IoC container</strong>.</p>
+<p data-start="182" data-end="454">In simple terms, DI allows objects to receive their required dependencies <strong data-start="578" data-end="605">from an external source</strong>, rather than constructing them internally. This promotes <strong data-start="663" data-end="689">separation of concerns</strong>, makes components <strong data-start="708" data-end="726">easier to test</strong>, and encourages <strong data-start="743" data-end="761">modular design</strong>.</p>
+<p class="" data-start="456" data-end="606">Spring provides several ways to inject dependencies:</p>
+<p class="" data-start="975" data-end="1092"><strong data-start="975" data-end="1000">Constructor Injection</strong>: Best suited for required dependencies. Promotes immutability and is ideal for testing.</p>
+<p class="" data-start="1096" data-end="1210"><strong data-start="1096" data-end="1116">Setter Injection</strong>: Used for optional or configurable dependencies. Easier to override in certain scenarios.</p>
+<p class="" data-start="1214" data-end="1352"><strong data-start="1214" data-end="1233">Field Injection</strong>: A concise approach that uses annotations directly on class fields—but not ideal for unit testing or immutability.</p>
 
-Add the below entries to the properties config file and restart the application.
-<pre><code class="language-bash line-numbers"># Change default port from 8080 to something else
-server.port=8081
-# Set the base context path for the app
-server.servlet.context-path=/myapp</code></pre>
-You should see the updated logs as below:
-<pre><code class="language-bash line-numbers">INFO 3786 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8081 (http) with context path '/myapp'
-INFO 3786 --- [MyApp] [ main] com.example.myapp.MyAppApplication : Started MyAppApplication in 0.747 seconds (process running for 0.927)</code></pre>
-You can visit <code>http://localhost:8081/myapp</code> to verify the application is up and running!
+<h4 data-start="738" data-end="767">🔹 <a href="https://spring.io/blog/2007/07/11/setter-injection-versus-constructor-injection-and-the-use-of-required"><strong>Constructor vs Setter vs Field Injection</strong></a></h4>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table data-pm-slice="3 3 []">
+        <tbody>
+        <tr>
+            <th>Injection Type</th>
+            <th>Use Case</th>
+            <th>Pros</th>
+            <th>Cons</th>
+        </tr>
+        <tr>
+            <td>Constructor</td>
+            <td>Required dependencies</td>
+            <td>Immutable, testable</td>
+            <td>Verbose with many dependencies</td>
+        </tr>
+        <tr>
+            <td>Setter</td>
+            <td>Optional/configurable props</td>
+            <td>Easy to override</td>
+            <td>Allows partially constructed beans</td>
+        </tr>
+        <tr>
+            <td>Field</td>
+            <td>Convenience</td>
+            <td>Less boilerplate</td>
+            <td>Harder to test, less flexible</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
 
-Use <code>@SpringBootConfiguration</code> (meta-annotated on <code>@SpringBootApplication</code>) for bootstrapping custom config classes.
+    Dependency Injection is the <strong data-start="2066" data-end="2098">foundation of loose coupling</strong> in Spring. By letting Spring handle dependency wiring, your code becomes more maintainable, easier to test, and flexible to change and scale.
+
+</div>
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Spring_Framework#Autowiring"><span style="font-family: inherit; font-size: 35px; font-style: inherit;">Essential Spring Annotations</span></a></strong></h3>
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Spring_Framework#Autowiring">Essential Spring Annotations</a></strong></h3>
 <div class="overflow-x-auto contain-inline-size responsive-table">
     <table class="min-w-full" data-start="338" data-end="1853">
         <thead data-start="338" data-end="444">
@@ -113,130 +114,8 @@ Use <code>@SpringBootConfiguration</code> (meta-annotated on <code>@SpringBootAp
             <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/3)]" data-start="1664" data-end="1733">Registers a bean based on custom logic or environment conditions.</td>
         </tr>
         <tr data-start="1734" data-end="1853">
-            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1734" data-end="1761"><code data-start="1736" data-end="1747">@Provided</code> <em data-start="1748" data-end="1758">(custom)</em></td>
-            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="1761" data-end="1853">Used in non-Spring DI frameworks or with manual configuration (not part of Spring Core).</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-<hr class="" data-start="733" data-end="736" />
-
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Inversion_of_control">Inversion of Control (IoC)</a></strong></h3>
-<strong>IoC</strong> is a design principle where control over object creation and lifecycle is handed over to the framework.
-<p data-pm-slice="1 1 [&quot;list&quot;,{&quot;spread&quot;:false,&quot;start&quot;:604,&quot;end&quot;:816},&quot;regular_list_item&quot;,{&quot;start&quot;:718,&quot;end&quot;:816}]">Promotes loose coupling and testability by delegating object management to a container (Spring).</p>
-
-
-<hr class="" data-start="733" data-end="736" />
-
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection (DI)</a></strong></h3>
-Core of Spring's IoC principle.
-
-Enables injecting dependencies rather than constructing them manually.
-
-<strong>Types of injection:</strong>
-<ul>
-    <li><strong>Constructor Injection</strong> – Preferred for required dependencies.</li>
-    <li><strong>Setter Injection</strong> – Useful for optional dependencies.</li>
-    <li><strong>Field Injection</strong> – Concise but harder to test.</li>
-</ul>
-<strong data-start="798" data-end="810">Example:</strong>
-
-<code data-start="295" data-end="301">User</code>
-<div>
-<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class User {
-
-    private String username;
-    private String email;
-    private String password;
-
-    // Getters
-    public String getUsername() {
-        return username;
-    }
-}</code></pre>
-</div>
-<code data-start="790" data-end="803">UserService</code>
-<div>
-    <div>
-<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Service
-public class UserService {
-
-    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
-
-    public void registerUser(User user) {
-        // You can connect this to a repository or database
-        logger.info("User registered: {}", user.getUsername());
-    }
-}</code></pre>
-    </div>
-</div>
-<code data-start="1098" data-end="1114">UserController</code>
-<div>
-<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestController
-@RequestMapping("/api/users")
-public class UserController {
-
-    @Autowired  // Field injection
-    private UserService userService;
-
-    /*
-    @Autowired  // constructor injection (recommended)
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-    */
-
-    @PostMapping("/register")
-    public ResponseEntity&lt;?&gt; registerUser(@RequestBody User user) {
-        userService.registerUser(user);
-        return ResponseEntity.ok("User registered successfully");
-    }
-}</code></pre>
-</div>
-<div>
-
-    Sample cURL Test
-    <pre><code class="language-bash line-numbers">curl -X POST http://localhost:8081/myapp/api/users/register \
--H "Content-Type: application/json" \
--d '{
-"username": "srimanta",
-"email": "srimanta@xmail.com",
-"password": "srimanta@123"
-}'</code></pre>
-    Response
-    <pre><code class="language-bash line-numbers">User registered successfully</code></pre>
-</div>
-
-<hr class="" data-start="733" data-end="736" />
-
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 </strong><a href="https://spring.io/blog/2007/07/11/setter-injection-versus-constructor-injection-and-the-use-of-required"><strong data-start="742" data-end="765"><span style="font-family: inherit; font-size: 35px; font-style: inherit;">Constructor vs Setter vs Field Injection</span></strong></a></h3>
-<div class="overflow-x-auto contain-inline-size responsive-table">
-    <table data-pm-slice="3 3 []">
-        <tbody>
-        <tr>
-            <th>Injection Type</th>
-            <th>Use Case</th>
-            <th>Pros</th>
-            <th>Cons</th>
-        </tr>
-        <tr>
-            <td>Constructor</td>
-            <td>Required dependencies</td>
-            <td>Immutable, testable</td>
-            <td>Verbose for many dependencies</td>
-        </tr>
-        <tr>
-            <td>Setter</td>
-            <td>Optional/configurable props</td>
-            <td>Simple to override</td>
-            <td>Risk of partial injection</td>
-        </tr>
-        <tr>
-            <td>Field</td>
-            <td>Convenience</td>
-            <td>Less boilerplate</td>
-            <td>Not recommended for testing</td>
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)]" data-start="1734" data-end="1761"><code data-start="1736" data-end="1747">@Profile</code></td>
+            <td class="max-w-[calc(var(--thread-content-max-width)*2/3)] min-w-[calc(var(--thread-content-max-width)/2)]" data-start="1761" data-end="1853">Activates beans only for specific profiles.</td>
         </tr>
         </tbody>
     </table>
@@ -261,53 +140,67 @@ Bean lifecycle phases:
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming">Aspect-Oriented Programming (AOP)</a></strong></h3>
-AOP allows separation of cross-cutting concerns like logging, security, or transactions.
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://spring.io/projects/spring-boot">Getting Started with Spring Boot</a></strong></h3>
+Spring Boot makes it incredibly easy to bootstrap a new Spring application. Here's how to create a new Spring Boot project using <strong>Spring Initializr</strong>:
 
-Uses annotations like <code>@Aspect</code>, <code>@Before</code>, <code>@After</code>, <code>@Around</code>.
+<strong>Steps to Create a Spring Boot App:</strong>
+<ul>
+    <li>Go to <a href="https://start.spring.io">https://start.spring.io</a></li>
+    <li>Choose the following settings:
+        <ul>
+            <li><strong>Project</strong>: Maven or Gradle</li>
+            <li><strong>Language</strong>: Java</li>
+            <li><strong>Spring Boot version</strong>: Latest stable (e.g., 3.4.5)</li>
+            <li><strong>Group</strong>: <code>com.example</code></li>
+            <li><strong>Artifact</strong>: <code>myapp</code></li>
+            <li><strong>Name</strong>: <code>MyApp</code></li>
+            <li><strong>Packaging</strong>: Jar</li>
+            <li><strong>Java</strong>: Latest version (e.g., 21)</li>
+            <li><strong>Dependencies</strong>: Add <code>Spring Web</code> for now. (Others as needed) <code>Spring Data JPA</code>, <code>Spring Security</code>.</li>
+        </ul>
+    </li>
+    <li>Click <strong>Generate</strong> to download a <code>.zip</code> file.</li>
+</ul>
+Unzip and Run the application directly from command line (Dev Mode):
+<pre><code class="language-bash line-numbers"> # For Maven projects
+./mvnw spring-boot:run</code></pre>
+<pre><code class="language-bash line-numbers"># For Gradle projects
+./gradlew bootRun</code></pre>
+Also, open the project in your favorite IDE (e.g., IntelliJ IDEA or Eclipse)<strong> </strong>and Run the main class (<code>@SpringBootApplication</code>).
 
-If you're using <strong data-start="402" data-end="411">Maven</strong>, add this to your <code data-start="430" data-end="439">pom.xml</code> dependencies:
-<div>
-<pre><code class="language-xml line-numbers">&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-aop&lt;/artifactId&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">For <strong>Gradle</strong>, add to your <code data-start="430" data-end="439">build.gradle</code> file:</span>
-<pre><code class="language-groovy line-numbers">implementation 'org.springframework.boot:spring-boot-starter-aop'</code></pre>
-<strong data-start="798" data-end="810">Example:</strong>
-<div>
-    <div>
-<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Aspect
-@Component
-public class LoggingAspect {
+Additionally, you can build and run as executable jar (Production Mode):
+<pre><code class="language-bash line-numbers"># Maven
+mvn clean package
+java -jar target/myapp-0.0.1-SNAPSHOT.jar</code></pre>
+<pre><code class="language-bash line-numbers"># Gradle
+./gradlew build
+java -jar build/libs/myapp-0.0.1-SNAPSHOT.jar</code></pre>
+You can verify the following logs to confirm the application started successfully:
+<pre><code class="language-bash line-numbers">INFO 3692 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8080 (http) with context path '/'
+INFO 3692 --- [MyApp] [ main] com.example.myapp.MyAppApplication : Started MyAppApplication in 0.792 seconds (process running for 0.975)</code></pre>
+Your Spring Boot application is now up and running! You can visit <code>http://localhost:8080</code> to verify.
 
-    private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
+You will get a <b>Whitelabel Error Page</b> as there are no request mappings yet. Press <code>Ctrl+C</code> to stop the server.
+<h4 data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Spring_Boot">Spring Boot Configuration</a></strong></h4>
+Spring Boot simplifies configuration via <code style="font-size: inherit;">application.properties</code> or <code style="font-size: inherit;">application.yaml</code>.
 
-    @Before("execution(* com.example.myapp.controller.*.*(..))")
-    public void logBefore(JoinPoint joinPoint) {
-        logger.info("Entering method: {}", joinPoint.getSignature().toShortString());
-    }
+Add the following properties to the configuration file, then restart the application.
+<pre><code class="language-bash line-numbers"># application.properties
+# Changes default port from 8080 to 8081
+server.port=8081
+# Sets the base context path
+server.servlet.context-path=/myapp</code></pre>
+<pre><code class="language-yaml line-numbers"># application.yaml
+server:
+  port: 8081     # Changes default port from 8080 to 8081
+  servlet:
+      context-path: /myapp  # Sets the base context path</code></pre>
+You should see the updated logs as below:
+<pre><code class="language-bash line-numbers">INFO 3786 --- [MyApp] [ main] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat started on port 8081 (http) with context path '/myapp'
+INFO 3786 --- [MyApp] [ main] com.example.myapp.MyAppApplication : Started MyAppApplication in 0.747 seconds (process running for 0.927)</code></pre>
+You can visit <code>http://localhost:8081/myapp</code> to verify the application is up and running!
 
-    @AfterReturning(pointcut = "execution(* com.example.myapp.controller.*.*(..))", returning = "result")
-    public void logAfter(JoinPoint joinPoint, Object result) {
-        logger.info("Exiting method: {} with result = {}", joinPoint.getSignature().getName(), result);
-    }
-}</code></pre>
-    </div>
-    Re-run the sample cURL test, and you can see the logging aspects being logged in the console.
-    <pre><code class="language-bash line-numbers">INFO 5706 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
-INFO 5706 --- [MyApp] [nio-8081-exec-1] com.example.myapp.service.UserService : User registered: srimanta
-INFO 5706 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = &lt;200 OK OK,User registered successfully,[]&gt;</code></pre>
-    Breakdown of the <code data-start="492" data-end="508">execution(* com.example.myapp.controller.*.*(..))</code> expression:
-    <ul>
-        <li><code data-start="611" data-end="614">*</code>: Any return type.</li>
-        <li data-start="635" data-end="705"><code data-start="635" data-end="667">com.example.myapp.controller.*</code>: Any class in the controller package.</li>
-        <li data-start="708" data-end="764"><code data-start="708" data-end="716">.*(..)</code>: Any method with any number/type of parameters.</li>
-    </ul>
-    <strong data-start="727" data-end="739">Use Case:</strong> Great for logging entry into controller methods, auth checks, or input validation.
-
-</div>
+Use <code>@SpringBootConfiguration</code> (meta-annotated on <code>@SpringBootApplication</code>) for bootstrapping custom config classes.
 
 <hr class="" data-start="733" data-end="736" />
 
@@ -321,7 +214,6 @@ Core annotations: <code>@RestController</code>, <code>@PostMapping</code>, <code
 
     <code data-start="264" data-end="273">UserDTO</code> (data transfer object)
     <div>
-        <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class UserDTO {
 
     private String username;
@@ -332,8 +224,15 @@ Core annotations: <code>@RestController</code>, <code>@PostMapping</code>, <code
     public String getUsername() {
         return username;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }</code></pre>
-        </div>
     </div>
     <code data-start="580" data-end="598">UserService</code> (business logic)
     <div>
@@ -369,7 +268,7 @@ public class UserController {
     /*
     @Autowired  // constructor injection (recommended)
     public UserController(UserService userService) {
-        this.userService = userService;
+      this.userService = userService;
     }
     */
 
@@ -412,227 +311,67 @@ public class UserController {
 User 'srimanta' registered successfully!%
 myapp %
 myapp % curl -X GET "http://localhost:8081/myapp/api/users/find?username=srimanta"
-{"username":"srimanta"}%
+{"username":"srimanta","email":"srimanta@xmail.com","password":"srimanta@123"}%
 myapp %
 myapp % curl http://localhost:8081/myapp/api/users/srimanta
-{"username":"srimanta"}%
-myapp %</code></pre>
-    Sample console logs
-    <pre><code class="language-bash line-numbers">INFO 1401 --- [MyApp] [nio-8081-exec-9] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
-INFO 1401 --- [MyApp] [nio-8081-exec-9] com.example.myapp.service.UserService : User registered: srimanta
-INFO 1401 --- [MyApp] [nio-8081-exec-9] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = User 'srimanta' registered successfully!
-INFO 1401 --- [MyApp] [io-8081-exec-10] c.example.myapp.component.LoggingAspect : Entering method: UserController.getUserByQueryParam(..)
-INFO 1401 --- [MyApp] [io-8081-exec-10] com.example.myapp.service.UserService : Finding by username: srimanta
-INFO 1401 --- [MyApp] [io-8081-exec-10] c.example.myapp.component.LoggingAspect : Exiting method: getUserByQueryParam with result = com.example.myapp.dto.UserDTO@1ea2e9e1
-INFO 1401 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Entering method: UserController.getUserByPath(..)
-INFO 1401 --- [MyApp] [nio-8081-exec-2] com.example.myapp.service.UserService : Finding by username: srimanta
-INFO 1401 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Exiting method: getUserByPath with result = com.example.myapp.dto.UserDTO@1ea2e9e1
+{"username":"srimanta","email":"srimanta@xmail.com","password":"srimanta@123"}%
+myapp %
 </code></pre>
+    Sample console logs
+    <pre><code class="language-bash line-numbers">INFO 1822 --- [MyApp] [nio-8081-exec-1] com.example.myapp.service.UserService    : User registered: srimanta
+INFO 1822 --- [MyApp] [nio-8081-exec-2] com.example.myapp.service.UserService    : Finding by username: srimanta
+INFO 1822 --- [MyApp] [nio-8081-exec-3] com.example.myapp.service.UserService    : Finding by username: srimanta</code></pre>
 </div>
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/message-converters.html">WebMvcConfigurer &amp; Message Converters</a></strong></h3>
-Customize Spring MVC behavior.
-
-Add message converters, interceptors, CORS settings.
-
-If you're using <strong data-start="402" data-end="411">Maven</strong>, add this to your <code data-start="430" data-end="439">pom.xml</code> dependencies:
-<div>
-    <div>
-<pre><code class="language-xml line-numbers">&lt;!-- JSON (comes with Spring Boot Starter Web) --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
-    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
-&lt;/dependency&gt;
-
-&lt;!-- XML support --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;com.fasterxml.jackson.dataformat&lt;/groupId&gt;
-    &lt;artifactId&gt;jackson-dataformat-xml&lt;/artifactId&gt;
-&lt;/dependency&gt;</code></pre>
-    </div>
-</div>
-<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">For <strong>Gradle</strong>, add to your <code data-start="430" data-end="439">build.gradle</code> file:</span>
-<pre><code class="language-groovy line-numbers">implementation 'com.fasterxml.jackson.core:jackson-databind'
-implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'</code></pre>
-<strong data-start="798" data-end="810">Example:</strong>
-<div>
-
-    UserDTO class (with Jackson annotations for better XML)
-    <div>
-<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@JacksonXmlRootElement(localName = "user")
-public class UserDTO {
-
-    @JsonProperty("username")
-    private String username;
-
-    @JsonProperty("email")
-    private String email;
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String password;
-
-    // Constructors
-    public UserDTO() {}
-
-    public UserDTO(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
-
-    // Getters and Setters
-    public String getUsername() {
-        return username;
-    }
-}</code></pre>
-    </div>
-    WebMvcConfigurer Configuration
-    <div>
-<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Configuration
-public class WebConfig implements WebMvcConfigurer {
-
-    @Override
-    public void extendMessageConverters(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters) {
-        // JSON converter
-        converters.add(new MappingJackson2HttpMessageConverter(new ObjectMapper()));
-
-        // XML converter
-        converters.add(new MappingJackson2XmlHttpMessageConverter(new XmlMapper()));
-    }
-}</code></pre>
-    </div>
-    Controller
-    <div>
-<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestController
-@RequestMapping("/api/users")
-public class UserController {
-
-    @Autowired  // Field injection
-    private UserService userService;
-
-    /*
-    @Autowired  // constructor injection (recommended)
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-    */
-
-    /**
-     * Register a new user via POST
-     * Example: POST /api/users/register
-     */
-    @PostMapping("/register")
-    public String registerUser(@RequestBody UserDTO userDTO) {
-        return userService.registerUser(userDTO);
-    }
-
-    /**
-     * Get user by query param
-     * Example: GET /api/users/find?username=srimanta
-     */
-    @GetMapping("/find")
-    public UserDTO getUserByQueryParam(@RequestParam String username) {
-        return userService.findByUsername(username);
-    }
-
-    /**
-     * Get user by path variable
-     * Example: GET /api/users/srimanta
-     */
-    @GetMapping(value = "/{username}", produces = { "application/json", "application/xml" })
-    public UserDTO getUserByPath(@PathVariable String username) {
-        return userService.findByUsername(username);
-    }
-}</code></pre>
-    </div>
-    Sample cURL Test
-    <pre><code class="language-bash line-numbers">myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
--H "Content-Type: application/json" \
--d '{
-"username": "srimanta",
-"email": "srimanta@xmail.com",
-"password": "srimanta@123"
-}'
-User 'srimanta' registered successfully!%
-myapp %
-myapp % curl http://localhost:8081/myapp/api/users/srimanta
-{"username":"srimanta","email":"srimanta@xmail.com"}%
-myapp %
-myapp % curl http://localhost:8081/myapp/api/users/srimanta \
--H "Accept: application/xml"
-&lt;user&gt;&lt;username&gt;srimanta&lt;/username&gt;&lt;email&gt;srimanta@xmail.com&lt;/email&gt;&lt;/user&gt;%
-myapp %</code></pre>
-    Sample console logs
-    <pre><code class="language-bash line-numbers">INFO 4036 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
-INFO 4036 --- [MyApp] [nio-8081-exec-1] com.example.myapp.service.UserService : User registered: srimanta
-INFO 4036 --- [MyApp] [nio-8081-exec-1] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = User 'srimanta' registered successfully!
-INFO 4036 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Entering method: UserController.getUserByPath(..)
-INFO 4036 --- [MyApp] [nio-8081-exec-2] com.example.myapp.service.UserService : Finding by username: srimanta
-INFO 4036 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Exiting method: getUserByPath with result = com.example.myapp.dto.UserDTO@3358f29a
-INFO 4036 --- [MyApp] [nio-8081-exec-4] c.example.myapp.component.LoggingAspect : Entering method: UserController.getUserByPath(..)
-INFO 4036 --- [MyApp] [nio-8081-exec-4] com.example.myapp.service.UserService : Finding by username: srimanta
-INFO 4036 --- [MyApp] [nio-8081-exec-4] c.example.myapp.component.LoggingAspect : Exiting method: getUserByPath with result = com.example.myapp.dto.UserDTO@3358f29a
-</code></pre>
-</div>
-
-<hr class="" data-start="733" data-end="736" />
-
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html">Spring Validations</a></strong></h3>
+<h3 data-start="738" data-end="767"><strong>🔹 <a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html">Spring Validations</a></strong></h3>
 Spring supports JSR-303/JSR-380 Bean Validation via annotations:
 <ul>
     <li><code>@NotNull</code>, <code>@Email</code>, <code>@Min</code>, <code>@Size</code></li>
 </ul>
 Use <code>@Validated</code> and <code>@Valid</code> to trigger validations.
 
-If you're using <strong data-start="402" data-end="411">Maven</strong>, add this to your <code data-start="430" data-end="439">pom.xml</code> dependencies:
-<div>
-<pre><code class="language-xml line-numbers">&lt;dependency&gt;
+<strong data-start="798" data-end="810">Example:</strong>
+
+Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
+<pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
+&lt;dependency&gt;
     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
     &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
-</div>
-<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">For <strong>Gradle</strong>, add to your <code data-start="430" data-end="439">build.gradle</code> file:</span>
-<pre><code class="language-groovy line-numbers">implementation 'org.springframework.boot:spring-boot-starter-validation'</code></pre>
-<strong data-start="798" data-end="810">Example:</strong>
-
-UserDTO with Constraints
+<pre><code class="language-groovy line-numbers">// Gradle
+implementation 'org.springframework.boot:spring-boot-starter-validation'</code></pre>
+<code>UserDTO</code> (with constraints)
 <div>
-<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@JacksonXmlRootElement(localName = "user")
-public class UserDTO {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class UserDTO {
 
     @NotBlank(message = "Username is required")
     @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
-    @JsonProperty("username")
     private String username;
 
-    @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
-    @JsonProperty("email")
     private String email;
 
     @NotBlank(message = "Password is required")
     @Size(min = 6, message = "Password must be at least 6 characters")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-
-    // Constructors
-    public UserDTO() {}
-
-    public UserDTO(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 
     // Getters and Setters
     public String getUsername() {
         return username;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }</code></pre>
 </div>
-Controller with <code data-start="1028" data-end="1040">@Validated</code> and <code data-start="1045" data-end="1053">@Valid</code>
+<code>UserController</code> with <code data-start="1028" data-end="1040">@Validated</code> and <code data-start="1045" data-end="1053">@Valid</code>
 <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestController
 @RequestMapping("/api/users")
@@ -641,13 +380,6 @@ public class UserController {
 
     @Autowired  // Field injection
     private UserService userService;
-
-    /*
-    @Autowired  // constructor injection (recommended)
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-    */
 
     /**
      * Register a new user via POST
@@ -671,13 +403,13 @@ public class UserController {
      * Get user by path variable
      * Example: GET /api/users/srimanta
      */
-    @GetMapping(value = "/{username}", produces = { "application/json", "application/xml" })
+    @GetMapping("/{username}")
     public UserDTO getUserByPath(@PathVariable String username) {
         return userService.findByUsername(username);
     }
 }</code></pre>
 </div>
-Handle Validation Errors Gracefully
+<code>GlobalExceptionHandler</code> (handle validation errors gracefully)
 <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -685,7 +417,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map&lt;String, String&gt; handleValidationErrors(MethodArgumentNotValidException ex) {
-        Map&lt;String, String&gt; errors = new HashMap&lt;&gt;();
+        Map&lt;String, String&gt; errors = new LinkedHashMap&lt;&gt;();
         ex.getBindingResult().getFieldErrors().forEach(error -&gt; errors.put(error.getField(), error.getDefaultMessage()));
         return errors;
     }
@@ -699,20 +431,172 @@ Sample cURL Test
 "email": "dummy@.com",
 "password": ""
 }'
-{"password":"Password is required","username":"Username must be between 3 and 20 characters","email":"Invalid email format"}%
-myapp %</code></pre>
+{"username":"Username must be between 3 and 20 characters","email":"Invalid email format","password":"Password must be at least 6 characters"}%
+myapp % </code></pre>
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html"><span style="font-family: inherit; font-size: 35px; font-style: inherit;">Spring JDBC Template</span></a></strong></h3>
+<h3 data-start="738" data-end="767">🔹<strong> <a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/message-converters.html">WebMvcConfigurer &amp; Message Converters</a></strong></h3>
+Customize Spring MVC behavior.
+
+Add message converters, interceptors, CORS settings.
+
+Here's an example of a REST controller that generates both JSON and XML responses using content negotiation with <code>HttpMessageConverters</code>.
+
+<strong data-start="798" data-end="810">Example:</strong>
+
+Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
+<div>
+    <div>
+<pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
+&lt;!-- JSON (comes with Spring Boot Starter Web) --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+&lt;!-- XML support --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.dataformat&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-dataformat-xml&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+    </div>
+</div>
+<pre><code class="language-groovy line-numbers">// Gradle
+implementation 'com.fasterxml.jackson.core:jackson-databind'
+implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'</code></pre>
+<div>
+
+    <code>UserDTO</code> (with Jackson annotations for better XML)
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@JacksonXmlRootElement(localName = "user")
+public class UserDTO {
+
+    @NotBlank(message = "Username is required")
+    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
+    @JsonProperty("username")
+    private String username;
+
+    @Email(message = "Invalid email format")
+    @JsonProperty("email")
+    private String email;
+
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, message = "Password must be at least 6 characters")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)  // excluded from response (serialization)
+    private String password;
+
+    // Constructors
+    public UserDTO() {
+    }
+
+    public UserDTO(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    // Getters and Setters
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+}</code></pre>
+    </div>
+    <code>WebMvcConfigurer</code> Implementation
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Configuration
+public class WebMvcConfig implements WebMvcConfigurer {
+
+    @Override
+    public void extendMessageConverters(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters) {
+        // JSON converter
+        converters.add(new MappingJackson2HttpMessageConverter(new ObjectMapper()));
+
+        // XML converter
+        converters.add(new MappingJackson2XmlHttpMessageConverter(new XmlMapper()));
+    }
+}
+</code></pre>
+    </div>
+    <code>UserController</code>
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestController
+@RequestMapping("/api/users")
+@Validated // Enables method-level validation (useful for path variables, service params, etc.)
+public class UserController {
+
+    @Autowired  // Field injection
+    private UserService userService;
+
+    /**
+     * Register a new user via POST
+     * Example: POST /api/users/register
+     */
+    @PostMapping("/register")
+    public String registerUser(@Valid @RequestBody UserDTO userDTO) {
+        return userService.registerUser(userDTO);
+    }
+
+    /**
+     * Get user by query param
+     * Example: GET /api/users/find?username=srimanta
+     */
+    @GetMapping("/find")
+    public UserDTO getUserByQueryParam(@RequestParam String username) {
+        return userService.findByUsername(username);
+    }
+
+    /**
+     * Get user by path variable
+     * Example: GET /api/users/srimanta
+     */
+    @GetMapping(value = "/{username}", produces = {"application/json", "application/xml"})
+    public UserDTO getUserByPath(@PathVariable String username) {
+        return userService.findByUsername(username);
+    }
+}</code></pre>
+    </div>
+    Sample cURL Test
+    <pre><code class="language-bash line-numbers">myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+"username": "srimanta",
+"email": "srimanta@xmail.com",
+"password": "srimanta@123"
+}'
+User 'srimanta' registered successfully!%
+myapp %
+myapp % curl http://localhost:8081/myapp/api/users/srimanta
+{"username":"srimanta","email":"srimanta@xmail.com"}%
+myapp %
+myapp % curl http://localhost:8081/myapp/api/users/srimanta \
+-H "Accept: application/xml"
+&lt;user&gt;&lt;username&gt;srimanta&lt;/username&gt;&lt;email&gt;srimanta@xmail.com&lt;/email&gt;&lt;/user&gt;%
+myapp %</code></pre>
+</div>
+
+<hr class="" data-start="733" data-end="736" />
+
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html">Spring JDBC Template</a></strong></h3>
 Simplifies JDBC operations (query, insert, update).
 
 Reduces boilerplate code for database access.
 
-If you're using <strong data-start="402" data-end="411">Maven</strong>, add this to your <code data-start="430" data-end="439">pom.xml</code> dependencies:
+<strong data-start="798" data-end="810">Example:</strong>
+
+Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
     <div>
-<pre><code class="language-xml line-numbers">&lt;dependency&gt;
+<pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
+&lt;dependency&gt;
     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
     &lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt;
 &lt;/dependency&gt;
@@ -724,35 +608,60 @@ If you're using <strong data-start="402" data-end="411">Maven</strong>, add this
 &lt;/dependency&gt;</code></pre>
     </div>
 </div>
-<span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">For <strong>Gradle</strong>, add to your <code data-start="430" data-end="439">build.gradle</code> file:</span>
-<pre><code class="language-groovy line-numbers">implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+<pre><code class="language-groovy line-numbers">// Gradle
+implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 runtimeOnly 'com.h2database:h2'</code></pre>
-<strong data-start="798" data-end="810">Example:</strong>
-
-Add the below entries to the properties config file and restart the application.
+Add the following properties to the configuration file:
 <div>
-<pre><code class="language-bash line-numbers">spring.datasource.url=jdbc:h2:mem:testdb
+<pre><code class="language-bash line-numbers"># application.properties
+spring.datasource.url=jdbc:h2:mem:testdb
 spring.datasource.driver-class-name=org.h2.Driver
 spring.datasource.username=sa
 spring.datasource.password=
 spring.h2.console.enabled=true
 spring.jpa.hibernate.ddl-auto=none</code></pre>
+    <pre><code class="language-yaml line-numbers"># application.yaml
+spring:
+  datasource:
+      url: jdbc:h2:mem:testdb
+      driver-class-name: org.h2.Driver
+      username: sa
+      password: ""  # Empty password
+
+  h2:
+      console:
+          enabled: true
+
+  jpa:
+      hibernate:
+          ddl-auto: none  # Disable auto schema generation</code></pre>
     SQL Schema (schema.sql)
     <pre><code class="language-sql line-numbers">CREATE TABLE users (
-id BIGINT AUTO_INCREMENT PRIMARY KEY,
-username VARCHAR(50) NOT NULL,
-email VARCHAR(100),
-password VARCHAR(100)
-);</code></pre>
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(20) NOT NULL,
+    email VARCHAR(100),
+    password VARCHAR(60) NOT NULL
+);
+</code></pre>
     Spring Boot will automatically pick this file from <code data-start="943" data-end="963">src/main/resources</code>.
 
-    User Model
+    <code>User</code> Model
     <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class User {
     private Long id;
     private String username;
     private String email;
     private String password;
+
+    // Constructors
+    public User() {
+    }
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
     // Getters &amp; Setters
     public Long getId() {
@@ -788,7 +697,7 @@ password VARCHAR(100)
     }
 }</code></pre>
     </div>
-    UserRepository using <code data-start="1354" data-end="1368">JdbcTemplate</code>
+    <code>UserRepository</code> using <code data-start="1354" data-end="1368">JdbcTemplate</code> and <code>NamedParameterJdbcTemplate</code> (named parameters to prevent SQL injection with <code data-start="208" data-end="211">?</code> placeholders)
     <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Repository
 public class UserRepository {
@@ -796,23 +705,25 @@ public class UserRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public int registerUser(UserDTO userDTO) {
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    public int registerUser(User user) {
         String sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-        return jdbcTemplate.update(sql, userDTO.getUsername(), userDTO.getEmail(), userDTO.getPassword());
+        return jdbcTemplate.update(sql, user.getUsername(), user.getEmail(), user.getPassword());
     }
 
-    public User findUserByUsername(String username) {
-        String sql = "SELECT * FROM users WHERE username = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{username}, new BeanPropertyRowMapper&lt;&gt;(User.class));
-    }
+    public Optional findUserByUsername(String username) {
+        String sql = "SELECT * FROM users WHERE username = :username";
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("username", username);
 
-    public List&lt;User&gt; findAllUsers() {
-        String sql = "SELECT * FROM users";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper&lt;&gt;(User.class));
+        List users = namedParameterJdbcTemplate.query(sql, params, new BeanPropertyRowMapper&lt;&gt;(User.class));
+        return users.stream().findFirst();
     }
 }</code></pre>
     </div>
-    UserService
+    <code>UserService</code>
     <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Service
 public class UserService {
@@ -823,7 +734,12 @@ public class UserService {
     private UserRepository userRepository;
 
     public String registerUser(UserDTO userDTO) {
-        int update = userRepository.registerUser(userDTO);
+        if (findByUsername(userDTO.getUsername()) != null)
+            throw new RuntimeException("User already exists");
+
+        User user = new User(userDTO.getUsername(), userDTO.getEmail(), userDTO.getPassword());
+
+        int update = userRepository.registerUser(user);
         String status = update == 1 ? "successful" : "failed";
         logger.info("User '{}' registration {}!", userDTO.getUsername(), status);
         return "User '" + userDTO.getUsername() + "' registration " + status;
@@ -831,16 +747,12 @@ public class UserService {
 
     public User findByUsername(String username) {
         logger.info("Finding by username: {}", username);
-        return userRepository.findUserByUsername(username);
-    }
-
-    public ArrayList&lt;User&gt; findAllUsers() {
-        logger.info("Finding all users");
-        return new ArrayList&lt;&gt;(userRepository.findAllUsers());
+        Optional user = userRepository.findUserByUsername(username);
+        return user.orElse(null);
     }
 }</code></pre>
     </div>
-    Controller
+    <code>UserController</code>
     <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestController
 @RequestMapping("/api/users")
@@ -849,13 +761,6 @@ public class UserController {
 
     @Autowired  // Field injection
     private UserService userService;
-
-    /*
-    @Autowired  // constructor injection (recommended)
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-    */
 
     /**
      * Register a new user via POST
@@ -883,48 +788,21 @@ public class UserController {
     public User getUserByPath(@PathVariable String username) {
         return userService.findByUsername(username);
     }
-
-    /**
-     * Get all users
-     * Example: GET /api/users
-     */
-    @GetMapping
-    public List&lt;User&gt; getAllUser() {
-        return userService.findAllUsers();
-    }
-
 }</code></pre>
     </div>
     Sample cURL Test
     <pre><code class="language-bash line-numbers">myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
 -H "Content-Type: application/json" \
 -d '{
-"username": "dummy",
-"email": "dummy@mail.com",
-"password": "password"
+"username": "srimanta",
+"email": "srimanta@xmail.com",
+"password": "srimanta@123"
 }'
-User 'dummy' registration successful%
-myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
--H "Content-Type: application/json" \
--d '{
-"username": "another",
-"email": "another@mail.com",
-"password": "another"
-}'
-User 'another' registration successful%
-myapp % curl http://localhost:8081/myapp/api/users
-[{"id":1,"username":"dummy","email":"dummy@mail.com","password":"password"},{"id":2,"username":"another","email"
-myapp %</code></pre>
-    Sample console logs
-    <pre><code class="language-bash line-numbers">2025-05-03T16:16:00.259+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
-2025-05-03T16:16:00.263+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-2] com.example.myapp.service.UserService : User 'dummy' registration successful!
-2025-05-03T16:16:00.263+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = User 'dummy' registration successful
-2025-05-03T16:16:11.040+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-4] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
-2025-05-03T16:16:11.041+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-4] com.example.myapp.service.UserService : User 'another' registration successful!
-2025-05-03T16:16:11.041+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-4] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = User 'another' registration successful
-2025-05-03T16:16:19.179+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-6] c.example.myapp.component.LoggingAspect : Entering method: UserController.getAllUser()
-2025-05-03T16:16:19.180+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-6] com.example.myapp.service.UserService : Finding all users
-2025-05-03T16:16:19.185+05:30 INFO 2809 --- [MyApp] [nio-8081-exec-6] c.example.myapp.component.LoggingAspect : Exiting method: getAllUser with result = [com.example.myapp.model.User@6e9323a5, com.example.myapp.model.User@25b998c2]</code></pre>
+User 'srimanta' registration successful%
+myapp %
+myapp % curl -X GET "http://localhost:8081/myapp/api/users/find?username=srimanta"
+{"id":1,"username":"srimanta","email":"srimanta@xmail.com","password":"srimanta@123"}%
+myapp % </code></pre>
 </div>
 
 <hr class="" data-start="733" data-end="736" />
@@ -932,42 +810,67 @@ myapp %</code></pre>
 <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.spring.io/spring-boot/reference/actuator/endpoints.html">Spring Boot Actuators</a></strong></h3>
 Provides production-ready monitoring and diagnostics.
 
-Common endpoints: <code>/actuator/health</code>, <code>/actuator/metrics</code>, <code style="font-size: inherit;">/actuator/info</code><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span>
+Common endpoints: <code>/actuator/health</code>, <code>/actuator/metrics</code>, <code style="font-size: inherit;">/actuator/info</code>.
 
-Add dependencies
+<strong data-start="798" data-end="810">Example:</strong>
+
+Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
-<pre><code class="language-xml line-numbers">&lt;dependency&gt;
+<pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
+&lt;dependency&gt;
     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
     &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
-    Configure in <code data-start="362" data-end="386">application.properties</code>
-
 </div>
+<pre><code class="language-groovy line-numbers">// Gradle
+implementation 'org.springframework.boot:spring-boot-starter-actuator'</code></pre>
+Add the following properties to the configuration file:
 <div>
-<pre><code class="language-bash line-numbers"># Expose useful actuator endpoints
-management.endpoints.web.exposure.include=health,info,metrics,env,beans
+<pre><code class="language-bash line-numbers"># application.properties
+# Expose useful actuator endpoints
+management.endpoints.web.exposure.include=health, info, metrics, env, beans
+
+# Info endpoint configuration
 management.info.env.enabled=true
+
+# Health endpoint details
+management.endpoint.health.show-details=always
 
 # Optional: Customize context path
 management.endpoints.web.base-path=/actuator
 
 # Optional: Info Metadata
-info.app.name=MyApp User API
+info.app.name=MySpringBootApp
 info.app.description=Spring Boot app with actuator endpoints
 info.app.version=1.0.0</code></pre>
 </div>
-Add <code data-start="797" data-end="813">UserController</code> (Already exists from previous)
+<pre><code class="language-yaml line-numbers"># application.yaml
+management:
+  endpoints:
+      web:
+          exposure:
+              include: health,info,metrics,env,beans
+  info:
+      env:
+          enabled: true
+  endpoint:
+      health:
+          show-details: always
 
-Accessing Actuator Endpoints
-<p class="" data-start="1449" data-end="1472">Once the app runs, try:</p>
+info:
+  app:
+      name: "MySpringBootApp"
+      description: "Spring Boot app with actuator endpoints"
+      version: "1.0.0"</code></pre>
+Add the <code data-start="91" data-end="107">UserController</code> (already defined in previous code examples).
+<p class="" data-start="1449" data-end="1472">Restart the app and verify the endpoints:</p>
 
 <ul>
     <li data-start="1476" data-end="1517"><code data-start="1476" data-end="1515">http://localhost:8081/myapp/actuator/health</code></li>
     <li data-start="1520" data-end="1559"><code data-start="1520" data-end="1557">http://localhost:8081/myapp/actuator/info</code></li>
     <li data-start="1562" data-end="1604"><code data-start="1562" data-end="1602">http://localhost:8081/myapp/actuator/metrics</code></li>
-    <li data-start="1607" data-end="1645"><code data-start="1607" data-end="1645">http://localhost:8081/myapp/actuator/beans</code></li>
 </ul>
-You can create your own health check:
+Create a custom health check by implementing <code>HealthIndicator</code>.
 <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Component
 public class CustomHealthIndicator implements HealthIndicator {
@@ -988,11 +891,71 @@ public class CustomHealthIndicator implements HealthIndicator {
 }</code></pre>
 </div>
 Sample cURL Test
-<pre><code class="language-bash line-numbers">myapp % curl http://localhost:8081/myapp/actuator/health
-{"status":"UP"}%
-myapp % curl http://localhost:8081/myapp/actuator/info
-{"app":{"name":"MyApp User API","description":"Spring Boot app with actuator endpoints","version":"1.0.0"}}%
-myapp %</code></pre>
+<pre><code class="language-bash line-numbers">myapp % curl http://localhost:8081/myapp/actuator/info
+{"app":{"name":"MySpringBootApp","description":"Spring Boot app with actuator endpoints","version":"1.0.0"}}%
+myapp %
+myapp % curl http://localhost:8081/myapp/actuator/health
+{"status":"UP","components":{"custom":{"status":"UP","details":{"H2 Database":"Available"}},"db":{"status":"UP","details":{"database":"H2","validationQuery":"isValid()"}},"diskSpace":{"status":"UP","details":{"total":245107195904,"free":8402948096,"threshold":10485760,"path":"/Users/srimantasahu/Repo/myapp-gradle/.","exists":true}},"ping":{"status":"UP"},"ssl":{"status":"UP","details":{"validChains":[],"invalidChains":[]}}}}%
+myapp % </code></pre>
+
+<hr class="" data-start="733" data-end="736" />
+
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming">Aspect-Oriented Programming (AOP)</a></strong></h3>
+AOP allows separation of cross-cutting concerns like logging, security, or transactions.
+
+Uses annotations like <code>@Aspect</code>, <code>@Before</code>, <code>@After</code>, <code>@Around</code>.
+
+<strong data-start="798" data-end="810">Example:</strong>
+
+Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
+<div>
+<pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-aop&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+<pre><code class="language-groovy line-numbers">// Gradle
+implementation 'org.springframework.boot:spring-boot-starter-aop'</code></pre>
+<div>
+
+    <code>LoggingAspect</code>
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Aspect
+@Component
+public class LoggingAspect {
+
+    private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
+
+    @Before("execution(* com.example.myapp.controller.*.*(..))")
+    public void logBefore(JoinPoint joinPoint) {
+        logger.info("Entering method: {}", joinPoint.getSignature().toShortString());
+    }
+
+    @AfterReturning(pointcut = "execution(* com.example.myapp.controller.*.*(..))", returning = "result")
+    public void logAfter(JoinPoint joinPoint, Object result) {
+        logger.info("Exiting method: {} with result = {}", joinPoint.getSignature().getName(), result);
+    }
+}</code></pre>
+    </div>
+    Re-run the sample cURL test, and you can see the logging aspects being logged in the console.
+    <pre><code class="language-bash line-numbers">INFO 3704 --- [nio-8081-exec-1] c.example.myapp.component.LoggingAspect  : Entering method: UserController.registerUser(..)
+INFO 3704 --- [nio-8081-exec-1] com.example.myapp.service.UserService    : Finding by username: srimanta
+INFO 3704 --- [nio-8081-exec-1] com.example.myapp.service.UserService    : User 'srimanta' registration successful!
+INFO 3704 --- [nio-8081-exec-1] c.example.myapp.component.LoggingAspect  : Exiting method: registerUser with result = User 'srimanta' registration successful
+INFO 3704 --- [nio-8081-exec-2] c.example.myapp.component.LoggingAspect  : Entering method: UserController.getUserByPath(..)
+INFO 3704 --- [nio-8081-exec-2] com.example.myapp.service.UserService    : Finding by username: srimanta
+INFO 3704 --- [nio-8081-exec-2] c.example.myapp.component.LoggingAspect  : Exiting method: getUserByPath with result = com.example.myapp.model.User@310648fa
+</code></pre>
+    Breakdown of the <code data-start="492" data-end="508">execution(* com.example.myapp.controller.*.*(..))</code> expression:
+    <ul>
+        <li><code data-start="611" data-end="614">*</code>: Any return type.</li>
+        <li data-start="635" data-end="705"><code data-start="635" data-end="667">com.example.myapp.controller.*</code>: Any class in the controller package.</li>
+        <li data-start="708" data-end="764"><code data-start="708" data-end="716">.*(..)</code>: Any method with any number/type of parameters.</li>
+    </ul>
+    <strong data-start="727" data-end="739">Use Case:</strong> Great for logging entry into controller methods, auth checks, or input validation.
+
+</div>
 
 <hr class="" data-start="733" data-end="736" />
 
@@ -1009,9 +972,13 @@ Provides robust security with support for:
     <li>Filter chains</li>
 </ul>
 <div>
-    Add Dependencies (<code data-start="320" data-end="329">pom.xml</code>)
+
+    <strong data-start="798" data-end="810">Example:</strong>
+
+    Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
     <div>
-<pre><code class="language-xml line-numbers">&lt;!-- Spring Security --&gt;
+<pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
+&lt;!-- Spring Security --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
     &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
@@ -1036,17 +1003,24 @@ Provides robust security with support for:
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
     </div>
-    Security Configuration (Lambda DSL)
+    <div>
+<pre><code class="language-groovy line-numbers">// Gradle
+// Spring Boot Starter Security
+implementation 'org.springframework.boot:spring-boot-starter-security'
+
+// JWT Dependencies
+implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'</code></pre>
+    </div>
+    <code>SecurityConfig</code> Configuration (Lambda DSL)
     <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Value("${jwt.secret}")
-    private String jwtSecret;
-
     @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private JwtAuthFilter jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -1058,7 +1032,7 @@ public class SecurityConfig {
                 )
                 .sessionManagement(sm -&gt; sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
@@ -1074,85 +1048,18 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    @Bean
-    public JwtAuthFilter jwtAuthFilter() {
-        return new JwtAuthFilter(jwtService(), userDetailsService);
-    }
-
-    @Bean
-    public JwtService jwtService() {
-        return new JwtService(jwtSecret);
-    }
 }</code></pre>
     </div>
-    JWT Service
-    <div>
-<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Component
-public class JwtService {
-
-    private final SecretKey key;
-
-    public JwtService(String secret) {
-        this.key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secret));
-    }
-
-    public String generateToken(String username) {
-        return Jwts.builder()
-                .subject(username)
-                .issuedAt(Date.from(Instant.now()))
-                .expiration(Date.from(Instant.now().plus(Duration.ofHours(1)))) // 1 hour
-                .signWith(key)
-                .compact();
-    }
-
-    public String extractUsername(String token) {
-        return Jwts.parser()
-                .verifyWith(key)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload()
-                .getSubject();
-    }
-
-    public boolean validateToken(String token, UserDetails userDetails) {
-        return extractUsername(token).equals(userDetails.getUsername());
-    }
-}</code></pre>
-    </div>
-    UserDetailsService Implementation
-    <div>
-<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Service
-public class CustomUserDetailsService implements UserDetailsService {
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional&lt;User&gt; user = userRepository.findUserByUsername(username);
-
-        if (user.isEmpty())
-            throw new UsernameNotFoundException("User not found");
-
-        return new org.springframework.security.core.userdetails.User(
-                user.get().getUsername(), user.get().getPassword(), new ArrayList&lt;&gt;()
-        );
-    }
-}</code></pre>
-    </div>
-    JWT Filter
+    <code>JWTAuthFilter</code>
     <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    private final JwtService jwtService;
-    private final UserDetailsService userDetailsService;
+    @Autowired
+    private JwtService jwtService;
 
-    public JwtAuthFilter(JwtService jwtService, UserDetailsService userDetailsService) {
-        this.jwtService = jwtService;
-        this.userDetailsService = userDetailsService;
-    }
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -1190,7 +1097,97 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     }
 }</code></pre>
     </div>
-    Auth Controller
+    <code>JWTService</code>
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Component
+public class JwtService {
+
+    @Value("${jwt.secret}")
+    // In Spring, @Value or @ConfigurationProperties fields aren't populated yet when the constructor runs (for field injection).
+    private String jwtSecret;
+
+    private SecretKey key;
+
+    @PostConstruct      // Runs after dependency injection is complete (after Spring has populated all fields).
+    private void postConstruct() {      // Clean separation: constructor → simple wiring, @PostConstruct → post-wiring logic.
+        this.key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(jwtSecret));
+    }
+
+    public String generateToken(String username) {
+        return Jwts.builder()
+                .subject(username)
+                .issuedAt(Date.from(Instant.now()))
+                .expiration(Date.from(Instant.now().plus(Duration.ofHours(1)))) // 1 hour
+                .signWith(key)
+                .compact();
+    }
+
+    public String extractUsername(String token) {
+        return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
+    }
+
+    public boolean validateToken(String token, UserDetails userDetails) {
+        return extractUsername(token).equals(userDetails.getUsername());
+    }
+}</code></pre>
+    </div>
+    <code>UserDetailsService</code> Implementation
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Service
+public class CustomUserDetailsService implements UserDetailsService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional user = userRepository.findUserByUsername(username);
+
+        if (user.isEmpty())
+            throw new UsernameNotFoundException("User not found");
+
+        return new org.springframework.security.core.userdetails.User(
+                user.get().getUsername(), user.get().getPassword(), new ArrayList&lt;&gt;()
+        );
+    }
+}</code></pre>
+    </div>
+    <code>UserService</code> (store encoded password)
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Service
+public class UserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public String registerUser(UserDTO userDTO) {
+        if (findByUsername(userDTO.getUsername()) != null)
+            throw new RuntimeException("User already exists");
+
+        String encodedPassword = new BCryptPasswordEncoder().encode(userDTO.getPassword());
+        User user = new User(userDTO.getUsername(), userDTO.getEmail(), encodedPassword);
+
+        int update = userRepository.registerUser(user);
+        String status = update == 1 ? "successful" : "failed";
+        logger.info("User '{}' registration {}!", userDTO.getUsername(), status);
+        return "User '" + userDTO.getUsername() + "' registration " + status;
+    }
+
+    public User findByUsername(String username) {
+        logger.info("Finding by username: {}", username);
+        Optional user = userRepository.findUserByUsername(username);
+        return user.orElse(null);
+    }
+}</code></pre>
+    </div>
+    <code>AuthController</code>
     <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@RestController
 @RequestMapping("/api/auth")
@@ -1220,24 +1217,28 @@ public class AuthController {
     }
 
     @GetMapping("/secure-check")
-    public ResponseEntity&lt;String&gt; secureCheck(Principal principal) {
-        return ResponseEntity.ok("Authenticated user: " + principal.getName());
+    public ResponseEntity secureCheck(Principal principal) {
+        return ResponseEntity.ok("Accessed secured endpoint by user: " + principal.getName());
     }
 }</code></pre>
     </div>
-    <code>application.properties</code>
+    Add the following properties to the configuration file, then restart the application.
     <div>
-<pre><code class="language-bash line-numbers"># Secret Key (YOUR_GENERATED_BASE64_SECRET_KEY)
+<pre><code class="language-bash line-numbers"># application.properties
+# Secret Key (YOUR_GENERATED_BASE64_SECRET_KEY)
 jwt.secret=wXRc/fUYMb2IAyXRvB4NYzyLws9oimd226c7nqNqs/fT1dbUewJGN/SEuq/5lQROLVDj62NhyR7AhbTI5gY/FA==</code></pre>
+        <pre><code class="language-yaml line-numbers"># application.yaml
+# Secret Key (YOUR_GENERATED_BASE64_SECRET_KEY)
+jwt:
+  secret: wXRc/fUYMb2IAyXRvB4NYzyLws9oimd226c7nqNqs/fT1dbUewJGN/SEuq/5lQROLVDj62NhyR7AhbTI5gY/FA==</code></pre>
     </div>
     Generate a secret key like:
     <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">byte[] key = new byte[64];
 new SecureRandom().nextBytes(key);
 System.out.println(Base64.getEncoder().encodeToString(key));</code></pre>
-
     Sample cURL Test
     <pre><code class="language-bash line-numbers">myapp % curl http://localhost:8081/myapp/api/auth/secure-check
-{"timestamp":"2025-05-06T01:58:28.835+00:00","status":403,"error":"Forbidden","path":"/myapp/api/auth/secure-check"}%
+{"timestamp":"2025-05-09T04:47:06.588+00:00","status":403,"error":"Forbidden","path":"/myapp/api/auth/secure-check"}%
 myapp %
 myapp % curl -X POST http://localhost:8081/myapp/api/users/register \
 -H "Content-Type: application/json" \
@@ -1254,48 +1255,26 @@ myapp % curl -X POST http://localhost:8081/myapp/api/auth/login \
 "username": "srimanta",
 "password": "srimanta@123"
 }'
-{"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcmltYW50YSIsImlhdCI6MTc0NjQ5Njc1MCwiZXhwIjoxNzQ2NTAwMzUwfQ.IzjyhJZWGBI2jOou4HfdLKGb5ZAaxA6dALT5AMTT1MPwQpjDpacffryQR-s7E3o9fiFK-59FvRUJRNHFDhS-VA"}%
+{"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcmltYW50YSIsImlhdCI6MTc0Njc2NjA0OSwiZXhwIjoxNzQ2NzY5NjQ5fQ.9m0xk0PzvfnPG7kfyxjMkNZGhR0Ser7s6zTPEErYrddYBVaZmnmI4_KReEnoL7HHt0HPXGg3_x7cGc99VG7T9w"}%
 myapp %
-myapp % curl -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcmltYW50YSIsImlhdCI6MTc0NjQ5Njc1MCwiZXhwIjoxNzQ2NTAwMzUwfQ.IzjyhJZWGBI2jOou4HfdLKGb5ZAaxA6dALT5AMTT1MPwQpjDpacffryQR-s7E3o9fiFK-59FvRUJRNHFDhS-VA" http://localhost:8081/myapp/api/auth/secure-check
-Authenticated user: srimanta%
-myapp %</code></pre>
-
+myapp % curl -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcmltYW50YSIsImlhdCI6MTc0Njc2NjA0OSwiZXhwIjoxNzQ2NzY5NjQ5fQ.9m0xk0PzvfnPG7kfyxjMkNZGhR0Ser7s6zTPEErYrddYBVaZmnmI4_KReEnoL7HHt0HPXGg3_x7cGc99VG7T9w" http://localhost:8081/myapp/api/auth/secure-check
+Accessed secured endpoint by user: srimanta%
+myapp % </code></pre>
     Console Logs
-    <pre><code class="language-bash line-numbers">INFO 1997 --- [MyApp] [ main] com.example.myapp.MyAppApplication : Started MyAppApplication in 1.695 seconds (process running for 1.865)
-INFO 1997 --- [MyApp] [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/myapp] : Initializing Spring DispatcherServlet 'dispatcherServlet'
-INFO 1997 --- [MyApp] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
-INFO 1997 --- [MyApp] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet : Completed initialization in 1 ms
-DEBUG 1997 --- [MyApp] [nio-8081-exec-1] o.s.security.web.FilterChainProxy : Securing GET /api/auth/secure-check
-DEBUG 1997 --- [MyApp] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter : Set SecurityContextHolder to anonymous SecurityContext
-DEBUG 1997 --- [MyApp] [nio-8081-exec-1] o.s.s.w.a.Http403ForbiddenEntryPoint : Pre-authenticated entry point called. Rejecting access
-DEBUG 1997 --- [MyApp] [nio-8081-exec-1] o.s.security.web.FilterChainProxy : Securing GET /error
-DEBUG 1997 --- [MyApp] [nio-8081-exec-1] o.s.security.web.FilterChainProxy : Secured GET /error
-DEBUG 1997 --- [MyApp] [nio-8081-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter : Set SecurityContextHolder to anonymous SecurityContext
-DEBUG 1997 --- [MyApp] [nio-8081-exec-2] o.s.security.web.FilterChainProxy : Securing POST /api/users/register
-DEBUG 1997 --- [MyApp] [nio-8081-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter : Set SecurityContextHolder to anonymous SecurityContext
-DEBUG 1997 --- [MyApp] [nio-8081-exec-2] o.s.security.web.FilterChainProxy : Secured POST /api/users/register
-INFO 1997 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Entering method: UserController.registerUser(..)
-INFO 1997 --- [MyApp] [nio-8081-exec-2] com.example.myapp.service.UserService : Finding by username: srimanta
-INFO 1997 --- [MyApp] [nio-8081-exec-2] com.example.myapp.service.UserService : User 'srimanta' registration successful!
-INFO 1997 --- [MyApp] [nio-8081-exec-2] c.example.myapp.component.LoggingAspect : Exiting method: registerUser with result = User 'srimanta' registration successful
-DEBUG 1997 --- [MyApp] [nio-8081-exec-3] o.s.security.web.FilterChainProxy : Securing POST /api/auth/login
-DEBUG 1997 --- [MyApp] [nio-8081-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter : Set SecurityContextHolder to anonymous SecurityContext
-DEBUG 1997 --- [MyApp] [nio-8081-exec-3] o.s.security.web.FilterChainProxy : Secured POST /api/auth/login
-INFO 1997 --- [MyApp] [nio-8081-exec-3] c.example.myapp.component.LoggingAspect : Entering method: AuthController.login(..)
-INFO 1997 --- [MyApp] [nio-8081-exec-3] c.example.myapp.component.LoggingAspect : Exiting method: login with result = &lt;200 OK OK,{token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcmltYW50YSIsImlhdCI6MTc0NjQ5Njc1MCwiZXhwIjoxNzQ2NTAwMzUwfQ.IzjyhJZWGBI2jOou4HfdLKGb5ZAaxA6dALT5AMTT1MPwQpjDpacffryQR-s7E3o9fiFK-59FvRUJRNHFDhS-VA},[]&gt;
-DEBUG 1997 --- [MyApp] [nio-8081-exec-5] o.s.security.web.FilterChainProxy : Securing GET /api/auth/secure-check
-DEBUG 1997 --- [MyApp] [nio-8081-exec-5] o.s.security.web.FilterChainProxy : Secured GET /api/auth/secure-check
-INFO 1997 --- [MyApp] [nio-8081-exec-5] c.example.myapp.component.LoggingAspect : Entering method: AuthController.secureCheck(..)
-INFO 1997 --- [MyApp] [nio-8081-exec-5] c.example.myapp.component.LoggingAspect : Exiting method: secureCheck with result = &lt;200 OK OK,Authenticated user: srimanta,[]&gt;
-</code></pre>
+    <pre><code class="language-bash line-numbers">INFO 973 --- [nio-8081-exec-2] c.example.myapp.component.LoggingAspect  : Entering method: UserController.registerUser(..)
+INFO 973 --- [nio-8081-exec-2] com.example.myapp.service.UserService    : Finding by username: srimanta
+INFO 973 --- [nio-8081-exec-2] com.example.myapp.service.UserService    : User 'srimanta' registration successful!
+INFO 973 --- [nio-8081-exec-2] c.example.myapp.component.LoggingAspect  : Exiting method: registerUser with result = User 'srimanta' registration successful
+INFO 973 --- [nio-8081-exec-3] c.example.myapp.component.LoggingAspect  : Entering method: AuthController.login(..)
+INFO 973 --- [nio-8081-exec-3] c.example.myapp.component.LoggingAspect  : Exiting method: login with result = &lt;200 OK OK,{token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcmltYW50YSIsImlhdCI6MTc0Njc2NjA0OSwiZXhwIjoxNzQ2NzY5NjQ5fQ.9m0xk0PzvfnPG7kfyxjMkNZGhR0Ser7s6zTPEErYrddYBVaZmnmI4_KReEnoL7HHt0HPXGg3_x7cGc99VG7T9w},[]&gt;
+INFO 973 --- [nio-8081-exec-5] c.example.myapp.component.LoggingAspect  : Entering method: AuthController.secureCheck(..)
+INFO 973 --- [nio-8081-exec-5] c.example.myapp.component.LoggingAspect  : Exiting method: secureCheck with result = &lt;200 OK OK,Accessed secured endpoint by user: srimanta,[]&gt;</code></pre>
 </div>
-<div>
 
-    <hr />
+<hr />
 
-</div>
 <h3 data-pm-slice="1 1 []"><strong>🚀 Conclusion</strong></h3>
-<p data-pm-slice="1 1 []">Spring empowers Java developers to build clean, maintainable, and scalable applications. With features like IoC, AOP, MVC, security, and powerful configuration management, it provides everything needed for full-stack enterprise development. Mastering these core concepts opens the door to productivity, flexibility, and production-grade performance in real-world applications.</p>
+<p data-pm-slice="1 1 []">Spring empowers Java developers to build clean, maintainable, and scalable applications. With features like IoC, MVC, AOP, security, and powerful configuration management, it provides everything needed for full-stack enterprise development. Mastering these core concepts opens the door to productivity, flexibility, and production-grade performance in real-world applications.</p>
 
 
 <hr />
