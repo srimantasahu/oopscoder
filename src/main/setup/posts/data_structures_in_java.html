@@ -4,7 +4,7 @@
 <p class="" data-start="597" data-end="757">By the end of this guide, you'll have a <strong data-start="637" data-end="660">solid understanding</strong> of Java data structures and be able to choose the right one for any problem. Let’s dive in! 🚀</p>
 <p data-start="912" data-end="1107">[toc]</p>
 <hr class="" data-start="195" data-end="198" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Array_(data_structure)"><strong data-start="238" data-end="281">Array</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Array_(data_structure)"><strong data-start="238" data-end="281">Array</strong></a></h3>
 <p>A <strong data-start="176" data-end="190">fixed-size</strong>, contiguous memory block that stores elements of the <strong data-start="244" data-end="257">same type</strong>.</p>
 <p>Allows <strong data-start="268" data-end="306">constant-time (<code data-start="675" data-end="681">O(1)</code>) random access</strong> using indices.</p>
 <p><strong data-start="500" data-end="524">Insertion or removal</strong> (except at the end) requires shifting elements, making it <strong data-start="690" data-end="715"><code data-start="706" data-end="712">O(n)</code></strong>.</p>
@@ -27,7 +27,7 @@
 <p><strong data-start="471" data-end="484">Use Case:</strong> <strong>Static lists</strong>, and <strong data-start="447" data-end="463">lookup-heavy</strong> or <strong data-start="467" data-end="485">read-intensive</strong> operations.</p>
 <p><strong>Note:</strong> Not dynamically resizable — use <strong data-start="627" data-end="642"><code data-start="629" data-end="640">ArrayList</code></strong> for dynamic data storage with similar performance benefits.</p>
 <hr class="" data-start="195" data-end="198" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/String_(computer_science)"><strong data-start="203" data-end="233">String</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/String_(computer_science)"><strong data-start="203" data-end="233">String</strong></a></h3>
 <p>A <code data-start="173" data-end="181">String</code> is an <strong data-start="188" data-end="224">immutable sequence of characters</strong>, internally implemented as a <strong data-start="254" data-end="284">character array (<code data-start="273" data-end="281">char[]</code>)</strong>.</p>
 <p>Once created, a <code data-start="304" data-end="312">String</code> object <strong data-start="320" data-end="342">cannot be modified</strong> — any change results in a <strong data-start="369" data-end="383">new object</strong>.</p>
 <p><strong data-start="387" data-end="416">Stored in the String Pool</strong> to save memory and enable reuse of identical string literals.</p>
@@ -55,7 +55,7 @@
 <p><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="864" data-end="877">Use Case<strong data-start="798" data-end="810">:</strong></strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"><strong> Text processing</strong>, <strong data-start="609" data-end="629">pattern matching</strong>, and <strong data-start="635" data-end="647">encoding</strong> operations.</span></p>
 <p><strong>Note:</strong> Immutability aligns with Java’s design goals of <strong data-start="710" data-end="722">security</strong>, <strong data-start="724" data-end="742">predictability</strong>, and <strong data-start="748" data-end="762">robustness</strong>.</p>
 <hr class="" data-start="195" data-end="198" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Linked_list"><strong data-start="533" data-end="570">Linked List</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Linked_list"><strong data-start="533" data-end="570">Linked List</strong></a></h3>
 <p>A <strong data-start="194" data-end="220">dynamic data structure</strong> where each element (node) stores data and a <strong data-start="265" data-end="295">reference to the next node</strong>.</p>
 <p>Can <strong data-start="303" data-end="329">grow or shrink in size</strong> at runtime — ideal for collections with frequent insertions or deletions.</p>
 <p>Supports <strong data-start="415" data-end="462">constant-time (<code data-start="675" data-end="681">O(1)</code>) insertion and deletion</strong> at the head or tail (using iterators or references).</p>
@@ -87,7 +87,7 @@
 <p><strong data-start="864" data-end="877">Use Case:</strong> <strong>Undo operations</strong>, and <strong>chaining in HashMaps</strong>.</p>
 <p><strong>Note:</strong> Preferred over arrays or ArrayLists when <strong data-start="880" data-end="913">modifying elements frequently</strong>, especially at the start or middle.</p>
 <hr class="" data-start="195" data-end="198" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Hash_table"><strong data-start="533" data-end="570">Map</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Hash_table"><strong data-start="533" data-end="570">Map</strong></a></h3>
 <p>A <strong data-start="149" data-end="182">collection of key-value pairs</strong>, where <strong data-start="190" data-end="212">each key is unique</strong>, and <strong data-start="218" data-end="246">values can be duplicated</strong>.</p>
 <p>Provides <strong data-start="259" data-end="297">fast retrieval (<code data-start="675" data-end="681">O(1)</code> average case)</strong> based on keys — ideal for <strong data-start="324" data-end="340">lookup-heavy</strong> use cases.</p>
 <p>Keys are <strong data-start="441" data-end="451">hashed</strong> internally (in <code data-start="467" data-end="476">HashMap</code>) for fast access.</p>
@@ -124,7 +124,7 @@
 </div>
 <p><strong data-start="1939" data-end="1952">Use Case:</strong> <strong>Caching</strong>, <strong data-start="385" data-end="410">configuration storage</strong>, and <strong data-start="416" data-end="428">indexing</strong>.</p>
 <hr class="" data-start="195" data-end="198" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)"><strong data-start="533" data-end="570">Set</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Set_(abstract_data_type)"><strong data-start="533" data-end="570">Set</strong></a></h3>
 <p>A <strong data-start="151" data-end="198">collection that stores only unique elements</strong> — duplicates are automatically eliminated.</p>
 <p>Provides <strong data-start="253" data-end="285">efficient membership testing</strong> using the <code data-start="296" data-end="308">contains()</code> method (average <strong data-start="268" data-end="306"><code data-start="675" data-end="681">O(1)</code></strong> in <code data-start="337" data-end="346">HashSet</code>).</p>
 <p>Different implementations in Java:</p>
@@ -159,7 +159,7 @@
 </div>
 <p><strong data-start="2502" data-end="2515">Use Case:</strong> <strong>Removing duplicates</strong>, <strong data-start="386" data-end="404">filtering data</strong>, <strong data-start="526" data-end="551">caching unique values</strong>, and <strong data-start="557" data-end="579">validating entries</strong>.</p>
 <hr class="" data-start="195" data-end="198" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)"><strong style="font-family: inherit; font-style: inherit;" data-start="924" data-end="950">Stack</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)"><strong style="font-family: inherit; font-style: inherit;" data-start="924" data-end="950">Stack</strong></a></h3>
 <p>Follows the <strong data-start="177" data-end="206">Last-In, First-Out (LIFO)</strong> principle — the last element added is the first to be removed.</p>
 <p>Provides <strong data-start="281" data-end="316">constant-time (<code data-start="675" data-end="681">O(1)</code></strong><strong data-start="281" data-end="316">) operations:</strong></p>
 <ul>
@@ -189,7 +189,7 @@
 <p><strong data-start="1102" data-end="1115">Use Case:</strong> <strong data-start="498" data-end="525">Backtracking algorithms</strong> (e.g., maze solvers), <strong data-start="551" data-end="575">Function call stacks</strong> in recursion, <strong data-start="593" data-end="606">Undo/redo</strong> operations, and Browser history navigation.</p>
 <p><strong>Note:</strong> Use <code data-start="722" data-end="729">Deque</code> (via <code data-start="735" data-end="747">ArrayDeque</code>) for better performance and cleaner usage.</p>
 <hr class="" data-start="195" data-end="198" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Queue_(abstract_data_type)"><strong data-start="1170" data-end="1214">Queue</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Queue_(abstract_data_type)"><strong data-start="1170" data-end="1214">Queue</strong></a></h3>
 <p>Follows the <strong data-start="180" data-end="210">First-In, First-Out (FIFO)</strong> principle — the <strong data-start="227" data-end="277">first element added is the first to be removed</strong>.</p>
 <p>Supports primary operations:</p>
 <ul>
@@ -222,7 +222,7 @@
 </div>
 <p><strong data-start="1378" data-end="1391">Use Case:</strong> <strong>Task scheduling</strong>, <strong data-start="529" data-end="552">resource management</strong>, and <strong data-start="558" data-end="588">producer-consumer patterns</strong>.</p>
 <hr class="" data-start="195" data-end="198" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Double-ended_queue"><strong data-start="1435" data-end="1479">Deque</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Double-ended_queue"><strong data-start="1435" data-end="1479">Deque</strong></a></h3>
 <p>Stands for <strong data-start="151" data-end="173">Double-Ended Queue</strong> — allows <strong data-start="183" data-end="237">insertion and removal from both the front and rear</strong>.</p>
 <p>Supports all queue and stack operations:</p>
 <ul>
@@ -239,7 +239,7 @@
 <p><strong data-start="1613" data-end="1625">Example:</strong> Refer Stack/Queue example.</p>
 <p><strong data-start="1675" data-end="1688">Use Case:</strong> <strong data-start="568" data-end="597">Sliding window algorithms</strong> (e.g., max in window), palindrome checking, and undo/redo buffers.</p>
 <hr class="" data-start="1730" data-end="1733" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Priority_queue"><strong data-start="4110" data-end="4153">Priority Queue</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Priority_queue"><strong data-start="4110" data-end="4153">Priority Queue</strong></a></h3>
 <p>A <strong data-start="165" data-end="221">queue where elements are processed based on priority</strong>, not insertion order.</p>
 <p>Internally implemented as a <strong data-start="274" data-end="289">binary heap</strong>, offering:</p>
 <ul>
@@ -273,7 +273,7 @@
 </div>
 <p><strong data-start="4320" data-end="4333">Use Case:</strong> Task scheduling, <strong>pathfinding algorithms</strong> like <strong data-start="790" data-end="804">Dijkstra’s</strong>, <strong data-start="809" data-end="827">load balancing</strong> and <strong data-start="832" data-end="846">job queues</strong>.</p>
 <hr class="" data-start="1730" data-end="1733" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Binary_tree"><strong data-start="3221" data-end="3255">Binary Tree</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Binary_tree"><strong data-start="3221" data-end="3255">Binary Tree</strong></a></h3>
 <p>A <strong data-start="178" data-end="201">tree data structure</strong> where each node has at most <strong data-start="230" data-end="246">two children</strong>: <code data-start="248" data-end="254">left</code> and <code data-start="259" data-end="266">right</code>.</p>
 <p>Represents <strong data-start="281" data-end="311">hierarchical relationships</strong> and is the foundation for many advanced trees.</p>
 <p>Not inherently sorted — structure depends on insertion order.</p>
@@ -340,7 +340,7 @@ private void tree() {
 <p><strong data-start="3466" data-end="3479">Use Case:</strong> <strong data-start="439" data-end="459">Expression trees</strong> (e.g., arithmetic parsing), <strong data-start="491" data-end="505">game trees</strong> (e.g., minimax algorithms), <strong data-start="537" data-end="561">recursive structures</strong> in compilers and interpreters.</p>
 <p><strong>Note:</strong> Java doesn't have a built-in <code data-start="884" data-end="896">BinaryTree</code> class — typically implemented via custom <code data-start="938" data-end="944">Node</code> classes with <code data-start="958" data-end="964">left</code> and <code data-start="969" data-end="976">right</code> references.</p>
 <hr class="" data-start="1730" data-end="1733" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Binary_search_tree"><strong data-start="3221" data-end="3255">Binary Search Tree</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Binary_search_tree"><strong data-start="3221" data-end="3255">Binary Search Tree</strong></a></h3>
 <p>A <strong data-start="203" data-end="218">binary tree</strong> where each node follows the rule:<br data-start="252" data-end="255" /><strong data-start="257" data-end="292">Left child &lt; Root &lt; Right child</strong></p>
 <p>Designed for <strong data-start="308" data-end="348">fast search, insertion, and deletion</strong> operations — average-case <strong data-start="3610" data-end="3665"><code data-start="3652" data-end="3662">O(log n)</code></strong>.</p>
 <p>Enables efficient <strong data-start="409" data-end="426">range queries</strong>, <strong data-start="428" data-end="448">sorted traversal</strong>, and <strong data-start="454" data-end="477">duplicate avoidance</strong> (if enforced).</p>
@@ -405,7 +405,7 @@ private void binarySearchTree() {
 <p><strong data-start="3707" data-end="3720">Use Case:</strong> <strong data-start="601" data-end="618">Symbol tables</strong>, <strong data-start="620" data-end="642">dictionary lookups</strong>, <strong>sorted data storage</strong>, and <strong>auto-complete suggestions</strong>.</p>
 <p><strong>Note:</strong> Java doesn't provide a direct <code data-start="737" data-end="755">BinarySearchTree</code> class — use <code data-start="768" data-end="777">TreeSet</code> or <code data-start="781" data-end="790">TreeMap</code> for built-in BST-based structures (implemented as Red-Black Trees).</p>
 <hr class="" data-start="1730" data-end="1733" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree"><strong data-start="2001" data-end="2034">Red-Black Tree</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Red%E2%80%93black_tree"><strong data-start="2001" data-end="2034">Red-Black Tree</strong></a></h3>
 <p>A type of <strong data-start="173" data-end="216">self-balancing Binary Search Tree (BST)</strong> that maintains <strong data-start="3610" data-end="3665"><code data-start="3652" data-end="3662">O(log n)</code></strong> time for insertion, deletion, and search.</p>
 <p>Ensures balance by enforcing <strong data-start="318" data-end="336">coloring rules</strong> (red/black) and performing <strong data-start="364" data-end="377">rotations</strong> after insertions/deletions.</p>
 <p>Guarantees that the tree height is always logarithmic, preventing degeneration into a linked list.</p>
@@ -439,7 +439,7 @@ private void binarySearchTree() {
 </div>
 <p><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="2231" data-end="2244">Use Case<strong data-start="798" data-end="810">:</strong></strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"><strong> Indexing</strong>, <strong>ordered collections</strong>, and <strong>range queries</strong>.</span></p>
 <hr class="" data-start="1730" data-end="1733" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)"><strong data-start="3221" data-end="3255">Graph</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)"><strong data-start="3221" data-end="3255">Graph</strong></a></h3>
 <p>A <strong data-start="169" data-end="198">non-linear data structure</strong> used to represent <strong data-start="217" data-end="246">networks or relationships</strong> between entities (nodes/vertices).</p>
 <p><strong data-start="284" data-end="293">Edges</strong> represent connections and can be:</p>
 <ul>
@@ -504,7 +504,7 @@ private void graph() {
 </div>
 <p><strong data-start="3145" data-end="3158">Use Case:</strong> <strong data-start="834" data-end="853">Social networks</strong> (users connected to users), <strong data-start="885" data-end="899">web graphs</strong> (pages linking to pages), <strong data-start="929" data-end="955">transportation systems</strong> (airports, routes), and <strong data-start="979" data-end="993">algorithms</strong> like BFS, DFS, Dijkstra’s, etc.</p>
 <hr class="" data-start="1730" data-end="1733" />
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><strong data-start="267" data-end="284"> </strong><a href="https://en.wikipedia.org/wiki/Trie"><strong data-start="3221" data-end="3255">Trie</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Trie"><strong data-start="3221" data-end="3255">Trie</strong></a></h3>
 <p>A <strong data-start="169" data-end="197">tree-like data structure</strong> that stores <strong data-start="210" data-end="239">strings by their prefixes</strong>.</p>
 <p>Enables <strong data-start="251" data-end="305">fast lookup, insertion, and prefix-based searching</strong> in <strong><code data-start="6074" data-end="6080">O(m)</code></strong> time, where <strong data-start="330" data-end="335">m</strong> is the length of the key.</p>
 <p>Each node represents a <strong data-start="387" data-end="407">single character</strong>, and paths from root to leaf represent full words.</p>
@@ -580,7 +580,7 @@ private void trie() {
 </div>
 <p><strong data-start="4014" data-end="4027">Use Case:</strong> <strong>Auto-complete</strong>, <strong>spell checkers</strong>, <strong>word games</strong>, and <strong>dictionary lookups</strong>.</p>
 <hr class="" data-start="5001" data-end="5004" />
-<h3 style="text-align: left;" data-start="5006" data-end="5029"><strong data-start="5009" data-end="5029">📌 Summary Table</strong></h3>
+<h3 style="text-align: left;" data-start="5006" data-end="5029"><strong data-start="5009" data-end="5029">Summary Table</strong></h3>
 <div class="overflow-x-auto contain-inline-size responsive-table">
     <table data-start="5030" data-end="6217">
         <thead data-start="5030" data-end="5125">
@@ -662,7 +662,7 @@ private void trie() {
     </table>
 </div>
 <hr class="" data-start="6219" data-end="6222" />
-<h3 style="text-align: left;" data-start="6224" data-end="6248"><strong data-start="6227" data-end="6248">🚀 Final Thoughts</strong></h3>
+<h3 style="text-align: left;" data-start="6224" data-end="6248"><strong data-start="6227" data-end="6248">Final Thoughts</strong></h3>
 <ul>
     <li data-start="116" data-end="178"><strong data-start="116" data-end="126">Arrays:</strong> <code data-start="5265" data-end="5271">O(1)</code> random access, but <code data-start="5397" data-end="5403">O(n)</code> insertion/deletion.</li>
     <li data-start="181" data-end="250"><strong data-start="181" data-end="197">Linked Lists:</strong> <code data-start="5265" data-end="5271">O(1)</code> insert/delete at head/tail, but <code data-start="5397" data-end="5403">O(n)</code> search.</li>
@@ -672,4 +672,6 @@ private void trie() {
     <li data-start="396" data-end="484"><strong data-start="396" data-end="404">BSTs:</strong> <code data-start="5990" data-end="6000">O(log n)</code> search/insert/delete (balanced), but <code data-start="5397" data-end="5403">O(n)</code> worst-case if unbalanced.</li>
     <li data-start="396" data-end="484"><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="487" data-end="518">Red-Black Trees<strong data-start="798" data-end="810">:</strong></strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> Always balanced, ensuring <code data-start="5990" data-end="6000">O(log n)</code></span><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> operations.</span></li>
 </ul>
-<hr /><!-- /wp:paragraph -->
+<hr />
+
+[wpcode id="468"]

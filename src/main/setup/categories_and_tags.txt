@@ -26,7 +26,6 @@ uncategorized
 ---------------------------------------------Tags----------------------------------------------
 algorithms
 annotations
-aop
 architecture
 array
 askedininterview
@@ -106,6 +105,7 @@ serialisation
 servlets
 set
 sorting
+springaop
 springboot
 springbootactuators
 springframework

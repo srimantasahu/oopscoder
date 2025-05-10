@@ -54,11 +54,11 @@
 }
 /* Refactored padding of 40px from inside article */
  .inside-article {
-     padding: 20px 30px !important;
+     padding: 10px 30px !important;
 }
 /* Removed extra padding of 20px around left n right widgets */
  .widget-area .widget {
-     padding: 20px 10px !important;
+     padding: 5px !important;
 }
 /*Optimize Blog Post Width for Readability*/
  .single-post .inside-article {
@@ -144,11 +144,6 @@
      margin-top: 2em;
      margin-bottom: 2.5em;
 }
-/*Increase Spacing Below TOC Contents*/
- #toc_container, .ez-toc-container, .rank-math-toc {
-     margin-bottom: 45px !important;
-    /* Adjust space below TOC */
-}
 /* Wrap tables on small screens */
  .responsive-table {
      width: 100%;
@@ -211,11 +206,17 @@
     /* active/selected menu */
 }
 /* Submenu styles */
+ .widget ul li ul {
+     margin-left: 12px;
+     margin-top: 6px;
+}
+ .widget ul li ul a {
+     font-size: 14px;
+}
  .widget_nav_menu ul ul {
      display: none;
-     margin-left: 15px;
-     border-left: 2px solid #eee;
-     padding-left: 20px;
+     border-left: 1px solid #f0f0f0;
+     padding-left: 9px;
 }
 /* Open submenu */
  .widget_nav_menu ul ul.open {
@@ -226,7 +227,7 @@
      color: #005a9c;
      cursor: pointer;
      display: inline-block;
-     font-size: 14px;
+     font-size: 12px;
      margin-right: 4px;
      vertical-align: middle;
      transition: transform 0.2s ease;
@@ -251,10 +252,10 @@
      padding: 0;
 }
  .widget_recent_comments li {
-     margin-bottom: 10px;
+     margin-bottom: 6px;
     /* Tighter space between comments */
-     padding: 8px 0;
-     font-size: 15px !important;
+     padding: 6px 0;
+     font-size: 14px !important;
     /* Smaller readable font */
      line-height: 1.4;
      border-bottom: 1px solid #f0f0f0 !important;
@@ -264,23 +265,25 @@
      border-bottom: none !important;
     /* No border under last comment */
 }
- a.wp-block-latest-comments__comment-author {
+ a.wp-block-latest-comments__comment-author, a.wp-block-latest-comments__comment-link {
      font-size: 15px !important;
-     font-weight: 600;
-}
- a.wp-block-latest-comments__comment-link {
-     font-size: 15px !important;
-     font-weight: 500;
 }
  .wp-block-latest-comments__comment-date {
      font-size: 12px;
      color: #666;
 }
- .wp-block-latest-comments__comment-excerpt {
+ .wp-block-latest-comments__comment-excerpt p {
      font-size: 16px;
-     color: #222;
-     line-height: 1.6;
-     margin-top: 6px;
+     color: #555;
+     line-height: 1.4;
+}
+ .wp-block-latest-comments .avatar, .wp-block-latest-comments__comment-avatar {
+     height: 2em;
+     width: 2em;
+     margin-right: 6px;
+}
+ .has-avatars .wp-block-latest-comments__comment .wp-block-latest-comments__comment-excerpt, .has-avatars .wp-block-latest-comments__comment .wp-block-latest-comments__comment-meta {
+     margin-left: 2.25em;
 }
 /* Removed extra margin of 50px above article rating */
  #comments {
@@ -337,6 +340,45 @@
      border-radius: 4px;
      background-color: #f0f4f8;
 }
+/* Make TOC numbers bold and aligned */
+ #toc_container ol, #toc_container ul {
+     list-style: none;
+     padding-left: 2em;
+     counter-reset: section;
+}
+ #toc_container li {
+     position: relative;
+}
+ #toc_container li::before {
+     position: absolute;
+     left: -2em;
+     color: #005a9c;
+}
+/* Top-level list: 1), 2), 3) */
+ #toc_container > ul > li {
+     counter-increment: section;
+     counter-reset: subsection;
+}
+ #toc_container > ul > li::before {
+     content: counter(section, decimal-leading-zero) ")";
+}
+/* Second-level list: A), B), C) */
+ #toc_container > ul > li > ul {
+     margin-left: 1.2em;
+     padding: 4px !important;
+}
+ #toc_container > ul > li > ul > li {
+     counter-increment: subsection;
+     position: relative;
+}
+ #toc_container > ul > li > ul > li::before {
+     content: counter(subsection, upper-alpha) ")";
+    /* A), B), C) */
+     position: absolute;
+     left: -1.6em;
+     width: 2em;
+     display: inline-block;
+}
 /* Back-to-top button above footer content */
  .generate-back-to-top {
      position: fixed;
@@ -368,8 +410,8 @@
     }
     /* Top-level menu items */
      .widget_nav_menu > div > ul > li {
-         margin-bottom: 10px;
-         margin-left: 10px;
+         margin: 4px;
+         padding: 2px;
     }
 }
 /* Mobile Layout */

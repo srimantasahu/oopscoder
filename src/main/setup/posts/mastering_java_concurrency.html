@@ -7,7 +7,7 @@
 
 <hr class="" data-start="771" data-end="774" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><a href="https://en.wikipedia.org/wiki/Java_concurrency"><strong data-start="267" data-end="284"> Thread vs Runnable</strong></a></h3>
+<h3 class="" data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Java_concurrency"><strong data-start="267" data-end="284"> Thread vs Runnable</strong></a></h3>
 A <strong data-start="189" data-end="199">Thread</strong> is a single, sequential unit of execution that runs <strong data-start="252" data-end="269">independently</strong> within a program.
 
 Commonly used for <strong data-start="308" data-end="322">background</strong> and <strong data-start="327" data-end="350">parallel processing</strong> when the order of execution doesn’t matter.
@@ -60,7 +60,7 @@ t2.start(); // Starts a new thread
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://wiki.openjdk.org/display/HotSpot/Synchronization">Synchronized Keyword</a></strong></h3>
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://wiki.openjdk.org/display/HotSpot/Synchronization">Synchronized Keyword</a></strong></h3>
 The <code data-start="238" data-end="252">synchronized</code> keyword is used to <strong data-start="272" data-end="299">prevent race conditions</strong> in multithreaded environments.
 
 Ensures that <strong data-start="346" data-end="375">only one thread at a time</strong> can execute a <strong data-start="390" data-end="410">critical section</strong> of code.
@@ -133,10 +133,7 @@ new Thread(resource::incrementUsingSynchronizedLockObject).start();
     </div>
 </div>
 <strong data-start="76" data-end="85">Note:</strong> In the example above, both the synchronized method and the synchronized block use the same shared lock (<code data-start="190" data-end="196">this</code>). As a result, the second thread (e.g., Thread-3) must wait until the first thread (e.g., Thread-2) releases the lock before it can proceed.
-
-<hr class="" data-start="771" data-end="774" />
-
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹</strong><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html"><strong data-start="267" data-end="284"> wait(), notify(), and join()</strong></a></h3>
+<h4 data-start="738" data-end="767"><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html"><strong data-start="267" data-end="284">wait(), notify(), and join()</strong></a></h4>
 These methods are used to coordinate the behavior of threads — to <strong data-start="251" data-end="277">acquire, release locks</strong>, and <strong data-start="283" data-end="313">wait for thread completion</strong> in a controlled way.
 
 <strong><code>wait()</code></strong>
@@ -220,7 +217,7 @@ System.out.println("Main thread: Producer and Consumer finished.");
 
         <hr class="" data-start="733" data-end="736" />
 
-        <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/locks/LockSupport.html">LockSupport</a></strong></h3>
+        <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/locks/LockSupport.html">LockSupport</a></strong></h3>
         Provides basic primitives for <strong data-start="273" data-end="305">thread parking and unparking</strong>.
 
         It serves as a <strong data-start="322" data-end="346">flexible alternative</strong> to <code data-start="350" data-end="374">Object.wait()/notify()</code> and <code data-start="379" data-end="395">Thread.sleep()</code>.
@@ -283,7 +280,7 @@ System.out.println("Main thread: Unparked worker thread.");
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Thread_(computing)">Thread Lifecycle</a></strong></h3>
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Thread_(computing)">Thread Lifecycle</a></strong></h3>
 <strong data-start="579" data-end="587">NEW</strong>
 <ul>
     <li data-start="221" data-end="307">The thread is created using <code data-start="249" data-end="263">new Thread()</code>, but <strong data-start="269" data-end="302"><code data-start="271" data-end="280">start()</code> has not been called</strong> yet.</li>
@@ -317,7 +314,7 @@ System.out.println("Main thread: Unparked worker thread.");
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Volatile_(computer_programming)#In_Java">Volatile Keyword</a></strong></h3>
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Volatile_(computer_programming)#In_Java">Volatile Keyword</a></strong></h3>
 In multithreaded applications, threads can <strong data-start="248" data-end="275">cache variables locally</strong> (e.g., in CPU registers or thread stacks) for performance.
 
 The <code data-start="341" data-end="351">volatile</code> keyword ensures that a <strong data-start="375" data-end="438">variable is always read from and written to the main memory</strong>, <strong data-start="440" data-end="473">not from a thread-local cache</strong>.
@@ -372,7 +369,7 @@ System.out.println("Main thread: worker has stopped.");
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Linearizability#High-level_atomic_operations">Atomic Variables</a></strong></h3>
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Linearizability#High-level_atomic_operations">Atomic Variables</a></strong></h3>
 Provide <strong data-start="222" data-end="235">lock-free</strong>, <strong data-start="237" data-end="263">thread-safe operations</strong> on <strong data-start="267" data-end="287">single variables</strong>.
 
 Built on <strong data-start="300" data-end="333">CPU-level atomic instructions</strong> like <strong data-start="339" data-end="365">Compare-And-Swap (CAS)</strong> to avoid using <code data-start="381" data-end="395">synchronized</code>.
@@ -427,7 +424,7 @@ System.out.println("Main thread: Final Count = " + counter.get());
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Reentrancy_(computing)">Reentrant Lock</a></strong></h3>
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Reentrancy_(computing)">Reentrant Lock</a></strong></h3>
 <code data-start="257" data-end="272">ReentrantLock</code> is a <strong data-start="278" data-end="332">flexible alternative to the <code data-start="308" data-end="322">synchronized</code> keyword</strong>.
 
 <strong data-start="336" data-end="349">Reentrant</strong> means the <strong data-start="360" data-end="411">same thread can acquire the lock multiple times</strong> without blocking or causing a deadlock.
@@ -523,7 +520,7 @@ for (int i = 0; i &lt; 2; i++) {
 
         <hr class="" data-start="733" data-end="736" />
 
-        <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Semaphore_(programming)">Semaphore</a></strong></h3>
+        <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Semaphore_(programming)">Semaphore</a></strong></h3>
         A <strong data-start="199" data-end="232">concurrency control mechanism</strong> that manages access to shared resources using a <strong data-start="281" data-end="308">fixed number of permits</strong>.
 
         Allows <strong data-start="319" data-end="367">multiple threads (but only a limited number)</strong> to enter a critical section simultaneously.
@@ -582,7 +579,7 @@ for (int i = 0; i &lt; 5; i++) {
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Fork%E2%80%93join_model">Fork and Join Framework</a></strong></h3>
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Fork%E2%80%93join_model">Fork and Join Framework</a></strong></h3>
 Designed to <strong data-start="267" data-end="295">leverage multi-core CPUs</strong> by <strong data-start="299" data-end="318">splitting tasks</strong> into smaller subtasks and executing them in parallel.
 
 Ideal for <strong data-start="385" data-end="409">recursive algorithms</strong> that can be broken into independent subproblems.
@@ -663,14 +660,14 @@ try (ForkJoinPool pool = ForkJoinPool.commonPool()) {
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/exinter.html">Executor Framework</a></strong></h3>
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/exinter.html">Executor Framework</a></strong></h3>
 A high-level API introduced in Java to <strong data-start="295" data-end="355">simplify thread creation, management, and task execution</strong>.
 
 It abstracts the complexities of directly using <code data-start="405" data-end="413">Thread</code> by offering a flexible and powerful thread pool model.
 
 It simplifies concurrency with easy <strong data-start="117" data-end="136">task submission</strong>, <strong data-start="138" data-end="156">thread pooling</strong> for <strong data-start="161" data-end="176">performance</strong>, and <strong data-start="182" data-end="211">fine-tuned task execution</strong>.
 <h5><strong>Key Components of Executor Framework</strong></h5>
-<h4 data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 </strong><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html">Executor</a></h4>
+<h4 data-start="738" data-end="767"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html">Executor</a></h4>
 The <strong data-start="196" data-end="210"><code data-start="198" data-end="208">Executor</code></strong> is the <strong data-start="218" data-end="244">foundational interface</strong> in the Executor Framework (<code data-start="272" data-end="294">java.util.concurrent</code>).
 
 Designed to <strong data-start="311" data-end="387">decouple task submission from the mechanics of how each task is executed</strong>.
@@ -693,7 +690,7 @@ executor.execute(() -&gt; System.out.println("Running in background"));
         <hr class="" data-start="733" data-end="736" />
 
     </div>
-    <h4 data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 </strong><a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Future.html">Future</a></h4>
+    <h4 data-start="738" data-end="767"><a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Future.html">Future</a></h4>
     <code data-start="176" data-end="184">Future</code> represents the <strong data-start="200" data-end="241">result of an asynchronous computation</strong>, submitted via <code data-start="257" data-end="274">ExecutorService</code>.
 
     It allows you to <strong data-start="295" data-end="316">check task status</strong>, <strong data-start="318" data-end="338">retrieve results</strong>, or <strong data-start="343" data-end="362">cancel the task</strong>.
@@ -710,7 +707,7 @@ executor.execute(() -&gt; System.out.println("Running in background"));
     <hr class="" data-start="733" data-end="736" />
 
 </div>
-<h4 data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 </strong><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a></h4>
+<h4 data-start="738" data-end="767"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">ExecutorService</a></h4>
 <code data-start="219" data-end="236">ExecutorService</code> is an <strong data-start="243" data-end="291">enhanced version of the <code data-start="269" data-end="279">Executor</code> interface</strong>, designed to manage a <strong data-start="314" data-end="333">pool of threads</strong> and handle <strong data-start="345" data-end="376">asynchronous task execution</strong>.
 
 It provides additional methods to manage <strong data-start="421" data-end="440">task submission</strong>, <strong data-start="442" data-end="463">lifecycle control</strong>, and <strong data-start="469" data-end="488">result tracking</strong>.
@@ -761,7 +758,7 @@ executorService.shutdown();
         </div>
     </div>
 </div>
-<h4 data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 </strong><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ScheduledExecutorService.html">ScheduledExecutorService</a></h4>
+<h4 data-start="738" data-end="767"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ScheduledExecutorService.html">ScheduledExecutorService</a></h4>
 <code data-start="220" data-end="246">ScheduledExecutorService</code> is a subinterface of <code data-start="268" data-end="285">ExecutorService</code> used to <strong data-start="294" data-end="346">schedule tasks for delayed or periodic execution</strong>.
 
 A <strong data-start="352" data-end="402">modern replacement for <code data-start="377" data-end="384">Timer</code> and <code data-start="389" data-end="400">TimerTask</code></strong>, offering better thread control and exception handling.
@@ -798,7 +795,7 @@ System.out.println("Scheduler terminated: " + terminated);
     <hr class="" data-start="733" data-end="736" />
 
 </div>
-<h4 data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 </strong><a href="https://en.wikipedia.org/wiki/Thread_pool">ThreadPoolExecutor</a></h4>
+<h4 data-start="738" data-end="767"><a href="https://en.wikipedia.org/wiki/Thread_pool">ThreadPoolExecutor</a></h4>
 The <strong data-start="232" data-end="255">core implementation</strong> behind most thread pool factories (like <code data-start="296" data-end="328">Executors.newFixedThreadPool()</code>).
 
 Offers <strong data-start="340" data-end="364">fine-grained control</strong> over thread creation, lifecycle, queuing, and task rejection.
@@ -871,7 +868,7 @@ tpe.shutdown(); // Graceful shutdown
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a></strong></h3>
+<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a></strong></h3>
 Introduced in Java 8, <code data-start="306" data-end="325">CompletableFuture</code> enables <strong data-start="334" data-end="350">non-blocking</strong>, <strong data-start="352" data-end="368">asynchronous</strong>, and <strong data-start="374" data-end="387">lock-free</strong> programming.
 
 Provides a clean and powerful way to:
@@ -963,7 +960,7 @@ CompletableFuture.supplyAsync(() -&gt; "Process data")
 
     <hr class="" data-start="733" data-end="736" />
 
-    <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Thread-local_storage#Java">ThreadLocal Variables</a></strong></h3>
+    <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Thread-local_storage#Java">ThreadLocal Variables</a></strong></h3>
     <code data-start="216" data-end="229">ThreadLocal</code> allows you to create <strong data-start="251" data-end="291">variables that are local to a thread</strong>.
 
     Each thread gets its <strong data-start="316" data-end="337">own isolated copy</strong> of the variable — <strong data-start="356" data-end="376">no shared access</strong> between threads.
@@ -1033,7 +1030,7 @@ System.out.println("Processing order for Transaction ID: " + txnId);</code></pre
 
     <hr class="" data-start="733" data-end="736" />
 
-    <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CountDownLatch.html">CountDownLatch</a></strong></h3>
+    <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CountDownLatch.html">CountDownLatch</a></strong></h3>
     A <strong data-start="235" data-end="258">synchronization aid</strong> that allows one or more threads to <strong data-start="294" data-end="338">wait until a set of operations completes</strong> in other threads.
 
     Ideal for scenarios where a thread must <strong data-start="399" data-end="434">wait for multiple other threads</strong> to finish before proceeding.
@@ -1097,7 +1094,7 @@ System.out.println("All services are ready! Starting application...");
 
     <hr class="" data-start="733" data-end="736" />
 
-    <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Java_ConcurrentMap#ConcurrentHashMap">ConcurrentHashMap</a></strong></h3>
+    <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Java_ConcurrentMap#ConcurrentHashMap">ConcurrentHashMap</a></strong></h3>
     A <strong data-start="232" data-end="247">thread-safe</strong>, <strong data-start="249" data-end="269">high-concurrency</strong> alternative to <code data-start="285" data-end="294">HashMap</code> designed for <strong data-start="308" data-end="339">multi-threaded environments</strong>.
 
     Allows <strong data-start="350" data-end="390">concurrent read and write operations</strong> without blocking the entire map.
@@ -1136,7 +1133,7 @@ System.out.println("Thread-safe total count: " + counter1.get("count"));
 
     <hr class="" data-start="733" data-end="736" />
 
-    <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">🔹 <a href="https://en.wikipedia.org/wiki/Virtual_thread">Virtual Threads</a></strong></h3>
+    <h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Virtual_thread">Virtual Threads</a></strong></h3>
     <strong data-start="226" data-end="245">Virtual threads</strong> are <strong data-start="250" data-end="273">lightweight threads</strong> managed entirely by the <strong data-start="298" data-end="305">JVM</strong>, not by the operating system.
 
     <span style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Introduced in <strong data-start="352" data-end="363">Java 21</strong> as a stable feature under </span><a style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" href="https://wiki.openjdk.org/display/loom/Main"><strong data-start="128" data-end="144">Project Loom</strong></a><span style="font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">.</span>
@@ -1236,3 +1233,5 @@ for (int i = 0; i &lt; 1_000_000; i++) {
 </div>
 
 <hr />
+
+[wpcode id="468"]
