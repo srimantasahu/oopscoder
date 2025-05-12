@@ -89,10 +89,12 @@
 }
  p {
      margin-bottom: 1em;
-     line-height: 1.7;
-     max-width: 700px;
-     padding-left: 0;
-     padding-right: 0;
+}
+ li {
+     margin-bottom: 10px;
+}
+ li > a {
+	   line-height: 1.6;
 }
 /* Use Fira Code for code blocks */
  pre, code, kbd, samp {
@@ -176,7 +178,6 @@
 }
  .main-navigation .main-nav ul li a {
      font-size: 15px;
-     font-weight: 500;
      min-width: 120px;
 }
  .main-navigation .main-nav ul.sub-menu {
@@ -195,11 +196,11 @@
 }
 /*Collapsible directory structure*/
 /* Menu links */
- .widget_nav_menu li a {
+ .widget_nav_menu li a, .sidebar-series li a {
      text-decoration: none;
      font-size: 15px;
-     font-weight: 500;
      display: inline-block;
+     padding: 5px;
 }
  .widget_nav_menu li.current-menu-item > a {
      color: #003e6b !important;
@@ -227,7 +228,7 @@
      color: #005a9c;
      cursor: pointer;
      display: inline-block;
-     font-size: 12px;
+     font-size: 14px;
      margin-right: 4px;
      vertical-align: middle;
      transition: transform 0.2s ease;
@@ -235,6 +236,29 @@
 /* Hover state */
  .toggle-icon:hover {
      color: #333;
+}
+/* Sidebar learning series */
+.sidebar-series-wrapper p {
+     font-size: 16px;
+     color: #555;
+}
+ol.custom-numbered {
+  list-style: none;
+  counter-reset: item;
+}
+ol.custom-numbered li {
+  counter-increment: item;
+	font-size: 15px;
+  color: #005a9c;
+  position: relative;
+  line-height: 1.6;
+}
+ol.custom-numbered li::before {
+  content: counter(item) ". ";
+  position: absolute;
+  left: -1.35em;
+  top: 1;
+	padding: 5px;
 }
 /* Align icon and text properly */
  .menu-item-has-children > .toggle-icon + a {
@@ -255,18 +279,15 @@
      margin-bottom: 6px;
     /* Tighter space between comments */
      padding: 6px 0;
-     font-size: 14px !important;
+     font-size: 15px !important;
     /* Smaller readable font */
-     line-height: 1.4;
+     line-height: 1.5;
      border-bottom: 1px solid #f0f0f0 !important;
     /* Subtle separator line */
 }
  .widget_recent_comments li:last-child {
      border-bottom: none !important;
     /* No border under last comment */
-}
- a.wp-block-latest-comments__comment-author, a.wp-block-latest-comments__comment-link {
-     font-size: 15px !important;
 }
  .wp-block-latest-comments__comment-date {
      font-size: 12px;
@@ -348,21 +369,22 @@
 }
  #toc_container li {
      position: relative;
+	 	 font-size: 15px !important;
 }
  #toc_container li::before {
      position: absolute;
      left: -2em;
      color: #005a9c;
 }
-/* Top-level list: 1), 2), 3) */
+/* Top-level list: 1., 2., 3. */
  #toc_container > ul > li {
      counter-increment: section;
      counter-reset: subsection;
 }
  #toc_container > ul > li::before {
-     content: counter(section, decimal-leading-zero) ")";
+     content: counter(section, decimal-leading-zero) ". ";
 }
-/* Second-level list: A), B), C) */
+/* Second-level list: A., B., C. */
  #toc_container > ul > li > ul {
      margin-left: 1.2em;
      padding: 4px !important;
@@ -372,8 +394,8 @@
      position: relative;
 }
  #toc_container > ul > li > ul > li::before {
-     content: counter(subsection, upper-alpha) ")";
-    /* A), B), C) */
+     content: counter(subsection, upper-alpha) ". ";
+    /* A., B., C. */
      position: absolute;
      left: -1.6em;
      width: 2em;
@@ -391,7 +413,7 @@
  @media (min-width: 769px) {
     /* Squeeze Sidebar */
      #left-sidebar {
-         width: 14%;
+         width: 15%;
         /* Reduce the width of the sidebar */
          font-size: 15px !important;
         /* Adjust size as needed */
@@ -400,18 +422,24 @@
      .content-area {
          flex: 1 !important;
          width: auto !important;
-         max-width: 68% !important;
+         max-width: 70% !important;
     }
      #right-sidebar {
-         width: 18%;
+         width: 15%;
         /* Reduce the width of the sidebar */
          font-size: 15px !important;
         /* Adjust size as needed */
     }
     /* Top-level menu items */
-     .widget_nav_menu > div > ul > li {
+     .widget_nav_menu > div > ul > li, .sidebar-series-wrapper > ol > li {
          margin: 4px;
          padding: 2px;
+    }
+     .sidebar-series-wrapper {
+         padding-left: 7.5px;
+    }
+     .sidebar-series {
+         padding-left: 10px;
     }
 }
 /* Mobile Layout */
@@ -438,9 +466,15 @@
          margin-top: 0px;
     }
     /* Top-level menu items */
-     .widget_nav_menu > div > ul > li {
+     .widget_nav_menu > div > ul > li, .sidebar-series-wrapper > ol > li {
          margin-bottom: 10px;
          margin-left: 20px;
+    }
+     .sidebar-series-wrapper {
+         padding-left: 10px;
+    }
+     .sidebar-series {
+         padding-left: 5px;
     }
      .responsive-table {
          overflow-x: auto;
