@@ -460,7 +460,7 @@
  @media (min-width: 769px) {
     /* Squeeze Sidebar */
      #left-sidebar {
-         width: 15%;
+         width: 14%;
         /* Reduce the width of the sidebar */
          font-size: 15px !important;
         /* Adjust size as needed */
@@ -472,7 +472,7 @@
          max-width: 70% !important;
     }
      #right-sidebar {
-         width: 15%;
+         width: 16%;
         /* Reduce the width of the sidebar */
          font-size: 15px !important;
         /* Adjust size as needed */
@@ -499,6 +499,12 @@
     }
      h3 {
          font-size: 1.4rem;
+    }
+     h4 {
+         font-size: 1.2rem;
+    }
+     h5 {
+         font-size: 1rem;
     }
      .container {
          padding: 1rem;
