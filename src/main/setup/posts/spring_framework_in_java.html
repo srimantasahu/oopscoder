@@ -7,7 +7,7 @@
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Inversion_of_control">Inversion of Control (IoC)</a></strong></h3>
+<h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Inversion of Control (IoC)</strong></h2>
 <p class="" data-start="208" data-end="474"><strong data-start="208" data-end="238">Inversion of Control (IoC)</strong> is a core design principle where the responsibility for creating and managing objects is handed over to a framework. In Spring, this responsibility is handled by the <strong data-start="405" data-end="422">IoC container</strong>, usually accessed through the <code data-start="453" data-end="473">ApplicationContext</code>.</p>
 <p class="" data-start="476" data-end="767">Rather than having classes instantiate their own dependencies, you define these dependencies (beans) through configuration—using annotations like <code data-start="622" data-end="634">@Component</code>, <code data-start="636" data-end="648">@Autowired</code>, or XML/Java-based config. At runtime, the Spring container creates the beans and injects their required dependencies.</p>
 <p class="" data-start="769" data-end="1011">This approach promotes <strong data-start="792" data-end="810">loose coupling</strong>, as classes no longer need to know <em data-start="846" data-end="851">how</em> their dependencies are created or <em data-start="886" data-end="893">where</em> they come from. They simply rely on abstractions (such as interfaces), making the codebase more modular and flexible.</p>
@@ -16,7 +16,7 @@
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection (DI)</a></strong></h3>
+<h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Dependency Injection (DI)</strong></h2>
 <p class="" data-start="182" data-end="454"><strong data-start="214" data-end="243">Dependency Injection (DI)</strong> is the <strong data-start="251" data-end="309">core mechanism that enables Inversion of Control (IoC)</strong> in the Spring Framework. Instead of classes creating their own dependencies, Spring takes care of supplying them—usually via the <strong data-start="439" data-end="463">Spring IoC container</strong>.</p>
 <p data-start="182" data-end="454">In simple terms, DI allows objects to receive their required dependencies <strong data-start="578" data-end="605">from an external source</strong>, rather than constructing them internally. This promotes <strong data-start="663" data-end="689">separation of concerns</strong>, makes components <strong data-start="708" data-end="726">easier to test</strong>, and encourages <strong data-start="743" data-end="761">modular design</strong>.</p>
 <p class="" data-start="456" data-end="606">Spring provides several ways to inject dependencies:</p>
@@ -24,7 +24,7 @@
 <p class="" data-start="1096" data-end="1210"><strong data-start="1096" data-end="1116">Setter Injection</strong>: Used for optional or configurable dependencies. Easier to override in certain scenarios.</p>
 <p class="" data-start="1214" data-end="1352"><strong data-start="1214" data-end="1233">Field Injection</strong>: A concise approach that uses annotations directly on class fields—but not ideal for unit testing or immutability.</p>
 
-<h4 data-start="738" data-end="767"><a href="https://spring.io/blog/2007/07/11/setter-injection-versus-constructor-injection-and-the-use-of-required"><strong>Constructor vs Setter vs Field Injection</strong></a></h4>
+<h3 data-start="738" data-end="767"><strong>Constructor vs Setter vs Field Injection</strong></h3>
 <div class="overflow-x-auto contain-inline-size responsive-table">
     <table data-pm-slice="3 3 []">
         <tbody>
@@ -63,7 +63,7 @@
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Spring_Framework#Autowiring">Essential Spring Annotations</a></strong></h3>
+<h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Essential Spring Annotations</strong></h2>
 <div class="overflow-x-auto contain-inline-size responsive-table">
     <table class="min-w-full" data-start="338" data-end="1853">
         <thead data-start="338" data-end="444">
@@ -123,7 +123,7 @@
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/beans.html">IoC Container &amp; Bean Lifecycle</a></strong></h3>
+<h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">IoC Container &amp; Bean Lifecycle</strong></h2>
 Spring's <strong>IoC container</strong> is responsible for managing the lifecycle and configuration of beans.
 
 Main implementations: <code>ApplicationContext</code>, <code>BeanFactory</code>
@@ -140,10 +140,10 @@ Bean lifecycle phases:
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://spring.io/projects/spring-boot">Getting Started with Spring Boot</a></strong></h3>
+<h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Getting Started with Spring Boot</strong></h2>
 Spring Boot makes it incredibly easy to bootstrap a new Spring application. Here's how to create a new Spring Boot project using <strong>Spring Initializr</strong>:
 
-<strong>Steps to Create a Spring Boot App:</strong>
+<strong>Steps to Create a Spring Boot App</strong>
 <ul>
     <li>Go to <a href="https://start.spring.io">https://start.spring.io</a></li>
     <li>Choose the following settings:
@@ -181,7 +181,7 @@ You can verify the following logs to confirm the application started successfull
 Your Spring Boot application is now up and running! You can visit <code>http://localhost:8080</code> to verify.
 
 You will get a <b>Whitelabel Error Page</b> as there are no request mappings yet. Press <code>Ctrl+C</code> to stop the server.
-<h4 data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Spring_Boot">Spring Boot Configuration</a></strong></h4>
+<h3 data-start="738" data-end="767"><strong data-start="742" data-end="765">Spring Boot Configuration</strong></h3>
 Spring Boot simplifies configuration via <code style="font-size: inherit;">application.properties</code> or <code style="font-size: inherit;">application.yaml</code>.
 
 Add the following properties to the configuration file, then restart the application.
@@ -204,12 +204,55 @@ Use <code>@SpringBootConfiguration</code> (meta-annotated on <code>@SpringBootAp
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://docs.spring.io/spring-framework/reference/web/webmvc.html">Spring Web MVC</a></strong></h3>
-Framework for building REST APIs and web applications.
+<h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Spring Web MVC</strong></h2>
+<p data-start="164" data-end="333"><strong data-start="164" data-end="182">Spring Web MVC</strong> is a powerful framework in the Spring ecosystem for building <strong data-start="244" data-end="257">REST APIs</strong> and <strong data-start="262" data-end="282">web applications</strong> using the <strong data-start="293" data-end="324">Model-View-Controller (MVC)</strong> pattern.</p>
+<p data-start="335" data-end="386">It provides a clean separation of concerns between:</p>
 
-Core annotations: <code>@RestController</code>, <code>@PostMapping</code>, <code>@GetMapping</code>, <code data-start="214" data-end="229">@RequestBody</code>, <code data-start="214" data-end="229">@RequestParam</code>, <code data-start="234" data-end="249">@PathVariable</code>
+<ul>
+    <li data-start="390" data-end="427"><strong data-start="390" data-end="404">Controller</strong>: Handles HTTP requests</li>
+    <li data-start="430" data-end="481"><strong data-start="430" data-end="439">Model</strong>: Contains application data/business logic</li>
+    <li data-start="484" data-end="529"><strong data-start="484" data-end="492">View</strong>: Renders the response (HTML or JSON)</li>
+</ul>
+<p data-start="531" data-end="641">The <strong data-start="535" data-end="558"><code data-start="537" data-end="556">DispatcherServlet</code></strong> acts as the front controller that routes incoming requests to the correct handler.</p>
+<p data-start="531" data-end="641"><strong>Core Annotations</strong></p>
 
-<strong data-start="798" data-end="810">Example:</strong>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table>
+        <thead>
+        <tr>
+            <th>Annotation</th>
+            <th>Purpose</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>@RestController</code></td>
+            <td>Marks a class as a REST API controller</td>
+        </tr>
+        <tr>
+            <td><code>@GetMapping</code></td>
+            <td>Maps GET requests (e.g., read data)</td>
+        </tr>
+        <tr>
+            <td><code>@PostMapping</code></td>
+            <td>Maps POST requests (e.g., create data)</td>
+        </tr>
+        <tr>
+            <td><code>@RequestBody</code></td>
+            <td>Binds JSON request payload to a Java object</td>
+        </tr>
+        <tr>
+            <td><code>@RequestParam</code></td>
+            <td>Binds a query parameter from the URL</td>
+        </tr>
+        <tr>
+            <td><code>@PathVariable</code></td>
+            <td>Binds a dynamic path segment (e.g., <code>/users/{id}</code>)</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<strong data-start="798" data-end="810">Example</strong>
 <div>
 
     <code data-start="264" data-end="273">UserDTO</code> (data transfer object)
@@ -323,14 +366,56 @@ $ curl http://localhost:8081/myapp/api/users/srimanta
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 data-start="738" data-end="767"><strong><a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html">Spring Validations</a></strong></h3>
-Spring supports JSR-303/JSR-380 Bean Validation via annotations:
-<ul>
-    <li><code>@NotNull</code>, <code>@Email</code>, <code>@Min</code>, <code>@Size</code></li>
-</ul>
-Use <code>@Validated</code> and <code>@Valid</code> to trigger validations.
+<h2 data-start="738" data-end="767"><strong>Spring Validations</strong></h2>
+<p data-start="169" data-end="336"><strong data-start="169" data-end="190">Spring Validation</strong> is used to <strong data-start="202" data-end="255">automatically validate user input or request data</strong> in Spring applications — particularly in <strong data-start="297" data-end="310">REST APIs</strong> and <strong data-start="315" data-end="335">form submissions</strong>.</p>
+<p data-start="338" data-end="507">It integrates with <strong data-start="357" data-end="392">JSR-303/JSR-380 Bean Validation</strong> (Jakarta Bean Validation) and allows you to apply validation rules directly on <strong data-start="472" data-end="488">model fields</strong> using annotations.</p>
+<p data-start="324" data-end="385"><strong>Common Validation Annotations</strong></p>
 
-<strong data-start="798" data-end="810">Example:</strong>
+<div class="_tableContainer_16hzy_1">
+    <div class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse" tabindex="-1">
+        <table class="w-fit min-w-(--thread-content-width)" data-start="387" data-end="799">
+            <thead data-start="387" data-end="445">
+            <tr data-start="387" data-end="445">
+                <th data-start="387" data-end="406" data-col-size="sm">Annotation</th>
+                <th data-start="406" data-end="445" data-col-size="sm">Purpose</th>
+            </tr>
+            </thead>
+            <tbody data-start="505" data-end="799">
+            <tr data-start="505" data-end="563">
+                <td data-start="505" data-end="524" data-col-size="sm"><code data-start="507" data-end="517">@NotNull</code></td>
+                <td data-start="524" data-end="563" data-col-size="sm">Field must not be <code data-start="544" data-end="550">null</code></td>
+            </tr>
+            <tr data-start="564" data-end="622">
+                <td data-start="564" data-end="583" data-col-size="sm"><code data-start="566" data-end="577">@NotBlank</code></td>
+                <td data-col-size="sm" data-start="583" data-end="622">Must not be empty or whitespace</td>
+            </tr>
+            <tr data-start="623" data-end="681">
+                <td data-start="623" data-end="642" data-col-size="sm"><code data-start="625" data-end="633">@Email</code></td>
+                <td data-col-size="sm" data-start="642" data-end="681">Must be a valid email address</td>
+            </tr>
+            <tr data-start="682" data-end="740">
+                <td data-start="682" data-end="701" data-col-size="sm"><code data-start="684" data-end="701">@Size(min, max)</code></td>
+                <td data-start="701" data-end="740" data-col-size="sm">Enforces string or collection size</td>
+            </tr>
+            <tr data-start="741" data-end="799">
+                <td data-start="741" data-end="760" data-col-size="sm"><code data-start="743" data-end="749">@Min</code>, <code data-start="751" data-end="757">@Max</code></td>
+                <td data-col-size="sm" data-start="760" data-end="799">Set numeric limits</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<strong>How It Works</strong>
+<ul>
+    <li data-start="992" data-end="1047">Use <code data-start="996" data-end="1004">@Valid</code> or <code data-start="1008" data-end="1020">@Validated</code> to <strong data-start="1024" data-end="1046">trigger validation</strong>.
+        <ul>
+            <li data-start="1052" data-end="1106"><code data-start="1052" data-end="1060">@Valid</code> → on method parameters (e.g., <code data-start="1091" data-end="1105">@RequestBody</code>)</li>
+            <li data-start="1111" data-end="1182"><code data-start="1111" data-end="1123">@Validated</code> → on class level (supports groups and advanced validation)</li>
+        </ul>
+    </li>
+    <li data-start="1185" data-end="1256">If validation fails, Spring throws a <code data-start="1222" data-end="1255">MethodArgumentNotValidException</code>.</li>
+</ul>
+<strong data-start="798" data-end="810">Example</strong>
 
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
@@ -433,14 +518,21 @@ Sample cURL Test
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 data-start="738" data-end="767"><strong><a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/message-converters.html">WebMvcConfigurer &amp; Message Converters</a></strong></h3>
-Customize Spring MVC behavior.
+<h2 data-start="738" data-end="767"><strong>WebMvcConfigurer &amp; Message Converters</strong></h2>
+<p data-start="179" data-end="307"><strong data-start="179" data-end="206">Spring WebMvcConfigurer</strong> is an interface used to <strong data-start="231" data-end="264">customize Spring MVC behavior</strong> without overriding the full configuration.</p>
+<p data-start="309" data-end="331">It's ideal for adding:</p>
 
-Add message converters, interceptors, CORS settings.
+<ul>
+    <li data-start="335" data-end="366">Custom <strong data-start="344" data-end="366">message converters</strong></li>
+    <li data-start="369" data-end="392">HTTP <strong data-start="376" data-end="392">interceptors</strong></li>
+    <li data-start="395" data-end="421">Global <strong data-start="404" data-end="421">CORS settings</strong></li>
+    <li data-start="424" data-end="466">Formatters, argument resolvers, and more</li>
+</ul>
+<p data-start="743" data-end="856"><strong data-start="743" data-end="765">Message converters</strong> in Spring handle the conversion between <strong data-start="806" data-end="855">Java objects and HTTP request/response bodies</strong>.</p>
+<p data-start="858" data-end="920">They’re used internally by <code data-start="885" data-end="899">@RequestBody</code> and <code data-start="904" data-end="919">@ResponseBody</code>.</p>
+<strong data-start="798" data-end="810">Example</strong>
 
 Here's an example of a REST controller that generates both JSON and XML responses using content negotiation with <code>HttpMessageConverters</code>.
-
-<strong data-start="798" data-end="810">Example:</strong>
 
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
@@ -581,12 +673,24 @@ $ curl http://localhost:8081/myapp/api/users/srimanta \
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html">Spring JDBC Template</a></strong></h3>
-Simplifies JDBC operations (query, insert, update).
+<h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Spring JDBC Template</strong></h2>
+<p data-start="166" data-end="348"><strong data-start="166" data-end="190">Spring JDBC Template</strong> is a utility class in the Spring Framework that simplifies <strong data-start="250" data-end="273">database operations</strong> like querying, inserting, updating, and deleting data using <strong data-start="334" data-end="347">plain SQL</strong>.</p>
+<p data-start="350" data-end="408">It significantly reduces <strong data-start="375" data-end="395">boilerplate code</strong> by handling:</p>
 
-Reduces boilerplate code for database access.
-
-<strong data-start="798" data-end="810">Example:</strong>
+<ul>
+    <li data-start="412" data-end="433">Connection management</li>
+    <li data-start="436" data-end="457">Statement preparation</li>
+    <li data-start="460" data-end="479">ResultSet iteration</li>
+    <li data-start="482" data-end="500">Exception handling</li>
+</ul>
+<strong>Key Features</strong>
+<ul>
+    <li data-start="528" data-end="556">Simplifies common JDBC tasks</li>
+    <li data-start="559" data-end="598">Executes SQL queries and updates easily</li>
+    <li data-start="601" data-end="648">Integrates with Spring's transaction management</li>
+    <li data-start="651" data-end="713">Uses <code data-start="656" data-end="667">RowMapper</code> to convert <code data-start="679" data-end="690">ResultSet</code> rows into Java objects</li>
+</ul>
+<strong data-start="798" data-end="810">Example</strong>
 
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
@@ -802,12 +906,12 @@ $ curl -X GET "http://localhost:8081/myapp/api/users/find?username=srimanta"
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://docs.spring.io/spring-boot/reference/actuator/endpoints.html">Spring Boot Actuators</a></strong></h3>
+<h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Spring Boot Actuators</strong></h2>
 Provides production-ready monitoring and diagnostics.
 
 Common endpoints: <code>/actuator/health</code>, <code>/actuator/metrics</code>, <code style="font-size: inherit;">/actuator/info</code>.
 
-<strong data-start="798" data-end="810">Example:</strong>
+<strong data-start="798" data-end="810">Example</strong>
 
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
@@ -894,12 +998,12 @@ $ curl http://localhost:8081/myapp/actuator/health
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming">Aspect-Oriented Programming (AOP)</a></strong></h3>
+<h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Aspect-Oriented Programming (AOP)</strong></h2>
 AOP allows separation of cross-cutting concerns like logging, security, or transactions.
 
 Uses annotations like <code>@Aspect</code>, <code>@Before</code>, <code>@After</code>, <code>@Around</code>.
 
-<strong data-start="798" data-end="810">Example:</strong>
+<strong data-start="798" data-end="810">Example</strong>
 
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
@@ -953,7 +1057,7 @@ public class LoggingAspect {
 
 <hr class="" data-start="733" data-end="736" />
 
-<h3 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765"><a href="https://spring.io/projects/spring-security">Spring Security</a></strong></h3>
+<h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Spring Security</strong></h2>
 Supports authentication and authorization.
 
 Integrates with OAuth2, JWT, session-based auth.
@@ -967,7 +1071,7 @@ Provides robust security with support for:
 </ul>
 <div>
 
-    <strong data-start="798" data-end="810">Example:</strong>
+    <strong data-start="798" data-end="810">Example</strong>
 
     Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
     <div>
@@ -1266,7 +1370,7 @@ Accessed secured endpoint by user: srimanta</code></pre>
 
 <hr />
 
-<h3 data-pm-slice="1 1 []"><strong>Conclusion</strong></h3>
+<h2 data-pm-slice="1 1 []"><strong>Conclusion</strong></h2>
 <p data-pm-slice="1 1 []">Spring empowers Java developers to build clean, maintainable, and scalable applications. With features like IoC, MVC, AOP, security, and powerful configuration management, it provides everything needed for full-stack enterprise development. Mastering these core concepts opens the door to productivity, flexibility, and production-grade performance in real-world applications.</p>
 
 

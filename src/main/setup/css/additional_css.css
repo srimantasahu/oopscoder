@@ -58,12 +58,13 @@
 }
 /* Removed extra padding of 20px around left n right widgets */
  .widget-area .widget {
-     padding: 5px !important;
+     padding: 10px !important;
 }
 /*Optimize Blog Post Width for Readability*/
  .single-post .inside-article {
-     max-width: 850px;
+     max-width: 800px;
      margin: 0 auto;
+     padding: 2rem 1rem;
 }
 /*Remove underline from links*/
  a {
@@ -75,17 +76,64 @@
 }
  a:not(h1 a):not(h2 a):not(h3 a):hover, a:not(h1 a):not(h2 a):not(h3 a):focus {
      color: #003e6b !important;
-    /* Normal dark text */
 }
  a.read-more, .custom-footer a {
      text-decoration: underline !important;
 }
-/* Use Inter for general text */
+/* Base font settings */
  body, p, li, .site {
-     font-family: 'Inter', sans-serif !important;
-     font-size: 18px;
-     line-height: 1.75;
-     color: #333;
+     font-family: 'Inter', 'Segoe UI', sans-serif !important;
+     font-size: 17px;
+     line-height: 1.7;
+     color: #2d2d2d;
+}
+/* H1 – Page Title */
+ h1 {
+     font-size: 2.5rem;
+     font-weight: 700;
+     color: #2c3e50;
+     margin-top: 0.5rem;
+     margin-bottom: 1.5rem;
+     border-bottom: 2px solid #e0e0e0;
+     padding-bottom: 0.5rem;
+}
+/* H2 – Section Heading */
+ h2 {
+     font-size: 2rem;
+     font-weight: 600;
+     color: #2c3e50;
+     margin-top: 0.5rem;
+     margin-bottom: 1.25rem;
+     border-left: 4px solid #3498db;
+     padding-left: 0.75rem;
+}
+/* H3 – Subsection Heading */
+ h3 {
+     font-size: 1.6rem;
+     font-weight: 600;
+     color: #2e3a59;
+     margin-top: 1.75rem;
+}
+/* H4 – Minor Subsection Heading */
+ h4 {
+     font-size: 1.3rem;
+     font-weight: 600;
+     color: #2e3a59;
+     margin-top: 1.5rem;
+}
+/* H5 – Optional Inline or Utility Titles */
+ h5 {
+     font-size: 1.1rem;
+     color: #555;
+     font-weight: 600;
+     margin-top: 1.25rem;
+     letter-spacing: 0.5px;
+}
+ hr {
+     margin-top: 1.5em;
+     margin-bottom: 2em;
+     height: 2px;
+     background-color: #e0e0e0;
 }
  p {
      margin-bottom: 1em;
@@ -94,7 +142,7 @@
      margin-bottom: 10px;
 }
  li > a {
-	   line-height: 1.6;
+     line-height: 1.6;
 }
 /* Use Fira Code for code blocks */
  pre, code, kbd, samp {
@@ -110,7 +158,6 @@
      background: #2d2d2d;
      color: #fff;
      padding: 1em;
-     border-radius: 8px;
 }
  pre[class*="language-"] {
      background: #2d2d2d;
@@ -135,16 +182,6 @@
 }
  code[class*="language-"] {
      padding-left: 0 !important;
-}
-/* Headings (optional) */
- h1, h2, h3 {
-     font-family: 'Inter', sans-serif;
-     font-weight: 600;
-     line-height: 1.2;
-}
- hr {
-     margin-top: 2em;
-     margin-bottom: 2.5em;
 }
 /* Wrap tables on small screens */
  .responsive-table {
@@ -216,7 +253,7 @@
 }
  .widget_nav_menu ul ul {
      display: none;
-     border-left: 1px solid #f0f0f0;
+     border-left: 2px solid #e0e0e0;
      padding-left: 9px;
 }
 /* Open submenu */
@@ -238,27 +275,27 @@
      color: #333;
 }
 /* Sidebar learning series */
-.sidebar-series-wrapper p {
+ .sidebar-series-wrapper p {
      font-size: 16px;
      color: #555;
 }
-ol.custom-numbered {
-  list-style: none;
-  counter-reset: item;
+ ol.custom-numbered {
+     list-style: none;
+     counter-reset: item;
 }
-ol.custom-numbered li {
-  counter-increment: item;
-	font-size: 15px;
-  color: #005a9c;
-  position: relative;
-  line-height: 1.6;
+ ol.custom-numbered li {
+     counter-increment: item;
+     font-size: 15px;
+     color: #005a9c;
+     position: relative;
+     line-height: 1.6;
 }
-ol.custom-numbered li::before {
-  content: counter(item) ". ";
-  position: absolute;
-  left: -1.35em;
-  top: 1;
-	padding: 5px;
+ ol.custom-numbered li::before {
+     content: counter(item) ". ";
+     position: absolute;
+     left: -1.35em;
+     top: 1;
+     padding: 5px;
 }
 /* Align icon and text properly */
  .menu-item-has-children > .toggle-icon + a {
@@ -278,11 +315,11 @@ ol.custom-numbered li::before {
  .widget_recent_comments li {
      margin-bottom: 6px;
     /* Tighter space between comments */
-     padding: 6px 0;
+     padding: 8px 2px;
      font-size: 15px !important;
     /* Smaller readable font */
      line-height: 1.5;
-     border-bottom: 1px solid #f0f0f0 !important;
+     border-bottom: 2px solid #e0e0e0 !important;
     /* Subtle separator line */
 }
  .widget_recent_comments li:last-child {
@@ -369,7 +406,7 @@ ol.custom-numbered li::before {
 }
  #toc_container li {
      position: relative;
-	 	 font-size: 15px !important;
+     font-size: 15px !important;
 }
  #toc_container li::before {
      position: absolute;
@@ -444,6 +481,18 @@ ol.custom-numbered li::before {
 }
 /* Mobile Layout */
  @media (max-width: 768px) {
+     h1 {
+         font-size: 2rem;
+    }
+     h2 {
+         font-size: 1.75rem;
+    }
+     h3 {
+         font-size: 1.4rem;
+    }
+     .container {
+         padding: 1rem;
+    }
      .main-navigation .inside-navigation {
          flex-direction: column;
          align-items: end;
