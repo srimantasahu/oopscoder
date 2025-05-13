@@ -8,7 +8,7 @@
 <p>A <strong data-start="176" data-end="190">fixed-size</strong>, contiguous memory block that stores elements of the <strong data-start="244" data-end="257">same type</strong>.</p>
 <p>Allows <strong data-start="268" data-end="306">constant-time (<code data-start="675" data-end="681">O(1)</code>) random access</strong> using indices.</p>
 <p><strong data-start="500" data-end="524">Insertion or removal</strong> (except at the end) requires shifting elements, making it <strong data-start="690" data-end="715"><code data-start="706" data-end="712">O(n)</code></strong>.</p>
-<p><strong data-start="423" data-end="435">Example</strong></p>
+<h4>Example</h4>
 <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void array() {
     // Fixed-size array
@@ -30,8 +30,8 @@
 <h2 class="" data-start="738" data-end="767"><strong data-start="203" data-end="233">String</strong></h2>
 <p>A <code data-start="173" data-end="181">String</code> is an <strong data-start="188" data-end="224">immutable sequence of characters</strong>, internally implemented as a <strong data-start="254" data-end="284">character array (<code data-start="273" data-end="281">char[]</code>)</strong>.</p>
 <p>Once created, a <code data-start="304" data-end="312">String</code> object <strong data-start="320" data-end="342">cannot be modified</strong> — any change results in a <strong data-start="369" data-end="383">new object</strong>.</p>
-<p><strong data-start="387" data-end="416">Stored in the String Pool</strong> to save memory and enable reuse of identical string literals.</p>
-<p><strong data-start="798" data-end="810">Example</strong></p>
+<p><strong data-start="387" data-end="416">Stored in the <a href="https://en.wikipedia.org/wiki/String_interning">String Pool</a></strong> to save memory and enable reuse of identical string literals.</p>
+<h4>Example</h4>
 <div>
     <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void string() {
@@ -60,13 +60,13 @@
 <p>Can <strong data-start="303" data-end="329">grow or shrink in size</strong> at runtime — ideal for collections with frequent insertions or deletions.</p>
 <p>Supports <strong data-start="415" data-end="462">constant-time (<code data-start="675" data-end="681">O(1)</code>) insertion and deletion</strong> at the head or tail (using iterators or references).</p>
 <p>Does <strong data-start="523" data-end="552">not support random access</strong> — lookups require <strong data-start="571" data-end="595">sequential traversal</strong> (<strong data-start="690" data-end="715"><code data-start="706" data-end="712">O(n)</code></strong>).</p>
-<p><strong data-start="721" data-end="731">Types of Linked Lists:</strong> </p>
+<p>Types of Linked Lists:</p>
 <ul>
     <li data-start="721" data-end="795"><strong data-start="637" data-end="659">Singly Linked List</strong> – Each node points to the next.</li>
     <li data-start="721" data-end="795"><strong data-start="696" data-end="718">Doubly Linked List</strong> – Each node points to both previous and next nodes.</li>
     <li data-start="721" data-end="795"><strong data-start="775" data-end="799">Circular Linked List</strong> – Last node links back to the first.</li>
 </ul>
-<p><strong data-start="798" data-end="810">Example</strong></p>
+<h4>Example</h4>
 <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void list() {
     // Use ArrayList for fast access (random access) to elements and fewer insertions/removals.
@@ -90,7 +90,7 @@
 <h2 class="" data-start="738" data-end="767"><strong data-start="533" data-end="570">Map</strong></h2>
 <p>A <strong data-start="149" data-end="182">collection of key-value pairs</strong>, where <strong data-start="190" data-end="212">each key is unique</strong>, and <strong data-start="218" data-end="246">values can be duplicated</strong>.</p>
 <p>Provides <strong data-start="259" data-end="297">fast retrieval (<code data-start="675" data-end="681">O(1)</code> average case)</strong> based on keys — ideal for <strong data-start="324" data-end="340">lookup-heavy</strong> use cases.</p>
-<p>Keys are <strong data-start="441" data-end="451">hashed</strong> internally (in <code data-start="467" data-end="476">HashMap</code>) for fast access.</p>
+<p>Keys are <a href="https://oopscoder.com/algorithms-in-java/#hashing"><strong data-start="441" data-end="451">hashed</strong></a> internally (in <code data-start="467" data-end="476">HashMap</code>) for fast access.</p>
 <p>Supports different implementations for different needs:</p>
 <ul>
     <li data-start="575" data-end="643"><code data-start="560" data-end="569">HashMap</code> – Fast, unordered, allows one <code data-start="600" data-end="606">null</code> key.</li>
@@ -98,7 +98,7 @@
     <li data-start="575" data-end="643"><code data-start="671" data-end="680">TreeMap</code> – Sorted by natural order or a custom comparator.</li>
     <li data-start="575" data-end="643"><code data-start="738" data-end="757">ConcurrentHashMap</code> – Thread-safe access for concurrent applications.</li>
 </ul>
-<p><strong data-start="798" data-end="810">Example</strong></p>
+<h4>Example</h4>
 <div>
     <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void map() {
@@ -120,9 +120,10 @@
     System.out.println("Map output:\t\t hashMap: " + hashMap + ", treeMap: " + treeMap + ", linkedHashMap: " + linkedHashMap);
     // hashMap: {1=Java, 2=Python, 3=C++}, treeMap: {1=Java, 2=Python, 3=C++}, linkedHashMap: {3=C++, 1=Java, 2=Python}
 }</code></pre>
+        <p><strong data-start="1939" data-end="1952">Use Case:</strong> <strong>Caching</strong>, <strong data-start="385" data-end="410">configuration storage</strong>, and <strong data-start="416" data-end="428">indexing</strong>.</p>
     </div>
 </div>
-<p><strong data-start="1939" data-end="1952">Use Case:</strong> <strong>Caching</strong>, <strong data-start="385" data-end="410">configuration storage</strong>, and <strong data-start="416" data-end="428">indexing</strong>.</p>
+<p><strong data-start="60" data-end="76">Additionally</strong>, for thread-safe operations in multi-threaded environments, check out our <a href="https://oopscoder.com/mastering-java-concurrency/#concurrenthashmap">ConcurrentHashMap</a> guide.</p>
 <hr class="" data-start="195" data-end="198" />
 <h2 class="" data-start="738" data-end="767"><strong data-start="533" data-end="570">Set</strong></h2>
 <p>A <strong data-start="151" data-end="198">collection that stores only unique elements</strong> — duplicates are automatically eliminated.</p>
@@ -133,7 +134,7 @@
     <li><code data-start="688" data-end="703">LinkedHashSet</code> – Maintains insertion order.</li>
     <li><code data-start="740" data-end="749">TreeSet</code> – Sorted order, based on natural ordering or a custom comparator.</li>
 </ul>
-<p><strong data-start="798" data-end="810">Example</strong></p>
+<h4>Example</h4>
 <div>
     <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void set() {
@@ -167,7 +168,7 @@
     <li data-start="955" data-end="997"><code data-start="368" data-end="375">pop()</code> – Remove and return the top element</li>
     <li data-start="955" data-end="997"><code data-start="421" data-end="429">peek()</code> – View the top element without removing it</li>
 </ul>
-<p><strong data-start="1045" data-end="1057">Example</strong></p>
+<h4>Example</h4>
 <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void stack() {
     // Stack (Legacy API) is a subclass of Vector, which is synchronized and generally slower due to thread safety overhead.
@@ -197,7 +198,7 @@
     <li data-start="1265" data-end="1313"><code data-start="373" data-end="383">remove()</code> / <code data-start="386" data-end="394">poll()</code> – Remove and return the front element</li>
     <li data-start="1265" data-end="1313"><code data-start="442" data-end="450">peek()</code> – View the front element without removing it</li>
 </ul>
-<p><strong data-start="1316" data-end="1328">Example</strong></p>
+<h4>Example</h4>
 <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void queue() {
     // LinkedList uses a doubly linked list, which requires O(1) for enqueue/dequeue but has extra memory overhead (pointers for each node).
@@ -241,7 +242,7 @@
 <hr class="" data-start="1730" data-end="1733" />
 <h2 class="" data-start="738" data-end="767"><strong data-start="4110" data-end="4153">Priority Queue</strong></h2>
 <p>A <strong data-start="165" data-end="221">queue where elements are processed based on priority</strong>, not insertion order.</p>
-<p>Internally implemented as a <strong data-start="274" data-end="289">binary heap</strong>, offering:</p>
+<p>Internally implemented as a <a href="https://en.wikipedia.org/wiki/Binary_heap"><strong data-start="274" data-end="289">binary heap</strong></a>, offering:</p>
 <ul>
     <li data-start="4158" data-end="4203"><strong><code data-start="4231" data-end="4241">O(log n)</code></strong> insertion and removal</li>
     <li data-start="4158" data-end="4203"><code data-start="1600" data-end="1606"><strong data-start="268" data-end="306">O(1)</strong></code> access to the highest (or lowest) priority element</li>
@@ -253,7 +254,7 @@
     <li><code data-start="616" data-end="624">poll()</code> – removes the highest priority element</li>
     <li><code data-start="671" data-end="679">peek()</code> – views the highest priority element</li>
 </ul>
-<p><strong data-start="4250" data-end="4262">Example</strong></p>
+<h4>Example</h4>
 <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void priorityQueue() {
     PriorityQueue&lt;Integer&gt; priorityQueueAsMinHeap = new PriorityQueue&lt;&gt;(); // Min-Heap
@@ -277,7 +278,7 @@
 <p>A <strong data-start="178" data-end="201">tree data structure</strong> where each node has at most <strong data-start="230" data-end="246">two children</strong>: <code data-start="248" data-end="254">left</code> and <code data-start="259" data-end="266">right</code>.</p>
 <p>Represents <strong data-start="281" data-end="311">hierarchical relationships</strong> and is the foundation for many advanced trees.</p>
 <p>Not inherently sorted — structure depends on insertion order.</p>
-<p><strong data-start="3367" data-end="3379">Example</strong></p>
+<h4>Example</h4>
 <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">class TreeNode&lt;T&gt; {
     T data;
@@ -345,7 +346,7 @@ private void tree() {
 <p>Designed for <strong data-start="308" data-end="348">fast search, insertion, and deletion</strong> operations — average-case <strong data-start="3610" data-end="3665"><code data-start="3652" data-end="3662">O(log n)</code></strong>.</p>
 <p>Enables efficient <strong data-start="409" data-end="426">range queries</strong>, <strong data-start="428" data-end="448">sorted traversal</strong>, and <strong data-start="454" data-end="477">duplicate avoidance</strong> (if enforced).</p>
 <p>If <strong data-start="498" data-end="512">unbalanced</strong>, performance degrades to <strong data-start="690" data-end="715"><code data-start="706" data-end="712">O(n)</code></strong> — behaves like a linked list.</p>
-<p><strong data-start="2160" data-end="2172">Example</strong></p>
+<h4>Example</h4>
 <div>
     <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">class BinarySearchTree {
@@ -406,7 +407,7 @@ private void binarySearchTree() {
 <p><strong>Note:</strong> Java doesn't provide a direct <code data-start="737" data-end="755">BinarySearchTree</code> class — use <code data-start="768" data-end="777">TreeSet</code> or <code data-start="781" data-end="790">TreeMap</code> for built-in BST-based structures (implemented as Red-Black Trees).</p>
 <hr class="" data-start="1730" data-end="1733" />
 <h2 class="" data-start="738" data-end="767"><strong data-start="2001" data-end="2034">Red-Black Tree</strong></h2>
-<p>A type of <strong data-start="173" data-end="216">self-balancing Binary Search Tree (BST)</strong> that maintains <strong data-start="3610" data-end="3665"><code data-start="3652" data-end="3662">O(log n)</code></strong> time for insertion, deletion, and search.</p>
+<p>A type of <strong data-start="173" data-end="216"><a href="https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree">self-balancing</a> Binary Search Tree (BST)</strong> that maintains <strong data-start="3610" data-end="3665"><code data-start="3652" data-end="3662">O(log n)</code></strong> time for insertion, deletion, and search.</p>
 <p>Ensures balance by enforcing <strong data-start="318" data-end="336">coloring rules</strong> (red/black) and performing <strong data-start="364" data-end="377">rotations</strong> after insertions/deletions.</p>
 <p>Guarantees that the tree height is always logarithmic, preventing degeneration into a linked list.</p>
 <p>Used internally by Java’s:</p>
@@ -415,7 +416,7 @@ private void binarySearchTree() {
     <li data-start="2039" data-end="2105"><code data-start="587" data-end="596">TreeSet</code> – sorted unique element storage</li>
 </ul>
 <p>Slightly <strong data-start="640" data-end="671">slower lookups than HashMap</strong>, but maintains <strong data-start="687" data-end="703">sorted order</strong> and supports <strong data-start="717" data-end="734">range queries</strong>.</p>
-<p><strong data-start="2160" data-end="2172">Example</strong></p>
+<h4>Example</h4>
 <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">private void redBlackTree() {
     // A TreeMap in Java is a sorted map implementation based on a Red-Black Tree.
@@ -453,7 +454,7 @@ private void binarySearchTree() {
     <li><strong data-start="607" data-end="625">Adjacency List</strong> – efficient for <strong data-start="642" data-end="659">sparse graphs</strong>, stores a list of neighbors for each node</li>
     <li><strong data-start="709" data-end="729">Adjacency Matrix</strong> – efficient for <strong data-start="746" data-end="762">dense graphs</strong>, uses a 2D matrix to represent all possible connections</li>
 </ul>
-<p><strong data-start="2160" data-end="2172">Example</strong></p>
+<h4>Example</h4>
 <div>
     <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">class Graph {
@@ -509,7 +510,7 @@ private void graph() {
 <p>Enables <strong data-start="251" data-end="305">fast lookup, insertion, and prefix-based searching</strong> in <strong><code data-start="6074" data-end="6080">O(m)</code></strong> time, where <strong data-start="330" data-end="335">m</strong> is the length of the key.</p>
 <p>Each node represents a <strong data-start="387" data-end="407">single character</strong>, and paths from root to leaf represent full words.</p>
 <p>Reduces redundancy by <strong data-start="699" data-end="726">sharing common prefixes</strong>, saving memory over storing full words individually.</p>
-<p><strong data-start="2160" data-end="2172">Example</strong></p>
+<h4>Example</h4>
 <div>
     <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">class TrieNode {

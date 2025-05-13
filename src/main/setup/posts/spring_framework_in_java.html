@@ -24,6 +24,9 @@
 <p class="" data-start="1096" data-end="1210"><strong data-start="1096" data-end="1116">Setter Injection</strong>: Used for optional or configurable dependencies. Easier to override in certain scenarios.</p>
 <p class="" data-start="1214" data-end="1352"><strong data-start="1214" data-end="1233">Field Injection</strong>: A concise approach that uses annotations directly on class fields—but not ideal for unit testing or immutability.</p>
 
+
+<hr class="thin-border" />
+
 <h3 data-start="738" data-end="767"><strong>Constructor vs Setter vs Field Injection</strong></h3>
 <div class="overflow-x-auto contain-inline-size responsive-table">
     <table data-pm-slice="3 3 []">
@@ -124,28 +127,31 @@
 <hr class="" data-start="733" data-end="736" />
 
 <h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">IoC Container &amp; Bean Lifecycle</strong></h2>
-Spring's <strong>IoC container</strong> is responsible for managing the lifecycle and configuration of beans.
+<p data-start="195" data-end="451"><strong data-start="195" data-end="244">Spring’s IoC (Inversion of Control) container</strong> is responsible for managing the lifecycle, dependencies, and configuration of application objects known as <strong data-start="352" data-end="361">beans</strong>. It creates and injects these beans based on metadata defined through annotations or XML.</p>
+<p data-start="453" data-end="504">Spring provides two main container implementations:</p>
 
-Main implementations: <code>ApplicationContext</code>, <code>BeanFactory</code>
-
-Bean lifecycle phases:
 <ul>
-    <li>Instantiation</li>
-    <li>Dependency injection</li>
-    <li>Initialization (<code>@PostConstruct</code>, <code>InitializingBean</code>)</li>
-    <li>Destruction (<code>@PreDestroy</code>, <code>DisposableBean</code>)</li>
+    <li data-start="507" data-end="593"><strong data-start="507" data-end="531"><code data-start="509" data-end="529">ApplicationContext</code></strong> – commonly used and feature-rich (supports AOP, events, etc.)</li>
+    <li data-start="596" data-end="670"><strong data-start="596" data-end="613"><code data-start="598" data-end="611">BeanFactory</code></strong> – the basic, lightweight container (now mostly internal)</li>
 </ul>
-<p data-pm-slice="1 1 [&quot;list&quot;,{&quot;spread&quot;:false,&quot;start&quot;:1635,&quot;end&quot;:1876},&quot;regular_list_item&quot;,{&quot;start&quot;:1811,&quot;end&quot;:1876}]">Custom lifecycle logic can be hooked using lifecycle callbacks.</p>
+<h4>Bean lifecycle phases</h4>
+<ul>
+    <li data-start="706" data-end="757"><strong data-start="706" data-end="723">Instantiation</strong> – The container creates the bean.</li>
+    <li data-start="761" data-end="848"><strong data-start="761" data-end="785">Dependency Injection</strong> – Dependencies are injected via constructor, setter, or field.</li>
+    <li data-start="976" data-end="1083"><strong data-start="976" data-end="994">Initialization</strong> – Custom logic via <code data-start="1014" data-end="1030">@PostConstruct</code> or <code data-start="1034" data-end="1056">afterPropertiesSet()</code> (from <code data-start="1063" data-end="1081">InitializingBean</code>).</li>
+    <li data-start="1087" data-end="1146"><strong data-start="1087" data-end="1109">Bean Ready for Use</strong> – The bean is now fully initialized.</li>
+    <li data-start="1150" data-end="1264"><strong data-start="1150" data-end="1165">Destruction</strong> – Cleanup via <code data-start="1180" data-end="1193">@PreDestroy</code> or <code data-start="1197" data-end="1208">destroy()</code> (from <code data-start="1215" data-end="1231">DisposableBean</code>), triggered on context shutdown.</li>
+</ul>
+<p data-start="1266" data-end="1391">💡 You can <strong data-start="1277" data-end="1305">hook into this lifecycle</strong> using annotations or lifecycle interfaces to execute custom logic at specific stages.</p>
 
 
 <hr class="" data-start="733" data-end="736" />
 
 <h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Getting Started with Spring Boot</strong></h2>
 Spring Boot makes it incredibly easy to bootstrap a new Spring application. Here's how to create a new Spring Boot project using <strong>Spring Initializr</strong>:
-
-<strong>Steps to Create a Spring Boot App</strong>
+<h4>Steps to Create a Spring Boot App</h4>
 <ul>
-    <li>Go to <a href="https://start.spring.io">https://start.spring.io</a></li>
+    <li>Go to <strong><a href="https://start.spring.io">https://start.spring.io</a></strong></li>
     <li>Choose the following settings:
         <ul>
             <li><strong>Project</strong>: Maven or Gradle</li>
@@ -181,6 +187,9 @@ You can verify the following logs to confirm the application started successfull
 Your Spring Boot application is now up and running! You can visit <code>http://localhost:8080</code> to verify.
 
 You will get a <b>Whitelabel Error Page</b> as there are no request mappings yet. Press <code>Ctrl+C</code> to stop the server.
+
+<hr class="thin-border" />
+
 <h3 data-start="738" data-end="767"><strong data-start="742" data-end="765">Spring Boot Configuration</strong></h3>
 Spring Boot simplifies configuration via <code style="font-size: inherit;">application.properties</code> or <code style="font-size: inherit;">application.yaml</code>.
 
@@ -205,7 +214,7 @@ Use <code>@SpringBootConfiguration</code> (meta-annotated on <code>@SpringBootAp
 <hr class="" data-start="733" data-end="736" />
 
 <h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Spring Web MVC</strong></h2>
-<p data-start="164" data-end="333"><strong data-start="164" data-end="182">Spring Web MVC</strong> is a powerful framework in the Spring ecosystem for building <strong data-start="244" data-end="257">REST APIs</strong> and <strong data-start="262" data-end="282">web applications</strong> using the <strong data-start="293" data-end="324">Model-View-Controller (MVC)</strong> pattern.</p>
+<p data-start="164" data-end="333"><strong data-start="164" data-end="182">Spring Web MVC</strong> is a powerful framework in the Spring ecosystem for building <strong data-start="244" data-end="257">REST APIs</strong> and <strong data-start="262" data-end="282">web applications</strong> using the <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller"><strong data-start="293" data-end="324">Model-View-Controller (MVC)</strong></a> pattern.</p>
 <p data-start="335" data-end="386">It provides a clean separation of concerns between:</p>
 
 <ul>
@@ -214,8 +223,8 @@ Use <code>@SpringBootConfiguration</code> (meta-annotated on <code>@SpringBootAp
     <li data-start="484" data-end="529"><strong data-start="484" data-end="492">View</strong>: Renders the response (HTML or JSON)</li>
 </ul>
 <p data-start="531" data-end="641">The <strong data-start="535" data-end="558"><code data-start="537" data-end="556">DispatcherServlet</code></strong> acts as the front controller that routes incoming requests to the correct handler.</p>
-<p data-start="531" data-end="641"><strong>Core Annotations</strong></p>
 
+<h4 data-start="531" data-end="641">Core Annotations</h4>
 <div class="overflow-x-auto contain-inline-size responsive-table">
     <table>
         <thead>
@@ -252,7 +261,7 @@ Use <code>@SpringBootConfiguration</code> (meta-annotated on <code>@SpringBootAp
         </tbody>
     </table>
 </div>
-<strong data-start="798" data-end="810">Example</strong>
+<h4>Example</h4>
 <div>
 
     <code data-start="264" data-end="273">UserDTO</code> (data transfer object)
@@ -343,7 +352,7 @@ public class UserController {
     }
 }</code></pre>
     </div>
-    Sample cURL Test
+    <h5>Sample cURL Test</h5>
     <pre><code class="language-bash line-numbers">$ curl -X POST http://localhost:8081/myapp/api/users/register \
 -H "Content-Type: application/json" \
 -d '{
@@ -358,7 +367,7 @@ $ curl -X GET "http://localhost:8081/myapp/api/users/find?username=srimanta"
 $
 $ curl http://localhost:8081/myapp/api/users/srimanta
 {"username":"srimanta","email":"srimanta@xmail.com","password":"srimanta@123"}</code></pre>
-    Sample console logs
+    <h5>Sample console logs</h5>
     <pre><code class="language-bash line-numbers">[INFO] [UserService] User registered: srimanta
 [INFO] [UserService] Finding by username: srimanta
 [INFO] [UserService] Finding by username: srimanta</code></pre>
@@ -368,9 +377,9 @@ $ curl http://localhost:8081/myapp/api/users/srimanta
 
 <h2 data-start="738" data-end="767"><strong>Spring Validations</strong></h2>
 <p data-start="169" data-end="336"><strong data-start="169" data-end="190">Spring Validation</strong> is used to <strong data-start="202" data-end="255">automatically validate user input or request data</strong> in Spring applications — particularly in <strong data-start="297" data-end="310">REST APIs</strong> and <strong data-start="315" data-end="335">form submissions</strong>.</p>
-<p data-start="338" data-end="507">It integrates with <strong data-start="357" data-end="392">JSR-303/JSR-380 Bean Validation</strong> (Jakarta Bean Validation) and allows you to apply validation rules directly on <strong data-start="472" data-end="488">model fields</strong> using annotations.</p>
-<p data-start="324" data-end="385"><strong>Common Validation Annotations</strong></p>
+<p data-start="338" data-end="507">It integrates with <strong data-start="357" data-end="392">JSR-303/JSR-380 Bean Validation</strong> <strong>(<a href="https://beanvalidation.org/">Jakarta Bean Validation</a>)</strong> and allows you to apply validation rules directly on <strong data-start="472" data-end="488">model fields</strong> using annotations.</p>
 
+<h4 data-start="324" data-end="385">Common Validation Annotations</h4>
 <div class="_tableContainer_16hzy_1">
     <div class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse" tabindex="-1">
         <table class="w-fit min-w-(--thread-content-width)" data-start="387" data-end="799">
@@ -405,18 +414,14 @@ $ curl http://localhost:8081/myapp/api/users/srimanta
         </table>
     </div>
 </div>
-<strong>How It Works</strong>
+<h4>How It Works</h4>
+Use <code data-start="996" data-end="1004">@Valid</code> or <code data-start="1008" data-end="1020">@Validated</code> to <strong data-start="1024" data-end="1046">trigger validation</strong>.
 <ul>
-    <li data-start="992" data-end="1047">Use <code data-start="996" data-end="1004">@Valid</code> or <code data-start="1008" data-end="1020">@Validated</code> to <strong data-start="1024" data-end="1046">trigger validation</strong>.
-        <ul>
-            <li data-start="1052" data-end="1106"><code data-start="1052" data-end="1060">@Valid</code> → on method parameters (e.g., <code data-start="1091" data-end="1105">@RequestBody</code>)</li>
-            <li data-start="1111" data-end="1182"><code data-start="1111" data-end="1123">@Validated</code> → on class level (supports groups and advanced validation)</li>
-        </ul>
-    </li>
-    <li data-start="1185" data-end="1256">If validation fails, Spring throws a <code data-start="1222" data-end="1255">MethodArgumentNotValidException</code>.</li>
+    <li data-start="1052" data-end="1106"><code data-start="1052" data-end="1060">@Valid</code> → on method parameters (e.g., <code data-start="1091" data-end="1105">@RequestBody</code>)</li>
+    <li data-start="1111" data-end="1182"><code data-start="1111" data-end="1123">@Validated</code> → on class level (supports groups and advanced validation)</li>
 </ul>
-<strong data-start="798" data-end="810">Example</strong>
-
+If validation fails, Spring throws a <code data-start="1222" data-end="1255">MethodArgumentNotValidException</code>.
+<h4>Example</h4>
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
 &lt;dependency&gt;
@@ -506,7 +511,7 @@ public class GlobalExceptionHandler {
     }
 }</code></pre>
 </div>
-Sample cURL Test
+<h5>Sample cURL Test</h5>
 <pre><code class="language-bash line-numbers">$ curl -X POST http://localhost:8081/myapp/api/users/register \
 -H "Content-Type: application/json" \
 -d '{
@@ -519,20 +524,20 @@ Sample cURL Test
 <hr class="" data-start="733" data-end="736" />
 
 <h2 data-start="738" data-end="767"><strong>WebMvcConfigurer &amp; Message Converters</strong></h2>
-<p data-start="179" data-end="307"><strong data-start="179" data-end="206">Spring WebMvcConfigurer</strong> is an interface used to <strong data-start="231" data-end="264">customize Spring MVC behavior</strong> without overriding the full configuration.</p>
+<p data-start="179" data-end="307"><strong data-start="179" data-end="206">Spring WebMvcConfigurer</strong> is an interface used to <strong data-start="231" data-end="264">customize <a href="https://oopscoder.com/spring-framework-in-java/#spring-web-mvc">Spring MVC</a> behavior</strong> without overriding the full configuration.</p>
 <p data-start="309" data-end="331">It's ideal for adding:</p>
 
 <ul>
     <li data-start="335" data-end="366">Custom <strong data-start="344" data-end="366">message converters</strong></li>
     <li data-start="369" data-end="392">HTTP <strong data-start="376" data-end="392">interceptors</strong></li>
-    <li data-start="395" data-end="421">Global <strong data-start="404" data-end="421">CORS settings</strong></li>
+    <li data-start="395" data-end="421">Global <strong data-start="404" data-end="421"><a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">CORS</a> settings</strong></li>
     <li data-start="424" data-end="466">Formatters, argument resolvers, and more</li>
 </ul>
 <p data-start="743" data-end="856"><strong data-start="743" data-end="765">Message converters</strong> in Spring handle the conversion between <strong data-start="806" data-end="855">Java objects and HTTP request/response bodies</strong>.</p>
 <p data-start="858" data-end="920">They’re used internally by <code data-start="885" data-end="899">@RequestBody</code> and <code data-start="904" data-end="919">@ResponseBody</code>.</p>
-<strong data-start="798" data-end="810">Example</strong>
 
-Here's an example of a REST controller that generates both JSON and XML responses using content negotiation with <code>HttpMessageConverters</code>.
+<h4>Example</h4>
+Here’s an example of a <strong data-start="104" data-end="123">REST controller</strong> that generates both <strong data-start="144" data-end="170">JSON and XML responses</strong> using <strong data-start="177" data-end="200">content negotiation</strong> with <code data-start="206" data-end="228">HttpMessageConverter</code>s.
 
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
@@ -653,7 +658,7 @@ public class UserController {
     }
 }</code></pre>
     </div>
-    Sample cURL Test
+    <h5>Sample cURL Test</h5>
     <pre><code class="language-bash line-numbers">$ curl -X POST http://localhost:8081/myapp/api/users/register \
 -H "Content-Type: application/json" \
 -d '{
@@ -683,15 +688,14 @@ $ curl http://localhost:8081/myapp/api/users/srimanta \
     <li data-start="460" data-end="479">ResultSet iteration</li>
     <li data-start="482" data-end="500">Exception handling</li>
 </ul>
-<strong>Key Features</strong>
+<h4>Key Features</h4>
 <ul>
     <li data-start="528" data-end="556">Simplifies common JDBC tasks</li>
     <li data-start="559" data-end="598">Executes SQL queries and updates easily</li>
     <li data-start="601" data-end="648">Integrates with Spring's transaction management</li>
     <li data-start="651" data-end="713">Uses <code data-start="656" data-end="667">RowMapper</code> to convert <code data-start="679" data-end="690">ResultSet</code> rows into Java objects</li>
 </ul>
-<strong data-start="798" data-end="810">Example</strong>
-
+<h4>Example</h4>
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
     <div>
@@ -890,7 +894,7 @@ public class UserController {
     }
 }</code></pre>
     </div>
-    Sample cURL Test
+    <h5>Sample cURL Test</h5>
     <pre><code class="language-bash line-numbers">$ curl -X POST http://localhost:8081/myapp/api/users/register \
 -H "Content-Type: application/json" \
 -d '{
@@ -907,12 +911,19 @@ $ curl -X GET "http://localhost:8081/myapp/api/users/find?username=srimanta"
 <hr class="" data-start="733" data-end="736" />
 
 <h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Spring Boot Actuators</strong></h2>
-Provides production-ready monitoring and diagnostics.
+<strong data-start="161" data-end="185">Spring Boot Actuator</strong> provides <strong data-start="195" data-end="242">production-ready monitoring and diagnostics</strong> for your application with minimal configuration. It exposes a set of built-in endpoints that give insights into the system's internals — making it easier to monitor, manage, and debug applications in real-time.
+<h4 data-start="455" data-end="480">Common Endpoints</h4>
+<ul>
+    <li data-start="483" data-end="584"><strong data-start="483" data-end="505"><code data-start="485" data-end="503">/actuator/health</code></strong> – Shows application health status (e.g., database, disk, service availability)</li>
+    <li data-start="587" data-end="677"><strong data-start="587" data-end="610"><code data-start="589" data-end="608">/actuator/metrics</code></strong> – Exposes system and custom metrics like memory, CPU, thread usage</li>
+    <li data-start="680" data-end="753"><strong data-start="680" data-end="700"><code data-start="682" data-end="698">/actuator/info</code></strong> – Displays metadata (e.g., app version, description)</li>
+    <li data-start="756" data-end="823"><strong data-start="756" data-end="775"><code data-start="758" data-end="773">/actuator/env</code></strong> – Lists environment variables and config values</li>
+    <li data-start="826" data-end="895"><strong data-start="826" data-end="849"><code data-start="828" data-end="847">/actuator/loggers</code></strong> – Allows runtime management of logging levels</li>
+</ul>
+<p data-start="897" data-end="1108">Actuator endpoints can be <strong data-start="923" data-end="959">enabled, secured, and customized</strong> via <code data-start="964" data-end="988">application.properties|yaml</code>.</p>
+<p data-start="897" data-end="1108">They're also easily integrated with observability tools like <strong data-start="1053" data-end="1067">Prometheus</strong>, <strong data-start="1069" data-end="1080">Grafana</strong>, and <strong data-start="1086" data-end="1107">Spring Boot Admin</strong>.</p>
 
-Common endpoints: <code>/actuator/health</code>, <code>/actuator/metrics</code>, <code style="font-size: inherit;">/actuator/info</code>.
-
-<strong data-start="798" data-end="810">Example</strong>
-
+<h4>Example</h4>
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
 <pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
@@ -989,7 +1000,7 @@ public class CustomHealthIndicator implements HealthIndicator {
     }
 }</code></pre>
 </div>
-Sample cURL Test
+<h5>Sample cURL Test</h5>
 <pre><code class="language-bash line-numbers">$ curl http://localhost:8081/myapp/actuator/info
 {"app":{"name":"MySpringBootApp","description":"Spring Boot app with actuator endpoints","version":"1.0.0"}}
 $
@@ -999,12 +1010,25 @@ $ curl http://localhost:8081/myapp/actuator/health
 <hr class="" data-start="733" data-end="736" />
 
 <h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Aspect-Oriented Programming (AOP)</strong></h2>
-AOP allows separation of cross-cutting concerns like logging, security, or transactions.
+<p data-start="174" data-end="454"><strong data-start="174" data-end="211">Aspect-Oriented Programming (AOP)</strong> in Spring allows you to <strong data-start="236" data-end="271">separate cross-cutting concerns</strong> like <strong data-start="277" data-end="316">logging, security, and transactions</strong> from your core business logic. Instead of scattering these concerns across multiple classes, you define them in one place as <strong data-start="442" data-end="453">aspects</strong>.</p>
+<p data-start="456" data-end="559">Spring AOP uses <strong data-start="472" data-end="495">proxy-based weaving</strong> to apply behavior at runtime without modifying the actual code.</p>
 
-Uses annotations like <code>@Aspect</code>, <code>@Before</code>, <code>@After</code>, <code>@Around</code>.
+<h4 data-start="561" data-end="599">Common Concepts &amp; Annotations</h4>
+<ul>
+    <li data-start="602" data-end="687"><strong data-start="602" data-end="612">Aspect</strong> – A class that defines cross-cutting logic using the <code data-start="666" data-end="675">@Aspect</code> annotation.</li>
+    <li data-start="690" data-end="766"><strong data-start="690" data-end="700">Advice</strong> – The actual action (e.g., code to run before or after a method).
+        <ul>
+            <li data-start="771" data-end="812"><code data-start="771" data-end="780">@Before</code> – Run before method execution</li>
+            <li data-start="817" data-end="856"><code data-start="817" data-end="825">@After</code> – Run after method execution</li>
+            <li data-start="861" data-end="922"><code data-start="861" data-end="870">@Around</code> – Run before and after (can control execution flow)</li>
+        </ul>
+    </li>
+    <li data-start="925" data-end="990"><strong data-start="925" data-end="939">Join Point</strong> – A point in program execution (e.g., method call)</li>
+    <li data-start="993" data-end="1071"><strong data-start="993" data-end="1005">Pointcut</strong> – An expression to match join points (e.g., methods in a package)</li>
+</ul>
+<p data-start="1073" data-end="1234">AOP makes your code cleaner and more modular by letting you apply functionality like logging or transaction management <strong data-start="1192" data-end="1233">without cluttering the business logic</strong>.</p>
 
-<strong data-start="798" data-end="810">Example</strong>
-
+<h4>Example</h4>
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
 <pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
@@ -1058,21 +1082,19 @@ public class LoggingAspect {
 <hr class="" data-start="733" data-end="736" />
 
 <h2 class="" data-start="738" data-end="767"><strong data-start="742" data-end="765">Spring Security</strong></h2>
-Supports authentication and authorization.
+<p data-start="144" data-end="417"><strong data-start="144" data-end="163">Spring Security</strong> is a comprehensive and customizable framework for handling <strong data-start="223" data-end="241">authentication</strong> and <strong data-start="246" data-end="263">authorization</strong> in Java applications. It helps protect your application from common security threats and simplifies the process of securing both web and REST-based APIs.</p>
+<p data-start="419" data-end="474">It supports a variety of security mechanisms including:</p>
 
-Integrates with OAuth2, JWT, session-based auth.
-
-Provides robust security with support for:
 <ul>
-    <li>Basic/Auth login</li>
-    <li>OAuth2 &amp; JWT</li>
-    <li>Role-based authorization</li>
-    <li>Filter chains</li>
+    <li data-start="477" data-end="516"><strong data-start="477" data-end="516">Form-based and Basic Authentication</strong></li>
+    <li data-start="519" data-end="564"><strong data-start="519" data-end="564">OAuth2 and JWT-based token authentication</strong></li>
+    <li data-start="567" data-end="596"><strong data-start="567" data-end="596">Role-based access control</strong></li>
+    <li data-start="599" data-end="633"><strong data-start="599" data-end="633">Session and stateless security</strong></li>
 </ul>
+<p data-start="635" data-end="813">Spring Security uses a <strong data-start="658" data-end="674">filter chain</strong> to intercept and process HTTP requests before they reach controllers, allowing fine-grained access control and centralized security logic.</p>
+
 <div>
-
-    <strong data-start="798" data-end="810">Example</strong>
-
+    <h4>Example</h4>
     Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
     <div>
 <pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
@@ -1334,7 +1356,7 @@ jwt:
     <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">byte[] key = new byte[64];
 new SecureRandom().nextBytes(key);
 System.out.println(Base64.getEncoder().encodeToString(key));</code></pre>
-    Sample cURL Test
+    <h5>Sample cURL Test</h5>
     <pre><code class="language-bash line-numbers">$ curl http://localhost:8081/myapp/api/auth/secure-check
 {"timestamp":"2025-05-09T04:47:06.588+00:00","status":403,"error":"Forbidden","path":"/myapp/api/auth/secure-check"}
 $
@@ -1357,7 +1379,7 @@ $ curl -X POST http://localhost:8081/myapp/api/auth/login \
 $
 $ curl -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcmltYW50YSIsImlhdCI6MTc0Njc2NjA0OSwiZXhwIjoxNzQ2NzY5NjQ5fQ.9m0xk0PzvfnPG7kfyxjMkNZGhR0Ser7s6zTPEErYrddYBVaZmnmI4_KReEnoL7HHt0HPXGg3_x7cGc99VG7T9w" http://localhost:8081/myapp/api/auth/secure-check
 Accessed secured endpoint by user: srimanta</code></pre>
-    Console Logs
+    <h5>Console Logs</h5>
     <pre><code class="language-bash line-numbers">[INFO] [LoggingAspect] Entering method: UserController.registerUser(..)
 [INFO] [UserService] Finding by username: srimanta
 [INFO] [UserService] User 'srimanta' registration successful!
