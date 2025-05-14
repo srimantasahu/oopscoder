@@ -52,10 +52,6 @@
      color: #666;
     /* Light gray for subtle metadata */
 }
-/* Refactored padding of 40px from inside article */
- .inside-article {
-     padding: 10px 30px !important;
-}
 /* Removed extra padding of 20px around left n right widgets */
  .widget-area .widget {
      padding: 10px !important;
@@ -458,6 +454,10 @@
 }
 /* Desktop Layout */
  @media (min-width: 769px) {
+    /* Refactored padding of 40px from inside article */
+     .inside-article {
+         padding: 10px 30px !important;
+    }
     /* Squeeze Sidebar */
      #left-sidebar {
          width: 14%;
@@ -491,6 +491,10 @@
 }
 /* Mobile Layout */
  @media (max-width: 768px) {
+    /* Refactored padding of 40px from inside article */
+     .inside-article {
+         padding: 10px 15px !important;
+    }
      h1 {
          font-size: 2rem;
     }
