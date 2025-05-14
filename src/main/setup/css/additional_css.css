@@ -60,7 +60,6 @@
  .single-post .inside-article {
      max-width: 800px;
      margin: 0 auto;
-     padding: 2rem 1rem;
 }
 /*Remove underline from links*/
  a {
@@ -455,8 +454,11 @@
 /* Desktop Layout */
  @media (min-width: 769px) {
     /* Refactored padding of 40px from inside article */
-     .inside-article {
+     .inside-article, .page-header {
          padding: 10px 30px !important;
+    }
+     .page-header {
+         padding: 20px 30px !important;
     }
     /* Squeeze Sidebar */
      #left-sidebar {
@@ -494,6 +496,9 @@
     /* Refactored padding of 40px from inside article */
      .inside-article {
          padding: 10px 15px !important;
+    }
+     .page-header {
+         padding: 20px !important;
     }
      h1 {
          font-size: 2rem;
