@@ -403,6 +403,26 @@
      border-radius: 4px;
      background-color: #f0f4f8;
 }
+ .section {
+     margin-bottom: 2.5rem;
+}
+ .quote {
+     border-left: 4px solid #3498db;
+     background-color: #eaf4fc;
+     padding: 1rem;
+     margin-bottom: 1.5rem;
+     font-style: italic;
+     font-size: 1.05rem;
+     border-radius: 4px;
+}
+ .pro-tip {
+     border-left: 4px solid #3498db;
+     background-color: #eaf4fc;
+     padding: 1rem;
+     margin-top: 1.5rem;
+     border-radius: 4px;
+     font-size: 1rem;
+}
 /* Make TOC numbers bold and aligned */
  #toc_container ol, #toc_container ul {
      list-style: none;
