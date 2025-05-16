@@ -1,0 +1,404 @@
+<p data-start="603" data-end="866"><strong>Designing reliable, scalable systems goes beyond coding—it starts with strong architectural foundations. </strong>In this first installment of the <strong data-start="760" data-end="787">System Design Deep Dive</strong> series, we explore the key principles that shape robust software architecture:</p>
+
+<ul>
+    <li data-start="870" data-end="928"><strong data-start="870" data-end="890">SOLID Principles</strong> for object-oriented maintainability</li>
+    <li data-start="931" data-end="991"><strong data-start="931" data-end="950">Design Patterns</strong> that solve recurring design challenges</li>
+    <li data-start="994" data-end="1043"><strong data-start="994" data-end="1013">ACID Compliance</strong> for transactional integrity</li>
+    <li data-start="1046" data-end="1097"><strong data-start="1046" data-end="1061">CAP Theorem</strong> trade-offs in distributed systems</li>
+    <li data-start="1100" data-end="1148"><strong data-start="1100" data-end="1122">Consistent Hashing</strong> for scalable partitioning</li>
+</ul>
+<p data-start="1150" data-end="1476">Each concept is explained with real-world context and Java code examples based on a common use case—<strong data-start="1250" data-end="1281">user registration and login</strong>. Whether you're preparing for system design interviews or building production-grade software, these foundational principles will help you architect systems that are clean, modular, and scalable.</p>
+<p data-start="1150" data-end="1476">[toc]</p>
+
+
+<hr class="" data-start="771" data-end="774" />
+
+<h2 data-start="1150" data-end="1476"><strong>SOLID Principles</strong></h2>
+SOLID is a set of five foundational object-oriented design principles—<strong data-start="317" data-end="342">Single Responsibility</strong>, <strong data-start="344" data-end="359">Open/Closed</strong>, <strong data-start="361" data-end="384">Liskov Substitution</strong>, <strong data-start="386" data-end="411" data-is-only-node="">Interface Segregation</strong>, and <strong data-start="417" data-end="441">Dependency Inversion</strong>—that help developers write <strong data-start="469" data-end="478">clean</strong>, <strong data-start="480" data-end="493">decoupled</strong>, and <strong data-start="499" data-end="511">testable</strong> code. Whether you're building new features or refactoring legacy systems, applying SOLID leads to software that's easier to understand, extend, and maintain over time.
+
+<hr class="thin-border" data-start="4905" data-end="4908" />
+
+<h3 data-start="551" data-end="603"><strong data-start="558" data-end="603">S – Single Responsibility</strong></h3>
+<p data-start="605" data-end="736">A class should have <strong data-start="643" data-end="672">only one reason to change</strong>, meaning it should only have <strong data-start="702" data-end="713">one job</strong> or <strong data-start="717" data-end="735">responsibility</strong>.</p>
+
+<h4 data-start="738" data-end="779"><strong data-start="738" data-end="753">Anti-Example</strong></h4>
+<p data-start="738" data-end="779">A class doing too much:</p>
+
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class UserService {
+    public void registerUser(User user) {
+        // Validate user input
+        // Save user to database
+        // Send welcome email
+    }
+}</code></pre>
+<h4 data-start="964" data-end="977"><strong data-start="964" data-end="976">Problems</strong></h4>
+Violates <strong>Single Responsibility</strong> principle — it’s doing validation, persistence, and communication.
+
+Any change in email logic or validation will force changes to this class.
+<h4 data-start="1127" data-end="1172"><strong>Refactored</strong></h4>
+<p data-start="1127" data-end="1172">Separate responsibilities:</p>
+
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class UserService {
+    private UserValidator validator;
+    private UserRepository repository;
+    private EmailService emailService;
+
+    public void registerUser(SecurityProperties.User user) {
+        validator.validate(user);
+        repository.save(user);
+        emailService.sendWelcomeEmail(user);
+    }
+}</code></pre>
+<p data-start="1489" data-end="1493">Now:</p>
+
+<ul>
+    <li data-start="1496" data-end="1530"><code data-start="1496" data-end="1511">UserValidator</code> handles validation</li>
+    <li data-start="1533" data-end="1569"><code data-start="1533" data-end="1549">UserRepository</code> handles persistence</li>
+    <li data-start="1572" data-end="1608"><code data-start="1572" data-end="1586">EmailService</code> handles communication</li>
+</ul>
+<p data-start="1610" data-end="1692">Each class has <strong data-start="1625" data-end="1652">a single responsibility</strong>, making testing and maintenance easier.</p>
+
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h3 data-start="1699" data-end="1741"><strong data-start="1706" data-end="1741">O – Open/Closed</strong></h3>
+<p data-start="1743" data-end="1870">Software entities (classes, modules, functions) should be <strong data-start="1819" data-end="1869">open for extension but closed for modification</strong>.</p>
+
+<h4 data-start="738" data-end="779"><strong data-start="738" data-end="753">Anti-Example</strong></h4>
+<p data-start="1872" data-end="1921">Hardcoded authentication logic:</p>
+
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class AuthService {
+    public boolean authenticate(String type, String username, String password) {
+        if ("basic".equals(type)) {
+            return basicAuth(username, password);
+        } else if ("oauth".equals(type)) {
+            return oauthLogin(username, password);
+        }
+        return false;
+    }
+}</code></pre>
+<h4 data-start="2263" data-end="2276"><strong data-start="2263" data-end="2275">Problems</strong></h4>
+Adding a new auth type (e.g., SSO) requires modifying the class.
+<h4 data-start="1127" data-end="1172"><strong>Refactored</strong></h4>
+<p data-start="2345" data-end="2399">Use abstraction to allow extension:</p>
+
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public interface AuthStrategy {
+    boolean authenticate(String username, String password);
+}
+
+public class BasicAuthStrategy implements AuthStrategy {
+    public boolean authenticate(String username, String password) {
+        // basic auth logic
+    }
+}
+
+public class OAuthStrategy implements AuthStrategy {
+    public boolean authenticate(String username, String password) {
+        // oauth logic
+    }
+}
+
+public class AuthService {
+    private AuthStrategy strategy;
+
+    public AuthService(AuthStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public boolean authenticate(String username, String password) {
+        return strategy.authenticate(username, password);
+    }
+}</code></pre>
+<p data-start="3109" data-end="3188">Now you can <strong data-start="3121" data-end="3155">add new authentication methods</strong> without modifying <code data-start="3174" data-end="3187">AuthService</code>.</p>
+
+
+<hr class="thin-border" data-start="3190" data-end="3193" />
+
+<h3 data-start="3195" data-end="3245"><strong data-start="3202" data-end="3245">L – Liskov Substitution</strong></h3>
+<p data-start="3247" data-end="3354"><strong data-start="3265" data-end="3299">Subtypes must be substitutable</strong> for their base types without breaking the application.</p>
+
+<h4 data-start="738" data-end="779"><strong data-start="738" data-end="753">Anti-Example</strong></h4>
+<p data-start="3356" data-end="3412">A subclass violates expected behavior:</p>
+
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class User {
+    public boolean isEmailVerified() {
+        return true;
+    }
+}
+
+public class GuestUser extends User {
+    public boolean isEmailVerified() {
+        throw new UnsupportedOperationException("Guest users don't have emails");
+    }
+}</code></pre>
+<h4><strong data-start="3682" data-end="3693">Problem</strong></h4>
+<code data-start="3697" data-end="3708">GuestUser</code> cannot be used in place of <code data-start="3736" data-end="3742">User</code> — violates <strong>Liskov Substitution</strong> principle.
+<h4 data-start="1127" data-end="1172"><strong>Refactored</strong></h4>
+<p data-start="3760" data-end="3855">If <code data-start="3781" data-end="3792">GuestUser</code> can't conform to <code data-start="3810" data-end="3816">User</code>, it <strong data-start="3821" data-end="3845">should not extend it</strong>. Instead:</p>
+
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public interface Verifiable {
+    boolean isEmailVerified();
+}
+
+public class RegisteredUser implements Verifiable {
+    public boolean isEmailVerified() {
+        return true;
+    }
+}</code></pre>
+<p data-start="4053" data-end="4133">Use <strong data-start="4057" data-end="4086">interfaces or composition</strong> to ensure substitutability and correct design.</p>
+
+
+<hr class="thin-border" data-start="4135" data-end="4138" />
+
+<h3 data-start="4140" data-end="4192"><strong data-start="4147" data-end="4192">I – Interface Segregation</strong></h3>
+<p data-start="4194" data-end="4281">Clients should not be forced to depend on interfaces they do not use.</p>
+
+<h4 data-start="738" data-end="779"><strong data-start="738" data-end="753">Anti-Example</strong></h4>
+<p data-start="4283" data-end="4321">A bloated interface:</p>
+
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public interface UserOperations {
+    void register();
+
+    void login();
+
+    void logout();
+
+    void deleteUser();
+
+    void resetPassword();
+}</code></pre>
+<h4 data-start="4478" data-end="4490"><strong data-start="4478" data-end="4489">Problem</strong></h4>
+A <code data-start="4495" data-end="4506">GuestUser</code> might only need <code data-start="4523" data-end="4532">login()</code> and <code data-start="4537" data-end="4547">logout()</code>, not the rest.
+<h4 data-start="1127" data-end="1172"><strong>Refactored</strong></h4>
+<p data-start="4564" data-end="4604">Segregate interfaces:</p>
+
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public interface AuthOperations {
+    void login();
+
+    void logout();
+}
+
+public interface AdminOperations {
+    void deleteUser();
+
+    void resetPassword();
+}
+
+public interface RegistrationOperations {
+    void register();
+}</code></pre>
+<p data-start="4844" data-end="4903">Now each class <strong data-start="4859" data-end="4902">implements only the interfaces it needs</strong>.</p>
+
+
+<hr class="thin-border" data-start="4905" data-end="4908" />
+
+<h3 data-start="4910" data-end="4961"><strong data-start="4917" data-end="4961">D – Dependency Inversion</strong></h3>
+<p data-start="4963" data-end="5079">High-level modules should not depend on low-level modules. Both should depend on <strong data-start="5062" data-end="5078">abstractions</strong>.</p>
+
+<h4 data-start="738" data-end="779"><strong data-start="738" data-end="753">Anti-Example</strong></h4>
+<p data-start="5081" data-end="5152">High-level class depends on low-level implementation:</p>
+
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class UserService {
+    private MySQLUserRepository repository = new MySQLUserRepository();
+}</code></pre>
+<h4 data-start="5267" data-end="5279"><strong data-start="5267" data-end="5278">Problem</strong></h4>
+Tightly coupled to MySQL. Hard to swap or test.
+<h4 data-start="1127" data-end="1172"><strong>Refactored</strong></h4>
+<p data-start="5331" data-end="5366">Use abstraction:</p>
+
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public interface UserRepository {
+    void save(User user);
+}
+
+public class MySQLUserRepository implements UserRepository {
+    public void save(User user) {
+        // MySQL logic
+    }
+}
+
+public class UserService {
+    private final UserRepository repository;
+
+    public UserService(UserRepository repository) {
+        this.repository = repository;
+    }
+
+    public void registerUser(User user) {
+        repository.save(user);
+    }
+}</code></pre>
+<p data-start="5821" data-end="5917">Now <code data-start="5825" data-end="5838">UserService</code> depends on <strong data-start="5850" data-end="5866">an interface</strong>, not a concrete class — easier to test and extend.</p>
+
+
+<hr class="" data-start="771" data-end="774" />
+
+<h2><strong>Design Patterns</strong></h2>
+<p data-start="685" data-end="924"><strong data-start="685" data-end="761">Design patterns are proven solutions to common software design problems.</strong> In Java, mastering these patterns helps you write <strong data-start="812" data-end="823">cleaner</strong>, <strong data-start="825" data-end="846">more maintainable</strong>, and <strong data-start="852" data-end="869">scalable code</strong> by applying reliable <strong data-start="891" data-end="923">architectural best practices</strong>.</p>
+<p data-start="926" data-end="1196">A design pattern is not a code snippet you copy-paste—it's a <strong data-start="987" data-end="1008">reusable approach</strong> to solving recurring problems in software design. Think of it as a <strong data-start="1076" data-end="1089">blueprint</strong> that guides you in structuring classes, interfaces, and responsibilities with <strong data-start="1168" data-end="1195">clarity and flexibility</strong>.</p>
+<p data-start="1198" data-end="1315">Patterns also improve <strong data-start="1220" data-end="1247">developer communication</strong> by providing a <strong data-start="1263" data-end="1284">shared vocabulary</strong> for solving design challenges.</p>
+<p data-start="1317" data-end="1416">Let’s explore the major categories of design patterns, with examples based on real-world use cases.</p>
+
+
+<hr class="thin-border" data-start="4905" data-end="4908" />
+
+<h3 data-start="241" data-end="271"><strong data-start="248" data-end="271">Creational Patterns</strong></h3>
+<p data-start="273" data-end="421">Creational patterns handle object creation mechanisms, making your code <strong data-start="345" data-end="357">flexible</strong>, <strong data-start="359" data-end="371">scalable</strong>, and <strong data-start="377" data-end="390">decoupled</strong> from specific implementations.</p>
+
+
+<hr class="thin-border" data-start="423" data-end="426" />
+
+<h4 data-start="428" data-end="458"><strong data-start="435" data-end="456">Singleton Pattern</strong></h4>
+<p data-start="459" data-end="643">Ensures <strong data-start="467" data-end="488">only one instance</strong> of a class exists and provides a <strong data-start="522" data-end="545">global access point</strong> to it.</p>
+<p data-start="459" data-end="643"></p>
+<p data-start="459" data-end="643"><strong data-start="555" data-end="568">Use Case:</strong> <em data-start="569" data-end="643">Centralized configuration, logging service, or database connection pool.</em></p>
+
+<div class="tip-block">🔑 <strong data-start="650" data-end="666">Key Benefit:</strong> Controlled access to a single shared resource.</div>
+
+<hr class="thin-border" data-start="715" data-end="718" />
+
+<h4 data-start="720" data-end="748"><strong data-start="727" data-end="746">Factory Pattern</strong></h4>
+<p data-start="749" data-end="940">Creates objects <strong data-start="765" data-end="804">without exposing the creation logic</strong> to the client. Instead, it uses a common interface.</p>
+<p data-start="749" data-end="940"></p>
+<p data-start="749" data-end="940"><strong data-start="859" data-end="872">Use Case:</strong> <em data-start="873" data-end="940">Dynamic creation of objects like user roles, shapes, or messages.</em></p>
+
+<div class="tip-block">🔑 <strong data-start="947" data-end="963">Key Benefit:</strong> Promotes <strong data-start="973" data-end="991">loose coupling</strong> and adheres to the <strong data-start="1011" data-end="1036">Open/Closed Principle</strong>.</div>
+
+<hr class="thin-border" data-start="1039" data-end="1042" />
+
+<h4 data-start="1044" data-end="1081"><strong data-start="1051" data-end="1079">Abstract Factory Pattern</strong></h4>
+<p data-start="1082" data-end="1268">Creates <strong data-start="1090" data-end="1121">families of related objects</strong> without specifying their concrete classes.</p>
+<p data-start="1082" data-end="1268"></p>
+<p data-start="1082" data-end="1268"><strong data-start="1167" data-end="1180">Use Case:</strong> <em data-start="1181" data-end="1268">Switching UI themes (light/dark), cross-platform UI toolkits, or multiple DB drivers.</em></p>
+
+<div class="tip-block">🔑 <strong data-start="1275" data-end="1291">Key Benefit:</strong> Supports <strong data-start="1301" data-end="1337">interchangeable product families</strong> while maintaining consistency.</div>
+
+<hr class="thin-border" data-start="1370" data-end="1373" />
+
+<h4 data-start="1375" data-end="1403"><strong data-start="1382" data-end="1401">Builder Pattern</strong></h4>
+<p data-start="1404" data-end="1585">Constructs <strong data-start="1415" data-end="1447">complex objects step-by-step</strong>, separating construction from representation.</p>
+<p data-start="1404" data-end="1585"></p>
+<p data-start="1404" data-end="1585"><strong data-start="1496" data-end="1509">Use Case:</strong> <em data-start="1510" data-end="1585">Creating objects like <code data-start="1533" data-end="1539">User</code>, <code data-start="1541" data-end="1548">Pizza</code>, or <code data-start="1553" data-end="1562">Vehicle</code> with optional fields.</em></p>
+
+<div class="tip-block">🔑 <strong data-start="1592" data-end="1608">Key Benefit:</strong> Avoids <strong data-start="1616" data-end="1643">constructor overloading</strong> and enhances <strong data-start="1657" data-end="1672">readability</strong>.</div>
+
+<hr class="thin-border" data-start="1675" data-end="1678" />
+
+<h4 data-start="1680" data-end="1710"><strong data-start="1687" data-end="1708">Prototype Pattern</strong></h4>
+<p data-start="1711" data-end="1876">Creates new objects by <strong data-start="1734" data-end="1764">cloning an existing object</strong>, useful when object creation is costly.</p>
+<p data-start="1711" data-end="1876"></p>
+<p data-start="1711" data-end="1876"><strong data-start="1807" data-end="1820">Use Case:</strong> <em data-start="1821" data-end="1876">Graphic elements, form templates, or document copies.</em></p>
+
+<div class="tip-block">🔑 <strong data-start="1883" data-end="1899">Key Benefit:</strong> Offers <strong data-start="1907" data-end="1935">performance optimization</strong> and avoids subclassing.</div>
+
+<hr class="thin-border" data-start="1961" data-end="1964" />
+
+<h3 data-start="1966" data-end="1995"><strong data-start="1972" data-end="1995">Structural Patterns</strong></h3>
+<p data-start="1997" data-end="2149">Structural patterns define how classes and objects are <strong data-start="2052" data-end="2087">composed into larger structures</strong>, focusing on <strong data-start="2101" data-end="2116">reusability</strong> and <strong data-start="2121" data-end="2148">efficient collaboration</strong>.</p>
+
+
+<hr class="thin-border" data-start="2151" data-end="2154" />
+
+<h4 data-start="2156" data-end="2184"><strong data-start="2163" data-end="2182">Adapter Pattern</strong></h4>
+<p data-start="2185" data-end="2356">Allows two incompatible interfaces to work together by providing a <strong data-start="2252" data-end="2263">wrapper</strong>.</p>
+<p data-start="2185" data-end="2356"></p>
+<p data-start="2185" data-end="2356"><strong data-start="2267" data-end="2280">Use Case:</strong> <em data-start="2281" data-end="2356">Connecting legacy systems or third-party APIs with mismatched interfaces.</em></p>
+
+<div class="tip-block">🔑 <strong data-start="2363" data-end="2379">Key Benefit:</strong> Promotes <strong data-start="2389" data-end="2403">code reuse</strong> and <strong data-start="2408" data-end="2435">integration flexibility</strong>.</div>
+
+<hr class="thin-border" data-start="2438" data-end="2441" />
+
+<h4 data-start="2443" data-end="2473"><strong data-start="2450" data-end="2471">Decorator Pattern</strong></h4>
+<p data-start="2474" data-end="2630">Dynamically adds <strong data-start="2491" data-end="2508">new behaviors</strong> to objects <em data-start="2520" data-end="2555">without modifying their structure</em>.</p>
+<p data-start="2474" data-end="2630"></p>
+<p data-start="2474" data-end="2630"><strong data-start="2559" data-end="2572">Use Case:</strong> <em data-start="2573" data-end="2630">Coffee customization, adding logging, stream filtering.</em></p>
+
+<div class="tip-block">🔑 <strong data-start="2637" data-end="2653">Key Benefit:</strong> Adheres to the <strong data-start="2669" data-end="2694">Open/Closed Principle</strong> while enhancing flexibility.</div>
+
+<hr class="thin-border" data-start="2725" data-end="2728" />
+
+<h4 data-start="2730" data-end="2756"><strong data-start="2737" data-end="2754">Proxy Pattern</strong></h4>
+<p data-start="2757" data-end="2929">Provides a <strong data-start="2768" data-end="2796">placeholder or surrogate</strong> to control access to another object.</p>
+<p data-start="2757" data-end="2929"></p>
+<p data-start="2757" data-end="2929"><strong data-start="2836" data-end="2849">Use Case:</strong> <em data-start="2850" data-end="2929">Lazy loading (virtual proxy), security checks (protection proxy), or caching.</em></p>
+
+<div class="tip-block">🔑 <strong data-start="2936" data-end="2952">Key Benefit:</strong> Adds <strong data-start="2958" data-end="2986">control and optimization</strong> around resource access.</div>
+
+<hr class="thin-border" data-start="3012" data-end="3015" />
+
+<h4 data-start="3017" data-end="3044"><strong data-start="3024" data-end="3042">Facade Pattern</strong></h4>
+<p data-start="3045" data-end="3206">Offers a <strong data-start="3054" data-end="3078">simplified interface</strong> to a larger body of code, hiding internal complexity.</p>
+<p data-start="3045" data-end="3206"></p>
+<p data-start="3045" data-end="3206"><strong data-start="3135" data-end="3148">Use Case:</strong> <em data-start="3149" data-end="3206">Media players, SDKs, APIs that wrap complex subsystems.</em></p>
+
+<div class="tip-block">🔑 <strong data-start="3213" data-end="3229">Key Benefit:</strong> Reduces <strong data-start="3238" data-end="3250">coupling</strong> between subsystems and client code.</div>
+
+<hr class="thin-border" data-start="3288" data-end="3291" />
+
+<h3 data-start="3293" data-end="3322"><strong data-start="3299" data-end="3322">Behavioral Patterns</strong></h3>
+<p data-start="3324" data-end="3463">Behavioral patterns focus on how objects <strong data-start="3365" data-end="3393">communicate and interact</strong>, enhancing <strong data-start="3405" data-end="3434">responsibility delegation</strong> and <strong data-start="3439" data-end="3462">runtime flexibility</strong>.</p>
+
+
+<hr class="thin-border" data-start="3465" data-end="3468" />
+
+<h4 data-start="3470" data-end="3499"><strong data-start="3477" data-end="3497">Strategy Pattern</strong></h4>
+<p data-start="3500" data-end="3675">Encapsulates <strong data-start="3513" data-end="3539">a family of algorithms</strong> and allows them to be interchanged at runtime.</p>
+<p data-start="3500" data-end="3675"></p>
+<p data-start="3500" data-end="3675"><strong data-start="3589" data-end="3602">Use Case:</strong> <em data-start="3603" data-end="3675">Sorting algorithms, payment gateway selection, compression strategies.</em></p>
+
+<div class="tip-block">🔑 <strong data-start="3682" data-end="3698">Key Benefit:</strong> Enables <strong data-start="3707" data-end="3730">runtime flexibility</strong> and adheres to the <strong data-start="3750" data-end="3775">Open/Closed Principle</strong>.</div>
+
+<hr class="thin-border" data-start="3778" data-end="3781" />
+
+<h4 data-start="3783" data-end="3811"><strong data-start="3790" data-end="3809">Command Pattern</strong></h4>
+<p data-start="3812" data-end="3968">Encapsulates a <strong data-start="3827" data-end="3851">request as an object</strong>, allowing parameterization and queuing of actions.</p>
+<p data-start="3812" data-end="3968"></p>
+<p data-start="3812" data-end="3968"><strong data-start="3905" data-end="3918">Use Case:</strong> <em data-start="3919" data-end="3968">Undo/redo systems, task queues, job schedulers.</em></p>
+
+<div class="tip-block">🔑 <strong data-start="3975" data-end="3991">Key Benefit:</strong> Supports <strong data-start="4001" data-end="4042">logging, queuing, and undo operations</strong>.</div>
+
+<hr class="thin-border" data-start="4045" data-end="4048" />
+
+<h4 data-start="4050" data-end="4079"><strong data-start="4057" data-end="4077">Observer Pattern</strong></h4>
+<p data-start="4080" data-end="4252">Defines a <strong data-start="4090" data-end="4118">one-to-many relationship</strong>, where when one object changes, all its dependents are notified.</p>
+<p data-start="4080" data-end="4252"></p>
+<p data-start="4080" data-end="4252"><strong data-start="4186" data-end="4199">Use Case:</strong> <em data-start="4200" data-end="4252">Event systems, UI frameworks, real-time messaging.</em></p>
+
+<div class="tip-block">🔑 <strong data-start="4259" data-end="4275">Key Benefit:</strong> Promotes <strong data-start="4285" data-end="4303">loose coupling</strong> between subject and observers.</div>
+
+<hr class="thin-border" data-start="4336" data-end="4339" />
+
+<h4 data-start="4341" data-end="4369"><strong data-start="4348" data-end="4367">Memento Pattern</strong></h4>
+<p data-start="4370" data-end="4537">Captures and restores an object’s internal state <strong data-start="4419" data-end="4454">without violating encapsulation</strong>.</p>
+<p data-start="4370" data-end="4537"></p>
+<p data-start="4370" data-end="4537"><strong data-start="4458" data-end="4471">Use Case:</strong> <em data-start="4472" data-end="4537">Undo functionality, versioning systems, game state checkpoints.</em></p>
+
+<div class="tip-block">🔑 <strong data-start="4544" data-end="4560">Key Benefit:</strong> Enables <strong data-start="4569" data-end="4587">state recovery</strong> while preserving object integrity.</div>
+
+<hr class="" data-start="771" data-end="774" />
+
+<h2>ACID Principles</h2>
+&nbsp;
+
+<hr class="" data-start="771" data-end="774" />
+
+<h2>CAP Theorem</h2>
+&nbsp;
+
+<hr class="" data-start="771" data-end="774" />
+
+<h2>Consistent Hashing</h2>
+&nbsp;
+
+<hr class="" data-start="771" data-end="774" />
+
+<h2>Final Thoughts</h2>
+<p data-start="1546" data-end="1670"><strong>Foundational principles aren’t optional—they’re the difference between scalable systems and technical debt.</strong></p>
+<p data-start="1672" data-end="1993">By mastering <strong data-start="1685" data-end="1694">SOLID</strong>, <strong data-start="1696" data-end="1715">Design Patterns</strong>, <strong data-start="1717" data-end="1725">ACID</strong>, <strong data-start="1727" data-end="1734">CAP</strong>, and <strong data-start="1740" data-end="1762">Consistent Hashing</strong>, you're building the mindset of an architect—one who understands <strong data-start="1828" data-end="1842">trade-offs</strong>, <strong data-start="1844" data-end="1858">modularity</strong>, and <strong data-start="1864" data-end="1879">reliability</strong>. These concepts aren’t just academic; they shape real-world systems where scalability and stability are critical.</p>
+
+<div class="tip-block">💡 <strong>Pro Tip: </strong>Don’t just memorize patterns—apply them in your own projects, review production codebases, and challenge yourself to think in terms of architecture.</div>
+<p data-start="2176" data-end="2316">Stay tuned for Part 2, where we’ll explore estimation strategies, system boundaries, and blueprinting your high-level and low-level designs.</p>
+
+
+<hr class="" data-start="771" data-end="774" />
+
+[wpcode id="468"]
