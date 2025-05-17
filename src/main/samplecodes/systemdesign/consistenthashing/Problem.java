@@ -1,0 +1,1 @@
+int node = hash(key) % totalNodes;

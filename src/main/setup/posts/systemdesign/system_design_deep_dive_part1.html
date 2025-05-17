@@ -232,6 +232,441 @@ public class UserService {
 
 <hr class="" data-start="771" data-end="774" />
 
+<h2><strong>ACID Principles</strong></h2>
+<p data-start="231" data-end="431">In system design and database architecture, <strong data-start="275" data-end="283">ACID</strong> stands for <strong data-start="295" data-end="348">Atomicity, Consistency, Isolation, and Durability</strong> — a set of properties that guarantee reliable transaction processing in databases.</p>
+<p data-start="433" data-end="593">Whether you're designing an e-commerce app or a financial system, understanding ACID is essential to prevent data corruption, race conditions, and lost updates.</p>
+
+
+<hr class="thin-border" data-start="595" data-end="598" />
+
+<h3 data-start="600" data-end="620"><strong>A — Atomicity</strong></h3>
+<p data-start="624" data-end="743"><strong data-start="624" data-end="637">Atomicity</strong> ensures that a transaction is <em data-start="668" data-end="684">all-or-nothing</em>. If one part fails, the entire transaction is rolled back.</p>
+<p data-start="745" data-end="848"><strong data-start="745" data-end="769">Real-World Use Case:</strong> Deducting balance and placing an order — either both succeed, or neither does.</p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">try (Connection conn = dataSource.getConnection()) {
+    conn.setAutoCommit(false); // Begin transaction
+
+    try (PreparedStatement debit = conn.prepareStatement("UPDATE users SET balance = balance - ? WHERE id = ?")) {
+        debit.setDouble(1, 100);
+        debit.setInt(2, userId);
+        debit.executeUpdate();
+    }
+
+    try (PreparedStatement order = conn.prepareStatement("INSERT INTO orders (user_id, amount) VALUES (?, ?)")) {
+        order.setInt(1, userId);
+        order.setDouble(2, 100);
+        order.executeUpdate();
+    }
+
+    conn.commit(); // All success, commit transaction
+} catch (Exception e) {
+    conn.rollback(); // Something failed, roll back
+    e.printStackTrace();
+}</code></pre>
+</div>
+
+<hr class="thin-border" data-start="1563" data-end="1566" />
+
+<h3 data-start="1568" data-end="1590"><strong>C — Consistency</strong></h3>
+<p data-start="1594" data-end="1732"><strong data-start="1594" data-end="1609">Consistency</strong> ensures that a transaction brings the database from one <strong data-start="1666" data-end="1681">valid state</strong> to another, adhering to all constraints and rules.</p>
+<p data-start="1734" data-end="1836"><strong data-start="1734" data-end="1746">Example:</strong> A bank transfer shouldn't allow negative balances if the schema requires positive values.</p>
+<p data-start="1838" data-end="1868"><strong data-start="1838" data-end="1868">Schema Constraint Example:</strong></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-sql line-numbers">CREATE TABLE users (
+    id INT PRIMARY KEY,
+    balance DECIMAL(10,2) CHECK (balance &gt;= 0)
+);</code></pre>
+</div>
+<p data-start="1976" data-end="2102">If a transaction violates this constraint (e.g., deducts more than balance), the DB rejects it, preserving <strong data-start="2083" data-end="2101">data integrity</strong>.</p>
+
+
+<hr class="thin-border" data-start="2104" data-end="2107" />
+
+<h3 data-start="2109" data-end="2129"><strong>I — Isolation</strong></h3>
+<p data-start="2133" data-end="2217"><strong data-start="2133" data-end="2146">Isolation</strong> ensures that concurrent transactions do not interfere with each other.</p>
+<p data-start="2219" data-end="2242"><strong data-start="2219" data-end="2240">Isolation Levels:</strong></p>
+
+<ul>
+    <li data-start="2245" data-end="2263">READ UNCOMMITTED</li>
+    <li data-start="2266" data-end="2306">READ COMMITTED (default in many RDBMS)</li>
+    <li data-start="2309" data-end="2326">REPEATABLE READ</li>
+    <li data-start="2329" data-end="2341">SERIALIZABLE</li>
+</ul>
+<p data-start="2343" data-end="2427"><strong data-start="2343" data-end="2363">Example Problem:</strong> Two users try to register with the same email at the same time.</p>
+<p data-start="2429" data-end="2474"><strong data-start="2429" data-end="2474">Java Example with SERIALIZABLE Isolation:</strong></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+conn.setAutoCommit(false);
+
+try (PreparedStatement checkEmail = conn.prepareStatement("SELECT * FROM users WHERE email = ?")) {
+    checkEmail.setString(1, "oops@coder.com");
+    ResultSet rs = checkEmail.executeQuery();
+
+    if (!rs.next()) {
+        try (PreparedStatement insertUser = conn.prepareStatement("INSERT INTO users (email) VALUES (?)")) {
+            insertUser.setString(1, "oops@coder.com");
+            insertUser.executeUpdate();
+        }
+    }
+
+    conn.commit();
+} catch (SQLException e) {
+    conn.rollback();
+    e.printStackTrace();
+}</code></pre>
+</div>
+<p data-start="3117" data-end="3210">Using SERIALIZABLE prevents race conditions by locking the read until the write is committed.</p>
+
+
+<hr class="thin-border" data-start="3212" data-end="3215" />
+
+<h3 data-start="3217" data-end="3238"><strong>D — Durability</strong></h3>
+<p data-start="3242" data-end="3359"><strong data-start="3242" data-end="3256">Durability</strong> guarantees that once a transaction is committed, it <strong data-start="3309" data-end="3329">will not be lost</strong> — even if the system crashes.</p>
+<p data-start="3361" data-end="3408">This is handled by the database itself through:</p>
+
+<ul>
+    <li data-start="3411" data-end="3431"><strong data-start="3411" data-end="3431">Write-ahead logs</strong></li>
+    <li data-start="3434" data-end="3448"><strong data-start="3434" data-end="3448">Journaling</strong></li>
+    <li data-start="3451" data-end="3476"><strong data-start="3451" data-end="3476">Disk flush mechanisms</strong></li>
+</ul>
+<p data-start="3478" data-end="3622"><strong data-start="3478" data-end="3519">You don’t need to manually write code</strong> for durability — it’s ensured when <code data-start="3555" data-end="3570">conn.commit()</code> succeeds and the DB engine flushes changes to disk.</p>
+
+
+<hr class="thin-border" data-start="4217" data-end="4220" />
+
+<div class="tip-block">💡 <strong>Pro Tip: </strong>Use <strong data-start="4244" data-end="4269">Spring @Transactional</strong> to manage ACID in a cleaner way. It handles rollback automatically on exceptions.</div>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Transactional
+public void placeOrder(User user, double amount) {
+    userRepo.debit(user.getId(), amount);
+    orderRepo.createOrder(user.getId(), amount);
+}</code></pre>
+</div>
+
+<hr class="" data-start="771" data-end="774" />
+
+<h2><strong>CAP Theorem</strong></h2>
+<div class="quote-block">The CAP Theorem states that in the presence of a <strong data-start="611" data-end="632">network partition</strong>, a distributed system must <strong data-start="660" data-end="707">choose between Consistency and Availability</strong>, but <strong data-start="713" data-end="736">cannot provide both</strong> simultaneously.</div>
+<h4 data-start="754" data-end="773">CAP stands for:</h4>
+<ul>
+    <li data-start="777" data-end="839"><strong data-start="777" data-end="782">C</strong>onsistency: All nodes see the same data at the same time.</li>
+    <li data-start="842" data-end="936"><strong data-start="842" data-end="847">A</strong>vailability: Every request gets a (non-error) response, even if it's not the most recent.</li>
+    <li data-start="939" data-end="1043"><strong data-start="939" data-end="944">P</strong>artition Tolerance: The system continues to operate despite communication breakdowns between nodes.</li>
+</ul>
+
+<hr class="thin-border" data-start="1045" data-end="1048" />
+
+<h4 data-start="1050" data-end="1075">Let’s Break It Down</h4>
+<h3 data-start="1077" data-end="1106"><strong data-start="1087" data-end="1106">C — Consistency</strong></h3>
+<p data-start="1108" data-end="1216">All nodes return the <strong data-start="1129" data-end="1153">latest updated value</strong>. After a write, any read should return that write or an error.</p>
+<p data-start="1218" data-end="1356"><strong data-start="1218" data-end="1230">Example:</strong><br data-start="1230" data-end="1233" />If a user updates their password and immediately logs in from another device, both systems should see the updated password.</p>
+
+<div class="tip-block"><em data-start="1363" data-end="1437">Strong consistency is essential in financial and authentication systems.</em></div>
+
+<hr class="thin-border" data-start="1439" data-end="1442" />
+
+<h3 data-start="1444" data-end="1474"><strong data-start="1454" data-end="1474">A — Availability</strong></h3>
+<p data-start="1476" data-end="1605">Every request receives a response (success or failure) — <strong data-start="1533" data-end="1557">without guaranteeing</strong> that the response contains the <strong data-start="1589" data-end="1604">latest data</strong>.</p>
+<p data-start="1607" data-end="1752"><strong data-start="1607" data-end="1619">Example:</strong><br data-start="1619" data-end="1622" />Even during high traffic or node failure, a product page still loads with data (maybe slightly stale), but the site doesn’t break.</p>
+
+<div class="tip-block"><em data-start="1758" data-end="1850">Critical for user-facing apps where uptime is a priority, like e-commerce or social feeds.</em></div>
+
+<hr class="thin-border" data-start="1852" data-end="1855" />
+
+<h3 data-start="1857" data-end="1894"><strong data-start="1867" data-end="1894">P — Partition Tolerance</strong></h3>
+<p data-start="1896" data-end="2005">The system continues operating <strong data-start="1927" data-end="1983">despite failures or lost communication between nodes</strong> (network partitions).</p>
+<p data-start="2007" data-end="2137"><strong data-start="2007" data-end="2019">Example:</strong><br data-start="2019" data-end="2022" />If a data center in Europe loses connection to the US region, both systems must still serve requests independently.</p>
+
+<div class="tip-block"><em data-start="2144" data-end="2217">Partition tolerance is a must in any geographically distributed system.</em></div>
+
+<hr class="thin-border" data-start="2219" data-end="2222" />
+
+<h3 data-start="2224" data-end="2254"><strong>Discussion</strong></h3>
+<h4 data-start="2224" data-end="2254">Why Can't We Have All 3?</h4>
+<p data-start="2256" data-end="2353">During a <strong data-start="2265" data-end="2286">network partition</strong>, the system <strong data-start="2299" data-end="2352">must sacrifice either consistency or availability</strong>.</p>
+
+<h5 data-start="2355" data-end="2372">Imagine this:</h5>
+<ul>
+    <li data-start="2375" data-end="2418">Node A and Node B are in different regions.</li>
+    <li data-start="2421" data-end="2454">They lose connection (partition).</li>
+    <li data-start="2457" data-end="2496">A user updates their profile on Node A.</li>
+    <li data-start="2499" data-end="2544">Another user fetches the profile from Node B.</li>
+</ul>
+<p data-start="2546" data-end="2573">You now have to <strong data-start="2562" data-end="2572">choose</strong>:</p>
+
+<ul>
+    <li data-start="2576" data-end="2627">Do you block Node B's read (favor <strong data-start="2610" data-end="2625">Consistency</strong>)?</li>
+    <li data-start="2630" data-end="2704">Do you return possibly outdated data from Node B (favor <strong data-start="2686" data-end="2702">Availability</strong>)?</li>
+</ul>
+
+<hr class="thin-border" data-start="2706" data-end="2709" />
+
+<h4 data-start="2711" data-end="2754">Real-World Examples of CAP Trade-Offs</h4>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="2756" data-end="3196">
+        <thead data-start="2756" data-end="2837">
+        <tr data-start="2756" data-end="2837">
+            <th data-start="2756" data-end="2773" data-col-size="sm">System</th>
+            <th data-start="2773" data-end="2793" data-col-size="sm">Chosen Properties</th>
+            <th data-start="2793" data-end="2837" data-col-size="sm">Example Use Case</th>
+        </tr>
+        </thead>
+        <tbody data-start="2920" data-end="3196">
+        <tr data-start="2920" data-end="3010">
+            <td data-start="2920" data-end="2937" data-col-size="sm"><strong data-start="2922" data-end="2928">CP</strong> System</td>
+            <td data-start="2937" data-end="2973" data-col-size="sm">Consistency + Partition Tolerance</td>
+            <td data-start="2973" data-end="3010" data-col-size="sm">HBase, MongoDB (default), Spanner</td>
+        </tr>
+        <tr data-start="3011" data-end="3103">
+            <td data-start="3011" data-end="3028" data-col-size="sm"><strong data-start="3013" data-end="3019">AP</strong> System</td>
+            <td data-start="3028" data-end="3065" data-col-size="sm">Availability + Partition Tolerance</td>
+            <td data-start="3065" data-end="3103" data-col-size="sm">Cassandra, Couchbase, DynamoDB</td>
+        </tr>
+        <tr data-start="3104" data-end="3196">
+            <td data-start="3104" data-end="3121" data-col-size="sm"><strong data-start="3106" data-end="3112">CA</strong>* System</td>
+            <td data-start="3121" data-end="3157" data-col-size="sm">Consistency + Availability</td>
+            <td data-start="3157" data-end="3196" data-col-size="sm">Traditional RDBMS (non-distributed)</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="tip-block">📝 <strong>Note: </strong><em data-start="3203" data-end="3322">CA systems are only possible if you don't need partition tolerance — which is unrealistic in most real-world systems.</em></div>
+
+<hr class="thin-border" data-start="3324" data-end="3327" />
+
+<h4 data-start="3329" data-end="3350">CAP in Practice</h4>
+<h5 data-start="3352" data-end="3403">CP Example — MongoDB (Majority Write Concern)</h5>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">db.collection.insertOne({ user: "bob", balance: 100 });
+    // Waits for majority of replica set to acknowledge</code></pre>
+<ul>
+    <li data-start="3534" data-end="3561">Ensures strong consistency.</li>
+    <li data-start="3564" data-end="3611">Will reject writes if majority isn't available.</li>
+</ul>
+
+<hr class="thin-border" data-start="3613" data-end="3616" />
+
+<h5 data-start="3618" data-end="3669">AP Example — Cassandra (Eventual Consistency)</h5>
+<pre class="lazy-load" data-loaded="false"><code class="language-sql line-numbers">INSERT INTO users (id, name) VALUES (1, 'Alice');
+    // Always succeeds, replicates later</code></pre>
+<ul>
+    <li data-start="3772" data-end="3819">Guarantees availability, even during partition.</li>
+    <li data-start="3822" data-end="3861">May return <strong data-start="3833" data-end="3848">stale reads</strong> temporarily.</li>
+</ul>
+
+<hr class="thin-border" data-start="3863" data-end="3866" />
+
+<h4 data-start="3868" data-end="3898">Choosing Between C and A</h4>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="3900" data-end="4409">
+        <thead data-start="3900" data-end="3983">
+        <tr data-start="3900" data-end="3983">
+            <th data-start="3900" data-end="3936" data-col-size="sm">Scenario</th>
+            <th data-start="3936" data-end="3948" data-col-size="sm">Preference</th>
+            <th data-start="3948" data-end="3983" data-col-size="sm">Reason</th>
+        </tr>
+        </thead>
+        <tbody data-start="4067" data-end="4409">
+        <tr data-start="4067" data-end="4154">
+            <td data-start="4067" data-end="4102" data-col-size="sm">Banking / Financial Transactions</td>
+            <td data-start="4102" data-end="4114" data-col-size="sm"><strong data-start="4104" data-end="4110">CP</strong></td>
+            <td data-start="4114" data-end="4154" data-col-size="sm">You can’t allow inconsistent balance</td>
+        </tr>
+        <tr data-start="4155" data-end="4237">
+            <td data-start="4155" data-end="4190" data-col-size="sm">Social Media Feed</td>
+            <td data-start="4190" data-end="4202" data-col-size="sm"><strong data-start="4192" data-end="4198">AP</strong></td>
+            <td data-start="4202" data-end="4237" data-col-size="sm">Availability matters more</td>
+        </tr>
+        <tr data-start="4238" data-end="4320">
+            <td data-start="4238" data-end="4273" data-col-size="sm">Real-time Chat / Messaging</td>
+            <td data-start="4273" data-end="4285" data-col-size="sm">Depends</td>
+            <td data-start="4285" data-end="4320" data-col-size="sm">Needs both freshness and uptime</td>
+        </tr>
+        <tr data-start="4321" data-end="4409">
+            <td data-start="4321" data-end="4356" data-col-size="sm">Search Systems</td>
+            <td data-start="4356" data-end="4368" data-col-size="sm"><strong data-start="4358" data-end="4364">AP</strong></td>
+            <td data-start="4368" data-end="4409" data-col-size="sm">Returning stale results is acceptable</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="thin-border" data-start="3863" data-end="3866" />
+
+<h5 data-start="4416" data-end="4430">💡 Pro Tip:</h5>
+<div class="tip-block"><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Some databases like </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4453" data-end="4466">Cassandra</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> and </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4471" data-end="4483">DynamoDB</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> support </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4492" data-end="4515">tunable consistency</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> — letting you choose C or A per request using </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4562" data-end="4572">quorum</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> settings.</span></div>
+
+<hr data-start="771" data-end="774" />
+
+<h2><strong>Consistent Hashing</strong></h2>
+<p data-start="295" data-end="563">When you're designing a distributed system (like a cache, database, or load balancer), one of the biggest challenges is <strong data-start="415" data-end="475">how to distribute data across multiple nodes efficiently</strong> — and how to handle <strong data-start="496" data-end="531">node failures or scaling events</strong> without reshuffling everything.</p>
+<p data-start="565" data-end="637"><strong data-start="565" data-end="587">Consistent Hashing</strong> is a smart algorithm that addresses exactly that.</p>
+
+
+<hr class="thin-border" data-start="3863" data-end="3866" />
+
+<h3 data-start="644" data-end="680">The Problem with Simple Hashing</h3>
+<p data-start="911" data-end="949">In traditional (modulo-based) hashing:</p>
+
+<div>
+    <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">int node = hash(key) % totalNodes;</code></pre>
+</div>
+<p data-start="999" data-end="1135">Adding or removing a node changes <code data-start="1033" data-end="1045">totalNodes</code>, which reassigns <strong data-start="1063" data-end="1082">almost all keys</strong> — causing massive cache invalidation or rebalancing.</p>
+
+
+<hr class="thin-border" data-start="1137" data-end="1140" />
+
+<h3 data-start="460" data-end="493">What is Consistent Hashing</h3>
+<p data-start="495" data-end="564"><strong data-start="495" data-end="517">Consistent Hashing</strong> is a partitioning strategy that allows you to:</p>
+
+<ul>
+    <li data-start="567" data-end="611">Distribute keys/data across multiple servers</li>
+    <li data-start="614" data-end="670"><strong data-start="614" data-end="637">Add or remove nodes</strong> with minimal reshuffling of keys</li>
+    <li data-start="673" data-end="719">Improve load balancing using <strong data-start="702" data-end="719">virtual nodes</strong></li>
+</ul>
+<p data-start="721" data-end="865">It's used in systems like <strong data-start="747" data-end="760">Cassandra</strong>, <strong data-start="762" data-end="774">DynamoDB</strong>, <strong data-start="776" data-end="789">Memcached</strong>, and <strong data-start="795" data-end="812">Redis Cluster</strong> to scale horizontally while maintaining performance.</p>
+
+
+<hr class="thin-border" data-start="867" data-end="870" />
+
+<h3 data-start="1142" data-end="1193">The Ring-Based Approach</h3>
+<p data-start="1195" data-end="1229">Consistent Hashing solves this by:</p>
+
+<ul>
+    <li>Mapping both <strong data-start="1247" data-end="1289">keys and nodes onto the same hash ring</strong> (0 to 2³²–1).</li>
+    <li data-start="1307" data-end="1370">Assigning each key to the <strong data-start="1333" data-end="1369">next node in clockwise direction</strong>.</li>
+    <li data-start="1371" data-end="1452">
+        <p data-start="1374" data-end="1452">When a node is added or removed, <strong data-start="1407" data-end="1430">only a small subset</strong> of keys need to move.</p>
+    </li>
+</ul>
+
+<hr class="thin-border" data-start="1454" data-end="1457" />
+
+<h4>Example (with 3 Nodes)</h4>
+<ul>
+    <li data-start="1492" data-end="1515">Node A → hash("A") = 10</li>
+    <li data-start="1518" data-end="1541">Node B → hash("B") = 60</li>
+    <li data-start="1544" data-end="1568">Node C → hash("C") = 120</li>
+    <li data-start="1572" data-end="1638">Key X → hash("X") = 65 → assigned to Node C (first node clockwise)</li>
+</ul>
+<p data-start="1640" data-end="1677">Now you add Node D → hash("D") = 80</p>
+
+<ul>
+    <li>Only keys between 60–80 (like X) move from Node C to Node D.</li>
+</ul>
+<div class="tip-block">📝 <strong>Note: </strong>Only ~1/N of keys are remapped on node change!</div>
+
+<hr class="thin-border" data-start="1797" data-end="1800" />
+
+<h3 data-start="1802" data-end="1830">Virtual Nodes (VNodes)</h3>
+<p data-start="1832" data-end="1959">To avoid uneven load (hotspots), each node is represented by <strong data-start="1893" data-end="1919">multiple virtual nodes</strong> placed at different points on the ring.</p>
+<p data-start="1961" data-end="2047">This smooths out key distribution, especially with a small number of physical servers.</p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">for (int i = 0; i &lt; 100; i++) {
+int hash = hash("ServerA" + i);
+    ring.put(hash, "ServerA");
+}</code></pre>
+</div>
+
+<hr class="thin-border" data-start="2163" data-end="2166" />
+
+<h3 data-start="2224" data-end="2254"><strong>Discussion</strong></h3>
+<h4 data-start="2168" data-end="2194">Real-World Use Cases</h4>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="2196" data-end="2646">
+        <thead data-start="2196" data-end="2259">
+        <tr data-start="2196" data-end="2259">
+            <th data-start="2196" data-end="2217" data-col-size="sm">Technology</th>
+            <th data-start="2217" data-end="2259" data-col-size="sm">Use of Consistent Hashing</th>
+        </tr>
+        </thead>
+        <tbody data-start="2324" data-end="2646">
+        <tr data-start="2324" data-end="2388">
+            <td data-start="2324" data-end="2345" data-col-size="sm"><strong data-start="2326" data-end="2338">DynamoDB</strong></td>
+            <td data-start="2345" data-end="2388" data-col-size="sm">Distributes key-value data across nodes</td>
+        </tr>
+        <tr data-start="2389" data-end="2453">
+            <td data-start="2389" data-end="2410" data-col-size="sm"><strong data-start="2391" data-end="2404">Cassandra</strong></td>
+            <td data-start="2410" data-end="2453" data-col-size="sm">Token ring-based data placement</td>
+        </tr>
+        <tr data-start="2454" data-end="2517">
+            <td data-start="2454" data-end="2475" data-col-size="sm"><strong data-start="2456" data-end="2473">Redis Cluster</strong></td>
+            <td data-start="2475" data-end="2517" data-col-size="sm">Data sharding among nodes</td>
+        </tr>
+        <tr data-start="2518" data-end="2582">
+            <td data-start="2518" data-end="2539" data-col-size="sm"><strong data-start="2520" data-end="2533">Memcached</strong></td>
+            <td data-start="2539" data-end="2582" data-col-size="sm">Used by Facebook for cache consistency</td>
+        </tr>
+        <tr data-start="2583" data-end="2646">
+            <td data-start="2583" data-end="2604" data-col-size="sm"><strong data-start="2585" data-end="2594">Kafka</strong></td>
+            <td data-start="2604" data-end="2646" data-col-size="sm">Partition assignment in producer APIs</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="thin-border" data-start="2648" data-end="2651" />
+
+<h4 data-start="2653" data-end="2691">Java Implementation (Simplified)</h4>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">class ConsistentHash&lt;T&gt; {
+    private final SortedMap&lt;Integer, T&gt; ring = new TreeMap&lt;&gt;();
+    private final int virtualNodes;
+
+    public ConsistentHash(List&lt;T&gt; nodes, int virtualNodes) {
+        this.virtualNodes = virtualNodes;
+        for (T node : nodes) {
+            add(node);
+        }
+    }
+
+    public void add(T node) {
+        for (int i = 0; i &lt; virtualNodes; i++) {
+            int hash = (node.toString() + i).hashCode();
+            ring.put(hash, node);
+        }
+    }
+
+    public T get(String key) {
+        if (ring.isEmpty()) return null;
+        int hash = key.hashCode();
+        SortedMap&lt;Integer, T&gt; tail = ring.tailMap(hash);
+        hash = tail.isEmpty() ? ring.firstKey() : tail.firstKey();
+        return ring.get(hash);
+    }
+}</code></pre>
+</div>
+
+<hr class="thin-border" data-start="3464" data-end="3467" />
+
+<h4 data-start="3469" data-end="3484">Advantages</h4>
+<ul>
+    <li data-start="3488" data-end="3535">Only a fraction of keys remapped when scaling</li>
+    <li data-start="3538" data-end="3582">Better load balancing (with virtual nodes)</li>
+    <li data-start="3583" data-end="3621">
+        <p data-start="3585" data-end="3621">Highly scalable and fault-tolerant</p>
+    </li>
+</ul>
+
+<hr class="thin-border" data-start="3623" data-end="3626" />
+
+<h4 data-start="3628" data-end="3646">Disadvantages</h4>
+<ul>
+    <li data-start="3650" data-end="3681">Slightly complex to implement</li>
+    <li data-start="3684" data-end="3727">May still suffer imbalance without VNodes</li>
+    <li data-start="3730" data-end="3780">Needs a good hash function to prevent clustering</li>
+</ul>
+
+<hr class="thin-border" data-start="3782" data-end="3785" />
+
+<h5 data-start="3787" data-end="3801">💡 Pro Tip:</h5>
+<div class="tip-block">Use <strong data-start="3808" data-end="3822">MurMurHash</strong> or <strong data-start="3826" data-end="3835">SHA-1</strong> over <code data-start="3841" data-end="3860">String.hashCode()</code> for more uniform distribution.</div>
+
+<hr class="" data-start="771" data-end="774" />
+
 <h2><strong>Design Patterns</strong></h2>
 <p data-start="685" data-end="924"><strong data-start="685" data-end="761">Design patterns are proven solutions to common software design problems.</strong> In Java, mastering these patterns helps you write <strong data-start="812" data-end="823">cleaner</strong>, <strong data-start="825" data-end="846">more maintainable</strong>, and <strong data-start="852" data-end="869">scalable code</strong> by applying reliable <strong data-start="891" data-end="923">architectural best practices</strong>.</p>
 <p data-start="926" data-end="1196">A design pattern is not a code snippet you copy-paste—it's a <strong data-start="987" data-end="1008">reusable approach</strong> to solving recurring problems in software design. Think of it as a <strong data-start="1076" data-end="1089">blueprint</strong> that guides you in structuring classes, interfaces, and responsibilities with <strong data-start="1168" data-end="1195">clarity and flexibility</strong>.</p>
@@ -241,153 +676,467 @@ public class UserService {
 
 <hr class="thin-border" data-start="4905" data-end="4908" />
 
-<h3 data-start="241" data-end="271"><strong data-start="248" data-end="271">Creational Patterns</strong></h3>
+<h4 data-start="241" data-end="271"><strong data-start="248" data-end="271">Creational Patterns</strong></h4>
 <p data-start="273" data-end="421">Creational patterns handle object creation mechanisms, making your code <strong data-start="345" data-end="357">flexible</strong>, <strong data-start="359" data-end="371">scalable</strong>, and <strong data-start="377" data-end="390">decoupled</strong> from specific implementations.</p>
 
 
 <hr class="thin-border" data-start="423" data-end="426" />
 
-<h4 data-start="428" data-end="458"><strong data-start="435" data-end="456">Singleton Pattern</strong></h4>
+<h3 data-start="428" data-end="458"><strong data-start="435" data-end="456">Singleton <em data-start="592" data-end="606">(Creational)</em></strong></h3>
 <p data-start="459" data-end="643">Ensures <strong data-start="467" data-end="488">only one instance</strong> of a class exists and provides a <strong data-start="522" data-end="545">global access point</strong> to it.</p>
-<p data-start="459" data-end="643"></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class SessionManager {
+    private static SessionManager instance = null;
+
+    private SessionManager() {
+    }
+
+    public static synchronized SessionManager getInstance() {
+        if (instance == null) instance = new SessionManager();
+        return instance;
+    }
+
+    public void login(String user) { /* store session */ }
+}</code></pre>
+</div>
 <p data-start="459" data-end="643"><strong data-start="555" data-end="568">Use Case:</strong> <em data-start="569" data-end="643">Centralized configuration, logging service, or database connection pool.</em></p>
 
 <div class="tip-block">🔑 <strong data-start="650" data-end="666">Key Benefit:</strong> Controlled access to a single shared resource.</div>
 
 <hr class="thin-border" data-start="715" data-end="718" />
 
-<h4 data-start="720" data-end="748"><strong data-start="727" data-end="746">Factory Pattern</strong></h4>
+<h3 data-start="720" data-end="748"><strong data-start="727" data-end="746">Factory <em data-start="592" data-end="606">(Creational)</em></strong></h3>
 <p data-start="749" data-end="940">Creates objects <strong data-start="765" data-end="804">without exposing the creation logic</strong> to the client. Instead, it uses a common interface.</p>
-<p data-start="749" data-end="940"></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public interface User {
+    void register();
+}
+
+public class AdminUser implements User {
+    public void register() { /* logic */ }
+}
+
+public class GuestUser implements User {
+    public void register() { /* logic */ }
+}
+
+public class UserFactory {
+    public static User create(String type) {
+        return switch (type) {
+            case "admin" -&gt; new AdminUser();
+            case "guest" -&gt; new GuestUser();
+            default -&gt; throw new IllegalArgumentException("Unknown type");
+        };
+    }
+}</code></pre>
+</div>
 <p data-start="749" data-end="940"><strong data-start="859" data-end="872">Use Case:</strong> <em data-start="873" data-end="940">Dynamic creation of objects like user roles, shapes, or messages.</em></p>
 
 <div class="tip-block">🔑 <strong data-start="947" data-end="963">Key Benefit:</strong> Promotes <strong data-start="973" data-end="991">loose coupling</strong> and adheres to the <strong data-start="1011" data-end="1036">Open/Closed Principle</strong>.</div>
 
 <hr class="thin-border" data-start="1039" data-end="1042" />
 
-<h4 data-start="1044" data-end="1081"><strong data-start="1051" data-end="1079">Abstract Factory Pattern</strong></h4>
+<h3 data-start="1044" data-end="1081"><strong data-start="1051" data-end="1079">Abstract Factory <em data-start="592" data-end="606">(Creational)</em></strong></h3>
 <p data-start="1082" data-end="1268">Creates <strong data-start="1090" data-end="1121">families of related objects</strong> without specifying their concrete classes.</p>
-<p data-start="1082" data-end="1268"></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">interface UIComponentFactory {
+    Button createButton();
+
+    InputField createInputField();
+}
+
+class WebFactory implements UIComponentFactory {
+    public Button createButton() {
+        return new WebButton();
+    }
+
+    public InputField createInputField() {
+        return new WebInput();
+    }
+}</code></pre>
+</div>
 <p data-start="1082" data-end="1268"><strong data-start="1167" data-end="1180">Use Case:</strong> <em data-start="1181" data-end="1268">Switching UI themes (light/dark), cross-platform UI toolkits, or multiple DB drivers.</em></p>
 
 <div class="tip-block">🔑 <strong data-start="1275" data-end="1291">Key Benefit:</strong> Supports <strong data-start="1301" data-end="1337">interchangeable product families</strong> while maintaining consistency.</div>
 
 <hr class="thin-border" data-start="1370" data-end="1373" />
 
-<h4 data-start="1375" data-end="1403"><strong data-start="1382" data-end="1401">Builder Pattern</strong></h4>
+<h3 data-start="1375" data-end="1403"><strong data-start="1382" data-end="1401">Builder <em data-start="592" data-end="606">(Creational)</em></strong></h3>
 <p data-start="1404" data-end="1585">Constructs <strong data-start="1415" data-end="1447">complex objects step-by-step</strong>, separating construction from representation.</p>
-<p data-start="1404" data-end="1585"></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class User {
+    private final String email;
+    private final String password;
+    private final String avatar;
+
+    private User(Builder builder) {
+        this.email = builder.email;
+        this.password = builder.password;
+        this.avatar = builder.avatar;
+    }
+
+    public static class Builder {
+        private String email, password, avatar;
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder avatar(String avatar) {
+            this.avatar = avatar;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
+    }
+}</code></pre>
+</div>
 <p data-start="1404" data-end="1585"><strong data-start="1496" data-end="1509">Use Case:</strong> <em data-start="1510" data-end="1585">Creating objects like <code data-start="1533" data-end="1539">User</code>, <code data-start="1541" data-end="1548">Pizza</code>, or <code data-start="1553" data-end="1562">Vehicle</code> with optional fields.</em></p>
 
 <div class="tip-block">🔑 <strong data-start="1592" data-end="1608">Key Benefit:</strong> Avoids <strong data-start="1616" data-end="1643">constructor overloading</strong> and enhances <strong data-start="1657" data-end="1672">readability</strong>.</div>
 
 <hr class="thin-border" data-start="1675" data-end="1678" />
 
-<h4 data-start="1680" data-end="1710"><strong data-start="1687" data-end="1708">Prototype Pattern</strong></h4>
+<h3 data-start="1680" data-end="1710"><strong data-start="1687" data-end="1708">Prototype <em data-start="592" data-end="606">(Creational)</em></strong></h3>
 <p data-start="1711" data-end="1876">Creates new objects by <strong data-start="1734" data-end="1764">cloning an existing object</strong>, useful when object creation is costly.</p>
-<p data-start="1711" data-end="1876"></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class UserTemplate implements Cloneable {
+    private String role = "user";
+
+    public UserTemplate clone() throws CloneNotSupportedException {
+        return (UserTemplate) super.clone();
+    }
+}</code></pre>
+</div>
 <p data-start="1711" data-end="1876"><strong data-start="1807" data-end="1820">Use Case:</strong> <em data-start="1821" data-end="1876">Graphic elements, form templates, or document copies.</em></p>
 
 <div class="tip-block">🔑 <strong data-start="1883" data-end="1899">Key Benefit:</strong> Offers <strong data-start="1907" data-end="1935">performance optimization</strong> and avoids subclassing.</div>
 
 <hr class="thin-border" data-start="1961" data-end="1964" />
 
-<h3 data-start="1966" data-end="1995"><strong data-start="1972" data-end="1995">Structural Patterns</strong></h3>
+<h4 data-start="1966" data-end="1995"><strong data-start="1972" data-end="1995">Structural Patterns</strong></h4>
 <p data-start="1997" data-end="2149">Structural patterns define how classes and objects are <strong data-start="2052" data-end="2087">composed into larger structures</strong>, focusing on <strong data-start="2101" data-end="2116">reusability</strong> and <strong data-start="2121" data-end="2148">efficient collaboration</strong>.</p>
 
 
 <hr class="thin-border" data-start="2151" data-end="2154" />
 
-<h4 data-start="2156" data-end="2184"><strong data-start="2163" data-end="2182">Adapter Pattern</strong></h4>
+<h3 data-start="2156" data-end="2184"><strong data-start="2163" data-end="2182">Adapter <em data-start="1485" data-end="1499">(Structural)</em></strong></h3>
 <p data-start="2185" data-end="2356">Allows two incompatible interfaces to work together by providing a <strong data-start="2252" data-end="2263">wrapper</strong>.</p>
-<p data-start="2185" data-end="2356"></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">interface AppLogin {
+    void login(String username, String password);
+}
+
+class GoogleAuth {
+    void authenticate(String token) { /* logic */ }
+}
+
+class GoogleAuthAdapter implements AppLogin {
+    GoogleAuth google = new GoogleAuth();
+
+    public void login(String username, String password) {
+        String token = username + ":" + password;
+        google.authenticate(token);
+    }
+}</code></pre>
+</div>
 <p data-start="2185" data-end="2356"><strong data-start="2267" data-end="2280">Use Case:</strong> <em data-start="2281" data-end="2356">Connecting legacy systems or third-party APIs with mismatched interfaces.</em></p>
 
 <div class="tip-block">🔑 <strong data-start="2363" data-end="2379">Key Benefit:</strong> Promotes <strong data-start="2389" data-end="2403">code reuse</strong> and <strong data-start="2408" data-end="2435">integration flexibility</strong>.</div>
 
 <hr class="thin-border" data-start="2438" data-end="2441" />
 
-<h4 data-start="2443" data-end="2473"><strong data-start="2450" data-end="2471">Decorator Pattern</strong></h4>
+<h3 data-start="2443" data-end="2473"><strong data-start="2450" data-end="2471">Decorator <em data-start="1485" data-end="1499">(Structural)</em></strong></h3>
 <p data-start="2474" data-end="2630">Dynamically adds <strong data-start="2491" data-end="2508">new behaviors</strong> to objects <em data-start="2520" data-end="2555">without modifying their structure</em>.</p>
-<p data-start="2474" data-end="2630"></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">interface UserService {
+    void registerUser(String email);
+}
+
+class BasicUserService implements UserService {
+    public void registerUser(String email) {
+        System.out.println("Registered " + email);
+    }
+}
+
+class LoggingUserService implements UserService {
+    private final UserService service;
+
+    public LoggingUserService(UserService service) {
+        this.service = service;
+    }
+
+    public void registerUser(String email) {
+        service.registerUser(email);
+        System.out.println("Log: Registered user " + email);
+    }
+}</code></pre>
+</div>
 <p data-start="2474" data-end="2630"><strong data-start="2559" data-end="2572">Use Case:</strong> <em data-start="2573" data-end="2630">Coffee customization, adding logging, stream filtering.</em></p>
 
 <div class="tip-block">🔑 <strong data-start="2637" data-end="2653">Key Benefit:</strong> Adheres to the <strong data-start="2669" data-end="2694">Open/Closed Principle</strong> while enhancing flexibility.</div>
 
 <hr class="thin-border" data-start="2725" data-end="2728" />
 
-<h4 data-start="2730" data-end="2756"><strong data-start="2737" data-end="2754">Proxy Pattern</strong></h4>
+<h3 data-start="2730" data-end="2756"><strong data-start="2737" data-end="2754">Proxy <em data-start="1485" data-end="1499">(Structural)</em></strong></h3>
 <p data-start="2757" data-end="2929">Provides a <strong data-start="2768" data-end="2796">placeholder or surrogate</strong> to control access to another object.</p>
-<p data-start="2757" data-end="2929"></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">interface AccountService {
+    void accessAccount();
+}
+
+class RealAccountService implements AccountService {
+    public void accessAccount() {
+        System.out.println("Accessing account");
+    }
+}
+
+class AuthProxy implements AccountService {
+    private final AccountService service;
+    private final boolean isAuthenticated;
+
+    public AuthProxy(AccountService service, boolean isAuthenticated) {
+        this.service = service;
+        this.isAuthenticated = isAuthenticated;
+    }
+
+    public void accessAccount() {
+        if (isAuthenticated) service.accessAccount();
+        else System.out.println("Access denied");
+    }
+}</code></pre>
+</div>
 <p data-start="2757" data-end="2929"><strong data-start="2836" data-end="2849">Use Case:</strong> <em data-start="2850" data-end="2929">Lazy loading (virtual proxy), security checks (protection proxy), or caching.</em></p>
 
 <div class="tip-block">🔑 <strong data-start="2936" data-end="2952">Key Benefit:</strong> Adds <strong data-start="2958" data-end="2986">control and optimization</strong> around resource access.</div>
 
 <hr class="thin-border" data-start="3012" data-end="3015" />
 
-<h4 data-start="3017" data-end="3044"><strong data-start="3024" data-end="3042">Facade Pattern</strong></h4>
+<h3 data-start="3017" data-end="3044"><strong data-start="3024" data-end="3042">Facade <em data-start="1838" data-end="1852">(Structural)</em></strong></h3>
 <p data-start="3045" data-end="3206">Offers a <strong data-start="3054" data-end="3078">simplified interface</strong> to a larger body of code, hiding internal complexity.</p>
-<p data-start="3045" data-end="3206"></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">// Subsystems
+class UserValidator {
+    public boolean isValid(User user) {
+        return user.getEmail() != null &amp;&amp; user.getPassword().length() &gt;= 6;
+    }
+}
+
+class UserRepository {
+    public void save(User user) {
+        System.out.println("User saved: " + user.getEmail());
+    }
+}
+
+class EmailService {
+    public void sendWelcomeEmail(User user) {
+        System.out.println("Welcome email sent to: " + user.getEmail());
+    }
+}</code></pre>
+</div>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">// Model
+class User {
+    private String email;
+    private String password;
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+}</code></pre>
+</div>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">// Facade
+class UserRegistrationFacade {
+    private UserValidator validator = new UserValidator();
+    private UserRepository repository = new UserRepository();
+    private EmailService emailService = new EmailService();
+
+    public void registerUser(User user) {
+        if (validator.isValid(user)) {
+            repository.save(user);
+            emailService.sendWelcomeEmail(user);
+        } else {
+            System.out.println("Invalid user details.");
+        }
+    }
+}</code></pre>
+</div>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">// Client
+public class Main {
+    public static void main(String[] args) {
+        User user = new User("john@example.com", "securePass");
+        UserRegistrationFacade facade = new UserRegistrationFacade();
+        facade.registerUser(user);
+    }
+}</code></pre>
+</div>
 <p data-start="3045" data-end="3206"><strong data-start="3135" data-end="3148">Use Case:</strong> <em data-start="3149" data-end="3206">Media players, SDKs, APIs that wrap complex subsystems.</em></p>
 
 <div class="tip-block">🔑 <strong data-start="3213" data-end="3229">Key Benefit:</strong> Reduces <strong data-start="3238" data-end="3250">coupling</strong> between subsystems and client code.</div>
 
 <hr class="thin-border" data-start="3288" data-end="3291" />
 
-<h3 data-start="3293" data-end="3322"><strong data-start="3299" data-end="3322">Behavioral Patterns</strong></h3>
+<h4 data-start="3293" data-end="3322"><strong data-start="3299" data-end="3322">Behavioral Patterns</strong></h4>
 <p data-start="3324" data-end="3463">Behavioral patterns focus on how objects <strong data-start="3365" data-end="3393">communicate and interact</strong>, enhancing <strong data-start="3405" data-end="3434">responsibility delegation</strong> and <strong data-start="3439" data-end="3462">runtime flexibility</strong>.</p>
 
 
 <hr class="thin-border" data-start="3465" data-end="3468" />
 
-<h4 data-start="3470" data-end="3499"><strong data-start="3477" data-end="3497">Strategy Pattern</strong></h4>
+<h3 data-start="3470" data-end="3499"><strong data-start="3477" data-end="3497">Strategy <em data-start="2007" data-end="2021">(Behavioral)</em></strong></h3>
 <p data-start="3500" data-end="3675">Encapsulates <strong data-start="3513" data-end="3539">a family of algorithms</strong> and allows them to be interchanged at runtime.</p>
-<p data-start="3500" data-end="3675"></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">interface LoginStrategy {
+    void login(String input);
+}
+
+class EmailLogin implements LoginStrategy {
+    public void login(String input) {
+        System.out.println("Login via email");
+    }
+}
+
+class OTPLogin implements LoginStrategy {
+    public void login(String input) {
+        System.out.println("Login via OTP");
+    }
+}
+
+class LoginContext {
+    private LoginStrategy strategy;
+
+    public void setStrategy(LoginStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public void login(String input) {
+        strategy.login(input);
+    }
+}</code></pre>
+</div>
 <p data-start="3500" data-end="3675"><strong data-start="3589" data-end="3602">Use Case:</strong> <em data-start="3603" data-end="3675">Sorting algorithms, payment gateway selection, compression strategies.</em></p>
 
 <div class="tip-block">🔑 <strong data-start="3682" data-end="3698">Key Benefit:</strong> Enables <strong data-start="3707" data-end="3730">runtime flexibility</strong> and adheres to the <strong data-start="3750" data-end="3775">Open/Closed Principle</strong>.</div>
 
 <hr class="thin-border" data-start="3778" data-end="3781" />
 
-<h4 data-start="3783" data-end="3811"><strong data-start="3790" data-end="3809">Command Pattern</strong></h4>
+<h3 data-start="3783" data-end="3811"><strong data-start="3790" data-end="3809">Command </strong><strong style="font-family: inherit; font-style: inherit;" data-start="3477" data-end="3497"><em data-start="2007" data-end="2021">(Behavioral)</em></strong></h3>
 <p data-start="3812" data-end="3968">Encapsulates a <strong data-start="3827" data-end="3851">request as an object</strong>, allowing parameterization and queuing of actions.</p>
-<p data-start="3812" data-end="3968"></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">interface Command {
+    void execute();
+}
+
+class RegisterCommand implements Command {
+    public void execute() {
+        System.out.println("Registering user...");
+    }
+}
+
+class CommandInvoker {
+    public void run(Command command) {
+        command.execute();
+    }
+}</code></pre>
+</div>
 <p data-start="3812" data-end="3968"><strong data-start="3905" data-end="3918">Use Case:</strong> <em data-start="3919" data-end="3968">Undo/redo systems, task queues, job schedulers.</em></p>
 
 <div class="tip-block">🔑 <strong data-start="3975" data-end="3991">Key Benefit:</strong> Supports <strong data-start="4001" data-end="4042">logging, queuing, and undo operations</strong>.</div>
 
 <hr class="thin-border" data-start="4045" data-end="4048" />
 
-<h4 data-start="4050" data-end="4079"><strong data-start="4057" data-end="4077">Observer Pattern</strong></h4>
+<h3 data-start="4050" data-end="4079"><strong data-start="4057" data-end="4077">Observer </strong><strong style="font-family: inherit; font-style: inherit;" data-start="3477" data-end="3497"><em data-start="2007" data-end="2021">(Behavioral)</em></strong></h3>
 <p data-start="4080" data-end="4252">Defines a <strong data-start="4090" data-end="4118">one-to-many relationship</strong>, where when one object changes, all its dependents are notified.</p>
-<p data-start="4080" data-end="4252"></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">interface Observer {
+    void update(String event);
+}
+
+class EmailNotifier implements Observer {
+    public void update(String event) {
+        System.out.println("Email: " + event);
+    }
+}
+
+class UserRegistrationSubject {
+    private final List&lt;Observer&gt; observers = new ArrayList&lt;&gt;();
+
+    public void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    public void registerUser(String user) {
+        for (Observer o : observers) o.update("User registered: " + user);
+    }
+}</code></pre>
+</div>
 <p data-start="4080" data-end="4252"><strong data-start="4186" data-end="4199">Use Case:</strong> <em data-start="4200" data-end="4252">Event systems, UI frameworks, real-time messaging.</em></p>
 
 <div class="tip-block">🔑 <strong data-start="4259" data-end="4275">Key Benefit:</strong> Promotes <strong data-start="4285" data-end="4303">loose coupling</strong> between subject and observers.</div>
 
 <hr class="thin-border" data-start="4336" data-end="4339" />
 
-<h4 data-start="4341" data-end="4369"><strong data-start="4348" data-end="4367">Memento Pattern</strong></h4>
+<h3 data-start="4341" data-end="4369"><strong data-start="4348" data-end="4367">Memento </strong><strong style="font-family: inherit; font-style: inherit;" data-start="3477" data-end="3497"><em data-start="2007" data-end="2021">(Behavioral)</em></strong></h3>
 <p data-start="4370" data-end="4537">Captures and restores an object’s internal state <strong data-start="4419" data-end="4454">without violating encapsulation</strong>.</p>
-<p data-start="4370" data-end="4537"></p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">class UserMemento {
+    String state;
+
+    UserMemento(String state) {
+        this.state = state;
+    }
+}
+
+class UserProfile {
+    String state;
+
+    public void setState(String s) {
+        this.state = s;
+    }
+
+    public UserMemento save() {
+        return new UserMemento(state);
+    }
+
+    public void restore(UserMemento m) {
+        this.state = m.state;
+    }
+}</code></pre>
+</div>
 <p data-start="4370" data-end="4537"><strong data-start="4458" data-end="4471">Use Case:</strong> <em data-start="4472" data-end="4537">Undo functionality, versioning systems, game state checkpoints.</em></p>
 
 <div class="tip-block">🔑 <strong data-start="4544" data-end="4560">Key Benefit:</strong> Enables <strong data-start="4569" data-end="4587">state recovery</strong> while preserving object integrity.</div>
-
-<hr class="" data-start="771" data-end="774" />
-
-<h2>ACID Principles</h2>
-&nbsp;
-
-<hr class="" data-start="771" data-end="774" />
-
-<h2>CAP Theorem</h2>
-&nbsp;
-
-<hr class="" data-start="771" data-end="774" />
-
-<h2>Consistent Hashing</h2>
-&nbsp;
 
 <hr class="" data-start="771" data-end="774" />
 

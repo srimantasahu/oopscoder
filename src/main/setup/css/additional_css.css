@@ -407,12 +407,12 @@
      margin-bottom: 2.5rem;
 }
  .quote-block, .tip-block, .note-block {
-  	 border-left: 4px solid #0000000D;
-  	 background-color: #f5fafd;
-  	 padding: 1rem;
-  	 margin: 1rem 0;
-  	 font-style: italic;
-	 	 border-radius: 4px;
+     border-left: 4px solid #0000000D;
+     background-color: #fafcfd;
+     padding: 1rem;
+     margin: 1rem 0;
+     font-style: italic;
+     border-radius: 4px;
 }
 /* Make TOC numbers bold and aligned */
  #toc_container ol, #toc_container ul {

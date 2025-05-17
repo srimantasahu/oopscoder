@@ -168,21 +168,21 @@ Spring Boot makes it incredibly easy to bootstrap a new Spring application. Here
     <li>Click <strong>Generate</strong> to download a <code>.zip</code> file.</li>
 </ul>
 Unzip and Run the application directly from command line (Dev Mode):
-<pre><code class="language-bash line-numbers"> # For Maven projects
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers"> # For Maven projects
 ./mvnw spring-boot:run</code></pre>
-<pre><code class="language-bash line-numbers"># For Gradle projects
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers"># For Gradle projects
 ./gradlew bootRun</code></pre>
 Also, open the project in your favorite IDE (e.g., IntelliJ IDEA or Eclipse)<strong> </strong>and Run the main class (<code>@SpringBootApplication</code>).
 
 Additionally, you can build and run as executable jar (Production Mode):
-<pre><code class="language-bash line-numbers"># Maven
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers"># Maven
 mvn clean package
 java -jar target/myapp-0.0.1-SNAPSHOT.jar</code></pre>
-<pre><code class="language-bash line-numbers"># Gradle
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers"># Gradle
 ./gradlew build
 java -jar build/libs/myapp-0.0.1-SNAPSHOT.jar</code></pre>
 You can verify the following logs to confirm the application started successfully:
-<pre><code class="language-bash line-numbers">[INFO] [TomcatWebServer] Tomcat started on port 8080 (http) with context path '/'
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">[INFO] [TomcatWebServer] Tomcat started on port 8080 (http) with context path '/'
 [INFO] [MyAppApplication] Started MyAppApplication in 0.792 seconds (process running for 0.975)</code></pre>
 Your Spring Boot application is now up and running! You can visit <code>http://localhost:8080</code> to verify.
 
@@ -194,18 +194,18 @@ You will get a <b>Whitelabel Error Page</b> as there are no request mappings yet
 Spring Boot simplifies configuration via <code style="font-size: inherit;">application.properties</code> or <code style="font-size: inherit;">application.yaml</code>.
 
 Add the following properties to the configuration file, then restart the application.
-<pre><code class="language-bash line-numbers"># application.properties
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers"># application.properties
 # Changes default port from 8080 to 8081
 server.port=8081
 # Sets the base context path
 server.servlet.context-path=/myapp</code></pre>
-<pre><code class="language-yaml line-numbers"># application.yaml
+<pre class="lazy-load" data-loaded="false"><code class="language-yaml line-numbers"># application.yaml
 server:
   port: 8081     # Changes default port from 8080 to 8081
   servlet:
       context-path: /myapp  # Sets the base context path</code></pre>
 You should see the updated logs as below:
-<pre><code class="language-bash line-numbers">[INFO] [TomcatWebServer] Tomcat started on port 8081 (http) with context path '/myapp'
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">[INFO] [TomcatWebServer] Tomcat started on port 8081 (http) with context path '/myapp'
 [INFO] [MyAppApplication] Started MyAppApplication in 0.747 seconds (process running for 0.927)</code></pre>
 You can visit <code>http://localhost:8081/myapp</code> to verify the application is up and running!
 
@@ -353,7 +353,7 @@ public class UserController {
 }</code></pre>
     </div>
     <h5>Sample cURL Test</h5>
-    <pre><code class="language-bash line-numbers">$ curl -X POST http://localhost:8081/myapp/api/users/register \
+    <pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">$ curl -X POST http://localhost:8081/myapp/api/users/register \
 -H "Content-Type: application/json" \
 -d '{
 "username": "srimanta",
@@ -368,7 +368,7 @@ $
 $ curl http://localhost:8081/myapp/api/users/srimanta
 {"username":"srimanta","email":"srimanta@xmail.com","password":"srimanta@123"}</code></pre>
     <h5>Sample console logs</h5>
-    <pre><code class="language-bash line-numbers">[INFO] [UserService] User registered: srimanta
+    <pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">[INFO] [UserService] User registered: srimanta
 [INFO] [UserService] Finding by username: srimanta
 [INFO] [UserService] Finding by username: srimanta</code></pre>
 </div>
@@ -423,12 +423,12 @@ Use <code data-start="996" data-end="1004">@Valid</code> or <code data-start="10
 If validation fails, Spring throws a <code data-start="1222" data-end="1255">MethodArgumentNotValidException</code>.
 <h4>Example</h4>
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
-<pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
+<pre class="lazy-load" data-loaded="false"><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
     &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
-<pre><code class="language-groovy line-numbers">// Gradle
+<pre class="lazy-load" data-loaded="false"><code class="language-groovy line-numbers">// Gradle
 implementation 'org.springframework.boot:spring-boot-starter-validation'</code></pre>
 <code>UserDTO</code> (with constraints)
 <div>
@@ -512,7 +512,7 @@ public class GlobalExceptionHandler {
 }</code></pre>
 </div>
 <h5>Sample cURL Test</h5>
-<pre><code class="language-bash line-numbers">$ curl -X POST http://localhost:8081/myapp/api/users/register \
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">$ curl -X POST http://localhost:8081/myapp/api/users/register \
 -H "Content-Type: application/json" \
 -d '{
 "username": "du",
@@ -542,7 +542,7 @@ Here’s an example of a <strong data-start="104" data-end="123">REST controller
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
     <div>
-<pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
+<pre class="lazy-load" data-loaded="false"><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
 &lt;!-- JSON (comes with Spring Boot Starter Web) --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
@@ -556,7 +556,7 @@ Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code
 &lt;/dependency&gt;</code></pre>
     </div>
 </div>
-<pre><code class="language-groovy line-numbers">// Gradle
+<pre class="lazy-load" data-loaded="false"><code class="language-groovy line-numbers">// Gradle
 implementation 'com.fasterxml.jackson.core:jackson-databind'
 implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'</code></pre>
 <div>
@@ -659,7 +659,7 @@ public class UserController {
 }</code></pre>
     </div>
     <h5>Sample cURL Test</h5>
-    <pre><code class="language-bash line-numbers">$ curl -X POST http://localhost:8081/myapp/api/users/register \
+    <pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">$ curl -X POST http://localhost:8081/myapp/api/users/register \
 -H "Content-Type: application/json" \
 -d '{
 "username": "srimanta",
@@ -699,7 +699,7 @@ $ curl http://localhost:8081/myapp/api/users/srimanta \
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
     <div>
-<pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
+<pre class="lazy-load" data-loaded="false"><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
     &lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt;
@@ -712,19 +712,19 @@ Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code
 &lt;/dependency&gt;</code></pre>
     </div>
 </div>
-<pre><code class="language-groovy line-numbers">// Gradle
+<pre class="lazy-load" data-loaded="false"><code class="language-groovy line-numbers">// Gradle
 implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 runtimeOnly 'com.h2database:h2'</code></pre>
 Add the following properties to the configuration file:
 <div>
-<pre><code class="language-bash line-numbers"># application.properties
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers"># application.properties
 spring.datasource.url=jdbc:h2:mem:testdb
 spring.datasource.driver-class-name=org.h2.Driver
 spring.datasource.username=sa
 spring.datasource.password=
 spring.h2.console.enabled=true
 spring.jpa.hibernate.ddl-auto=none</code></pre>
-    <pre><code class="language-yaml line-numbers"># application.yaml
+    <pre class="lazy-load" data-loaded="false"><code class="language-yaml line-numbers"># application.yaml
 spring:
   datasource:
       url: jdbc:h2:mem:testdb
@@ -740,7 +740,7 @@ spring:
       hibernate:
           ddl-auto: none  # Disable auto schema generation</code></pre>
     SQL Schema (schema.sql)
-    <pre><code class="language-sql line-numbers">CREATE TABLE users (
+    <pre class="lazy-load" data-loaded="false"><code class="language-sql line-numbers">CREATE TABLE users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(20) NOT NULL,
     email VARCHAR(100),
@@ -895,7 +895,7 @@ public class UserController {
 }</code></pre>
     </div>
     <h5>Sample cURL Test</h5>
-    <pre><code class="language-bash line-numbers">$ curl -X POST http://localhost:8081/myapp/api/users/register \
+    <pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">$ curl -X POST http://localhost:8081/myapp/api/users/register \
 -H "Content-Type: application/json" \
 -d '{
 "username": "srimanta",
@@ -926,17 +926,17 @@ $ curl -X GET "http://localhost:8081/myapp/api/users/find?username=srimanta"
 <h4>Example</h4>
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
-<pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
+<pre class="lazy-load" data-loaded="false"><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
     &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-<pre><code class="language-groovy line-numbers">// Gradle
+<pre class="lazy-load" data-loaded="false"><code class="language-groovy line-numbers">// Gradle
 implementation 'org.springframework.boot:spring-boot-starter-actuator'</code></pre>
 Add the following properties to the configuration file:
 <div>
-<pre><code class="language-bash line-numbers"># application.properties
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers"># application.properties
 # Expose useful actuator endpoints
 management.endpoints.web.exposure.include=health, info, metrics, env, beans
 
@@ -954,7 +954,7 @@ info.app.name=MySpringBootApp
 info.app.description=Spring Boot app with actuator endpoints
 info.app.version=1.0.0</code></pre>
 </div>
-<pre><code class="language-yaml line-numbers"># application.yaml
+<pre class="lazy-load" data-loaded="false"><code class="language-yaml line-numbers"># application.yaml
 management:
   endpoints:
       web:
@@ -1001,7 +1001,7 @@ public class CustomHealthIndicator implements HealthIndicator {
 }</code></pre>
 </div>
 <h5>Sample cURL Test</h5>
-<pre><code class="language-bash line-numbers">$ curl http://localhost:8081/myapp/actuator/info
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">$ curl http://localhost:8081/myapp/actuator/info
 {"app":{"name":"MySpringBootApp","description":"Spring Boot app with actuator endpoints","version":"1.0.0"}}
 $
 $ curl http://localhost:8081/myapp/actuator/health
@@ -1031,13 +1031,13 @@ $ curl http://localhost:8081/myapp/actuator/health
 <h4>Example</h4>
 Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
 <div>
-<pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
+<pre class="lazy-load" data-loaded="false"><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
     &lt;artifactId&gt;spring-boot-starter-aop&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-<pre><code class="language-groovy line-numbers">// Gradle
+<pre class="lazy-load" data-loaded="false"><code class="language-groovy line-numbers">// Gradle
 implementation 'org.springframework.boot:spring-boot-starter-aop'</code></pre>
 <div>
 
@@ -1061,7 +1061,7 @@ public class LoggingAspect {
 }</code></pre>
     </div>
     Restart the application, then run the cURL test again — you’ll notice log entries printed to the console reflecting the aspect-based logging behavior.
-    <pre><code class="language-bash line-numbers">[INFO] [LoggingAspect] Entering method: UserController.registerUser(..)
+    <pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">[INFO] [LoggingAspect] Entering method: UserController.registerUser(..)
 [INFO] [UserService] Finding by username: srimanta
 [INFO] [UserService] User 'srimanta' registration successful!
 [INFO] [LoggingAspect] Exiting method: registerUser with result = User 'srimanta' registration successful
@@ -1097,7 +1097,7 @@ public class LoggingAspect {
     <h4>Example</h4>
     Add dependencies to <code data-start="430" data-end="439">pom.xml</code> / <code data-start="430" data-end="439">build.gradle</code>:
     <div>
-<pre><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
+<pre class="lazy-load" data-loaded="false"><code class="language-xml line-numbers">&lt;!-- Maven --&gt;
 &lt;!-- Spring Security --&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
@@ -1124,7 +1124,7 @@ public class LoggingAspect {
 &lt;/dependency&gt;</code></pre>
     </div>
     <div>
-<pre><code class="language-groovy line-numbers">// Gradle
+<pre class="lazy-load" data-loaded="false"><code class="language-groovy line-numbers">// Gradle
 // Spring Boot Starter Security
 implementation 'org.springframework.boot:spring-boot-starter-security'
 
@@ -1344,10 +1344,10 @@ public class AuthController {
     </div>
     Add the following properties to the configuration file, then restart the application.
     <div>
-<pre><code class="language-bash line-numbers"># application.properties
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers"># application.properties
 # Secret Key (YOUR_GENERATED_BASE64_SECRET_KEY)
 jwt.secret=wXRc/fUYMb2IAyXRvB4NYzyLws9oimd226c7nqNqs/fT1dbUewJGN/SEuq/5lQROLVDj62NhyR7AhbTI5gY/FA==</code></pre>
-        <pre><code class="language-yaml line-numbers"># application.yaml
+        <pre class="lazy-load" data-loaded="false"><code class="language-yaml line-numbers"># application.yaml
 # Secret Key (YOUR_GENERATED_BASE64_SECRET_KEY)
 jwt:
   secret: wXRc/fUYMb2IAyXRvB4NYzyLws9oimd226c7nqNqs/fT1dbUewJGN/SEuq/5lQROLVDj62NhyR7AhbTI5gY/FA==</code></pre>
@@ -1357,7 +1357,7 @@ jwt:
 new SecureRandom().nextBytes(key);
 System.out.println(Base64.getEncoder().encodeToString(key));</code></pre>
     <h5>Sample cURL Test</h5>
-    <pre><code class="language-bash line-numbers">$ curl http://localhost:8081/myapp/api/auth/secure-check
+    <pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">$ curl http://localhost:8081/myapp/api/auth/secure-check
 {"timestamp":"2025-05-09T04:47:06.588+00:00","status":403,"error":"Forbidden","path":"/myapp/api/auth/secure-check"}
 $
 $ curl -X POST http://localhost:8081/myapp/api/users/register \
@@ -1380,7 +1380,7 @@ $
 $ curl -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzcmltYW50YSIsImlhdCI6MTc0Njc2NjA0OSwiZXhwIjoxNzQ2NzY5NjQ5fQ.9m0xk0PzvfnPG7kfyxjMkNZGhR0Ser7s6zTPEErYrddYBVaZmnmI4_KReEnoL7HHt0HPXGg3_x7cGc99VG7T9w" http://localhost:8081/myapp/api/auth/secure-check
 Accessed secured endpoint by user: srimanta</code></pre>
     <h5>Console Logs</h5>
-    <pre><code class="language-bash line-numbers">[INFO] [LoggingAspect] Entering method: UserController.registerUser(..)
+    <pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">[INFO] [LoggingAspect] Entering method: UserController.registerUser(..)
 [INFO] [UserService] Finding by username: srimanta
 [INFO] [UserService] User 'srimanta' registration successful!
 [INFO] [LoggingAspect] Exiting method: registerUser with result = User 'srimanta' registration successful
