@@ -337,7 +337,7 @@ try (PreparedStatement checkEmail = conn.prepareStatement("SELECT * FROM users W
 
 <hr class="thin-border" data-start="4217" data-end="4220" />
 
-<div class="tip-block">💡 <strong>Pro Tip: </strong>Use <strong data-start="4244" data-end="4269">Spring @Transactional</strong> to manage ACID in a cleaner way. It handles rollback automatically on exceptions.</div>
+<div class="tip-block">💡 <strong>Tip: </strong>Use <strong data-start="4244" data-end="4269">Spring @Transactional</strong> to manage ACID in a cleaner way. It handles rollback automatically on exceptions.</div>
 <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Transactional
 public void placeOrder(User user, double amount) {
@@ -495,7 +495,7 @@ public void placeOrder(User user, double amount) {
 
 <hr class="thin-border" data-start="3863" data-end="3866" />
 
-<h5 data-start="4416" data-end="4430">💡 Pro Tip:</h5>
+<h5 data-start="4416" data-end="4430">💡 Tip:</h5>
 <div class="tip-block"><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Some databases like </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4453" data-end="4466">Cassandra</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> and </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4471" data-end="4483">DynamoDB</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> support </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4492" data-end="4515">tunable consistency</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> — letting you choose C or A per request using </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4562" data-end="4572">quorum</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> settings.</span></div>
 
 <hr data-start="771" data-end="774" />
@@ -662,7 +662,7 @@ int hash = hash("ServerA" + i);
 
 <hr class="thin-border" data-start="3782" data-end="3785" />
 
-<h5 data-start="3787" data-end="3801">💡 Pro Tip:</h5>
+<h5 data-start="3787" data-end="3801">💡 Tip:</h5>
 <div class="tip-block">Use <strong data-start="3808" data-end="3822">MurMurHash</strong> or <strong data-start="3826" data-end="3835">SHA-1</strong> over <code data-start="3841" data-end="3860">String.hashCode()</code> for more uniform distribution.</div>
 
 <hr class="" data-start="771" data-end="774" />
@@ -1144,7 +1144,7 @@ class UserProfile {
 <p data-start="1546" data-end="1670"><strong>Foundational principles aren’t optional—they’re the difference between scalable systems and technical debt.</strong></p>
 <p data-start="1672" data-end="1993">By mastering <strong data-start="1685" data-end="1694">SOLID</strong>, <strong data-start="1696" data-end="1715">Design Patterns</strong>, <strong data-start="1717" data-end="1725">ACID</strong>, <strong data-start="1727" data-end="1734">CAP</strong>, and <strong data-start="1740" data-end="1762">Consistent Hashing</strong>, you're building the mindset of an architect—one who understands <strong data-start="1828" data-end="1842">trade-offs</strong>, <strong data-start="1844" data-end="1858">modularity</strong>, and <strong data-start="1864" data-end="1879">reliability</strong>. These concepts aren’t just academic; they shape real-world systems where scalability and stability are critical.</p>
 
-<div class="tip-block">💡 <strong>Pro Tip: </strong>Don’t just memorize patterns—apply them in your own projects, review production codebases, and challenge yourself to think in terms of architecture.</div>
+<div class="tip-block">💡 <strong>Tip: </strong>Don’t just memorize patterns—apply them in your own projects, review production codebases, and challenge yourself to think in terms of architecture.</div>
 <p data-start="2176" data-end="2316">Stay tuned for Part 2, where we’ll explore estimation strategies, system boundaries, and blueprinting your high-level and low-level designs.</p>
 
 
