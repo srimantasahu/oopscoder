@@ -54,7 +54,7 @@
 }
 /* Removed extra padding of 20px around left n right widgets */
  .widget-area .widget {
-     padding: 10px !important;
+     padding: 4px !important;
 }
 /*Optimize Blog Post Width for Readability*/
  .single-post .inside-article {
@@ -238,7 +238,6 @@
      text-decoration: none;
      font-size: 15px;
      display: inline-block;
-     padding: 5px;
 }
  .widget_nav_menu li.current-menu-item > a {
      color: #003e6b !important;
@@ -267,7 +266,7 @@
      cursor: pointer;
      display: inline-block;
      font-size: 14px;
-     margin-right: 4px;
+     margin-right: 5px;
      vertical-align: middle;
      transition: transform 0.2s ease;
 }
@@ -280,7 +279,7 @@
      font-size: 16px;
      color: #444;
     /* better contrast */
-     padding: 6px 2px;
+     padding: 6px 0;
      margin-bottom: 4px;
 }
  ol.custom-numbered {
@@ -297,9 +296,8 @@
  ol.custom-numbered li::before {
      content: counter(item) ". ";
      position: absolute;
-     left: -1.35em;
+     left: -1em;
      top: 1;
-     padding: 5px;
 }
 /* Align icon and text properly */
  .menu-item-has-children > .toggle-icon + a {
@@ -492,7 +490,6 @@
     }
     /* Top-level menu items */
      .widget_nav_menu > div > ul > li, .sidebar-series-wrapper > ol > li {
-         margin: 4px;
          padding: 2px;
     }
      .sidebar-series-wrapper {
@@ -553,13 +550,13 @@
     /* Top-level menu items */
      .widget_nav_menu > div > ul > li, .sidebar-series-wrapper > ol > li {
          margin-bottom: 10px;
-         margin-left: 20px;
+         margin-left: 10px;
     }
      .sidebar-series-wrapper {
          padding-left: 10px;
     }
-     .sidebar-series {
-         padding-left: 5px;
+     .sidebar-series, .sidebar-series li{
+         padding-left: 4px;
     }
      .responsive-table {
          overflow-x: auto;

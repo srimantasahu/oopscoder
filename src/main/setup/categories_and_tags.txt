@@ -1,73 +1,74 @@
 ---------------------------------------------Categories----------------------------------------
-algorithms
-architecture
-cloud-computing
-data-structures
-database
-domain-knowledge
-dsa
-    problem-solving
-java
-    concurrency
-    problem-solving
-    programming-basics
-javascript
-messaging
-    jms
-    kafka
-miscellaneous
-security
-servlets
-spring
-system-design
-    design-concepts
-    design-implementation
-uncategorized
+Algorithms
+Architecture
+Cloud Computing
+Data Structures
+Database
+Domain Knowledge
+Interview Prep
+Java
+    — Concurrency
+    — Problem Solving
+    — Programming Basics
+JavaScript
+Messaging
+    — JMS
+    — Kafka
+Miscellaneous
+Security
+Servlets
+Spring Framework
+System Design
+    — System Design Concepts
+    — System Design Implementation
+Uncategorized
 ---------------------------------------------Tags----------------------------------------------
-algorithms
+acid-principles
 annotations
 architecture
 array
-askedininterview
-atomictypes
+asked-in-interview
+atomic-types
 authentication
+back-of-the-envelope-estimation
 backtracking
-binarysearch
-binarysearchtree
-binarytree
+binary-search
+binary-search-tree
+binary-tree
 bits
-blockingqueue
-breadthfirstsearch
+blocking-queue
+breadth-first-search
+cap-theorem
+capacity-planning
 cloud
 collections
 completablefuture
-concurrency
+consistent-hashing
 countdownlatch
 database
-datastructures
-dependencyinjection
-depthfirstsearch
+dependency-injection
+depth-first-search
 deque
-designconcepts
-designimpl
-designpatterns
+design-concepts
+design-patterns
 differences
 domain
-dynamicprogramming
+dynamic-programming
 encryption
 enumerations
 executors
-forkandjoin
+fork-and-join
 future
 generics
 graph
 hashing
 heap
-inversionofcontrol
+high-level-design
+inversion-of-control
 io
 iterable
 java
-javabasics
+java-basics
 java11
 java17
 java21
@@ -77,23 +78,24 @@ jms
 jwt
 kafka
 leetcode
-linearsearch
+linear-search
 linkedlist
 locks
 locksupport
+low-level-design
 map
-mergesort
+merge-sort
 messaging
 microservices
 misc
 nosql
-problemsolving
+problem-solving
 problems
 queue
-quicksort
+quick-sort
 ratelimiter
 recursion
-redblacktree
+red-black-tree
 reentrantlock
 runnable
 scalability
@@ -102,25 +104,24 @@ semaphore
 serialisation
 servlets
 set
+solid-principles
 sorting
-springaop
-springboot
-springbootactuators
-springframework
-springjdbctemplate
-springmvc
-springsecurity
-springvalidations
+spring-aop
+spring-boot
+spring-boot-actuators
+spring-jdbctemplate
+spring-mvc
+spring-security
+spring-validations
 sql
 ssl
 stack
 string
 synchronized
-systemdesign
 threadlocal
 threadpoolexecutor
 threads
 trie
-virtualthreads
+virtual-threads
 volatile
 -----------------------------------------------------------------------------------------------

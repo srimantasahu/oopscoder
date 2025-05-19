@@ -1,20 +1,10 @@
-concurrency
+Regex to replace unwanted characters for categories and tags
+Select (?<=\s)(.*?)(?=\s)
 
+concurrency
 -- java 21: structured concurrency
 
+spring framework
+-- profiles
+-- refresh controller
 
-create a deep dive post for spring framework in java using the below topics and points:
-Dependency injection
-inversion of control
-ioc container
-container lifecycle management
-beans - diff constructor vs setter vs parameter injections
-aspect oriented programming
-springboot - configuration
-annotations - @controller, @primary, @provided, @ConditionalProperty, @Conditional
-spring jdbc template
-Springbootactuators
-Spring MVC
-webmvcconfigurer - message converters
-spring validations - @NotNull, @Valid, @Validated, @Email
-spring security - oauth2, authorization and filter
