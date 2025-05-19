@@ -1,0 +1,412 @@
+<p data-start="193" data-end="417">Designing scalable, reliable systems isn’t just about writing code or picking the right tools. It’s about <strong data-start="299" data-end="345">making thoughtful decisions at every layer</strong> of the architecture—from the initial idea to detailed class structures.</p>
+<p data-start="419" data-end="556">In this second part of the <a href="/system-design-deep-dive"><em data-start="446" data-end="471">System Design Deep Dive</em></a> series, we’ll walk through the <strong data-start="503" data-end="528">four critical pillars</strong> of practical system design:</p>
+
+<ol>
+    <li data-start="561" data-end="637"><strong data-start="564" data-end="595">Asking Clarifying Questions</strong> – Define the problem before you solve it.</li>
+    <li data-start="641" data-end="725"><strong data-start="644" data-end="679">Back-of-the-Envelope Estimation</strong> – Will your system scale under expected load?</li>
+    <li data-start="729" data-end="816"><strong data-start="732" data-end="759">High-Level Design (HLD)</strong> – What are the core components and how do they interact?</li>
+    <li data-start="820" data-end="911"><strong data-start="823" data-end="849">Low-Level Design (LLD)</strong> – What do the data models, classes, and interfaces look like?</li>
+</ol>
+<p data-start="913" data-end="1021">Then, we'll <strong data-start="925" data-end="951">apply these principles</strong> to design a real-world system: <strong data-start="988" data-end="1020">A Distributed Caching System</strong>.</p>
+[toc]
+
+<hr data-start="1729" data-end="1732" />
+
+<h2 data-start="1734" data-end="1777"><strong data-start="157" data-end="188">Asking Clarifying Questions</strong></h2>
+<p data-start="1083" data-end="1292">Before you dive into diagrams or code, <strong data-start="1122" data-end="1139">ask questions</strong>. This step is often overlooked, but it's where the <strong data-start="1191" data-end="1229">problem space gets clearly defined</strong>. You’ll uncover constraints, expectations, and usage patterns.</p>
+
+<h4 data-start="1294" data-end="1325">Key Clarification Areas</h4>
+<ul>
+    <li data-start="1328" data-end="1346">Who are the users?</li>
+    <li data-start="1349" data-end="1404">What scale are we expecting? (Daily traffic, data size)</li>
+    <li data-start="1407" data-end="1460">What consistency and latency requirements do we have?</li>
+    <li data-start="1463" data-end="1509">What are the availability/uptime expectations?</li>
+    <li data-start="1512" data-end="1550">Are there any tech stack restrictions?</li>
+</ul>
+<div class="tip-block">💡 <strong data-start="1557" data-end="1565">Tip:</strong> Clarifying questions avoid overengineering and ensure your design solves the actual problem—not just the one you imagined.</div>
+
+<hr data-start="2238" data-end="2241" />
+
+<h2 data-start="2243" data-end="2290"><strong data-start="233" data-end="268">Back-of-the-Envelope Estimation</strong></h2>
+<p data-start="1760" data-end="1911">Once the requirements are clear, the next step is estimating <strong data-start="1821" data-end="1849">scale and resource needs</strong>. These rough numbers help guide architecture decisions early.</p>
+
+<h4 data-start="1913" data-end="1933">Estimate for</h4>
+<ul>
+    <li data-start="1936" data-end="1954">Daily active users (DAU)</li>
+    <li data-start="1957" data-end="1982">Requests/Queries per second (R/QPS)</li>
+    <li data-start="1985" data-end="1994">Data size</li>
+    <li data-start="1997" data-end="2006">Bandwidth</li>
+    <li data-start="2009" data-end="2016">Storage</li>
+    <li data-start="2019" data-end="2036">Read/Write ratios</li>
+</ul>
+<div class="tip-block">💡 <strong data-start="4035" data-end="4043">Tip:</strong> Use real-world examples or assumptions (e.g., Redis object overhead, network latencies) to guide you.</div>
+
+<hr data-start="2669" data-end="2672" />
+
+<h2 data-start="2674" data-end="2729"><strong data-start="308" data-end="335">High-Level Design (HLD)</strong></h2>
+<p data-start="2731" data-end="2907">High-Level Design focuses on <strong data-start="2760" data-end="2782">macro-architecture</strong>: components, protocols, and how they interact. You're answering <strong data-start="2847" data-end="2872">"What are the parts?"</strong> and <strong data-start="2877" data-end="2907">"How do they communicate?"</strong></p>
+
+<h4 data-start="2909" data-end="2933">HLD Must Include</h4>
+<ul>
+    <li data-start="2936" data-end="2972">Core components and responsibilities</li>
+    <li data-start="2975" data-end="3003">Data flow between components</li>
+    <li data-start="3006" data-end="3054">Communication patterns (REST, gRPC, Kafka, etc.)</li>
+    <li data-start="3057" data-end="3088">Scalability and fault tolerance</li>
+    <li data-start="3091" data-end="3119">Caching, logging, monitoring</li>
+</ul>
+<div class="tip-block">💡 <strong data-start="4035" data-end="4043">Tip:</strong> Always show how your system scales (e.g., using consistent hashing, sharding).</div>
+
+<hr data-start="4124" data-end="4127" />
+
+<h2 data-start="4129" data-end="4179"><strong data-start="381" data-end="407">Low-Level Design (LLD)</strong></h2>
+<p data-start="4181" data-end="4272">Low-Level Design zooms into <strong data-start="4196" data-end="4237">classes, interfaces, database schemas</strong>, and how each part is implemented.</p>
+
+<h4 data-start="4274" data-end="4298">LLD Must Include</h4>
+<ul>
+    <li>Class and method structures</li>
+    <li>Interface definitions</li>
+    <li>Data structures and models</li>
+    <li data-start="4339" data-end="4370">Database schema (if applicable)</li>
+    <li>Error handling and edge cases</li>
+    <li data-start="4390" data-end="4425">Caching logic (e.g., TTL, eviction)</li>
+    <li>Performance optimizations</li>
+</ul>
+<div class="tip-block">💡 <strong data-start="5263" data-end="5271">Tip:</strong> Don’t go into full-blown implementation unless asked—just provide key interfaces, relationships, and data flows.</div>
+
+<hr />
+
+<h2 data-start="1493" data-end="1564">Example: Designing a Distributed Caching System</h2>
+<p data-start="1566" data-end="1727">Imagine you're asked to design a <strong data-start="1599" data-end="1629">Distributed Caching System</strong> like Redis or Memcached — something that can scale, serve high throughput, and tolerate failures.</p>
+
+
+<hr class="thin-border" />
+
+<h3 data-start="1734" data-end="1777">Clarifying Requirements</h3>
+<p data-start="1779" data-end="1829">Before jumping into design, clarify the following:</p>
+
+<ul>
+    <li data-start="1833" data-end="1874">Is the cache write-through or write-back?</li>
+    <li data-start="1877" data-end="1960">Is it for <strong data-start="1887" data-end="1903">session data</strong>, <strong data-start="1905" data-end="1930">database acceleration</strong>, or <strong data-start="1935" data-end="1959">static asset caching</strong>?</li>
+    <li data-start="1963" data-end="2027">What are the consistency guarantees? Can we tolerate stale data?</li>
+    <li data-start="2030" data-end="2068">Is eviction required (e.g., LRU, LFU)?</li>
+    <li data-start="2069" data-end="2123">
+        <p data-start="2071" data-end="2123">Should the cache be distributed across data centers?</p>
+    </li>
+</ul>
+<div class="tip-block">These questions define your <strong data-start="2157" data-end="2178">design boundaries</strong>, like consistency vs availability or speed vs durability.</div>
+
+<hr class="thin-border" data-start="2238" data-end="2241" />
+
+<h3 data-start="2243" data-end="2290">Estimating System Load</h3>
+<p data-pm-slice="1 1 []">Let’s estimate for a caching system used to serve product data on an e-commerce platform.</p>
+
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table>
+        <tbody>
+        <tr>
+            <th>Metric</th>
+            <th>Estimate</th>
+        </tr>
+        <tr>
+            <td><strong>Number of daily users</strong></td>
+            <td>10 million</td>
+        </tr>
+        <tr>
+            <td><strong>Avg requests per user/day</strong></td>
+            <td>50</td>
+        </tr>
+        <tr>
+            <td><strong>Total requests per day</strong></td>
+            <td>500 million</td>
+        </tr>
+        <tr>
+            <td><strong>Peak QPS (5x avg)</strong></td>
+            <td>~30,000 QPS</td>
+        </tr>
+        <tr>
+            <td><strong>Avg response size</strong></td>
+            <td>5 KB</td>
+        </tr>
+        <tr>
+            <td><strong>Daily data transfer</strong></td>
+            <td>~2.5 TB</td>
+        </tr>
+        <tr>
+            <td><strong>Cache size (100M items avg)</strong></td>
+            <td>100M * 5 KB = ~500 GB</td>
+        </tr>
+        <tr>
+            <td><strong>Cache hit ratio</strong></td>
+            <td>90% (read-heavy system)</td>
+        </tr>
+        <tr>
+            <td><strong>Expected latency per read</strong></td>
+            <td>&lt; 10ms</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+These estimations play a <strong data-start="96" data-end="113">critical role</strong> in shaping key design decisions—such as selecting the right in-memory caching technology (e.g., Redis, Memcached), determining optimal <strong data-start="249" data-end="279">memory allocation per node</strong>, designing an effective <strong data-start="304" data-end="341">sharding and replication strategy</strong>, and choosing appropriate <strong data-start="368" data-end="389">eviction policies</strong>—to ensure the cache is <strong data-start="413" data-end="451">fast, scalable, and fault-tolerant</strong> under real-world load.
+
+<hr class="thin-border" data-start="2727" data-end="2730" />
+
+<h3 data-start="229" data-end="316">High-Level Architecture</h3>
+<h4 data-start="704" data-end="734">Components Overview</h4>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="736" data-end="1219">
+        <thead data-start="736" data-end="763">
+        <tr data-start="736" data-end="763">
+            <th data-start="736" data-end="748" data-col-size="sm">Component</th>
+            <th data-start="748" data-end="763" data-col-size="md">Description</th>
+        </tr>
+        </thead>
+        <tbody data-start="791" data-end="1219">
+        <tr data-start="791" data-end="862">
+            <td data-start="791" data-end="805" data-col-size="sm"><strong data-start="793" data-end="804">Clients</strong></td>
+            <td data-start="805" data-end="862" data-col-size="md">API servers or services needing fast key-based lookup</td>
+        </tr>
+        <tr data-start="863" data-end="926">
+            <td data-start="863" data-end="883" data-col-size="sm"><strong data-start="865" data-end="882">Load Balancer</strong></td>
+            <td data-start="883" data-end="926" data-col-size="md">Distributes cache requests across nodes</td>
+        </tr>
+        <tr data-start="927" data-end="998">
+            <td data-start="927" data-end="945" data-col-size="sm"><strong data-start="929" data-end="944">Cache Nodes</strong></td>
+            <td data-start="945" data-end="998" data-col-size="md">In-memory key-value storage with TTL and eviction</td>
+        </tr>
+        <tr data-start="999" data-end="1067">
+            <td data-start="999" data-end="1019" data-col-size="sm"><strong data-start="1001" data-end="1018">Hashing Layer</strong></td>
+            <td data-start="1019" data-end="1067" data-col-size="md">Routes keys consistently to the correct node</td>
+        </tr>
+        <tr data-start="1068" data-end="1150">
+            <td data-start="1068" data-end="1104" data-col-size="sm"><strong data-start="1070" data-end="1103">Persistent Storage (Optional)</strong></td>
+            <td data-start="1104" data-end="1150" data-col-size="md">Fallback for cache misses (e.g., database)</td>
+        </tr>
+        <tr data-start="1151" data-end="1219">
+            <td data-start="1151" data-end="1188" data-col-size="sm"><strong data-start="1153" data-end="1187">Replication/Cluster Management</strong></td>
+            <td data-start="1188" data-end="1219" data-col-size="md">Keeps data highly available</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="thin-border" data-start="1221" data-end="1224" />
+
+<h4 data-start="1226" data-end="1261">Sample Data Flow (Read Path)</h4>
+<img class="aligncenter wp-image-1856 size-full" src="https://oopscoder.com/wp-content/uploads/2025/05/distributed_cache_read_flow_diagram.png" alt="Data flow in a distributed caching system showing client request, load balancer routing, consistent hashing to cache node, and fallback to database on cache miss." width="361" height="481" />
+
+<hr class="thin-border" data-start="1432" data-end="1435" />
+
+<h4 data-start="1437" data-end="1471">Key Architectural Decisions</h4>
+<h5 data-start="1473" data-end="1505">1. <strong data-start="1483" data-end="1505">Consistent Hashing</strong></h5>
+<p data-start="1506" data-end="1566">Ensures minimal key movement when nodes are added/removed.</p>
+
+<div class="tip-block">Example: Key <code data-start="1582" data-end="1594">"user:123"</code> is hashed and mapped to node A. If node A goes down, consistent hashing minimizes reshuffling — only a small subset of keys need to be re-mapped.</div>
+<h5 data-start="1742" data-end="1778">2. <strong data-start="1752" data-end="1778">Replication (Optional)</strong></h5>
+<p data-start="1779" data-end="1856">To ensure high availability, cache nodes may replicate data to a backup node.</p>
+
+<h5 data-start="1858" data-end="1887">3. <strong data-start="1868" data-end="1887">Eviction Policy</strong></h5>
+<p data-start="1888" data-end="1950">Define how stale data is evicted. Common: LRU, LFU, TTL-based.</p>
+
+<h5 data-start="1952" data-end="1985">4. <strong data-start="1962" data-end="1985">Asynchronous Writes</strong></h5>
+<p data-start="1986" data-end="2139">For write-through cache: write to DB and cache simultaneously.<br data-start="2048" data-end="2051" />For write-behind (write-back): write to cache first, persist to DB later asynchronously.</p>
+
+
+<hr class="thin-border" data-start="2141" data-end="2144" />
+
+<h4 data-start="2146" data-end="2178">High-Level Architecture Diagram</h4>
+<img class="aligncenter wp-image-1855 size-full" src="https://oopscoder.com/wp-content/uploads/2025/05/distributed_cache_hld_diagram.png" alt="High-level architecture diagram of a distributed caching system showing client requests flowing through a load balancer, consistent hash router, and replicated cache nodes before falling back to the database." width="441" height="401" />
+
+<hr class="thin-border" data-start="2823" data-end="2826" />
+
+<h3 data-start="2828" data-end="2902">Low-Level Implementation</h3>
+<p data-start="3178" data-end="3270">Let’s walk through a simplified <strong data-start="3210" data-end="3231">Java-based design</strong> of a distributed in-memory cache node:</p>
+
+<h4 data-start="3277" data-end="3311">Core Interfaces and Classes</h4>
+<h5 data-start="3313" data-end="3338">Cache Interface</h5>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public interface Cache {
+    String get(String key);
+
+    void put(String key, String value, long ttlMillis);
+
+    void delete(String key);
+}</code></pre>
+</div>
+
+<hr class="thin-border" data-start="3493" data-end="3496" />
+
+<h5 data-start="3498" data-end="3535">CacheEntry with TTL Support</h5>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class CacheEntry {
+    String value;
+    long expiryTime;
+
+    public CacheEntry(String value, long ttlMillis) {
+        this.value = value;
+        this.expiryTime = System.currentTimeMillis() + ttlMillis;
+    }
+
+    public boolean isExpired() {
+        return System.currentTimeMillis() &gt; expiryTime;
+    }
+}</code></pre>
+</div>
+
+<hr class="thin-border" data-start="3868" data-end="3871" />
+
+<h5 data-start="3873" data-end="3930">In-Memory Cache Implementation (With TTL + LRU)</h5>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class LRUCache implements Cache {
+    private final int capacity;
+    private final Map&lt;String, CacheEntry&gt; cache;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.cache = new LinkedHashMap&lt;&gt;(capacity, 0.75f, true) {
+            protected boolean removeEldestEntry(Map.Entry&lt;String, CacheEntry&gt; eldest) {
+                return size() &gt; LRUCache.this.capacity;
+            }
+        };
+    }
+
+    public synchronized String get(String key) {
+        CacheEntry entry = cache.get(key);
+        if (entry == null || entry.isExpired()) {
+            cache.remove(key);
+            return null;
+        }
+        return entry.value;
+    }
+
+    public synchronized void put(String key, String value, long ttlMillis) {
+        cache.put(key, new CacheEntry(value, ttlMillis));
+    }
+
+    public synchronized void delete(String key) {
+        cache.remove(key);
+    }
+}</code></pre>
+</div>
+
+<hr class="thin-border" data-start="4850" data-end="4853" />
+
+<h5 data-start="4855" data-end="4890">Consistent Hashing Router</h5>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class ConsistentHashRouter {
+    private TreeMap&lt;Integer, Cache&gt; ring = new TreeMap&lt;&gt;();
+    private List&lt;Cache&gt; nodes;
+
+    public ConsistentHashRouter(List&lt;Cache&gt; nodes) {
+        this.nodes = nodes;
+        for (Cache node : nodes) {
+            int hash = node.hashCode();
+            ring.put(hash, node);
+        }
+    }
+
+    public Cache getNode(String key) {
+        int hash = key.hashCode();
+        SortedMap&lt;Integer, Cache&gt; tail = ring.tailMap(hash);
+        if (!tail.isEmpty()) return tail.get(tail.firstKey());
+        return ring.firstEntry().getValue();
+    }
+}</code></pre>
+</div>
+
+<hr class="thin-border" data-start="5491" data-end="5494" />
+
+<h5 data-start="5496" data-end="5531">Database Fallback (Optional)</h5>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class CacheWithDBFallback implements Cache {
+    private final Cache localCache;
+    private final DatabaseClient db;
+
+    public CacheWithDBFallback(Cache localCache, DatabaseClient db) {
+        this.localCache = localCache;
+        this.db = db;
+    }
+
+    @Override
+    public String get(String key) {
+        String value = localCache.get(key);
+        if (value == null) {
+            value = db.get(key);
+            if (value != null) {
+                localCache.put(key, value, 60_000); // cache for 1 min
+            }
+        }
+        return value;
+    }
+
+    @Override
+    public void put(String key, String value, long ttlMillis) {
+        db.put(key, value);
+        localCache.put(key, value, ttlMillis);
+    }
+
+    @Override
+    public void delete(String key) {
+        db.delete(key);
+        localCache.delete(key);
+    }
+}</code></pre>
+</div>
+
+<hr class="thin-border" data-start="6397" data-end="6400" />
+
+<h4 data-start="6402" data-end="6432">Other LLD Considerations</h4>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="6434" data-end="6870">
+        <thead data-start="6434" data-end="6453">
+        <tr data-start="6434" data-end="6453">
+            <th data-start="6434" data-end="6443" data-col-size="sm">Aspect</th>
+            <th data-start="6443" data-end="6453" data-col-size="md">Detail</th>
+        </tr>
+        </thead>
+        <tbody data-start="6474" data-end="6870">
+        <tr data-start="6474" data-end="6547">
+            <td data-start="6474" data-end="6494" data-col-size="sm"><strong data-start="6476" data-end="6493">Thread Safety</strong></td>
+            <td data-start="6494" data-end="6547" data-col-size="md">Use <code data-start="6500" data-end="6519">ConcurrentHashMap</code> or proper synchronization</td>
+        </tr>
+        <tr data-start="6548" data-end="6606">
+            <td data-start="6548" data-end="6565" data-col-size="sm"><strong data-start="6550" data-end="6564">Monitoring</strong></td>
+            <td data-start="6565" data-end="6606" data-col-size="md">Track hit/miss ratio, TTL expirations</td>
+        </tr>
+        <tr data-start="6607" data-end="6663">
+            <td data-start="6607" data-end="6627" data-col-size="sm"><strong data-start="6609" data-end="6626">Health Checks</strong></td>
+            <td data-start="6627" data-end="6663" data-col-size="md">Each node exposes heartbeat APIs</td>
+        </tr>
+        <tr data-start="6664" data-end="6748">
+            <td data-start="6664" data-end="6684" data-col-size="sm"><strong data-start="6666" data-end="6683">Serialization</strong></td>
+            <td data-start="6684" data-end="6748" data-col-size="md">If objects need to be cached (e.g., User), use JSON/protobuf</td>
+        </tr>
+        <tr data-start="6749" data-end="6800">
+            <td data-start="6749" data-end="6772" data-col-size="sm"><strong data-start="6751" data-end="6771">Eviction Metrics</strong></td>
+            <td data-start="6772" data-end="6800" data-col-size="md">Log evictions for tuning</td>
+        </tr>
+        <tr data-start="6801" data-end="6870">
+            <td data-start="6801" data-end="6816" data-col-size="sm"><strong data-start="6803" data-end="6815">Security</strong></td>
+            <td data-start="6816" data-end="6870" data-col-size="md">If multi-tenant, isolate keys by namespace/user ID</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="thin-border" data-start="6872" data-end="6875" />
+
+<h2 data-start="4250" data-end="4270">Final Thoughts</h2>
+<p data-start="6522" data-end="6636">Whether you're designing a distributed cache, notification system, or message broker, the same four pillars apply:</p>
+
+<ul>
+    <li data-start="6640" data-end="6668"><strong data-start="6643" data-end="6666">Clarify the Problem</strong></li>
+    <li data-start="6671" data-end="6697"><strong data-start="6674" data-end="6695">Estimate the Load</strong></li>
+    <li data-start="6700" data-end="6734"><strong data-start="6703" data-end="6732">Architect at a High Level</strong></li>
+    <li data-start="6737" data-end="6768"><strong data-start="6740" data-end="6768">Detail the Code with LLD</strong></li>
+</ul>
+<p data-start="6770" data-end="6940">By combining these systematically, you make architectural decisions that are <strong data-start="6847" data-end="6886">informed, scalable, and explainable</strong>—critical for interviews and real-world systems alike.</p>
+<p data-start="4272" data-end="4383"><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">In the next part of this series, we’ll explore </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4775" data-end="4809">core infrastructure components</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> like </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4815" data-end="4882">CDNs, Distributed Caching, Bloom Filters, and Database Sharding</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> that power scalable systems at global scale.</span></p>
+
+
+<hr data-start="5048" data-end="5051" />
+
+[wpcode id="468"]
