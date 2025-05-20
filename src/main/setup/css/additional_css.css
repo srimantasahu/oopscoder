@@ -28,6 +28,11 @@
  .page-header, .sidebar .widget, .site-main>* {
      margin-bottom: 15px;
 }
+ .separate-containers .comments-area {
+     padding: 5px 15px;
+     margin: 0px;
+     border-radius: 12px;
+}
  .site {
      display: flex;
      flex-direction: column;
@@ -48,8 +53,11 @@
      overflow: hidden;
     /* Prevent child content from breaking border */
 }
+ .entry-title {
+     margin-top: 0px;
+}
  .entry-content {
-     margin-top: 1.5em !important;
+     margin-top: 1em !important;
 }
  .entry-summary {
      margin-top: 1em !important;
@@ -67,8 +75,8 @@
 }
 /*Optimize Blog Post Width for Readability*/
  .single-post .inside-article {
-     max-width: 800px;
-     margin: 0 auto;
+     max-width: 900px;
+     margin: 0 !important;
 }
 /*Remove underline from links*/
  a {
@@ -228,10 +236,10 @@
      font-size: 15px;
      min-width: 120px;
 }
-.main-navigation .main-nav ul ul li a {
-    line-height: 1.5;
-    padding: 5px;
-    font-size: 14px;
+ .main-navigation .main-nav ul ul li a {
+     line-height: 1.5;
+     padding: 5px;
+     font-size: 14px;
 }
  .main-navigation .main-nav ul.sub-menu {
      min-width: 120px;
@@ -406,6 +414,13 @@
      margin-left: 25px;
      background-color: #f9f9f9;
 }
+ #wpdcom {
+     padding: 0;
+     margin: 7px auto;
+}
+ .wpd-thread-list {
+     padding: 20px 0 0 0 !important;
+}
 /* Fix: Touch targets do not have sufficient size or spacing */
  .cat-links a, .tags-links a {
      display: inline-block;
@@ -557,13 +572,13 @@
     }
      .main-navigation .main-nav ul.sub-menu li a {
          text-align: center;
-			   margin: 5px;
+         margin: 5px;
          padding: 5px;
     }
-	 .main-navigation .main-nav ul li a {
-        padding-left: 20px;
-        padding-right: 20px;
-        line-height: 3;
+     .main-navigation .main-nav ul li a {
+         padding-left: 20px;
+         padding-right: 20px;
+         line-height: 3;
     }
      .has-inline-mobile-toggle #site-navigation.toggled {
          margin-top: 0px;
