@@ -19,6 +19,15 @@
      margin: 0;
 }
 /* Make the site container a flexbox */
+ .separate-containers .site-main {
+     margin: 15px;
+}
+ .separate-containers .inside-left-sidebar, .separate-containers .inside-right-sidebar {
+     margin: 15px 0;
+}
+ .page-header, .sidebar .widget, .site-main>* {
+     margin-bottom: 15px;
+}
  .site {
      display: flex;
      flex-direction: column;
@@ -80,7 +89,7 @@
      font-family: 'Inter', 'Segoe UI', sans-serif !important;
      font-size: 17px;
      line-height: 1.7;
-     color: #2d2d2d;
+     color: #1a1a1a;
 }
 /* H1 – Page Title */
  h1 {
@@ -151,6 +160,7 @@
      font-size: 15px !important;
      line-height: 1.6;
      background: #f5f5f5;
+     padding: 5px;
      border-radius: 4px;
 }
 /*Style Code Blocks for Tech Blogs*/
@@ -276,7 +286,7 @@
 }
 /* Sidebar learning series */
  .sidebar-series-wrapper p {
-     font-size: 16px;
+     font-size: 15px;
      color: #444;
     /* better contrast */
      padding: 6px 0;
@@ -333,7 +343,7 @@
      color: #666;
 }
  .wp-block-latest-comments__comment-excerpt p {
-     font-size: 16px;
+     font-size: 15px;
      color: #444;
     /* better contrast */
      line-height: 1.4;
@@ -524,7 +534,7 @@
          font-size: 1rem;
     }
      .container {
-         padding: 1rem;
+         padding: 0 10px;
     }
      .main-navigation .inside-navigation {
          flex-direction: column;
