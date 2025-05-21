@@ -5,7 +5,7 @@ function oopscoder_custom_read_more() {
     $full_title = the_title_attribute( [ 'echo' => false ] );
     // Extract only the text before the first colon
     $parts = explode( ':', $full_title );
-    $title = trim( $parts[0] );
+    $title = '<i>' . esc_html( trim( $parts[0] ) ) . '</i>';
     // Build your custom link text
     $text = sprintf(
         /* translators: %s: post title before colon */
