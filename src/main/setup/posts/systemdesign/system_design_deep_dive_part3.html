@@ -1,0 +1,304 @@
+<p data-pm-slice="1 1 []">Designing systems that scale <strong data-start="374" data-end="421">across geographies, workloads, and services</strong> is at the core of modern software architecture. In this third part of the <a href="/system-design-deep-dive"><em>System Design Deep Dive</em></a> series, we explore the <strong data-start="538" data-end="606">infrastructure-level strategies and distributed systems patterns</strong> that empower you to build <strong data-start="633" data-end="646">resilient</strong>, <strong data-start="648" data-end="662">performant</strong>, and <strong data-start="668" data-end="680">scalable</strong> architectures.</p>
+<p data-start="697" data-end="932">Whether you're <strong data-start="712" data-end="752">preparing for high-stakes interviews</strong> or <strong data-start="756" data-end="797">scaling real-world production systems</strong>, mastering these concepts—<strong data-start="824" data-end="849">in the right sequence</strong>—builds the mental framework you need to design systems that thrive under pressure.</p>
+This post dives into:
+<ul>
+  <li><strong>Distributed Caching</strong> – Reduce latency and backend load</li>
+  <li><strong>Bloom Filters</strong> – Efficiently check existence before querying caches</li>
+  <li><strong>Database Sharding</strong> – Horizontally scale your data layer for throughput</li>
+  <li><strong>SAGA Pattern</strong> – Coordinate distributed transactions with eventual consistency</li>
+  <li><strong>Service Discovery (Eureka)</strong> – Enable dynamic detection of services in distributed setups</li>
+  <li><strong>Auto-Scaling with Kubernetes</strong> – Automatically scale infrastructure based on load</li>
+  <li><strong>Content Delivery Networks (CDNs)</strong> – Speed up static content delivery across geographies</li>
+</ul>
+<p data-start="1550" data-end="1696">Scaling isn’t just about adding servers—it’s about making smart trade-offs. By the end of this deep dive, you’ll know how to scale, why it matters, and when to use each strategy.</p>
+[toc]
+<div>
+
+  <hr />
+
+</div>
+<h2>Distributed Caching</h2>
+<p data-start="233" data-end="438">A <strong data-start="235" data-end="256">distributed cache</strong> is a caching system spread across multiple nodes (servers) to <strong data-start="319" data-end="379">store frequently accessed data closer to the application</strong>. Unlike a single-node cache, a distributed cache provides:</p>
+
+<ul>
+  <li data-start="442" data-end="503"><strong data-start="442" data-end="457">Scalability</strong> – Horizontal scaling by adding/removing nodes</li>
+  <li data-start="506" data-end="556"><strong data-start="506" data-end="527">High availability</strong> – No single point of failure</li>
+  <li data-start="559" data-end="609"><strong data-start="559" data-end="585">Consistent performance</strong> – Even during high load</li>
+</ul>
+<p data-start="611" data-end="739">It’s essential when working with microservices, high-traffic websites, or any architecture that demands low-latency data access.</p>
+
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h4 data-start="611" data-end="739">When to Use a Distributed Cache</h4>
+<p data-start="611" data-end="739">Use distributed caching when:</p>
+
+<ul>
+  <li data-start="1394" data-end="1457">You have <strong data-start="1403" data-end="1435">multiple application servers</strong> and need shared cache</li>
+  <li data-start="1460" data-end="1530">You need to <strong data-start="1472" data-end="1492">offload pressure</strong> from a database or downstream service</li>
+  <li data-start="1533" data-end="1640">You want <strong data-start="1542" data-end="1563">high-speed access</strong> to static or semi-static data (user sessions, product listings, config data)</li>
+</ul>
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h4 data-start="1647" data-end="1665">Common Tools</h4>
+<ul>
+  <li data-start="1669" data-end="1757"><strong data-start="1669" data-end="1678">Redis</strong> – In-memory key-value store, widely adopted, supports persistence and pub/sub.</li>
+  <li data-start="1760" data-end="1853"><strong data-start="1760" data-end="1773">Memcached</strong> – Lightweight, high-performance caching without persistence or rich data types.</li>
+  <li data-start="1856" data-end="1938"><strong data-start="1856" data-end="1869">Hazelcast</strong>, <strong data-start="1871" data-end="1882">Ehcache</strong>, <strong data-start="1884" data-end="1901">Apache Ignite</strong> – JVM-based options with clustering.</li>
+</ul>
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h4>Example Use Case: Product Catalog API</h4>
+Imagine an e-commerce site with millions of products. The product catalog rarely changes, but it’s queried frequently.
+<h5>Cache Read Example (Spring Boot + Redis)</h5>
+<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+  <div class="overflow-y-auto p-4" dir="ltr">
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Service
+public class ProductService {
+    @Autowired
+    private RedisTemplate&lt;String, Product&gt; redisTemplate;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    public Product getProductById(String id) {
+        String key = "product:" + id;
+
+        // Check cache first
+        Product product = redisTemplate.opsForValue().get(key);
+        if (product != null) return product;
+
+        // Fallback to DB
+        product = productRepository.findById(id).orElseThrow();
+        redisTemplate.opsForValue().set(key, product, Duration.ofMinutes(30));
+        return product;
+    }
+}</code></pre>
+    </div>
+  </div>
+  <div dir="ltr">
+
+    <hr class="thin-border" data-start="1694" data-end="1697" />
+
+  </div>
+  <div dir="ltr">
+    <h4 data-start="3002" data-end="3033">Key Design Considerations</h4>
+    <div class="_tableContainer_16hzy_1">
+      <div class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse" tabindex="-1">
+        <table class="w-fit min-w-(--thread-content-width)" data-start="3035" data-end="3543">
+          <thead data-start="3035" data-end="3076">
+          <tr data-start="3035" data-end="3076">
+            <th data-start="3035" data-end="3061" data-col-size="sm">Concern</th>
+            <th data-start="3061" data-end="3076" data-col-size="md">Description</th>
+          </tr>
+          </thead>
+          <tbody data-start="3118" data-end="3543">
+          <tr data-start="3118" data-end="3179">
+            <td data-start="3118" data-end="3143" data-col-size="sm"><strong data-start="3120" data-end="3139">Eviction Policy</strong></td>
+            <td data-col-size="md" data-start="3143" data-end="3179">Use LRU or TTL to manage memory.</td>
+          </tr>
+          <tr data-start="3180" data-end="3299">
+            <td data-start="3180" data-end="3205" data-col-size="sm"><strong data-start="3182" data-end="3204">Cache Invalidation</strong></td>
+            <td data-col-size="md" data-start="3205" data-end="3299">When DB updates, cache must reflect changes. Options: TTL, manual eviction, message queue.</td>
+          </tr>
+          <tr data-start="3300" data-end="3378">
+            <td data-start="3300" data-end="3325" data-col-size="sm"><strong data-start="3302" data-end="3322">Data Consistency</strong></td>
+            <td data-col-size="md" data-start="3325" data-end="3378">Eventual consistency is acceptable in most cases.</td>
+          </tr>
+          <tr data-start="3379" data-end="3468">
+            <td data-start="3379" data-end="3409" data-col-size="sm"><strong data-start="3381" data-end="3408">Partitioning (Sharding)</strong></td>
+            <td data-col-size="md" data-start="3409" data-end="3468">Use consistent hashing to distribute keys across nodes.</td>
+          </tr>
+          <tr data-start="3469" data-end="3543">
+            <td data-start="3469" data-end="3494" data-col-size="sm"><strong data-start="3471" data-end="3486">Replication</strong></td>
+            <td data-start="3494" data-end="3543" data-col-size="md">Improves fault tolerance but adds complexity.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+
+  <hr />
+
+</div>
+<h2>Bloom Filters</h2>
+<strong>Problem:</strong> Repeated cache misses for non-existent keys still hit the database.
+
+<strong>Solution:</strong> Use a <strong>Bloom filter</strong> to probabilistically check if a key exists before accessing the cache or DB.
+
+<strong>Benefits:</strong>
+<ul>
+  <li>Memory efficient</li>
+  <li>Speeds up lookups by filtering invalid keys early</li>
+</ul>
+<strong>Code Snippet (Java with Guava):</strong>
+<pre><code>BloomFilter&lt;String&gt; filter = BloomFilter.create(Funnels.stringFunnel(Charsets.UTF_8), 10000);
+filter.put("user:1234");
+
+if (filter.mightContain("user:5678")) {
+  // Proceed to check cache/DB
+} else {
+  // Skip - user definitely doesn’t exist
+}</code></pre>
+<div>
+
+  <hr />
+
+</div>
+<h2>Database Sharding</h2>
+<strong>Problem:</strong> As data grows, a single database instance becomes a bottleneck.
+
+<strong>Solution:</strong> Split the database into <strong>shards</strong>, each handling a subset of data (e.g., by user ID).
+
+<strong>Benefits:</strong>
+<ul>
+  <li>Horizontal scalability</li>
+  <li>Better resource utilization</li>
+</ul>
+<strong>Sharding Strategy Example:</strong>
+<pre><code>int shardId = userId.hashCode() % numberOfShards;
+DataSource shard = shardManager.getShard(shardId);</code></pre>
+<strong>Design Notes:</strong>
+<ul>
+  <li>Choose logical sharding keys</li>
+  <li>Avoid cross-shard joins</li>
+  <li>Consider centralized metadata store to locate shards</li>
+</ul>
+<div>
+
+  <hr />
+
+</div>
+<h2>Service Discovery (Eureka)</h2>
+<strong>Problem:</strong> Hardcoding service addresses in microservices limits flexibility and resilience.
+
+<strong>Solution:</strong> Use a service discovery mechanism (like <strong>Eureka</strong> or <strong>Consul</strong>) to dynamically locate service instances.
+
+<strong>Benefits:</strong>
+<ul>
+  <li>Load balancing across services</li>
+  <li>Automatic failover</li>
+  <li>Dynamic scaling</li>
+</ul>
+<strong>Code Example (Spring Cloud Eureka Client):</strong>
+<pre><code>@EnableDiscoveryClient
+@SpringBootApplication
+public class OrderServiceApp { ... }
+
+@RestController
+public class ProductClient {
+  @Autowired
+  private RestTemplate restTemplate;
+
+  @GetMapping("/product")
+  public String getProduct() {
+    return restTemplate.getForObject("http://PRODUCT-SERVICE/api/product", String.class);
+  }
+}</code></pre>
+<div>
+
+  <hr />
+
+</div>
+<h2>Auto-Scaling with Kubernetes</h2>
+<strong>Problem:</strong> Manual scaling leads to under/over-provisioned resources.
+
+<strong>Solution:</strong> Use Kubernetes’ <strong>Horizontal Pod Autoscaler (HPA)</strong> to automatically adjust pod replicas.
+
+<strong>Benefits:</strong>
+<ul>
+  <li>Elastic resource allocation</li>
+  <li>Cost savings during low usage</li>
+  <li>Improved performance under load</li>
+</ul>
+<strong>Kubernetes YAML:</strong>
+<pre><code>apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: user-service-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: user-service
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50</code></pre>
+<div>
+
+  <hr />
+
+</div>
+<h2>Content Delivery Networks (CDNs)</h2>
+<strong>Problem:</strong> Static files load slowly for users far from your servers.
+
+<strong>Solution:</strong> Use a <strong>CDN</strong> (like Cloudflare, Akamai, or AWS CloudFront) to cache and deliver content globally.
+
+<strong>Benefits:</strong>
+<ul>
+  <li>Reduced latency</li>
+  <li>Lower origin server load</li>
+  <li>Improved user experience globally</li>
+</ul>
+<strong>Best Practices:</strong>
+<ul>
+  <li>Set proper cache headers (Cache-Control)</li>
+  <li>Use versioned URLs for assets</li>
+</ul>
+<div>
+
+  <hr />
+
+</div>
+<h2>SAGA Pattern</h2>
+<strong>Problem:</strong> Distributed systems often require transactions across multiple services. Classic ACID transactions don't scale well.
+
+<strong>Solution:</strong> Use the <strong>SAGA pattern</strong> to manage distributed transactions using a sequence of local transactions and compensating actions.
+
+<strong>Benefits:</strong>
+<ul>
+  <li>Ensures eventual consistency</li>
+  <li>Allows rollback via compensating operations</li>
+</ul>
+<strong>Approaches:</strong>
+<ul>
+  <li>Choreography: Services communicate via events</li>
+  <li>Orchestration: A central coordinator directs the steps</li>
+</ul>
+<strong>Example (Choreography with Kafka):</strong>
+<pre><code>// Order Service
+kafkaTemplate.send("order_created", orderId);
+
+// Inventory Service
+@KafkaListener(topics = "order_created")
+public void reserveInventory(String orderId) {
+  // reserve logic
+  kafkaTemplate.send("inventory_reserved", orderId);
+}</code></pre>
+<div>
+
+  <hr />
+
+</div>
+<h2>Final Thoughts</h2>
+<p data-start="235" data-end="368">Scaling distributed systems is a <strong data-start="268" data-end="299">multi-dimensional challenge</strong>—one that requires not just clever code, but architectural foresight.</p>
+<p data-start="370" data-end="626">By strategically applying techniques like <strong data-start="412" data-end="435">distributed caching</strong>, <strong data-start="437" data-end="454">bloom filters</strong>, <strong data-start="456" data-end="477">database sharding</strong>, and <strong data-start="483" data-end="509">orchestration patterns</strong>, you can design systems that scale <strong data-start="545" data-end="561">horizontally</strong>, <strong data-start="563" data-end="582">fail gracefully</strong>, and <strong data-start="588" data-end="625">perform under real-world pressure</strong>.</p>
+<p data-start="628" data-end="798">Every layer—from <strong data-start="645" data-end="666">service discovery</strong> and <strong data-start="671" data-end="707">auto-scaling Kubernetes clusters</strong> to <strong data-start="711" data-end="726">global CDNs</strong>—adds resilience, responsiveness, and robustness to your infrastructure.</p>
+<p data-start="800" data-end="1025">Make these strategies a core part of your <strong data-start="842" data-end="867">system design toolkit</strong>. When you internalize their purpose and trade-offs, you’re not just solving today’s problems—you’re future-proofing your systems for the demands of tomorrow.</p>
+
+
+<hr />
+
+[wpcode id="468"]
