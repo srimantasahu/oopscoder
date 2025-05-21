@@ -71,7 +71,7 @@
 }
 /* Removed extra padding of 20px around left n right widgets */
  .widget-area .widget {
-     padding: 4px !important;
+     padding: 10px 5px !important;
 }
 /*Optimize Blog Post Width for Readability*/
  .single-post .inside-article {
@@ -187,6 +187,10 @@
      overflow-x: auto;
      margin: 1.5em 0;
 }
+ .author-info {
+     white-space: pre-line;
+    /* Preserves line breaks but collapses other whitespace */
+}
  .prism-toolbar {
      background: #1e1e1e;
      border-radius: 0 0 5px 5px;
@@ -277,7 +281,7 @@
 }
  .widget_nav_menu ul ul {
      display: none;
-     border-left: 2px solid #e0e0e0;
+     border-left: 1px solid #e0e0e0;
      padding-left: 9px;
 }
 /* Open submenu */
@@ -299,12 +303,12 @@
      color: #333;
 }
 /* Sidebar learning series */
- .sidebar-series-wrapper p {
+ .sidebar-series-text {
      font-size: 15px;
      color: #444;
     /* better contrast */
      padding: 6px 0;
-     margin-bottom: 4px;
+     margin-bottom: 5px;
 }
  ol.custom-numbered {
      list-style: none;
@@ -341,11 +345,11 @@
  .widget_recent_comments li {
      margin-bottom: 4px;
     /* Tighter space between comments */
-     padding: 8px 2px;
+     padding: 10px 0;
      font-size: 15px !important;
     /* Smaller readable font */
      line-height: 1.5;
-     border-bottom: 2px solid #e0e0e0 !important;
+     border-bottom: 1px solid #e0e0e0 !important;
     /* Subtle separator line */
 }
  .widget_recent_comments li:last-child {
@@ -425,7 +429,7 @@
 /* Fix: Touch targets do not have sufficient size or spacing */
  .cat-links a, .tags-links a {
      display: inline-block;
-     padding: 4px;
+     padding: 2px;
      margin: 4px 6px 4px 0;
      font-size: 14px;
      line-height: 1.4;
@@ -495,9 +499,6 @@
  @media (min-width: 769px) {
     /* Refactored padding of 40px from inside article */
      .inside-article, .page-header {
-         padding: 10px 30px !important;
-    }
-     .page-header {
          padding: 20px 30px !important;
     }
     /* Squeeze Sidebar */
@@ -592,7 +593,7 @@
      .sidebar-series-wrapper {
          padding-left: 10px;
     }
-     .sidebar-series, .sidebar-series li{
+     .sidebar-series, .sidebar-series li {
          padding-left: 4px;
     }
      .responsive-table {

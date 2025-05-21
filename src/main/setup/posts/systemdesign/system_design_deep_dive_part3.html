@@ -55,7 +55,6 @@ Imagine an e-commerce site with millions of products. The product catalog rarely
 <h5>Cache Read Example (Spring Boot + Redis)</h5>
 <div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
   <div class="overflow-y-auto p-4" dir="ltr">
-    <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Service
 public class ProductService {
     @Autowired
@@ -77,7 +76,7 @@ public class ProductService {
         return product;
     }
 }</code></pre>
-    </div>
+    <blockquote>For a complete example of designing a distributed caching system, including HLD and LLD diagrams and architecture breakdown, check out 👉 <a href="/system-design-architecture/#example-designing-a-distributed-caching-system">this in-depth section</a>.</blockquote>
   </div>
   <div dir="ltr">
 
@@ -128,24 +127,114 @@ public class ProductService {
 
 </div>
 <h2>Bloom Filters</h2>
-<strong>Problem:</strong> Repeated cache misses for non-existent keys still hit the database.
+<p data-start="269" data-end="420">A <strong data-start="271" data-end="287">Bloom Filter</strong> is a <strong data-start="293" data-end="325">probabilistic data structure</strong> that efficiently tests whether an element is <em data-start="371" data-end="390">possibly in a set</em> or <em data-start="394" data-end="419">definitely not in a set</em>.</p>
+<p data-start="422" data-end="545">It’s incredibly <strong data-start="438" data-end="457">space-efficient</strong>, but with a tradeoff: it may return <strong data-start="494" data-end="513">false positives</strong>, but <strong data-start="519" data-end="544">never false negatives</strong>.</p>
 
-<strong>Solution:</strong> Use a <strong>Bloom filter</strong> to probabilistically check if a key exists before accessing the cache or DB.
 
-<strong>Benefits:</strong>
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h4 data-start="552" data-end="581">Why Use Bloom Filters?</h4>
+<p data-start="583" data-end="681">In large-scale distributed systems, memory and latency are critical. Bloom filters are often used:</p>
+
 <ul>
-  <li>Memory efficient</li>
-  <li>Speeds up lookups by filtering invalid keys early</li>
+  <li data-start="684" data-end="757">Before querying a <strong data-start="702" data-end="711">cache</strong> or <strong data-start="715" data-end="727">database</strong>, to reduce expensive lookups.</li>
+  <li data-start="760" data-end="811">In <strong data-start="763" data-end="779">web crawlers</strong> to avoid visiting the same URL.</li>
+  <li data-start="814" data-end="910">In <strong data-start="817" data-end="839">email spam filters</strong>, <strong data-start="841" data-end="854">databases</strong>, <strong data-start="856" data-end="888">distributed key-value stores</strong>, and <strong data-start="894" data-end="909">blockchains</strong>.</li>
 </ul>
-<strong>Code Snippet (Java with Guava):</strong>
-<pre><code>BloomFilter&lt;String&gt; filter = BloomFilter.create(Funnels.stringFunnel(Charsets.UTF_8), 10000);
-filter.put("user:1234");
 
-if (filter.mightContain("user:5678")) {
-  // Proceed to check cache/DB
-} else {
-  // Skip - user definitely doesn’t exist
-}</code></pre>
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h4 data-start="917" data-end="941">How Does It Work?</h4>
+<ol>
+  <li data-start="946" data-end="1016">A Bloom filter uses a <strong data-start="968" data-end="981">bit array</strong> of size <code data-start="990" data-end="993">m</code>, all initialized to 0.</li>
+  <li data-start="1020" data-end="1061">It uses <strong data-start="1028" data-end="1060">k independent hash functions</strong>.</li>
+  <li data-start="1065" data-end="1178">To <strong data-start="1068" data-end="1089">insert an element</strong>, it's passed through each hash function, and the corresponding bit indices are set to 1.</li>
+  <li data-start="1182" data-end="1377">To <strong data-start="1185" data-end="1215">check if an element exists</strong>, the same hash functions are used. If <em data-start="1254" data-end="1278">all corresponding bits</em> are 1, the item <em data-start="1295" data-end="1316">might be in the set</em>. If <em data-start="1321" data-end="1330">any bit</em> is 0, the item is <em data-start="1349" data-end="1376">definitely not in the set</em>.</li>
+</ol>
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h4 data-start="1384" data-end="1442">Example: Using Bloom Filter for a Distributed Cache</h4>
+<p data-start="1444" data-end="1539">Imagine you have a caching layer (e.g., Redis) for a product catalog with millions of products.</p>
+
+<h5 data-start="1541" data-end="1554">Problem:</h5>
+<p data-start="1555" data-end="1696">Querying the cache for non-existent keys (products that don’t exist) creates <strong data-start="1632" data-end="1652">unnecessary load</strong> on both the cache and the backend database.</p>
+
+<h5 data-start="1698" data-end="1712">Solution:</h5>
+<p data-start="1713" data-end="1785">Use a <strong data-start="1719" data-end="1735">Bloom Filter</strong> to test product existence <em data-start="1762" data-end="1770">before</em> hitting Redis.</p>
+
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h4 data-start="1792" data-end="1806">Workflow</h4>
+<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+  <div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-text">Client → Bloom Filter → Redis → Database
+    ↘
+    "Definitely not present" → Stop request early
+  </code></div>
+</div>
+<h5 data-start="1939" data-end="1974">Example (Using Guava)</h5>
+<div>
+<pre>public class ProductCacheChecker {
+    private static final BloomFilter&lt;Integer&gt; productFilter =
+        BloomFilter.create(Funnels.integerFunnel(), 1000000, 0.01);
+
+    public static void main(String[] args) {
+        // Simulate product IDs
+        productFilter.put(101);
+        productFilter.put(102);
+
+        // Lookup
+        if (productFilter.mightContain(101)) {
+            System.out.println("Might exist → Query cache");
+        } else {
+            System.out.println("Definitely doesn't exist → Skip cache");
+        }
+    }
+}</pre>
+</div>
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h4 data-start="2618" data-end="2634">Tradeoffs</h4>
+<div class="_tableContainer_16hzy_1">
+  <div class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse" tabindex="-1">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="2636" data-end="2966">
+      <thead data-start="2636" data-end="2701">
+      <tr data-start="2636" data-end="2701">
+        <th data-start="2636" data-end="2666" data-col-size="sm">Pros</th>
+        <th data-start="2666" data-end="2701" data-col-size="sm">Cons</th>
+      </tr>
+      </thead>
+      <tbody data-start="2769" data-end="2966">
+      <tr data-start="2769" data-end="2834">
+        <td data-start="2769" data-end="2799" data-col-size="sm">Extremely memory-efficient</td>
+        <td data-col-size="sm" data-start="2799" data-end="2834">False positives (but tunable)</td>
+      </tr>
+      <tr data-start="2835" data-end="2900">
+        <td data-start="2835" data-end="2865" data-col-size="sm">Fast insert and lookup</td>
+        <td data-col-size="sm" data-start="2865" data-end="2900">Cannot delete items (standard)</td>
+      </tr>
+      <tr data-start="2901" data-end="2966">
+        <td data-start="2901" data-end="2931" data-col-size="sm">Great for preliminary checks</td>
+        <td data-col-size="sm" data-start="2931" data-end="2966">Not 100% accurate</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="sticky end-(--thread-content-margin) h-0 self-end select-none">
+      <div class="absolute end-0 flex items-end"></div>
+    </div>
+  </div>
+</div>
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h3 data-start="2973" data-end="2996">Real-World Usage</h3>
+<ul>
+  <li data-start="3000" data-end="3051"><strong data-start="3000" data-end="3012">Bigtable</strong> (Google): Avoid unnecessary disk reads</li>
+  <li data-start="3054" data-end="3099"><strong data-start="3054" data-end="3070">Apache HBase</strong>: Filters row reads from disk</li>
+  <li data-start="3102" data-end="3142"><strong data-start="3102" data-end="3115">Cassandra</strong>: Optimizes SSTable lookups</li>
+</ul>
 <div>
 
   <hr />
@@ -170,6 +259,36 @@ DataSource shard = shardManager.getShard(shardId);</code></pre>
   <li>Avoid cross-shard joins</li>
   <li>Consider centralized metadata store to locate shards</li>
 </ul>
+<div>
+
+  <hr />
+
+</div>
+<h2>SAGA Pattern</h2>
+<strong>Problem:</strong> Distributed systems often require transactions across multiple services. Classic ACID transactions don't scale well.
+
+<strong>Solution:</strong> Use the <strong>SAGA pattern</strong> to manage distributed transactions using a sequence of local transactions and compensating actions.
+
+<strong>Benefits:</strong>
+<ul>
+  <li>Ensures eventual consistency</li>
+  <li>Allows rollback via compensating operations</li>
+</ul>
+<strong>Approaches:</strong>
+<ul>
+  <li>Choreography: Services communicate via events</li>
+  <li>Orchestration: A central coordinator directs the steps</li>
+</ul>
+<strong>Example (Choreography with Kafka):</strong>
+<pre><code>// Order Service
+kafkaTemplate.send("order_created", orderId);
+
+// Inventory Service
+@KafkaListener(topics = "order_created")
+public void reserveInventory(String orderId) {
+  // reserve logic
+  kafkaTemplate.send("inventory_reserved", orderId);
+}</code></pre>
 <div>
 
   <hr />
@@ -257,36 +376,6 @@ spec:
   <li>Set proper cache headers (Cache-Control)</li>
   <li>Use versioned URLs for assets</li>
 </ul>
-<div>
-
-  <hr />
-
-</div>
-<h2>SAGA Pattern</h2>
-<strong>Problem:</strong> Distributed systems often require transactions across multiple services. Classic ACID transactions don't scale well.
-
-<strong>Solution:</strong> Use the <strong>SAGA pattern</strong> to manage distributed transactions using a sequence of local transactions and compensating actions.
-
-<strong>Benefits:</strong>
-<ul>
-  <li>Ensures eventual consistency</li>
-  <li>Allows rollback via compensating operations</li>
-</ul>
-<strong>Approaches:</strong>
-<ul>
-  <li>Choreography: Services communicate via events</li>
-  <li>Orchestration: A central coordinator directs the steps</li>
-</ul>
-<strong>Example (Choreography with Kafka):</strong>
-<pre><code>// Order Service
-kafkaTemplate.send("order_created", orderId);
-
-// Inventory Service
-@KafkaListener(topics = "order_created")
-public void reserveInventory(String orderId) {
-  // reserve logic
-  kafkaTemplate.send("inventory_reserved", orderId);
-}</code></pre>
 <div>
 
   <hr />
