@@ -23,7 +23,7 @@
     <li data-start="1463" data-end="1509">What are the availability/uptime expectations?</li>
     <li data-start="1512" data-end="1550">Are there any tech stack restrictions?</li>
 </ul>
-<div class="tip-block">💡 <strong data-start="1557" data-end="1565">Tip:</strong> Clarifying questions avoid overengineering and ensure your design solves the actual problem—not just the one you imagined.</div>
+<blockquote><strong data-start="1557" data-end="1565">Tip:</strong> Clarifying questions avoid overengineering and ensure your design solves the actual problem—not just the one you imagined.</blockquote>
 
 <hr data-start="2238" data-end="2241" />
 
@@ -39,7 +39,7 @@
     <li data-start="2009" data-end="2016">Storage</li>
     <li data-start="2019" data-end="2036">Read/Write ratios</li>
 </ul>
-<div class="tip-block">💡 <strong data-start="4035" data-end="4043">Tip:</strong> Use real-world examples or assumptions (e.g., Redis object overhead, network latencies) to guide you.</div>
+<blockquote><strong data-start="4035" data-end="4043">Tip:</strong> Use real-world examples or assumptions (e.g., Redis object overhead, network latencies) to guide you.</blockquote>
 
 <hr data-start="2669" data-end="2672" />
 
@@ -54,7 +54,7 @@
     <li data-start="3057" data-end="3088">Scalability and fault tolerance</li>
     <li data-start="3091" data-end="3119">Caching, logging, monitoring</li>
 </ul>
-<div class="tip-block">💡 <strong data-start="4035" data-end="4043">Tip:</strong> Always show how your system scales (e.g., using consistent hashing, sharding).</div>
+<blockquote><strong data-start="4035" data-end="4043">Tip:</strong> Always show how your system scales (e.g., using consistent hashing, sharding).</blockquote>
 
 <hr data-start="4124" data-end="4127" />
 
@@ -71,7 +71,7 @@
     <li data-start="4390" data-end="4425">Caching logic (e.g., TTL, eviction)</li>
     <li>Performance optimizations</li>
 </ul>
-<div class="tip-block">💡 <strong data-start="5263" data-end="5271">Tip:</strong> Don’t go into full-blown implementation unless asked—just provide key interfaces, relationships, and data flows.</div>
+<blockquote><strong data-start="5263" data-end="5271">Tip:</strong> Don’t go into full-blown implementation unless asked—just provide key interfaces, relationships, and data flows.</blockquote>
 
 <hr />
 
@@ -93,7 +93,7 @@
         <p data-start="2071" data-end="2123">Should the cache be distributed across data centers?</p>
     </li>
 </ul>
-<div class="tip-block">These questions define your <strong data-start="2157" data-end="2178">design boundaries</strong>, like consistency vs availability or speed vs durability.</div>
+<blockquote>These questions define your <strong data-start="2157" data-end="2178">design boundaries</strong>, like consistency vs availability or speed vs durability.</blockquote>
 
 <hr class="thin-border" data-start="2238" data-end="2241" />
 
@@ -200,7 +200,7 @@ These estimations play a <strong data-start="96" data-end="113">critical role</s
 <h5 data-start="1473" data-end="1505">1. <strong data-start="1483" data-end="1505">Consistent Hashing</strong></h5>
 <p data-start="1506" data-end="1566">Ensures minimal key movement when nodes are added/removed.</p>
 
-<div class="tip-block">Example: Key <code data-start="1582" data-end="1594">"user:123"</code> is hashed and mapped to node A. If node A goes down, consistent hashing minimizes reshuffling — only a small subset of keys need to be re-mapped.</div>
+<blockquote><strong>Example: </strong>Key <code data-start="1582" data-end="1594">"user:123"</code> is hashed and mapped to node A. If node A goes down, consistent hashing minimizes reshuffling — only a small subset of keys need to be re-mapped.</blockquote>
 <h5 data-start="1742" data-end="1778">2. <strong data-start="1752" data-end="1778">Replication (Optional)</strong></h5>
 <p data-start="1779" data-end="1856">To ensure high availability, cache nodes may replicate data to a backup node.</p>
 

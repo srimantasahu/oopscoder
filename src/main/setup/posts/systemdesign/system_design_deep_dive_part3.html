@@ -2,61 +2,77 @@
 <p data-start="697" data-end="932">Whether you're <strong data-start="712" data-end="752">preparing for high-stakes interviews</strong> or <strong data-start="756" data-end="797">scaling real-world production systems</strong>, mastering these concepts—<strong data-start="824" data-end="849">in the right sequence</strong>—builds the mental framework you need to design systems that thrive under pressure.</p>
 This post dives into:
 <ul>
-  <li><strong>Distributed Caching</strong> – Reduce latency and backend load</li>
-  <li><strong>Bloom Filters</strong> – Efficiently check existence before querying caches</li>
-  <li><strong>Database Sharding</strong> – Horizontally scale your data layer for throughput</li>
-  <li><strong>SAGA Pattern</strong> – Coordinate distributed transactions with eventual consistency</li>
-  <li><strong>Service Discovery (Eureka)</strong> – Enable dynamic detection of services in distributed setups</li>
-  <li><strong>Auto-Scaling with Kubernetes</strong> – Automatically scale infrastructure based on load</li>
-  <li><strong>Content Delivery Networks (CDNs)</strong> – Speed up static content delivery across geographies</li>
+    <li><strong>Distributed Caching</strong> – Reduce latency and backend load</li>
+    <li><strong>Bloom Filters</strong> – Efficiently check existence before querying caches</li>
+    <li><strong>Database Sharding</strong> – Horizontally scale your data layer for throughput</li>
+    <li><strong>SAGA Pattern</strong> – Coordinate distributed transactions with eventual consistency</li>
+    <li><strong>Service Discovery with Eureka</strong> – Enable dynamic detection of services in distributed setups</li>
+    <li><strong>Auto-Scaling with Kubernetes</strong> – Automatically scale infrastructure based on load</li>
+    <li><strong>Content Delivery Networks (CDNs)</strong> – Speed up static content delivery across geographies</li>
 </ul>
 <p data-start="1550" data-end="1696">Scaling isn’t just about adding servers—it’s about making smart trade-offs. By the end of this deep dive, you’ll know how to scale, why it matters, and when to use each strategy.</p>
 [toc]
 <div>
 
-  <hr />
+    <hr />
 
 </div>
 <h2>Distributed Caching</h2>
-<p data-start="233" data-end="438">A <strong data-start="235" data-end="256">distributed cache</strong> is a caching system spread across multiple nodes (servers) to <strong data-start="319" data-end="379">store frequently accessed data closer to the application</strong>. Unlike a single-node cache, a distributed cache provides:</p>
+<p data-start="214" data-end="434"><strong data-start="214" data-end="237">Distributed caching</strong> is a system where cached data is spread across multiple nodes (servers), enabling applications to access frequently used data with low latency. Unlike single-node caches, distributed caches offer:</p>
 
 <ul>
-  <li data-start="442" data-end="503"><strong data-start="442" data-end="457">Scalability</strong> – Horizontal scaling by adding/removing nodes</li>
-  <li data-start="506" data-end="556"><strong data-start="506" data-end="527">High availability</strong> – No single point of failure</li>
-  <li data-start="559" data-end="609"><strong data-start="559" data-end="585">Consistent performance</strong> – Even during high load</li>
+    <li data-start="438" data-end="507"><strong data-start="438" data-end="453">Scalability</strong> – Easily scale horizontally by adding/removing nodes.</li>
+    <li data-start="510" data-end="566"><strong data-start="510" data-end="531">High Availability</strong> – Avoids single points of failure.</li>
+    <li data-start="569" data-end="637"><strong data-start="569" data-end="595">Consistent Performance</strong> – Handles high traffic loads efficiently.</li>
 </ul>
-<p data-start="611" data-end="739">It’s essential when working with microservices, high-traffic websites, or any architecture that demands low-latency data access.</p>
-
-
-<hr class="thin-border" data-start="1694" data-end="1697" />
-
-<h4 data-start="611" data-end="739">When to Use a Distributed Cache</h4>
-<p data-start="611" data-end="739">Use distributed caching when:</p>
+<h4 data-start="639" data-end="677">When to Use Distributed Caching</h4>
+<p data-start="679" data-end="708">Use distributed caching when:</p>
 
 <ul>
-  <li data-start="1394" data-end="1457">You have <strong data-start="1403" data-end="1435">multiple application servers</strong> and need shared cache</li>
-  <li data-start="1460" data-end="1530">You need to <strong data-start="1472" data-end="1492">offload pressure</strong> from a database or downstream service</li>
-  <li data-start="1533" data-end="1640">You want <strong data-start="1542" data-end="1563">high-speed access</strong> to static or semi-static data (user sessions, product listings, config data)</li>
+    <li data-start="712" data-end="790">You run <strong data-start="720" data-end="752">multiple application servers</strong> needing shared state or session data.</li>
+    <li data-start="793" data-end="859">You want to <strong data-start="805" data-end="829">reduce database load</strong> and improve read performance.</li>
+    <li data-start="862" data-end="981">You need <strong data-start="871" data-end="886">fast access</strong> to frequently used or semi-static data (e.g., user sessions, product catalogs, config values).</li>
 </ul>
 
 <hr class="thin-border" data-start="1694" data-end="1697" />
 
-<h4 data-start="1647" data-end="1665">Common Tools</h4>
-<ul>
-  <li data-start="1669" data-end="1757"><strong data-start="1669" data-end="1678">Redis</strong> – In-memory key-value store, widely adopted, supports persistence and pub/sub.</li>
-  <li data-start="1760" data-end="1853"><strong data-start="1760" data-end="1773">Memcached</strong> – Lightweight, high-performance caching without persistence or rich data types.</li>
-  <li data-start="1856" data-end="1938"><strong data-start="1856" data-end="1869">Hazelcast</strong>, <strong data-start="1871" data-end="1882">Ehcache</strong>, <strong data-start="1884" data-end="1901">Apache Ignite</strong> – JVM-based options with clustering.</li>
-</ul>
+<h3 data-start="1647" data-end="1665">Caching Tools</h3>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="1009" data-end="1496">
+        <thead data-start="1009" data-end="1103">
+        <tr data-start="1009" data-end="1103">
+            <th data-start="1009" data-end="1024" data-col-size="sm">Tool</th>
+            <th data-start="1024" data-end="1103" data-col-size="md">Description</th>
+        </tr>
+        </thead>
+        <tbody data-start="1199" data-end="1496">
+        <tr data-start="1199" data-end="1293">
+            <td data-start="1199" data-end="1214" data-col-size="sm"><strong data-start="1201" data-end="1210">Redis</strong></td>
+            <td data-start="1214" data-end="1293" data-col-size="md">Popular in-memory key-value store with support for persistence and pub/sub.</td>
+        </tr>
+        <tr data-start="1294" data-end="1388">
+            <td data-start="1294" data-end="1309" data-col-size="sm"><strong data-start="1296" data-end="1309">Memcached</strong></td>
+            <td data-start="1309" data-end="1388" data-col-size="md">Lightweight and fast; lacks persistence or complex data types.</td>
+        </tr>
+        <tr data-start="1389" data-end="1496">
+            <td data-start="1389" data-end="1439" data-col-size="sm"><strong data-start="1391" data-end="1404">Hazelcast</strong> / <strong data-start="1407" data-end="1418">Ehcache</strong> / <strong data-start="1421" data-end="1438">Apache Ignite</strong></td>
+            <td data-start="1439" data-end="1496" data-col-size="md">JVM-based solutions with built-in clustering support.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <hr class="thin-border" data-start="1694" data-end="1697" />
 
-<h4>Example Use Case: Product Catalog API</h4>
-Imagine an e-commerce site with millions of products. The product catalog rarely changes, but it’s queried frequently.
-<h5>Cache Read Example (Spring Boot + Redis)</h5>
+<h3>Use Case: Product Catalog API</h3>
+In an e-commerce app with millions of products, the <strong data-start="1602" data-end="1642">product catalog changes infrequently</strong> but is accessed constantly. Caching this can drastically reduce DB load.
+<h4 data-start="1717" data-end="1764">Cache Read Example – Spring Boot + Redis</h4>
 <div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
-  <div class="overflow-y-auto p-4" dir="ltr">
+    <div class="overflow-y-auto p-4" dir="ltr">
+        <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Service
 public class ProductService {
+
     @Autowired
     private RedisTemplate&lt;String, Product&gt; redisTemplate;
 
@@ -66,319 +82,1127 @@ public class ProductService {
     public Product getProductById(String id) {
         String key = "product:" + id;
 
-        // Check cache first
+        // Step 1: Check Redis cache
         Product product = redisTemplate.opsForValue().get(key);
         if (product != null) return product;
 
-        // Fallback to DB
+        // Step 2: Fallback to DB
         product = productRepository.findById(id).orElseThrow();
+
+        // Step 3: Cache the result for 30 minutes
         redisTemplate.opsForValue().set(key, product, Duration.ofMinutes(30));
         return product;
     }
 }</code></pre>
-    <blockquote>For a complete example of designing a distributed caching system, including HLD and LLD diagrams and architecture breakdown, check out 👉 <a href="/system-design-architecture/#example-designing-a-distributed-caching-system">this in-depth section</a>.</blockquote>
-  </div>
-  <div dir="ltr">
-
-    <hr class="thin-border" data-start="1694" data-end="1697" />
-
-  </div>
-  <div dir="ltr">
-    <h4 data-start="3002" data-end="3033">Key Design Considerations</h4>
-    <div class="_tableContainer_16hzy_1">
-      <div class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse" tabindex="-1">
-        <table class="w-fit min-w-(--thread-content-width)" data-start="3035" data-end="3543">
-          <thead data-start="3035" data-end="3076">
-          <tr data-start="3035" data-end="3076">
-            <th data-start="3035" data-end="3061" data-col-size="sm">Concern</th>
-            <th data-start="3061" data-end="3076" data-col-size="md">Description</th>
-          </tr>
-          </thead>
-          <tbody data-start="3118" data-end="3543">
-          <tr data-start="3118" data-end="3179">
-            <td data-start="3118" data-end="3143" data-col-size="sm"><strong data-start="3120" data-end="3139">Eviction Policy</strong></td>
-            <td data-col-size="md" data-start="3143" data-end="3179">Use LRU or TTL to manage memory.</td>
-          </tr>
-          <tr data-start="3180" data-end="3299">
-            <td data-start="3180" data-end="3205" data-col-size="sm"><strong data-start="3182" data-end="3204">Cache Invalidation</strong></td>
-            <td data-col-size="md" data-start="3205" data-end="3299">When DB updates, cache must reflect changes. Options: TTL, manual eviction, message queue.</td>
-          </tr>
-          <tr data-start="3300" data-end="3378">
-            <td data-start="3300" data-end="3325" data-col-size="sm"><strong data-start="3302" data-end="3322">Data Consistency</strong></td>
-            <td data-col-size="md" data-start="3325" data-end="3378">Eventual consistency is acceptable in most cases.</td>
-          </tr>
-          <tr data-start="3379" data-end="3468">
-            <td data-start="3379" data-end="3409" data-col-size="sm"><strong data-start="3381" data-end="3408">Partitioning (Sharding)</strong></td>
-            <td data-col-size="md" data-start="3409" data-end="3468">Use consistent hashing to distribute keys across nodes.</td>
-          </tr>
-          <tr data-start="3469" data-end="3543">
-            <td data-start="3469" data-end="3494" data-col-size="sm"><strong data-start="3471" data-end="3486">Replication</strong></td>
-            <td data-start="3494" data-end="3543" data-col-size="md">Improves fault tolerance but adds complexity.</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+        </div>
+        <blockquote>For a complete caching system design with architecture diagrams and breakdowns, check out 👉 <a href="/system-design-architecture/#example-designing-a-distributed-caching-system">this detailed guide</a>.</blockquote>
     </div>
-  </div>
+    <div dir="ltr">
+
+        <hr class="thin-border" data-start="1694" data-end="1697" />
+
+    </div>
+    <div dir="ltr">
+        <h3 data-start="3002" data-end="3033">Caching Design Considerations</h3>
+        <div class="overflow-x-auto contain-inline-size responsive-table">
+            <table class="w-fit min-w-(--thread-content-width)" data-start="2616" data-end="3386">
+                <thead data-start="2616" data-end="2719">
+                <tr data-start="2616" data-end="2719">
+                    <th data-start="2616" data-end="2640" data-col-size="sm">Concern</th>
+                    <th data-start="2640" data-end="2719" data-col-size="lg">Description</th>
+                </tr>
+                </thead>
+                <tbody data-start="2825" data-end="3386">
+                <tr data-start="2825" data-end="2929">
+                    <td data-start="2825" data-end="2850" data-col-size="sm"><strong data-start="2827" data-end="2846">Eviction Policy</strong></td>
+                    <td data-start="2850" data-end="2929" data-col-size="lg">Use TTL (Time-to-Live) or LRU (Least Recently Used) to manage memory.</td>
+                </tr>
+                <tr data-start="2930" data-end="3064">
+                    <td data-start="2930" data-end="2955" data-col-size="sm"><strong data-start="2932" data-end="2954">Cache Invalidation</strong></td>
+                    <td data-start="2955" data-end="3064" data-col-size="lg">Ensure updates in DB are reflected in cache. Use TTLs, manual evictions, or message queues (e.g., Kafka).</td>
+                </tr>
+                <tr data-start="3065" data-end="3172">
+                    <td data-start="3065" data-end="3090" data-col-size="sm"><strong data-start="3067" data-end="3087">Data Consistency</strong></td>
+                    <td data-start="3090" data-end="3172" data-col-size="lg">Eventual consistency is often acceptable; strict consistency may add overhead.</td>
+                </tr>
+                <tr data-start="3173" data-end="3281">
+                    <td data-start="3173" data-end="3203" data-col-size="sm"><strong data-start="3175" data-end="3202">Partitioning (Sharding)</strong></td>
+                    <td data-start="3203" data-end="3281" data-col-size="lg">Use consistent hashing to distribute keys evenly across nodes.</td>
+                </tr>
+                <tr data-start="3282" data-end="3386">
+                    <td data-start="3282" data-end="3307" data-col-size="sm"><strong data-start="3284" data-end="3299">Replication</strong></td>
+                    <td data-start="3307" data-end="3386" data-col-size="lg">Adds redundancy and fault tolerance, but also complexity.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <div>
 
-  <hr />
+    <hr />
 
 </div>
 <h2>Bloom Filters</h2>
-<p data-start="269" data-end="420">A <strong data-start="271" data-end="287">Bloom Filter</strong> is a <strong data-start="293" data-end="325">probabilistic data structure</strong> that efficiently tests whether an element is <em data-start="371" data-end="390">possibly in a set</em> or <em data-start="394" data-end="419">definitely not in a set</em>.</p>
-<p data-start="422" data-end="545">It’s incredibly <strong data-start="438" data-end="457">space-efficient</strong>, but with a tradeoff: it may return <strong data-start="494" data-end="513">false positives</strong>, but <strong data-start="519" data-end="544">never false negatives</strong>.</p>
-
-
-<hr class="thin-border" data-start="1694" data-end="1697" />
-
-<h4 data-start="552" data-end="581">Why Use Bloom Filters?</h4>
-<p data-start="583" data-end="681">In large-scale distributed systems, memory and latency are critical. Bloom filters are often used:</p>
+<p data-start="218" data-end="305">A <strong data-start="220" data-end="236">Bloom Filter</strong> is a <em data-start="242" data-end="257">probabilistic</em> data structure used to test whether an element:</p>
 
 <ul>
-  <li data-start="684" data-end="757">Before querying a <strong data-start="702" data-end="711">cache</strong> or <strong data-start="715" data-end="727">database</strong>, to reduce expensive lookups.</li>
-  <li data-start="760" data-end="811">In <strong data-start="763" data-end="779">web crawlers</strong> to avoid visiting the same URL.</li>
-  <li data-start="814" data-end="910">In <strong data-start="817" data-end="839">email spam filters</strong>, <strong data-start="841" data-end="854">databases</strong>, <strong data-start="856" data-end="888">distributed key-value stores</strong>, and <strong data-start="894" data-end="909">blockchains</strong>.</li>
+    <li data-start="309" data-end="330"><strong data-start="309" data-end="330">Might be in a set</strong></li>
+    <li data-start="333" data-end="368">Or is <strong data-start="339" data-end="368">definitely not in the set</strong></li>
+</ul>
+<p data-start="370" data-end="475">It is <strong data-start="376" data-end="401">super space-efficient</strong> and blazing fast, but allows <strong data-start="431" data-end="450">false positives</strong> (never false negatives).</p>
+
+<h4 data-start="482" data-end="511">Why Use Bloom Filters?</h4>
+<p data-start="513" data-end="609">In <strong data-start="516" data-end="539">large-scale systems</strong>, memory and latency are precious. Bloom Filters are commonly used to:</p>
+
+<ul>
+    <li data-start="613" data-end="670">Avoid expensive cache/database lookups for missing keys</li>
+    <li data-start="673" data-end="723">Prevent duplicate URL visits in <strong data-start="707" data-end="723">web crawlers</strong></li>
+    <li>Optimize <strong data-start="737" data-end="761">email spam detection</strong>, <strong data-start="763" data-end="778">blockchains</strong>, <strong data-start="780" data-end="793">databases</strong>, and <strong data-start="799" data-end="831">distributed key-value stores</strong></li>
 </ul>
 
 <hr class="thin-border" data-start="1694" data-end="1697" />
 
-<h4 data-start="917" data-end="941">How Does It Work?</h4>
-<ol>
-  <li data-start="946" data-end="1016">A Bloom filter uses a <strong data-start="968" data-end="981">bit array</strong> of size <code data-start="990" data-end="993">m</code>, all initialized to 0.</li>
-  <li data-start="1020" data-end="1061">It uses <strong data-start="1028" data-end="1060">k independent hash functions</strong>.</li>
-  <li data-start="1065" data-end="1178">To <strong data-start="1068" data-end="1089">insert an element</strong>, it's passed through each hash function, and the corresponding bit indices are set to 1.</li>
-  <li data-start="1182" data-end="1377">To <strong data-start="1185" data-end="1215">check if an element exists</strong>, the same hash functions are used. If <em data-start="1254" data-end="1278">all corresponding bits</em> are 1, the item <em data-start="1295" data-end="1316">might be in the set</em>. If <em data-start="1321" data-end="1330">any bit</em> is 0, the item is <em data-start="1349" data-end="1376">definitely not in the set</em>.</li>
-</ol>
+<h3 data-start="838" data-end="867">How They Work</h3>
+<div class="_tableContainer_16hzy_1">
+    <ol>
+        <li data-start="946" data-end="1016">A Bloom filter uses a <strong data-start="968" data-end="981">bit array</strong> of size <code data-start="990" data-end="993">m</code>, all initialized to 0.</li>
+        <li data-start="1020" data-end="1061">It uses <strong data-start="1028" data-end="1060">k independent hash functions</strong>.</li>
+        <li data-start="1065" data-end="1178">To <strong data-start="1068" data-end="1089">insert an element</strong>, it's passed through each hash function, and the corresponding bit indices are set to 1.</li>
+        <li data-start="1182" data-end="1377">To <strong data-start="1185" data-end="1215">check if an element exists</strong>, the same hash functions are used. If <em data-start="1254" data-end="1278">all corresponding bits</em> are 1, the item <em data-start="1295" data-end="1316">might be in the set</em>. If <em data-start="1321" data-end="1330">any bit</em> is 0, the item is <em data-start="1349" data-end="1376">definitely not in the set</em>.</li>
+    </ol>
+</div>
 
 <hr class="thin-border" data-start="1694" data-end="1697" />
 
-<h4 data-start="1384" data-end="1442">Example: Using Bloom Filter for a Distributed Cache</h4>
+<h3 data-start="1384" data-end="1442">Use Case: Cache Lookup Reduction</h3>
 <p data-start="1444" data-end="1539">Imagine you have a caching layer (e.g., Redis) for a product catalog with millions of products.</p>
 
-<h5 data-start="1541" data-end="1554">Problem:</h5>
-<p data-start="1555" data-end="1696">Querying the cache for non-existent keys (products that don’t exist) creates <strong data-start="1632" data-end="1652">unnecessary load</strong> on both the cache and the backend database.</p>
+<h4 data-start="1541" data-end="1554">Problem</h4>
+<p data-start="1555" data-end="1696">Querying Redis for <strong data-start="1589" data-end="1617">non-existent product IDs</strong> puts unnecessary pressure on both Redis and the database.</p>
 
-<h5 data-start="1698" data-end="1712">Solution:</h5>
-<p data-start="1713" data-end="1785">Use a <strong data-start="1719" data-end="1735">Bloom Filter</strong> to test product existence <em data-start="1762" data-end="1770">before</em> hitting Redis.</p>
-
-
-<hr class="thin-border" data-start="1694" data-end="1697" />
+<h4 data-start="1698" data-end="1712">Solution</h4>
+<p data-start="1713" data-end="1785">Use a Bloom Filter as a <strong data-start="1718" data-end="1733">first-check</strong> before hitting Redis.</p>
 
 <h4 data-start="1792" data-end="1806">Workflow</h4>
 <div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
-  <div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-text">Client → Bloom Filter → Redis → Database
-    ↘
-    "Definitely not present" → Stop request early
-  </code></div>
+    <div class="overflow-y-auto p-4" dir="ltr"><img class="aligncenter wp-image-1998 size-full" src="https://oopscoder.com/wp-content/uploads/2025/05/bloom_filter_workflow_diagram.png" alt="A flow diagram shows a request flow: &quot;Client&quot; sends a request to a &quot;Bloom Filter.&quot; If the filter returns &quot;Definitely Not,&quot; the request is dropped early. Otherwise, the request proceeds to &quot;Redis&quot; (cache), and if not found there, it continues to the &quot;Database.&quot;" width="571" height="132" /></div>
+    <div dir="ltr"></div>
 </div>
-<h5 data-start="1939" data-end="1974">Example (Using Guava)</h5>
+<h5 data-start="1939" data-end="1974">Example – Using Google Guava</h5>
 <div>
-<pre>public class ProductCacheChecker {
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class ProductCacheChecker {
     private static final BloomFilter&lt;Integer&gt; productFilter =
-        BloomFilter.create(Funnels.integerFunnel(), 1000000, 0.01);
+            BloomFilter.create(Funnels.integerFunnel(), 1_000_000, 0.01);
 
     public static void main(String[] args) {
-        // Simulate product IDs
+        // Insert product IDs
         productFilter.put(101);
         productFilter.put(102);
 
-        // Lookup
+        // Check existence
         if (productFilter.mightContain(101)) {
             System.out.println("Might exist → Query cache");
         } else {
             System.out.println("Definitely doesn't exist → Skip cache");
         }
     }
-}</pre>
+}</code></pre>
 </div>
 
 <hr class="thin-border" data-start="1694" data-end="1697" />
 
-<h4 data-start="2618" data-end="2634">Tradeoffs</h4>
-<div class="_tableContainer_16hzy_1">
-  <div class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse" tabindex="-1">
-    <table class="w-fit min-w-(--thread-content-width)" data-start="2636" data-end="2966">
-      <thead data-start="2636" data-end="2701">
-      <tr data-start="2636" data-end="2701">
-        <th data-start="2636" data-end="2666" data-col-size="sm">Pros</th>
-        <th data-start="2666" data-end="2701" data-col-size="sm">Cons</th>
-      </tr>
-      </thead>
-      <tbody data-start="2769" data-end="2966">
-      <tr data-start="2769" data-end="2834">
-        <td data-start="2769" data-end="2799" data-col-size="sm">Extremely memory-efficient</td>
-        <td data-col-size="sm" data-start="2799" data-end="2834">False positives (but tunable)</td>
-      </tr>
-      <tr data-start="2835" data-end="2900">
-        <td data-start="2835" data-end="2865" data-col-size="sm">Fast insert and lookup</td>
-        <td data-col-size="sm" data-start="2865" data-end="2900">Cannot delete items (standard)</td>
-      </tr>
-      <tr data-start="2901" data-end="2966">
-        <td data-start="2901" data-end="2931" data-col-size="sm">Great for preliminary checks</td>
-        <td data-col-size="sm" data-start="2931" data-end="2966">Not 100% accurate</td>
-      </tr>
-      </tbody>
+<h3 data-start="2618" data-end="2634">Bloom Filter Trade-offs</h3>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="2510" data-end="2933">
+        <thead data-start="2510" data-end="2593">
+        <tr data-start="2510" data-end="2593">
+            <th data-start="2510" data-end="2544" data-col-size="sm">Pros</th>
+            <th data-start="2544" data-end="2593" data-col-size="md">Cons</th>
+        </tr>
+        </thead>
+        <tbody data-start="2679" data-end="2933">
+        <tr data-start="2679" data-end="2763">
+            <td data-start="2679" data-end="2714" data-col-size="sm">Extremely memory-efficient</td>
+            <td data-start="2714" data-end="2763" data-col-size="md">False positives (tunable error rate)</td>
+        </tr>
+        <tr data-start="2764" data-end="2848">
+            <td data-start="2764" data-end="2799" data-col-size="sm">Super fast insert and lookup</td>
+            <td data-start="2799" data-end="2848" data-col-size="md">Cannot delete entries (in standard version)</td>
+        </tr>
+        <tr data-start="2849" data-end="2933">
+            <td data-start="2849" data-end="2884" data-col-size="sm">Ideal for preliminary filtering</td>
+            <td data-start="2884" data-end="2933" data-col-size="md">Not 100% accurate</td>
+        </tr>
+        </tbody>
     </table>
-    <div class="sticky end-(--thread-content-margin) h-0 self-end select-none">
-      <div class="absolute end-0 flex items-end"></div>
-    </div>
-  </div>
 </div>
 
 <hr class="thin-border" data-start="1694" data-end="1697" />
 
-<h3 data-start="2973" data-end="2996">Real-World Usage</h3>
+<h3 data-start="2973" data-end="2996">Real-World Applications</h3>
 <ul>
-  <li data-start="3000" data-end="3051"><strong data-start="3000" data-end="3012">Bigtable</strong> (Google): Avoid unnecessary disk reads</li>
-  <li data-start="3054" data-end="3099"><strong data-start="3054" data-end="3070">Apache HBase</strong>: Filters row reads from disk</li>
-  <li data-start="3102" data-end="3142"><strong data-start="3102" data-end="3115">Cassandra</strong>: Optimizes SSTable lookups</li>
+    <li data-start="2967" data-end="3017"><strong data-start="2967" data-end="2986">Google Bigtable</strong> – Avoid unnecessary disk reads</li>
+    <li data-start="3020" data-end="3075"><strong data-start="3020" data-end="3036">Apache HBase</strong> – Efficient row scanning and filtering</li>
+    <li data-start="3078" data-end="3128"><strong data-start="3078" data-end="3091">Cassandra</strong> – Improve SSTable access performance</li>
 </ul>
 <div>
 
-  <hr />
+    <hr />
 
 </div>
 <h2>Database Sharding</h2>
-<strong>Problem:</strong> As data grows, a single database instance becomes a bottleneck.
+<p data-start="232" data-end="537"><strong data-start="232" data-end="253">Database Sharding</strong> is a horizontal scaling technique where large datasets are divided across multiple independent databases called <strong data-start="366" data-end="376">shards</strong>. Instead of storing everything in one monolithic database, sharding distributes the data—enabling better <strong data-start="482" data-end="497">performance</strong>, <strong data-start="499" data-end="514">scalability</strong>, and <strong data-start="520" data-end="536">availability</strong>.</p>
 
-<strong>Solution:</strong> Split the database into <strong>shards</strong>, each handling a subset of data (e.g., by user ID).
+<blockquote>Think of a phone book split alphabetically across different people—each person handles a smaller, faster-to-search portion.</blockquote>
+<h4 data-start="681" data-end="703">Why Use Sharding?</h4>
+<ol>
+    <li data-start="708" data-end="787"><strong data-start="708" data-end="723">Scalability</strong>: Handles more data by distributing it across multiple machines.</li>
+    <li data-start="791" data-end="856"><strong data-start="791" data-end="806">Performance</strong>: Reduces read/write contention and query latency.</li>
+    <li data-start="860" data-end="927"><strong data-start="860" data-end="876">Availability</strong>: A failure in one shard doesn't affect the others.</li>
+    <li data-start="931" data-end="1006"><strong data-start="931" data-end="960">Geographical Distribution</strong>: Place shards closer to users (geo-sharding).</li>
+</ol>
 
-<strong>Benefits:</strong>
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h3 data-start="1013" data-end="1045">Sharding Strategies</h3>
+<h4 data-start="1364" data-end="1392">1. Range-Based Sharding</h4>
+<p data-start="1394" data-end="1432">Data is divided based on value ranges.</p>
+<p data-start="1434" data-end="1448"><strong data-start="1434" data-end="1446">Example:</strong></p>
+
 <ul>
-  <li>Horizontal scalability</li>
-  <li>Better resource utilization</li>
+    <li data-start="1451" data-end="1491">Users with <code data-start="1462" data-end="1470">userId</code> 1–10,000 → Shard 1</li>
+    <li data-start="1494" data-end="1539">Users with <code data-start="1505" data-end="1513">userId</code> 10,001–20,000 → Shard 2</li>
 </ul>
-<strong>Sharding Strategy Example:</strong>
-<pre><code>int shardId = userId.hashCode() % numberOfShards;
-DataSource shard = shardManager.getShard(shardId);</code></pre>
-<strong>Design Notes:</strong>
+<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+    <div class="sticky top-9">
+        <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">int shardId = (userId &lt;= 10000) ? 1 : 2;
+DataSource ds = shardManager.getDataSource(shardId);</code></pre>
+        </div>
+    </div>
+</div>
+<p data-start="1688" data-end="1697"><strong data-start="1688" data-end="1697">Pros:</strong></p>
+
 <ul>
-  <li>Choose logical sharding keys</li>
-  <li>Avoid cross-shard joins</li>
-  <li>Consider centralized metadata store to locate shards</li>
+    <li data-start="1700" data-end="1719">Simple to implement</li>
+    <li data-start="1722" data-end="1750">Easy to understand and debug</li>
+</ul>
+<p data-start="1752" data-end="1761"><strong data-start="1752" data-end="1761">Cons:</strong></p>
+
+<ul>
+    <li data-start="1764" data-end="1835">Risk of data skew and hotspotting (e.g., all new users go to one shard)</li>
+    <li data-start="1838" data-end="1899">Not ideal for write-heavy workloads concentrated in one range</li>
+</ul>
+<h4 data-start="1906" data-end="1933">2. Hash-Based Sharding</h4>
+<p data-start="1935" data-end="1994">A hash function distributes data based on the sharding key.</p>
+
+<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary"></div>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">int shardId = userId.hashCode() % totalShards;
+DataSource ds = shardManager.getDataSource(shardId);</code></pre>
+</div>
+<p data-start="2109" data-end="2118"><strong data-start="2109" data-end="2118">Pros:</strong></p>
+
+<ul>
+    <li data-start="2121" data-end="2151">Good uniform data distribution</li>
+    <li data-start="2154" data-end="2180">Minimizes risk of hotspots</li>
+</ul>
+<p data-start="2182" data-end="2191"><strong data-start="2182" data-end="2191">Cons:</strong></p>
+
+<ul>
+    <li data-start="2194" data-end="2249">Hard to add/remove shards (requires rehashing all keys)</li>
+    <li data-start="2252" data-end="2297">Poor locality — range queries are inefficient</li>
+</ul>
+<h4 data-start="2304" data-end="2330">3. Geo-Based Sharding</h4>
+<p data-start="2332" data-end="2374">Sharding based on user location or region.</p>
+<p data-start="2376" data-end="2388"><strong data-start="2376" data-end="2388">Example:</strong></p>
+
+<ul>
+    <li data-start="2391" data-end="2414">Users in US → Shard A</li>
+    <li data-start="2417" data-end="2440">Users in EU → Shard B</li>
+</ul>
+<p data-start="2442" data-end="2451"><strong data-start="2442" data-end="2451">Pros:</strong></p>
+
+<ul>
+    <li data-start="2454" data-end="2515">Ideal for latency-sensitive and compliance-heavy applications</li>
+    <li data-start="2518" data-end="2550">Supports data residency and GDPR</li>
+</ul>
+<p data-start="2552" data-end="2561"><strong data-start="2552" data-end="2561">Cons:</strong></p>
+
+<ul>
+    <li data-start="2564" data-end="2594">Requires complex routing logic</li>
+    <li data-start="2597" data-end="2647">Uneven traffic patterns may still lead to hotspots</li>
+</ul>
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h3 data-start="2006" data-end="2041">Sharding Architecture Example</h3>
+<p data-start="2689" data-end="2872">For a SaaS platform with millions of users, suppose we shard both <strong data-start="2755" data-end="2763">User</strong> and <strong data-start="2768" data-end="2777">Order</strong> data by <code data-start="2786" data-end="2794">userId</code>. A <code data-start="2798" data-end="2811">ShardRouter</code> class is used to route requests to the appropriate DB shard.</p>
+
+<ul>
+    <li data-start="3079" data-end="3129"><strong data-start="2169" data-end="2186">Shard Manager</strong> handles routing</li>
+    <li data-start="3132" data-end="3182">Each shard has its own DB server (e.g., MySQL)</li>
+    <li data-start="3185" data-end="3236">Application queries are routed to the right shard</li>
+</ul>
+<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+    <div class="overflow-y-auto p-4" dir="ltr">
+        <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public class ShardRouter {
+    public DataSource getDataSource(int userId) {
+        int shardId = userId % 4;
+        return shardMap.get(shardId); // Return DataSource for shard
+    }
+}</code></pre>
+        </div>
+    </div>
+</div>
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h3 data-start="3243" data-end="3273">Sharding Challenges</h3>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="3275" data-end="4017">
+        <thead data-start="3275" data-end="3379">
+        <tr data-start="3275" data-end="3379">
+            <th data-start="3275" data-end="3300" data-col-size="sm">Challenge</th>
+            <th data-start="3300" data-end="3379" data-col-size="md">Description</th>
+        </tr>
+        </thead>
+        <tbody data-start="3485" data-end="4017">
+        <tr data-start="3485" data-end="3593">
+            <td data-start="3485" data-end="3510" data-col-size="sm">Cross-shard queries</td>
+            <td data-start="3510" data-end="3593" data-col-size="md">Expensive joins/aggregations; require app-side logic or distributed SQL engines</td>
+        </tr>
+        <tr data-start="3594" data-end="3699">
+            <td data-start="3594" data-end="3619" data-col-size="sm">Rebalancing shards</td>
+            <td data-col-size="md" data-start="3619" data-end="3699">Adding/removing shards may need data migration; consider consistent hashing</td>
+        </tr>
+        <tr data-start="3700" data-end="3805">
+            <td data-start="3700" data-end="3725" data-col-size="sm">Global indexes</td>
+            <td data-start="3725" data-end="3805" data-col-size="md">Hard to maintain across distributed data</td>
+        </tr>
+        <tr data-start="3806" data-end="3911">
+            <td data-start="3806" data-end="3831" data-col-size="sm">Foreign key constraints</td>
+            <td data-start="3831" data-end="3911" data-col-size="md">Cannot enforce across shards</td>
+        </tr>
+        <tr data-start="3912" data-end="4017">
+            <td data-start="3912" data-end="3937" data-col-size="sm">Operational complexity</td>
+            <td data-start="3937" data-end="4017" data-col-size="md">Requires shard-aware backups, monitoring, replication, and failover</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h3 data-start="3054" data-end="3073">Sharding Best Practices</h3>
+<ul>
+    <li data-start="4046" data-end="4134">Choose a <strong data-start="4055" data-end="4071">sharding key</strong> that is both <em data-start="4085" data-end="4108">uniformly distributed</em> and <em data-start="4113" data-end="4134">relevant to queries</em></li>
+    <li data-start="4137" data-end="4188">Use a <strong data-start="4143" data-end="4160">shard manager</strong> to centralize routing logic</li>
+    <li data-start="4191" data-end="4227">Monitor and rebalance <strong data-start="4213" data-end="4227">hot shards</strong></li>
+    <li data-start="4230" data-end="4290">Plan for <strong data-start="4239" data-end="4259">data rebalancing</strong> early—pre-split where possible</li>
+    <li data-start="4293" data-end="4333">Ensure <strong data-start="4300" data-end="4323">backup and recovery</strong> per shard</li>
 </ul>
 <div>
 
-  <hr />
+    <hr />
 
 </div>
 <h2>SAGA Pattern</h2>
-<strong>Problem:</strong> Distributed systems often require transactions across multiple services. Classic ACID transactions don't scale well.
+<p data-start="326" data-end="530">In modern <strong data-start="336" data-end="366">microservice architectures</strong>, maintaining <strong data-start="380" data-end="400">data consistency</strong> across distributed services is challenging — especially when traditional <strong data-start="474" data-end="502">distributed transactions</strong> (like 2PC) are impractical.</p>
+<p data-start="532" data-end="819">The <strong data-start="536" data-end="552">SAGA Pattern</strong> offers a <strong data-start="562" data-end="588">reliable, event-driven</strong> alternative. It breaks a business transaction into a series of <strong data-start="652" data-end="674">local transactions</strong>, each managed by a service. If a step fails, a <strong data-start="722" data-end="745">compensating action</strong> is triggered to undo the partial work, ensuring <strong data-start="794" data-end="818">eventual consistency</strong>.</p>
 
-<strong>Solution:</strong> Use the <strong>SAGA pattern</strong> to manage distributed transactions using a sequence of local transactions and compensating actions.
 
-<strong>Benefits:</strong>
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h3 data-start="826" data-end="863">Choreography vs Orchestration</h3>
+<h4 data-start="865" data-end="896">1. Choreography-Based SAGA</h4>
 <ul>
-  <li>Ensures eventual consistency</li>
-  <li>Allows rollback via compensating operations</li>
+    <li>Each service listens to events and performs local actions.</li>
+    <li data-start="961" data-end="984">No central coordinator.</li>
 </ul>
-<strong>Approaches:</strong>
-<ul>
-  <li>Choreography: Services communicate via events</li>
-  <li>Orchestration: A central coordinator directs the steps</li>
-</ul>
-<strong>Example (Choreography with Kafka):</strong>
-<pre><code>// Order Service
-kafkaTemplate.send("order_created", orderId);
+<p data-start="988" data-end="997"><strong data-start="988" data-end="997">Pros:</strong></p>
 
-// Inventory Service
-@KafkaListener(topics = "order_created")
-public void reserveInventory(String orderId) {
-  // reserve logic
-  kafkaTemplate.send("inventory_reserved", orderId);
+<ul>
+    <li data-start="1000" data-end="1021">Simple, decentralized</li>
+    <li data-start="1024" data-end="1037">Easy to scale</li>
+</ul>
+<p data-start="1039" data-end="1048"><strong data-start="1039" data-end="1048">Cons:</strong></p>
+
+<ul>
+    <li data-start="1051" data-end="1071">Harder to track flow</li>
+    <li data-start="1074" data-end="1111">Difficult to manage complex workflows</li>
+</ul>
+<h4 data-start="1118" data-end="1150">2. Orchestration-Based SAGA</h4>
+<ul>
+    <li data-start="1154" data-end="1214">A central orchestrator controls the entire transaction flow.</li>
+    <li data-start="1217" data-end="1277">Orchestrator invokes each service and handles compensations.</li>
+</ul>
+<p data-start="1279" data-end="1288"><strong data-start="1279" data-end="1288">Pros:</strong></p>
+
+<ul>
+    <li data-start="1291" data-end="1320">Better visibility and control</li>
+    <li data-start="1323" data-end="1366">Easier to handle complex logic or branching</li>
+</ul>
+<p data-start="1368" data-end="1377"><strong data-start="1368" data-end="1377">Cons:</strong></p>
+
+<ul>
+    <li data-start="1380" data-end="1444">Introduces a central point of control (and potential bottleneck)</li>
+    <li data-start="1447" data-end="1482">Adds orchestration logic complexity</li>
+</ul>
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h3 data-start="759" data-end="802">Use Case: E-Commerce Orders</h3>
+<p data-start="1541" data-end="1612">Let’s walk through a <strong data-start="1562" data-end="1589">Choreography-based SAGA</strong> across three services:</p>
+<p data-start="1614" data-end="1636"><strong data-start="1614" data-end="1636">Services Involved:</strong></p>
+
+<ul>
+    <li data-start="1639" data-end="1674"><code data-start="1639" data-end="1654">Order Service</code> → Creates the order</li>
+    <li data-start="1677" data-end="1717"><code data-start="1677" data-end="1694">Payment Service</code> → Charges the customer</li>
+    <li data-start="1720" data-end="1755"><code data-start="1720" data-end="1739">Inventory Service</code> → Deducts stock</li>
+</ul>
+<p data-start="1757" data-end="1856">Each step is asynchronous, triggered by <strong data-start="1797" data-end="1807">events</strong> passed through a messaging system (e.g., Kafka).</p>
+
+<div class="_tableContainer_16hzy_1">
+    <div class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse" tabindex="-1">
+        <h4 data-start="1054" data-end="1082">Step-by-Step SAGA Flow</h4>
+        <h5 data-start="1084" data-end="1127">Step 1: Create Order (Order Service)</h5>
+        <ul>
+            <li data-start="1939" data-end="1969"><strong data-start="1939" data-end="1949">Action</strong>: Save order to DB</li>
+            <li data-start="1972" data-end="2002"><strong data-start="1972" data-end="1980">Emit</strong>: <code data-start="1982" data-end="1996">OrderCreated</code> event</li>
+        </ul>
+        <div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+            <div class="overflow-y-auto p-4" dir="ltr">
+                <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">public void createOrder(OrderRequest req) {
+    orderRepository.save(new Order(...));
+    kafka.send("order-created", new OrderCreatedEvent(req.getOrderId()));
 }</code></pre>
+                </div>
+            </div>
+        </div>
+        <h4 data-start="2184" data-end="2230">Step 2: Process Payment (Payment Service)</h4>
+        <ul>
+            <li data-start="2234" data-end="2262"><strong data-start="2234" data-end="2244">Listen</strong>: <code data-start="2246" data-end="2260">OrderCreated</code></li>
+            <li data-start="2265" data-end="2298"><strong data-start="2265" data-end="2275">Action</strong>: Charge the customer</li>
+            <li data-start="2301" data-end="2311"><strong data-start="2301" data-end="2309">Emit</strong>:
+                <ul>
+                    <li data-start="2316" data-end="2349"><code data-start="2316" data-end="2334">PaymentProcessed</code> (on success)</li>
+                    <li data-start="2354" data-end="2382"><code data-start="2354" data-end="2369">PaymentFailed</code> (on failure)</li>
+                </ul>
+            </li>
+        </ul>
+        <div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+            <div class="overflow-y-auto p-4" dir="ltr">
+                <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@KafkaListener(topics = "order-created")
+public void onOrderCreated(OrderCreatedEvent event) {
+    try {
+        paymentProcessor.charge(event.getOrderId());
+        kafka.send("payment-processed", new PaymentProcessedEvent(event.getOrderId()));
+    } catch (Exception e) {
+        kafka.send("payment-failed", new PaymentFailedEvent(event.getOrderId()));
+    }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <h5 data-start="2766" data-end="2815">Step 3: Update Inventory (Inventory Service)</h5>
+        <ul>
+            <li data-start="2819" data-end="2851"><strong data-start="2819" data-end="2829">Listen</strong>: <code data-start="2831" data-end="2849">PaymentProcessed</code></li>
+            <li data-start="2854" data-end="2884"><strong data-start="2854" data-end="2864">Action</strong>: Deduct inventory</li>
+            <li data-start="2887" data-end="2897"><strong data-start="2887" data-end="2895">Emit</strong>:
+                <ul>
+                    <li data-start="2902" data-end="2935"><code data-start="2902" data-end="2920">InventoryUpdated</code> (on success)</li>
+                    <li data-start="2940" data-end="2976"><code data-start="2940" data-end="2963">InventoryUpdateFailed</code> (on failure)</li>
+                </ul>
+            </li>
+        </ul>
+        <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@KafkaListener(topics = "payment-processed")
+public void onPaymentProcessed(PaymentProcessedEvent event) {
+    try {
+        inventoryService.deduct(event.getOrderId());
+        kafka.send("inventory-updated", new InventoryUpdatedEvent(event.getOrderId()));
+    } catch (Exception e) {
+        kafka.send("inventory-update-failed", new InventoryUpdateFailedEvent(event.getOrderId()));
+    }
+}</code></pre>
+        </div>
+        <h4 data-start="2557" data-end="2581">Compensation Logic</h4>
+        SAGA ensures <strong data-start="3428" data-end="3465">rollback via compensating actions</strong> when a step fails.
+        <h5 data-start="3486" data-end="3512">Case 1: Payment Failed</h5>
+        <ul>
+            <li data-start="3515" data-end="3546"><strong data-start="3515" data-end="3529">Handled by</strong>: Order Service</li>
+            <li data-start="3549" data-end="3577"><strong data-start="3549" data-end="3559">Action</strong>: Cancel the order</li>
+        </ul>
+        <div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+            <div class="overflow-y-auto p-4" dir="ltr">
+                <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@KafkaListener(topics = "payment-failed")
+public void onPaymentFailed(PaymentFailedEvent event) {
+    orderService.cancel(event.getOrderId());
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <h5 data-start="3742" data-end="3777">Case 2: Inventory Update Failed</h5>
+        <ul>
+            <li data-start="3780" data-end="3813"><strong data-start="3780" data-end="3794">Handled by</strong>: Payment Service</li>
+            <li data-start="3816" data-end="3847"><strong data-start="3816" data-end="3826">Action</strong>: Refund the customer</li>
+        </ul>
+        <div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+            <div class="overflow-y-auto p-4" dir="ltr">
+                <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@KafkaListener(topics = "inventory-update-failed")
+public void onInventoryUpdateFailed(InventoryUpdateFailedEvent event) {
+    paymentProcessor.refund(event.getOrderId());
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <div class="_tableContainer_16hzy_1">
+            <div class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse" tabindex="-1">
+                <h5 data-start="4041" data-end="4071">SAGA Responsibility Matrix</h5>
+                <div class="overflow-x-auto contain-inline-size responsive-table">
+                    <table class="w-fit min-w-(--thread-content-width)" data-start="4073" data-end="4609">
+                        <thead data-start="4073" data-end="4177">
+                        <tr data-start="4073" data-end="4177">
+                            <th data-start="4073" data-end="4091" data-col-size="sm">Service</th>
+                            <th data-start="4091" data-end="4117" data-col-size="sm">Event Listened To</th>
+                            <th data-start="4117" data-end="4143" data-col-size="sm">Action</th>
+                            <th data-start="4143" data-end="4177" data-col-size="sm">Compensating Action</th>
+                        </tr>
+                        </thead>
+                        <tbody data-start="4286" data-end="4609">
+                        <tr data-start="4286" data-end="4393">
+                            <td data-start="4286" data-end="4304" data-col-size="sm">Order Service</td>
+                            <td data-start="4304" data-end="4331" data-col-size="sm">N/A</td>
+                            <td data-start="4331" data-end="4358" data-col-size="sm">Create order</td>
+                            <td data-start="4358" data-end="4393" data-col-size="sm">Cancel order on payment failure</td>
+                        </tr>
+                        <tr data-start="4394" data-end="4501">
+                            <td data-start="4394" data-end="4412" data-col-size="sm">Payment Service</td>
+                            <td data-start="4412" data-end="4439" data-col-size="sm"><code data-start="4414" data-end="4428">OrderCreated</code></td>
+                            <td data-start="4439" data-end="4466" data-col-size="sm">Charge payment</td>
+                            <td data-start="4466" data-end="4501" data-col-size="sm">Refund on inventory failure</td>
+                        </tr>
+                        <tr data-start="4502" data-end="4609">
+                            <td data-start="4502" data-end="4520" data-col-size="sm">Inventory</td>
+                            <td data-start="4520" data-end="4547" data-col-size="sm"><code data-start="4522" data-end="4540">PaymentProcessed</code></td>
+                            <td data-start="4547" data-end="4574" data-col-size="sm">Deduct stock</td>
+                            <td data-start="4574" data-end="4609" data-col-size="sm">None (not responsible)</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h3 data-start="4616" data-end="4650">SAGA Benefits</h3>
+<div class="_tableContainer_16hzy_1">
+    <div class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse" tabindex="-1">
+        <ul>
+            <li data-start="4163" data-end="4197">No distributed locks or 2PC needed</li>
+            <li data-start="4200" data-end="4243">Achieves <strong data-start="4882" data-end="4906">eventual consistency</strong> across services</li>
+            <li data-start="4246" data-end="4281">Services remain <strong data-start="4961" data-end="4980">loosely coupled</strong> and independently scalable</li>
+            <li data-start="4284" data-end="4330">Supports <strong data-start="5027" data-end="5056">graceful failure recovery</strong> with compensating actions</li>
+        </ul>
+    </div>
+</div>
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h3 data-start="5095" data-end="5131">SAGA Challenges &amp; Practices</h3>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="5133" data-end="6023">
+        <thead data-start="5133" data-end="5243">
+        <tr data-start="5133" data-end="5243">
+            <th data-start="5133" data-end="5180" data-col-size="md">Best Practice</th>
+            <th data-start="5180" data-end="5243" data-col-size="md">Why It Matters</th>
+        </tr>
+        </thead>
+        <tbody data-start="5356" data-end="6023">
+        <tr data-start="5356" data-end="5466">
+            <td data-start="5356" data-end="5403" data-col-size="md">Make local transactions <strong data-start="5382" data-end="5396">idempotent</strong></td>
+            <td data-start="5403" data-end="5466" data-col-size="md">Prevents duplication from retries</td>
+        </tr>
+        <tr data-start="5467" data-end="5577">
+            <td data-start="5467" data-end="5514" data-col-size="md">Design <strong data-start="5476" data-end="5511">idempotent compensating actions</strong></td>
+            <td data-start="5514" data-end="5577" data-col-size="md">Avoids over-corrections or double refunds</td>
+        </tr>
+        <tr data-start="5578" data-end="5688">
+            <td data-start="5578" data-end="5625" data-col-size="md">Store a <strong data-start="5588" data-end="5606">Saga state log</strong> or status</td>
+            <td data-start="5625" data-end="5688" data-col-size="md">Enables retries, auditing, and recovery</td>
+        </tr>
+        <tr data-start="5689" data-end="5799">
+            <td data-start="5689" data-end="5736" data-col-size="md">Use <strong data-start="5695" data-end="5714">correlation IDs</strong></td>
+            <td data-start="5736" data-end="5799" data-col-size="md">For traceability across services</td>
+        </tr>
+        <tr data-start="5800" data-end="5910">
+            <td data-start="5800" data-end="5847" data-col-size="md">Use <strong data-start="5806" data-end="5828">reliable messaging</strong> (Kafka, RabbitMQ)</td>
+            <td data-start="5847" data-end="5910" data-col-size="md">Ensures delivery of critical events</td>
+        </tr>
+        <tr data-start="5911" data-end="6023">
+            <td data-start="5911" data-end="5962" data-col-size="md">Handle <strong data-start="5920" data-end="5961">timeouts, retries, dead-letter queues</strong></td>
+            <td data-start="5962" data-end="6023" data-col-size="md">Protects against service outages and network errors</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 <div>
 
-  <hr />
+    <hr />
 
 </div>
-<h2>Service Discovery (Eureka)</h2>
-<strong>Problem:</strong> Hardcoding service addresses in microservices limits flexibility and resilience.
+<h2>Service Discovery with Eureka</h2>
+<p data-start="228" data-end="453">In a modern microservices architecture, services are dynamic — often scaling up/down or changing locations due to containerization or cloud deployments. <strong data-start="381" data-end="429">Hardcoding service URLs or IPs is unreliable</strong> and breaks flexibility.</p>
+<p data-start="455" data-end="567"><strong data-start="455" data-end="476">Service Discovery</strong> solves this by allowing services to locate and communicate with each other <strong data-start="552" data-end="566">at runtime</strong>.</p>
 
-<strong>Solution:</strong> Use a service discovery mechanism (like <strong>Eureka</strong> or <strong>Consul</strong>) to dynamically locate service instances.
+<h4 data-start="569" data-end="590">What is Eureka?</h4>
+<p data-start="592" data-end="708"><strong data-start="592" data-end="602">Eureka</strong> is a Service Discovery solution developed by Netflix, and it’s a core part of the Spring Cloud ecosystem.</p>
 
-<strong>Benefits:</strong>
-<ul>
-  <li>Load balancing across services</li>
-  <li>Automatic failover</li>
-  <li>Dynamic scaling</li>
-</ul>
-<strong>Code Example (Spring Cloud Eureka Client):</strong>
-<pre><code>@EnableDiscoveryClient
-@SpringBootApplication
-public class OrderServiceApp { ... }
+<h4 data-start="710" data-end="745">Eureka Architecture Overview</h4>
+<img class="aligncenter wp-image-2000 size-full" src="https://oopscoder.com/wp-content/uploads/2025/05/eureka_architecture_diagram.png" alt="A service discovery architecture using Eureka, where Order Service, Payment Service, and Inventory Service are all Eureka Clients registered with a central Eureka Server (Service Registry). The Eureka Server facilitates dynamic service registration and discovery, allowing the Order Service to communicate with Payment and Inventory Services through the registry without hardcoding their network locations." width="491" height="202" />
+<table class="w-fit min-w-(--thread-content-width)" data-start="747" data-end="1116">
+    <thead data-start="747" data-end="838">
+    <tr data-start="747" data-end="838">
+        <th data-start="747" data-end="766" data-col-size="sm">Component</th>
+        <th data-start="766" data-end="838" data-col-size="md">Role</th>
+    </tr>
+    </thead>
+    <tbody data-start="931" data-end="1116">
+    <tr data-start="931" data-end="1023">
+        <td data-start="931" data-end="951" data-col-size="sm"><strong data-start="933" data-end="950">Eureka Server</strong></td>
+        <td data-start="951" data-end="1023" data-col-size="md">Acts as a registry where services register and query each other.</td>
+    </tr>
+    <tr data-start="1024" data-end="1116">
+        <td data-start="1024" data-end="1044" data-col-size="sm"><strong data-start="1026" data-end="1043">Eureka Client</strong></td>
+        <td data-start="1044" data-end="1116" data-col-size="md">Registers with Eureka Server and discovers other registered services.</td>
+    </tr>
+    </tbody>
+</table>
 
-@RestController
-public class ProductClient {
-  @Autowired
-  private RestTemplate restTemplate;
+<hr class="thin-border" data-start="1694" data-end="1697" />
 
-  @GetMapping("/product")
-  public String getProduct() {
-    return restTemplate.getForObject("http://PRODUCT-SERVICE/api/product", String.class);
-  }
+<h3 data-start="1509" data-end="1557">Eureka Setup</h3>
+<h4 data-start="1529" data-end="1560">1. Create Eureka Server</h4>
+<p data-start="1562" data-end="1597">Add Dependency in <code data-start="1587" data-end="1596">pom.xml</code>:</p>
+
+<div>
+    <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-xml line-numbers">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+    </div>
+</div>
+<p data-start="1755" data-end="1783">Enable Eureka Server:</p>
+
+<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+    <div class="overflow-y-auto p-4" dir="ltr">
+        <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@SpringBootApplication
+@EnableEurekaServer
+public class DiscoveryServerApp {
+    public static void main(String[] args) {
+        SpringApplication.run(DiscoveryServerApp.class, args);
+    }
 }</code></pre>
+        </div>
+    </div>
+</div>
+<h5 data-start="1991" data-end="2017"><code data-start="1999" data-end="2016">application.yml</code>:</h5>
+<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+    <div class="overflow-y-auto p-4" dir="ltr">
+        <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-yaml line-numbers">server:
+  port: 8761
+
+eureka:
+    client:
+        register-with-eureka: false
+        fetch-registry: false</code></pre>
+        </div>
+    </div>
+</div>
+<p data-start="2130" data-end="2204">📍 Access Eureka Dashboard: <a class="" href="http://localhost:8761" target="_new" rel="noopener" data-start="2158" data-end="2204">http://localhost:8761</a></p>
+
+<h4 data-start="2221" data-end="2266">2. Register a Microservice (e.g., Order Service)</h4>
+<p data-start="2268" data-end="2304">Add Eureka Client Dependency:</p>
+
+<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+    <div class="overflow-y-auto p-4" dir="ltr">
+        <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-xml line-numbers">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+        </div>
+    </div>
+</div>
+<h5 data-start="2462" data-end="2488"><code data-start="2470" data-end="2487">application.yml</code>:</h5>
+<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+    <div class="overflow-y-auto p-4" dir="ltr">
+        <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-yaml line-numbers">spring:
+  application:
+        name: order-service
+
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka/</code></pre>
+        </div>
+    </div>
+</div>
+<p data-start="2635" data-end="2739">When the app starts, it auto-registers with Eureka and appears in the dashboard under <code data-start="2723" data-end="2738">order-service</code>.</p>
+
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h3 data-start="2746" data-end="2796">Inter-Service Communication</h3>
+<p data-start="2798" data-end="2949">If <strong data-start="2801" data-end="2820">Payment Service</strong> wants to call <strong data-start="2835" data-end="2852">Order Service</strong>, it doesn’t need the IP or port. Instead, use service names and let <strong data-start="2921" data-end="2948">Eureka handle discovery</strong>.</p>
+
+<h4 data-start="2951" data-end="2995">RestTemplate Setup with Load Balancer</h4>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Bean
+@LoadBalanced
+public RestTemplate restTemplate() {
+    return new RestTemplate();
+}</code></pre>
+</div>
+<h4 data-start="3100" data-end="3129">Call a Service by Name</h4>
+<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+    <div class="overflow-y-auto p-4" dir="ltr">
+        <div>
+<pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Autowired
+private RestTemplate restTemplate;
+
+public Order getOrder(String orderId) {
+    return restTemplate.getForObject(
+            "http://order-service/orders/" + orderId,
+            Order.class
+    );
+}</code></pre>
+        </div>
+    </div>
+</div>
+<p data-start="3348" data-end="3424">✔ <code data-start="3350" data-end="3365">order-service</code> is resolved by Eureka and load-balanced between instances.</p>
+
+<h4 data-start="3431" data-end="3472">Health Checks &amp; Self-Healing</h4>
+<ul>
+    <li data-start="3476" data-end="3528"><strong data-start="3476" data-end="3528">Eureka clients send heartbeats every 30 seconds.</strong></li>
+    <li data-start="3531" data-end="3608">If a service stops heartbeating, it’s marked <strong data-start="3576" data-end="3584">DOWN</strong> and eventually removed.</li>
+    <li data-start="3611" data-end="3662">This keeps the registry <strong data-start="3635" data-end="3661">accurate and resilient</strong>.</li>
+</ul>
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h3 data-start="3629" data-end="3649">Eureka Benefits</h3>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="3706" data-end="4269">
+        <thead data-start="3706" data-end="3799">
+        <tr data-start="3706" data-end="3799">
+            <th data-start="3706" data-end="3733" data-col-size="sm">Feature</th>
+            <th data-start="3733" data-end="3799" data-col-size="md">Benefit</th>
+        </tr>
+        </thead>
+        <tbody data-start="3894" data-end="4269">
+        <tr data-start="3894" data-end="3987">
+            <td data-start="3894" data-end="3921" data-col-size="sm"><strong data-start="3896" data-end="3920">Dynamic Registration</strong></td>
+            <td data-start="3921" data-end="3987" data-col-size="md">No need to hardcode service URLs or IPs</td>
+        </tr>
+        <tr data-start="3988" data-end="4081">
+            <td data-start="3988" data-end="4015" data-col-size="sm"><strong data-start="3990" data-end="4008">Load Balancing</strong></td>
+            <td data-start="4015" data-end="4081" data-col-size="md">Works with Ribbon or Spring Cloud LoadBalancer</td>
+        </tr>
+        <tr data-start="4082" data-end="4175">
+            <td data-start="4082" data-end="4109" data-col-size="sm"><strong data-start="4084" data-end="4103">Fault Tolerance</strong></td>
+            <td data-start="4109" data-end="4175" data-col-size="md">Integrates with Hystrix or Resilience4J for graceful fallbacks</td>
+        </tr>
+        <tr data-start="4176" data-end="4269">
+            <td data-start="4176" data-end="4203" data-col-size="sm"><strong data-start="4178" data-end="4202">Real-time Monitoring</strong></td>
+            <td data-start="4203" data-end="4269" data-col-size="md">UI dashboard shows registered services and health status</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="thin-border" data-start="1694" data-end="1697" />
+
+<h3 data-start="4276" data-end="4295">Eureka Best Practices</h3>
+<ul>
+    <li data-start="4299" data-end="4385">Use logical and consistent service names (e.g., <code data-start="4347" data-end="4362">order-service</code>, <code data-start="4364" data-end="4383">inventory-service</code>).</li>
+    <li data-start="4388" data-end="4467">Prefer <code data-start="4395" data-end="4410">@LoadBalanced</code> RestTemplate or Feign clients for service communication.</li>
+    <li data-start="4470" data-end="4535">Enable retries and fallbacks for resilience (e.g., Resilience4J).</li>
+    <li data-start="4538" data-end="4594">Monitor service health via Eureka dashboard and metrics.</li>
+</ul>
 <div>
 
-  <hr />
+    <hr />
 
 </div>
 <h2>Auto-Scaling with Kubernetes</h2>
-<strong>Problem:</strong> Manual scaling leads to under/over-provisioned resources.
+<p data-start="233" data-end="378"><strong data-start="233" data-end="260">Kubernetes Auto-Scaling</strong> dynamically adjusts application resources based on demand—helping you maintain performance without over-provisioning.</p>
+<p data-start="380" data-end="416">With auto-scaling, your application:</p>
 
-<strong>Solution:</strong> Use Kubernetes’ <strong>Horizontal Pod Autoscaler (HPA)</strong> to automatically adjust pod replicas.
-
-<strong>Benefits:</strong>
 <ul>
-  <li>Elastic resource allocation</li>
-  <li>Cost savings during low usage</li>
-  <li>Improved performance under load</li>
+    <li data-start="420" data-end="473"><strong data-start="422" data-end="436">Scales out</strong> during high traffic (adds more pods)</li>
+    <li data-start="476" data-end="523"><strong data-start="478" data-end="491">Scales in</strong> during low usage (removes pods)</li>
+    <li data-start="526" data-end="577"><strong data-start="528" data-end="577">Optimizes cost and infrastructure performance</strong></li>
 </ul>
-<strong>Kubernetes YAML:</strong>
-<pre><code>apiVersion: autoscaling/v2
+<div>
+    <h4 data-start="584" data-end="625">Types of Auto-Scaling in Kubernetes</h4>
+    <div class="overflow-x-auto contain-inline-size responsive-table">
+        <table class="w-fit min-w-(--thread-content-width)" data-start="627" data-end="1205">
+            <thead data-start="627" data-end="736">
+            <tr data-start="627" data-end="736">
+                <th data-start="627" data-end="657" data-col-size="sm">Type</th>
+                <th data-start="657" data-end="736" data-col-size="md">Description</th>
+            </tr>
+            </thead>
+            <tbody data-start="847" data-end="1205">
+            <tr data-start="847" data-end="966">
+                <td data-start="847" data-end="885" data-col-size="sm"><strong data-start="849" data-end="856">HPA</strong> (Horizontal Pod Autoscaler)</td>
+                <td data-start="885" data-end="966" data-col-size="md">Scales the number of pods based on CPU, memory, or custom metrics</td>
+            </tr>
+            <tr data-start="967" data-end="1086">
+                <td data-start="967" data-end="1005" data-col-size="sm"><strong data-start="969" data-end="976">VPA</strong> (Vertical Pod Autoscaler)</td>
+                <td data-start="1005" data-end="1086" data-col-size="md">Adjusts CPU/memory <strong data-start="1026" data-end="1049">requests and limits</strong> for a pod</td>
+            </tr>
+            <tr data-start="1087" data-end="1205">
+                <td data-start="1087" data-end="1125" data-col-size="sm"><strong data-start="1089" data-end="1116">Cluster Autoscaler (CA)</strong></td>
+                <td data-start="1125" data-end="1205" data-col-size="md">Adds/removes nodes in the cluster based on <strong data-start="1170" data-end="1194">pod scheduling needs</strong></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="thin-border" data-start="4490" data-end="4493" />
+
+</div>
+<h3 data-start="1212" data-end="1249">Horizontal Pod Autoscaler (HPA)</h3>
+<h4 data-start="1251" data-end="1267">Best For:</h4>
+<ul>
+    <li data-start="1270" data-end="1293">Stateless microservices</li>
+    <li data-start="1296" data-end="1330">APIs and frontend/backend services</li>
+    <li data-start="1333" data-end="1350">Dynamic workloads</li>
+</ul>
+<h4 data-start="1352" data-end="1373">How HPA Works:</h4>
+<ol>
+    <li data-start="1377" data-end="1440">Kubernetes monitors metrics like <strong data-start="1410" data-end="1439">CPU or memory utilization</strong>.</li>
+    <li data-start="1444" data-end="1520">If a defined threshold is exceeded, it increases the number of pod replicas.</li>
+    <li data-start="1524" data-end="1590">When usage drops, it scales back down (respecting min/max limits).</li>
+</ol>
+<h4>Example: HPA Based on CPU Utilization</h4>
+<h5>Step 1: Define a Deployment</h5>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-yaml line-numbers">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-api
+spec:
+  replicas: 2
+  selector:
+      matchLabels:
+          app: web-api
+  template:
+      metadata:
+          labels:
+              app: web-api
+      spec:
+          containers:
+          - name: web-api
+              image: myorg/web-api:latest
+              resources:
+                  requests:
+                      cpu: "250m"
+                  limits:
+                      cpu: "500m"
+              ports:
+              - containerPort: 8080</code></pre>
+</div>
+<h5>Step 2: Define HPA YAML</h5>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-yaml line-numbers">apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: user-service-hpa
+  name: web-api-hpa
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: user-service
+      apiVersion: apps/v1
+      kind: Deployment
+      name: web-api
   minReplicas: 2
   maxReplicas: 10
   metrics:
     - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 50</code></pre>
+        resource:
+          name: cpu
+          target:
+              type: Utilization
+              averageUtilization: 60</code></pre>
+</div>
+<p data-start="2502" data-end="2541">This configuration tells Kubernetes:</p>
+
+<blockquote>"If average CPU utilization exceeds 60%, scale up (max 10 pods). If it drops below, scale down (min 2 pods)."</blockquote>
+<h4 data-start="2661" data-end="2686">Test HPA with Load</h4>
+<p data-start="2688" data-end="2742">You can simulate high traffic using a tool like <code data-start="2736" data-end="2741">hey</code>:</p>
+
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">hey -n 10000 -c 100 http://&lt;your-service-ip&gt;/api/resource</code></pre>
+Monitor HPA behavior:
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">kubectl get hpa</code></pre>
 <div>
 
-  <hr />
+    <hr class="thin-border" data-start="4490" data-end="4493" />
 
 </div>
-<h2>Content Delivery Networks (CDNs)</h2>
-<strong>Problem:</strong> Static files load slowly for users far from your servers.
+<h3>Vertical Pod Autoscaler (VPA)</h3>
+<p data-start="2909" data-end="2999">Instead of increasing pod count, <strong data-start="2942" data-end="2976">VPA adjusts the CPU and memory</strong> allocated to each pod.</p>
 
-<strong>Solution:</strong> Use a <strong>CDN</strong> (like Cloudflare, Akamai, or AWS CloudFront) to cache and deliver content globally.
+<h4 data-start="3001" data-end="3017">Best For:</h4>
+<ul>
+    <li data-start="3020" data-end="3041">Machine learning jobs</li>
+    <li data-start="3044" data-end="3059">Batch workloads</li>
+    <li data-start="3062" data-end="3087">Memory-intensive services</li>
+</ul>
+<h4 data-start="3089" data-end="3121">Example: VPA with Auto Mode</h4>
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-yaml line-numbers">apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: web-api-vpa
+spec:
+  targetRef:
+      apiVersion: "apps/v1"
+      kind: Deployment
+      name: web-api
+  updatePolicy:
+      updateMode: "Auto"</code></pre>
+</div>
+<p data-start="2909" data-end="2999">In <strong data-start="3356" data-end="3369">Auto mode</strong>, Kubernetes will <strong data-start="3387" data-end="3406">restart the pod</strong> with adjusted CPU/memory values based on actual usage patterns.</p>
 
-<strong>Benefits:</strong>
-<ul>
-  <li>Reduced latency</li>
-  <li>Lower origin server load</li>
-  <li>Improved user experience globally</li>
-</ul>
-<strong>Best Practices:</strong>
-<ul>
-  <li>Set proper cache headers (Cache-Control)</li>
-  <li>Use versioned URLs for assets</li>
-</ul>
 <div>
 
-  <hr />
+    <hr class="thin-border" data-start="4490" data-end="4493" />
+
+</div>
+<h3>Cluster Autoscaler (CA)</h3>
+<p data-start="3508" data-end="3642">If Kubernetes cannot schedule a pod due to <strong data-start="3551" data-end="3583">lack of node-level resources</strong>, the <strong data-start="3589" data-end="3611">Cluster Autoscaler</strong> adds new nodes to the cluster.</p>
+
+<h4 data-start="3644" data-end="3658">Setup:</h4>
+<ul>
+    <li data-start="3662" data-end="3708">Enabled at cluster level (GKE, EKS, AKS, etc.)</li>
+    <li data-start="3711" data-end="3763">Integrates with cloud provider’s compute autoscaling</li>
+    <li data-start="3766" data-end="3806">Automatically scales <strong data-start="3787" data-end="3796">nodes</strong>, not pods</li>
+</ul>
+<p data-start="3808" data-end="3883">CA only kicks in <strong data-start="3828" data-end="3859">when a pod is unschedulable</strong> due to resource limits.</p>
+
+<div>
+
+    <hr class="thin-border" data-start="4490" data-end="4493" />
+
+</div>
+<div>
+    <h3 data-start="3890" data-end="3937">Auto-Scaling Best Practices</h3>
+    <div class="overflow-x-auto contain-inline-size responsive-table">
+        <table class="w-fit min-w-(--thread-content-width)" data-start="3939" data-end="4599">
+            <thead data-start="3939" data-end="4046">
+            <tr data-start="3939" data-end="4046">
+                <th data-start="3939" data-end="3974" data-col-size="sm">Best Practice</th>
+                <th data-start="3974" data-end="4046" data-col-size="md">Why It Matters</th>
+            </tr>
+            </thead>
+            <tbody data-start="4157" data-end="4599">
+            <tr data-start="4157" data-end="4266">
+                <td data-start="4157" data-end="4192" data-col-size="sm"><strong data-start="4159" data-end="4191">Set resource requests/limits</strong></td>
+                <td data-start="4192" data-end="4266" data-col-size="md">HPA requires these metrics to determine scaling thresholds</td>
+            </tr>
+            <tr data-start="4267" data-end="4376">
+                <td data-start="4267" data-end="4302" data-col-size="sm"><strong data-start="4269" data-end="4301">Use custom metrics if needed</strong></td>
+                <td data-start="4302" data-end="4376" data-col-size="md">CPU may not reflect true load (e.g., I/O-bound or async workloads)</td>
+            </tr>
+            <tr data-start="4377" data-end="4489">
+                <td data-start="4377" data-end="4415" data-col-size="sm"><strong data-start="4379" data-end="4414">Monitor with Prometheus/Grafana</strong></td>
+                <td data-start="4415" data-end="4489" data-col-size="md">Helps visualize metrics and identify bottlenecks</td>
+            </tr>
+            <tr data-start="4490" data-end="4599">
+                <td data-start="4490" data-end="4525" data-col-size="sm"><strong data-start="4492" data-end="4524">Combine HPA + VPA cautiously</strong></td>
+                <td data-start="4525" data-end="4599" data-col-size="md">Avoid conflicts—both scale resources differently and may interfere</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr />
+
+</div>
+<h2>Content Delivery Networks</h2>
+<p data-start="221" data-end="456">A <strong data-start="223" data-end="257">Content Delivery Network (CDN)</strong> is a globally distributed network of <strong data-start="295" data-end="327">edge servers and proxy nodes</strong> that cache and serve your web content—such as HTML, CSS, JavaScript, images, and videos—from locations <strong data-start="431" data-end="455">closer to your users</strong>.</p>
+<p data-start="458" data-end="622">Rather than relying solely on your <strong data-start="493" data-end="510">origin server</strong>, CDNs drastically improve performance by reducing latency, accelerating load times, and increasing reliability.</p>
+
+<h4 data-start="695" data-end="716">Why Use a CDN?</h4>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="650" data-end="1426">
+        <thead data-start="650" data-end="760">
+        <tr data-start="650" data-end="760">
+            <th data-start="650" data-end="681" data-col-size="sm">Benefit</th>
+            <th data-start="681" data-end="760" data-col-size="md">Description</th>
+        </tr>
+        </thead>
+        <tbody data-start="871" data-end="1426">
+        <tr data-start="871" data-end="981">
+            <td data-start="871" data-end="903" data-col-size="sm"><strong data-start="876" data-end="895">Faster Delivery</strong></td>
+            <td data-start="903" data-end="981" data-col-size="md">Reduces time-to-first-byte (TTFB) by serving assets from nearby edge nodes</td>
+        </tr>
+        <tr data-start="982" data-end="1092">
+            <td data-start="982" data-end="1014" data-col-size="sm"><strong data-start="987" data-end="1008">Lower Origin Load</strong></td>
+            <td data-start="1014" data-end="1092" data-col-size="md">Offloads bandwidth and compute from your origin server</td>
+        </tr>
+        <tr data-start="1093" data-end="1203">
+            <td data-start="1093" data-end="1125" data-col-size="sm"><strong data-start="1097" data-end="1120">Higher Availability</strong></td>
+            <td data-start="1125" data-end="1203" data-col-size="md">Automatically reroutes traffic during node failures</td>
+        </tr>
+        <tr data-start="1204" data-end="1314">
+            <td data-start="1204" data-end="1236" data-col-size="sm"><strong data-start="1209" data-end="1225">Global Reach</strong></td>
+            <td data-start="1236" data-end="1314" data-col-size="md">Delivers consistent performance worldwide</td>
+        </tr>
+        <tr data-start="1315" data-end="1426">
+            <td data-start="1315" data-end="1348" data-col-size="sm"><strong data-start="1321" data-end="1342">Built-in Security</strong></td>
+            <td data-start="1348" data-end="1426" data-col-size="md">TLS termination, DDoS mitigation, WAFs, and bot protection</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="thin-border" data-start="4490" data-end="4493" />
+
+<h3 data-start="1433" data-end="1470">How CDNs Work</h3>
+<ol>
+    <li data-start="1475" data-end="1537">A user requests a static asset (e.g., an image or <code data-start="1525" data-end="1530">.js</code> file).</li>
+    <li data-start="1541" data-end="1598">DNS directs the request to the <strong data-start="1572" data-end="1597">nearest CDN edge node</strong>.</li>
+    <li data-start="1602" data-end="1666">If the asset is <strong data-start="1618" data-end="1628">cached</strong> (cache hit), it's returned instantly.</li>
+    <li data-start="1670" data-end="1782">If <strong data-start="1673" data-end="1687">not cached</strong> (cache miss), the CDN fetches it from your <strong data-start="1731" data-end="1741">origin</strong>, stores it, and delivers it to the user.</li>
+</ol>
+<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary"></div>
+<p data-start="1865" data-end="1883"><img class="aligncenter wp-image-2002 size-full" src="https://oopscoder.com/wp-content/uploads/2025/05/cdn_workflow_diagram.png" alt="A user sends a request that is first handled by a nearby CDN Edge Node (Point of Presence). If the requested content is cached, it is served immediately; otherwise, the request is forwarded to the Origin Server to retrieve the content, which is then cached for future requests." width="601" height="52" /></p>
+
+<h4 data-start="1865" data-end="1883">Key Components</h4>
+<ul>
+    <li data-start="1887" data-end="1972"><strong data-start="1887" data-end="1914">PoP (Point of Presence)</strong>: CDN data centers placed near users (e.g., major cities).</li>
+    <li data-start="1975" data-end="2037"><strong data-start="1975" data-end="1990">Edge Server</strong>: Delivers cached content from the closest PoP.</li>
+    <li data-start="2040" data-end="2110"><strong data-start="2040" data-end="2057">Origin Server</strong>: Your backend infrastructure, used only when needed.</li>
+</ul>
+
+<hr class="thin-border" data-start="4490" data-end="4493" />
+
+<h3 data-start="1848" data-end="1896">Use Case: JS via CDN</h3>
+<p data-start="1898" data-end="1956">Instead of hosting jQuery or Bootstrap on your server:</p>
+
+<div>
+<pre class="lazy-load" data-loaded="false"><code class="language-bash line-numbers">&lt;!-- Load Bootstrap via CDN --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;</code></pre>
+</div>
+<div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+    <div class="overflow-y-auto p-4" dir="ltr"><strong data-start="2379" data-end="2401">Why this is better</strong>:</div>
+</div>
+<ul>
+    <li data-start="2405" data-end="2468">Likely already cached in the user’s browser or ISP’s edge node.</li>
+    <li data-start="2471" data-end="2514">Loads faster than pulling from your server.</li>
+</ul>
+
+<hr class="thin-border" data-start="4490" data-end="4493" />
+
+<h3 data-start="2617" data-end="2658">CDN Caching &amp; Headers</h3>
+<p data-start="2569" data-end="2672">CDNs follow your origin server’s cache headers. Properly setting them ensures efficient cache behavior:</p>
+
+<h4 data-start="2674" data-end="2700">Recommended Headers</h4>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="2702" data-end="3205">
+        <thead data-start="2702" data-end="2785">
+        <tr data-start="2702" data-end="2785">
+            <th data-start="2702" data-end="2720" data-col-size="sm">Header</th>
+            <th data-start="2720" data-end="2785" data-col-size="md">Purpose</th>
+        </tr>
+        </thead>
+        <tbody data-start="2870" data-end="3205">
+        <tr data-start="2870" data-end="2953">
+            <td data-start="2870" data-end="2888" data-col-size="sm"><code data-start="2872" data-end="2887">Cache-Control</code></td>
+            <td data-start="2888" data-end="2953" data-col-size="md"><code data-start="2890" data-end="2916">public, max-age=31536000</code> – Cache asset for 1 year</td>
+        </tr>
+        <tr data-start="2954" data-end="3037">
+            <td data-start="2954" data-end="2972" data-col-size="sm"><code data-start="2956" data-end="2962">ETag</code></td>
+            <td data-start="2972" data-end="3037" data-col-size="md">Cache validation without full downloads</td>
+        </tr>
+        <tr data-start="3038" data-end="3121">
+            <td data-start="3038" data-end="3056" data-col-size="sm"><code data-start="3040" data-end="3046">Vary</code></td>
+            <td data-start="3056" data-end="3121" data-col-size="md">Enables content negotiation (e.g., by language or encoding)</td>
+        </tr>
+        <tr data-start="3122" data-end="3205">
+            <td data-start="3122" data-end="3140" data-col-size="sm"><code data-start="3124" data-end="3133">Expires</code></td>
+            <td data-start="3140" data-end="3205" data-col-size="md">Deprecated but still respected by many CDNs</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr class="thin-border" data-start="4490" data-end="4493" />
+
+<h3 data-start="3212" data-end="3240">CDN Security Features</h3>
+<p data-start="3242" data-end="3313">Most leading CDNs (e.g., <strong data-start="3267" data-end="3281">Cloudflare</strong>, <strong data-start="3283" data-end="3293">Akamai</strong>, <strong data-start="3295" data-end="3305">Fastly</strong>) offer:</p>
+
+<ul>
+    <li data-start="3317" data-end="3366"><strong data-start="3319" data-end="3338">TLS Termination</strong> – Serve HTTPS from the edge</li>
+    <li data-start="3369" data-end="3431"><strong data-start="3372" data-end="3391">DDoS Mitigation</strong> – Detects and blocks volumetric attacks</li>
+    <li data-start="3434" data-end="3506"><strong data-start="3437" data-end="3471">Web Application Firewall (WAF)</strong> – Protects against XSS, SQLi, etc.</li>
+    <li data-start="3509" data-end="3573"><strong data-start="3512" data-end="3535">Bot &amp; Rate Limiting</strong> – Control abusive traffic or scraping</li>
+</ul>
+
+<hr class="thin-border" data-start="4490" data-end="4493" />
+
+<h3 data-start="3580" data-end="3615">CDN Best Practices</h3>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="3617" data-end="4361">
+        <thead data-start="3617" data-end="3721">
+        <tr data-start="3617" data-end="3721">
+            <th data-start="3617" data-end="3650" data-col-size="sm">Tip</th>
+            <th data-start="3650" data-end="3721" data-col-size="md">Why It Matters</th>
+        </tr>
+        </thead>
+        <tbody data-start="3828" data-end="4361">
+        <tr data-start="3828" data-end="3933">
+            <td data-start="3828" data-end="3861" data-col-size="sm">Serve static assets via CDN</td>
+            <td data-start="3861" data-end="3933" data-col-size="md">Reduces load on your backend and improves performance</td>
+        </tr>
+        <tr data-start="3934" data-end="4039">
+            <td data-start="3934" data-end="3967" data-col-size="sm">Use compression (GZIP/Brotli)</td>
+            <td data-start="3967" data-end="4039" data-col-size="md">Shrinks file size for faster delivery</td>
+        </tr>
+        <tr data-start="4040" data-end="4149">
+            <td data-start="4040" data-end="4078" data-col-size="sm">Version your files (e.g., <code data-start="4068" data-end="4076">.v2.js</code>)</td>
+            <td data-start="4078" data-end="4149" data-col-size="md">Ensures users get latest assets after deployment</td>
+        </tr>
+        <tr data-start="4150" data-end="4255">
+            <td data-start="4150" data-end="4183" data-col-size="sm">Set long <code data-start="4161" data-end="4170">max-age</code> headers</td>
+            <td data-start="4183" data-end="4255" data-col-size="md">Improve cache longevity and reduce bandwidth</td>
+        </tr>
+        <tr data-start="4256" data-end="4361">
+            <td data-start="4256" data-end="4289" data-col-size="sm">Monitor via analytics</td>
+            <td data-start="4289" data-end="4361" data-col-size="md">Optimize cache hit rates, regional usage, and user experience</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+
+    <hr />
 
 </div>
 <h2>Final Thoughts</h2>

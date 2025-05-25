@@ -142,7 +142,7 @@
     <li data-start="1087" data-end="1146"><strong data-start="1087" data-end="1109">Bean Ready for Use</strong> – The bean is now fully initialized.</li>
     <li data-start="1150" data-end="1264"><strong data-start="1150" data-end="1165">Destruction</strong> – Cleanup via <code data-start="1180" data-end="1193">@PreDestroy</code> or <code data-start="1197" data-end="1208">destroy()</code> (from <code data-start="1215" data-end="1231">DisposableBean</code>), triggered on context shutdown.</li>
 </ul>
-<div class="tip-block">💡 <strong>Tip: </strong>You can <strong data-start="1277" data-end="1305">hook into this lifecycle</strong> using annotations or lifecycle interfaces to execute custom logic at specific stages.</div>
+<blockquote><strong>Tip: </strong>You can <strong data-start="1277" data-end="1305">hook into this lifecycle</strong> using annotations or lifecycle interfaces to execute custom logic at specific stages.</blockquote>
 
 <hr class="" data-start="733" data-end="736" />
 
@@ -379,39 +379,37 @@ $ curl http://localhost:8081/myapp/api/users/srimanta
 <p data-start="338" data-end="507">It integrates with <strong data-start="357" data-end="392">JSR-303/JSR-380 Bean Validation</strong> <strong>(<a href="https://beanvalidation.org/">Jakarta Bean Validation</a>)</strong> and allows you to apply validation rules directly on <strong data-start="472" data-end="488">model fields</strong> using annotations.</p>
 
 <h4 data-start="324" data-end="385">Common Validation Annotations</h4>
-<div class="_tableContainer_16hzy_1">
-    <div class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse" tabindex="-1">
-        <table class="w-fit min-w-(--thread-content-width)" data-start="387" data-end="799">
-            <thead data-start="387" data-end="445">
-            <tr data-start="387" data-end="445">
-                <th data-start="387" data-end="406" data-col-size="sm">Annotation</th>
-                <th data-start="406" data-end="445" data-col-size="sm">Purpose</th>
-            </tr>
-            </thead>
-            <tbody data-start="505" data-end="799">
-            <tr data-start="505" data-end="563">
-                <td data-start="505" data-end="524" data-col-size="sm"><code data-start="507" data-end="517">@NotNull</code></td>
-                <td data-start="524" data-end="563" data-col-size="sm">Field must not be <code data-start="544" data-end="550">null</code></td>
-            </tr>
-            <tr data-start="564" data-end="622">
-                <td data-start="564" data-end="583" data-col-size="sm"><code data-start="566" data-end="577">@NotBlank</code></td>
-                <td data-col-size="sm" data-start="583" data-end="622">Must not be empty or whitespace</td>
-            </tr>
-            <tr data-start="623" data-end="681">
-                <td data-start="623" data-end="642" data-col-size="sm"><code data-start="625" data-end="633">@Email</code></td>
-                <td data-col-size="sm" data-start="642" data-end="681">Must be a valid email address</td>
-            </tr>
-            <tr data-start="682" data-end="740">
-                <td data-start="682" data-end="701" data-col-size="sm"><code data-start="684" data-end="701">@Size(min, max)</code></td>
-                <td data-start="701" data-end="740" data-col-size="sm">Enforces string or collection size</td>
-            </tr>
-            <tr data-start="741" data-end="799">
-                <td data-start="741" data-end="760" data-col-size="sm"><code data-start="743" data-end="749">@Min</code>, <code data-start="751" data-end="757">@Max</code></td>
-                <td data-col-size="sm" data-start="760" data-end="799">Set numeric limits</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="overflow-x-auto contain-inline-size responsive-table">
+    <table class="w-fit min-w-(--thread-content-width)" data-start="387" data-end="799">
+        <thead data-start="387" data-end="445">
+        <tr data-start="387" data-end="445">
+            <th data-start="387" data-end="406" data-col-size="sm">Annotation</th>
+            <th data-start="406" data-end="445" data-col-size="sm">Purpose</th>
+        </tr>
+        </thead>
+        <tbody data-start="505" data-end="799">
+        <tr data-start="505" data-end="563">
+            <td data-start="505" data-end="524" data-col-size="sm"><code data-start="507" data-end="517">@NotNull</code></td>
+            <td data-start="524" data-end="563" data-col-size="sm">Field must not be <code data-start="544" data-end="550">null</code></td>
+        </tr>
+        <tr data-start="564" data-end="622">
+            <td data-start="564" data-end="583" data-col-size="sm"><code data-start="566" data-end="577">@NotBlank</code></td>
+            <td data-col-size="sm" data-start="583" data-end="622">Must not be empty or whitespace</td>
+        </tr>
+        <tr data-start="623" data-end="681">
+            <td data-start="623" data-end="642" data-col-size="sm"><code data-start="625" data-end="633">@Email</code></td>
+            <td data-col-size="sm" data-start="642" data-end="681">Must be a valid email address</td>
+        </tr>
+        <tr data-start="682" data-end="740">
+            <td data-start="682" data-end="701" data-col-size="sm"><code data-start="684" data-end="701">@Size(min, max)</code></td>
+            <td data-start="701" data-end="740" data-col-size="sm">Enforces string or collection size</td>
+        </tr>
+        <tr data-start="741" data-end="799">
+            <td data-start="741" data-end="760" data-col-size="sm"><code data-start="743" data-end="749">@Min</code>, <code data-start="751" data-end="757">@Max</code></td>
+            <td data-col-size="sm" data-start="760" data-end="799">Set numeric limits</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 <h4>How It Works</h4>
 Use <code data-start="996" data-end="1004">@Valid</code> or <code data-start="1008" data-end="1020">@Validated</code> to <strong data-start="1024" data-end="1046">trigger validation</strong>.

@@ -1,4 +1,4 @@
-<p data-start="603" data-end="866"><strong>Designing reliable, scalable systems goes beyond coding—it starts with strong architectural foundations. </strong>In this first installment of the <a href="/system-design-deep-dive"><em>System Design Deep Dive</em></a> series, we explore the key principles that shape robust software architecture:</p>
+<p data-start="603" data-end="866"><strong>Designing reliable, scalable systems goes beyond coding—it starts with strong architectural foundations. </strong>In this first part of the <a href="/system-design-deep-dive"><em>System Design Deep Dive</em></a> series, we explore the key principles that shape robust software architecture:</p>
 
 <ul>
     <li data-start="870" data-end="928"><strong data-start="870" data-end="890">SOLID Principles</strong> for object-oriented maintainability</li>
@@ -337,7 +337,7 @@ try (PreparedStatement checkEmail = conn.prepareStatement("SELECT * FROM users W
 
 <hr class="thin-border" data-start="4217" data-end="4220" />
 
-<div class="tip-block">💡 <strong>Tip: </strong>Use <strong data-start="4244" data-end="4269">Spring @Transactional</strong> to manage ACID in a cleaner way. It handles rollback automatically on exceptions.</div>
+<blockquote><strong>Tip: </strong>Use <strong data-start="4244" data-end="4269">Spring @Transactional</strong> to manage ACID in a cleaner way. It handles rollback automatically on exceptions.</blockquote>
 <div>
 <pre class="lazy-load" data-loaded="false"><code class="language-java line-numbers">@Transactional
 public void placeOrder(User user, double amount) {
@@ -349,7 +349,7 @@ public void placeOrder(User user, double amount) {
 <hr class="" data-start="771" data-end="774" />
 
 <h2><strong>CAP Theorem</strong></h2>
-<div class="quote-block">The CAP Theorem states that in the presence of a <strong data-start="611" data-end="632">network partition</strong>, a distributed system must <strong data-start="660" data-end="707">choose between Consistency and Availability</strong>, but <strong data-start="713" data-end="736">cannot provide both</strong> simultaneously.</div>
+<blockquote>The CAP Theorem states that in the presence of a <strong data-start="611" data-end="632">network partition</strong>, a distributed system must <strong data-start="660" data-end="707">choose between Consistency and Availability</strong>, but <strong data-start="713" data-end="736">cannot provide both</strong> simultaneously.</blockquote>
 <h4 data-start="754" data-end="773">CAP stands for:</h4>
 <ul>
     <li data-start="777" data-end="839"><strong data-start="777" data-end="782">C</strong>onsistency: All nodes see the same data at the same time.</li>
@@ -364,7 +364,7 @@ public void placeOrder(User user, double amount) {
 <p data-start="1108" data-end="1216">All nodes return the <strong data-start="1129" data-end="1153">latest updated value</strong>. After a write, any read should return that write or an error.</p>
 <p data-start="1218" data-end="1356"><strong data-start="1218" data-end="1230">Example:</strong><br data-start="1230" data-end="1233" />If a user updates their password and immediately logs in from another device, both systems should see the updated password.</p>
 
-<div class="tip-block"><em data-start="1363" data-end="1437">Strong consistency is essential in financial and authentication systems.</em></div>
+<blockquote><em data-start="1363" data-end="1437">Strong consistency is essential in financial and authentication systems.</em></blockquote>
 
 <hr class="thin-border" data-start="1439" data-end="1442" />
 
@@ -372,7 +372,7 @@ public void placeOrder(User user, double amount) {
 <p data-start="1476" data-end="1605">Every request receives a response (success or failure) — <strong data-start="1533" data-end="1557">without guaranteeing</strong> that the response contains the <strong data-start="1589" data-end="1604">latest data</strong>.</p>
 <p data-start="1607" data-end="1752"><strong data-start="1607" data-end="1619">Example:</strong><br data-start="1619" data-end="1622" />Even during high traffic or node failure, a product page still loads with data (maybe slightly stale), but the site doesn’t break.</p>
 
-<div class="tip-block"><em data-start="1758" data-end="1850">Critical for user-facing apps where uptime is a priority, like e-commerce or social feeds.</em></div>
+<blockquote><em data-start="1758" data-end="1850">Critical for user-facing apps where uptime is a priority, like e-commerce or social feeds.</em></blockquote>
 
 <hr class="thin-border" data-start="1852" data-end="1855" />
 
@@ -380,7 +380,7 @@ public void placeOrder(User user, double amount) {
 <p data-start="1896" data-end="2005">The system continues operating <strong data-start="1927" data-end="1983">despite failures or lost communication between nodes</strong> (network partitions).</p>
 <p data-start="2007" data-end="2137"><strong data-start="2007" data-end="2019">Example:</strong><br data-start="2019" data-end="2022" />If a data center in Europe loses connection to the US region, both systems must still serve requests independently.</p>
 
-<div class="tip-block"><em data-start="2144" data-end="2217">Partition tolerance is a must in any geographically distributed system.</em></div>
+<blockquote><em data-start="2144" data-end="2217">Partition tolerance is a must in any geographically distributed system.</em></blockquote>
 
 <hr class="thin-border" data-start="2219" data-end="2222" />
 
@@ -433,7 +433,7 @@ public void placeOrder(User user, double amount) {
         </tbody>
     </table>
 </div>
-<div class="tip-block">📝 <strong>Note: </strong><em data-start="3203" data-end="3322">CA systems are only possible if you don't need partition tolerance — which is unrealistic in most real-world systems.</em></div>
+<blockquote><strong>Note: </strong><em data-start="3203" data-end="3322">CA systems are only possible if you don't need partition tolerance — which is unrealistic in most real-world systems.</em></blockquote>
 
 <hr class="thin-border" data-start="3324" data-end="3327" />
 
@@ -496,7 +496,7 @@ public void placeOrder(User user, double amount) {
 <hr class="thin-border" data-start="3863" data-end="3866" />
 
 <h5 data-start="4416" data-end="4430">💡 Tip:</h5>
-<div class="tip-block"><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Some databases like </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4453" data-end="4466">Cassandra</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> and </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4471" data-end="4483">DynamoDB</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> support </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4492" data-end="4515">tunable consistency</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> — letting you choose C or A per request using </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4562" data-end="4572">quorum</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> settings.</span></div>
+<blockquote><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">Some databases like </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4453" data-end="4466">Cassandra</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> and </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4471" data-end="4483">DynamoDB</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> support </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4492" data-end="4515">tunable consistency</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> — letting you choose C or A per request using </span><strong style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';" data-start="4562" data-end="4572">quorum</strong><span style="font-size: inherit; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';"> settings.</span></blockquote>
 
 <hr data-start="771" data-end="774" />
 
@@ -556,7 +556,7 @@ public void placeOrder(User user, double amount) {
 <ul>
     <li>Only keys between 60–80 (like X) move from Node C to Node D.</li>
 </ul>
-<div class="tip-block">📝 <strong>Note: </strong>Only ~1/N of keys are remapped on node change!</div>
+<blockquote><strong>Note: </strong>Only ~1/N of keys are remapped on node change!</blockquote>
 
 <hr class="thin-border" data-start="1797" data-end="1800" />
 
@@ -663,7 +663,7 @@ int hash = hash("ServerA" + i);
 <hr class="thin-border" data-start="3782" data-end="3785" />
 
 <h5 data-start="3787" data-end="3801">💡 Tip:</h5>
-<div class="tip-block">Use <strong data-start="3808" data-end="3822">MurMurHash</strong> or <strong data-start="3826" data-end="3835">SHA-1</strong> over <code data-start="3841" data-end="3860">String.hashCode()</code> for more uniform distribution.</div>
+<blockquote>Use <strong data-start="3808" data-end="3822">MurMurHash</strong> or <strong data-start="3826" data-end="3835">SHA-1</strong> over <code data-start="3841" data-end="3860">String.hashCode()</code> for more uniform distribution.</blockquote>
 
 <hr class="" data-start="771" data-end="774" />
 
@@ -702,7 +702,7 @@ int hash = hash("ServerA" + i);
 </div>
 <p data-start="459" data-end="643"><strong data-start="555" data-end="568">Use Case:</strong> <em data-start="569" data-end="643">Centralized configuration, logging service, or database connection pool.</em></p>
 
-<div class="tip-block">🔑 <strong data-start="650" data-end="666">Key Benefit:</strong> Controlled access to a single shared resource.</div>
+<blockquote><strong data-start="650" data-end="666">Key Benefit:</strong> Controlled access to a single shared resource.</blockquote>
 
 <hr class="thin-border" data-start="715" data-end="718" />
 
@@ -734,7 +734,7 @@ public class UserFactory {
 </div>
 <p data-start="749" data-end="940"><strong data-start="859" data-end="872">Use Case:</strong> <em data-start="873" data-end="940">Dynamic creation of objects like user roles, shapes, or messages.</em></p>
 
-<div class="tip-block">🔑 <strong data-start="947" data-end="963">Key Benefit:</strong> Promotes <strong data-start="973" data-end="991">loose coupling</strong> and adheres to the <strong data-start="1011" data-end="1036">Open/Closed Principle</strong>.</div>
+<blockquote><strong data-start="947" data-end="963">Key Benefit:</strong> Promotes <strong data-start="973" data-end="991">loose coupling</strong> and adheres to the <strong data-start="1011" data-end="1036">Open/Closed Principle</strong>.</blockquote>
 
 <hr class="thin-border" data-start="1039" data-end="1042" />
 
@@ -760,7 +760,7 @@ class WebFactory implements UIComponentFactory {
 </div>
 <p data-start="1082" data-end="1268"><strong data-start="1167" data-end="1180">Use Case:</strong> <em data-start="1181" data-end="1268">Switching UI themes (light/dark), cross-platform UI toolkits, or multiple DB drivers.</em></p>
 
-<div class="tip-block">🔑 <strong data-start="1275" data-end="1291">Key Benefit:</strong> Supports <strong data-start="1301" data-end="1337">interchangeable product families</strong> while maintaining consistency.</div>
+<blockquote><strong data-start="1275" data-end="1291">Key Benefit:</strong> Supports <strong data-start="1301" data-end="1337">interchangeable product families</strong> while maintaining consistency.</blockquote>
 
 <hr class="thin-border" data-start="1370" data-end="1373" />
 
@@ -805,7 +805,7 @@ class WebFactory implements UIComponentFactory {
 </div>
 <p data-start="1404" data-end="1585"><strong data-start="1496" data-end="1509">Use Case:</strong> <em data-start="1510" data-end="1585">Creating objects like <code data-start="1533" data-end="1539">User</code>, <code data-start="1541" data-end="1548">Pizza</code>, or <code data-start="1553" data-end="1562">Vehicle</code> with optional fields.</em></p>
 
-<div class="tip-block">🔑 <strong data-start="1592" data-end="1608">Key Benefit:</strong> Avoids <strong data-start="1616" data-end="1643">constructor overloading</strong> and enhances <strong data-start="1657" data-end="1672">readability</strong>.</div>
+<blockquote><strong data-start="1592" data-end="1608">Key Benefit:</strong> Avoids <strong data-start="1616" data-end="1643">constructor overloading</strong> and enhances <strong data-start="1657" data-end="1672">readability</strong>.</blockquote>
 
 <hr class="thin-border" data-start="1675" data-end="1678" />
 
@@ -823,7 +823,7 @@ class WebFactory implements UIComponentFactory {
 </div>
 <p data-start="1711" data-end="1876"><strong data-start="1807" data-end="1820">Use Case:</strong> <em data-start="1821" data-end="1876">Graphic elements, form templates, or document copies.</em></p>
 
-<div class="tip-block">🔑 <strong data-start="1883" data-end="1899">Key Benefit:</strong> Offers <strong data-start="1907" data-end="1935">performance optimization</strong> and avoids subclassing.</div>
+<blockquote><strong data-start="1883" data-end="1899">Key Benefit:</strong> Offers <strong data-start="1907" data-end="1935">performance optimization</strong> and avoids subclassing.</blockquote>
 
 <hr class="thin-border" data-start="1961" data-end="1964" />
 
@@ -856,7 +856,7 @@ class GoogleAuthAdapter implements AppLogin {
 </div>
 <p data-start="2185" data-end="2356"><strong data-start="2267" data-end="2280">Use Case:</strong> <em data-start="2281" data-end="2356">Connecting legacy systems or third-party APIs with mismatched interfaces.</em></p>
 
-<div class="tip-block">🔑 <strong data-start="2363" data-end="2379">Key Benefit:</strong> Promotes <strong data-start="2389" data-end="2403">code reuse</strong> and <strong data-start="2408" data-end="2435">integration flexibility</strong>.</div>
+<blockquote><strong data-start="2363" data-end="2379">Key Benefit:</strong> Promotes <strong data-start="2389" data-end="2403">code reuse</strong> and <strong data-start="2408" data-end="2435">integration flexibility</strong>.</blockquote>
 
 <hr class="thin-border" data-start="2438" data-end="2441" />
 
@@ -889,7 +889,7 @@ class LoggingUserService implements UserService {
 </div>
 <p data-start="2474" data-end="2630"><strong data-start="2559" data-end="2572">Use Case:</strong> <em data-start="2573" data-end="2630">Coffee customization, adding logging, stream filtering.</em></p>
 
-<div class="tip-block">🔑 <strong data-start="2637" data-end="2653">Key Benefit:</strong> Adheres to the <strong data-start="2669" data-end="2694">Open/Closed Principle</strong> while enhancing flexibility.</div>
+<blockquote><strong data-start="2637" data-end="2653">Key Benefit:</strong> Adheres to the <strong data-start="2669" data-end="2694">Open/Closed Principle</strong> while enhancing flexibility.</blockquote>
 
 <hr class="thin-border" data-start="2725" data-end="2728" />
 
@@ -924,7 +924,7 @@ class AuthProxy implements AccountService {
 </div>
 <p data-start="2757" data-end="2929"><strong data-start="2836" data-end="2849">Use Case:</strong> <em data-start="2850" data-end="2929">Lazy loading (virtual proxy), security checks (protection proxy), or caching.</em></p>
 
-<div class="tip-block">🔑 <strong data-start="2936" data-end="2952">Key Benefit:</strong> Adds <strong data-start="2958" data-end="2986">control and optimization</strong> around resource access.</div>
+<blockquote><strong data-start="2936" data-end="2952">Key Benefit:</strong> Adds <strong data-start="2958" data-end="2986">control and optimization</strong> around resource access.</blockquote>
 
 <hr class="thin-border" data-start="3012" data-end="3015" />
 
@@ -1000,7 +1000,7 @@ public class Main {
 </div>
 <p data-start="3045" data-end="3206"><strong data-start="3135" data-end="3148">Use Case:</strong> <em data-start="3149" data-end="3206">Media players, SDKs, APIs that wrap complex subsystems.</em></p>
 
-<div class="tip-block">🔑 <strong data-start="3213" data-end="3229">Key Benefit:</strong> Reduces <strong data-start="3238" data-end="3250">coupling</strong> between subsystems and client code.</div>
+<blockquote><strong data-start="3213" data-end="3229">Key Benefit:</strong> Reduces <strong data-start="3238" data-end="3250">coupling</strong> between subsystems and client code.</blockquote>
 
 <hr class="thin-border" data-start="3288" data-end="3291" />
 
@@ -1044,7 +1044,7 @@ class LoginContext {
 </div>
 <p data-start="3500" data-end="3675"><strong data-start="3589" data-end="3602">Use Case:</strong> <em data-start="3603" data-end="3675">Sorting algorithms, payment gateway selection, compression strategies.</em></p>
 
-<div class="tip-block">🔑 <strong data-start="3682" data-end="3698">Key Benefit:</strong> Enables <strong data-start="3707" data-end="3730">runtime flexibility</strong> and adheres to the <strong data-start="3750" data-end="3775">Open/Closed Principle</strong>.</div>
+<blockquote><strong data-start="3682" data-end="3698">Key Benefit:</strong> Enables <strong data-start="3707" data-end="3730">runtime flexibility</strong> and adheres to the <strong data-start="3750" data-end="3775">Open/Closed Principle</strong>.</blockquote>
 
 <hr class="thin-border" data-start="3778" data-end="3781" />
 
@@ -1070,7 +1070,7 @@ class CommandInvoker {
 </div>
 <p data-start="3812" data-end="3968"><strong data-start="3905" data-end="3918">Use Case:</strong> <em data-start="3919" data-end="3968">Undo/redo systems, task queues, job schedulers.</em></p>
 
-<div class="tip-block">🔑 <strong data-start="3975" data-end="3991">Key Benefit:</strong> Supports <strong data-start="4001" data-end="4042">logging, queuing, and undo operations</strong>.</div>
+<blockquote><strong data-start="3975" data-end="3991">Key Benefit:</strong> Supports <strong data-start="4001" data-end="4042">logging, queuing, and undo operations</strong>.</blockquote>
 
 <hr class="thin-border" data-start="4045" data-end="4048" />
 
@@ -1102,7 +1102,7 @@ class UserRegistrationSubject {
 </div>
 <p data-start="4080" data-end="4252"><strong data-start="4186" data-end="4199">Use Case:</strong> <em data-start="4200" data-end="4252">Event systems, UI frameworks, real-time messaging.</em></p>
 
-<div class="tip-block">🔑 <strong data-start="4259" data-end="4275">Key Benefit:</strong> Promotes <strong data-start="4285" data-end="4303">loose coupling</strong> between subject and observers.</div>
+<blockquote><strong data-start="4259" data-end="4275">Key Benefit:</strong> Promotes <strong data-start="4285" data-end="4303">loose coupling</strong> between subject and observers.</blockquote>
 
 <hr class="thin-border" data-start="4336" data-end="4339" />
 
@@ -1136,7 +1136,7 @@ class UserProfile {
 </div>
 <p data-start="4370" data-end="4537"><strong data-start="4458" data-end="4471">Use Case:</strong> <em data-start="4472" data-end="4537">Undo functionality, versioning systems, game state checkpoints.</em></p>
 
-<div class="tip-block">🔑 <strong data-start="4544" data-end="4560">Key Benefit:</strong> Enables <strong data-start="4569" data-end="4587">state recovery</strong> while preserving object integrity.</div>
+<blockquote><strong data-start="4544" data-end="4560">Key Benefit:</strong> Enables <strong data-start="4569" data-end="4587">state recovery</strong> while preserving object integrity.</blockquote>
 
 <hr class="" data-start="771" data-end="774" />
 
@@ -1144,7 +1144,7 @@ class UserProfile {
 <p data-start="1546" data-end="1670"><strong>Foundational principles aren’t optional—they’re the difference between scalable systems and technical debt.</strong></p>
 <p data-start="1672" data-end="1993">By mastering <strong data-start="1685" data-end="1694">SOLID</strong>, <strong data-start="1696" data-end="1715">Design Patterns</strong>, <strong data-start="1717" data-end="1725">ACID</strong>, <strong data-start="1727" data-end="1734">CAP</strong>, and <strong data-start="1740" data-end="1762">Consistent Hashing</strong>, you're building the mindset of an architect—one who understands <strong data-start="1828" data-end="1842">trade-offs</strong>, <strong data-start="1844" data-end="1858">modularity</strong>, and <strong data-start="1864" data-end="1879">reliability</strong>. These concepts aren’t just academic; they shape real-world systems where scalability and stability are critical.</p>
 
-<div class="tip-block">💡 <strong>Tip: </strong>Don’t just memorize patterns—apply them in your own projects, review production codebases, and challenge yourself to think in terms of architecture.</div>
+<blockquote><strong>Tip: </strong>Don’t just memorize patterns—apply them in your own projects, review production codebases, and challenge yourself to think in terms of architecture.</blockquote>
 <p data-start="2176" data-end="2316">Stay tuned for Part 2, where we’ll explore estimation strategies, system boundaries, and blueprinting your high-level and low-level designs.</p>
 
 

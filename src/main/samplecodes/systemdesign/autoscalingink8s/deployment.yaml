@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web-api
+  template:
+    metadata:
+      labels:
+        app: web-api
+    spec:
+      containers:
+        - name: web-api
+          image: myorg/web-api:latest
+          resources:
+            requests:
+              cpu: "250m"
+            limits:
+              cpu: "500m"
+          ports:
+            - containerPort: 8080

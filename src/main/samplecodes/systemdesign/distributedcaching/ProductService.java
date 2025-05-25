@@ -1,5 +1,6 @@
 @Service
 public class ProductService {
+
     @Autowired
     private RedisTemplate<String, Product> redisTemplate;
 
@@ -9,12 +10,14 @@ public class ProductService {
     public Product getProductById(String id) {
         String key = "product:" + id;
 
-        // Check cache first
+        // Step 1: Check Redis cache
         Product product = redisTemplate.opsForValue().get(key);
         if (product != null) return product;
 
-        // Fallback to DB
+        // Step 2: Fallback to DB
         product = productRepository.findById(id).orElseThrow();
+
+        // Step 3: Cache the result for 30 minutes
         redisTemplate.opsForValue().set(key, product, Duration.ofMinutes(30));
         return product;
     }
