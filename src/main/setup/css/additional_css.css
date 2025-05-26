@@ -143,14 +143,14 @@
      letter-spacing: 0.5px;
 }
  hr {
-     margin-top: 1.5em;
-     margin-bottom: 2em;
+     margin-top: 2em;
+     margin-bottom: 2.5em;
      height: 2px;
      background-color: #e0e0e0;
 }
  hr.thin-border {
-     margin-top: 1.5em;
-     margin-bottom: 1.5em;
+     margin-top: 2em;
+     margin-bottom: 2em;
      height: 1px;
      background-color: #e0e0e0;
 }
