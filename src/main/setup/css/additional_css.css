@@ -1,9 +1,9 @@
 /*Header, Logo, and Footer*/
  .site-header {
-     max-height: 85px;
+     max-height: 55px;
 }
  .site-logo img {
-     max-width: 250px !important;
+     max-width: 150px !important;
     /* Adjust the size as needed */
      height: auto !important;
 }
@@ -11,7 +11,7 @@
      padding: 10px;
 }
  .inside-site-info {
-     padding: 15px;
+     padding: 10px;
 }
 /* Ensure full height */
  html, body {
@@ -237,9 +237,13 @@
      flex: 1;
      text-align: right;
 }
+ .main-navigation li {
+     margin: 0;
+}
  .main-navigation .main-nav ul li a {
      font-size: 15px;
      min-width: 120px;
+     line-height: 30px;
 }
  .main-navigation .main-nav ul ul li a {
      line-height: 1.5;
@@ -259,6 +263,10 @@
  .main-navigation .main-nav .menu > li.current-menu-item > a {
      color: #003e6b !important;
     /* active/selected menu */
+}
+ .main-navigation .menu-bar-item>a {
+     padding-top: 5px;
+     line-height: 30px;
 }
 /*Collapsible directory structure*/
 /* Menu links */
@@ -426,6 +434,9 @@
  .wpd-thread-list {
      padding: 20px 0 0 0 !important;
 }
+ .code-block {
+     margin: 0px !important;
+}
 /* Fix: Touch targets do not have sufficient size or spacing */
  .cat-links a, .tags-links a {
      display: inline-block;
@@ -439,7 +450,7 @@
  .section-block {
      margin-bottom: 2.5rem;
 }
-blockquote {
+ blockquote {
      border-left: 4px solid #0000000D;
      padding: 20px;
      margin: 0 0 1.2em;
@@ -580,6 +591,9 @@ blockquote {
          padding-left: 20px;
          padding-right: 20px;
          line-height: 3;
+    }
+     .menu-toggle {
+         line-height: 30px;
     }
      .has-inline-mobile-toggle #site-navigation.toggled {
          margin-top: 0px;
