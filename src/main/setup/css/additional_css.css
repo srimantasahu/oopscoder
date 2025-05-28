@@ -255,7 +255,7 @@
     /* You can reduce this */
      max-width: 120px;
      text-align: center !important;
-     padding: 10px;
+     padding: 15px 10px;
      width: auto;
      background-color: #f9f9f9;
      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -500,10 +500,13 @@
 /* Back-to-top button above footer content */
  .generate-back-to-top {
      position: fixed;
-     bottom: 65px;
+     bottom: 47.5px;
     /* Keeps it above footer content */
      right: 20px;
      z-index: 999;
+}
+a.generate-back-to-top {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 /* Desktop Layout */
  @media (min-width: 769px) {
@@ -575,12 +578,12 @@
      .main-navigation .main-nav {
          margin-left: 0;
          text-align: center;
-         background-color: #f0f4f8;
-        /* Light gray background */
+         background-color: #f9f9f9;
     }
      .main-navigation .main-nav ul.sub-menu {
          width: 100%;
          box-sizing: border-box;
+			 background-color: #ffffff;
     }
      .main-navigation .main-nav ul.sub-menu li a {
          text-align: center;
@@ -593,6 +596,7 @@
          line-height: 3;
     }
      .menu-toggle {
+         padding: 7.5px 20px;
          line-height: 30px;
     }
      .has-inline-mobile-toggle #site-navigation.toggled {
