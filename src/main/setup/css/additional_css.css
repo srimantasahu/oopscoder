@@ -246,8 +246,8 @@
      line-height: 30px;
 }
  .main-navigation .main-nav ul ul li a {
-     line-height: 1.5;
-     padding: 5px;
+     line-height: 1.25;
+     padding: 10px;
      font-size: 14px;
 }
  .main-navigation .main-nav ul.sub-menu {
@@ -255,7 +255,7 @@
     /* You can reduce this */
      max-width: 120px;
      text-align: center !important;
-     padding: 15px 10px;
+     padding: 10px;
      width: auto;
      background-color: #f9f9f9;
      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -505,8 +505,8 @@
      right: 20px;
      z-index: 999;
 }
-a.generate-back-to-top {
-    background-color: rgba(0, 0, 0, 0.1);
+ a.generate-back-to-top {
+     background-color: rgba(0, 0, 0, 0.1);
 }
 /* Desktop Layout */
  @media (min-width: 769px) {
@@ -583,7 +583,7 @@ a.generate-back-to-top {
      .main-navigation .main-nav ul.sub-menu {
          width: 100%;
          box-sizing: border-box;
-			 background-color: #ffffff;
+         background-color: #ffffff;
     }
      .main-navigation .main-nav ul.sub-menu li a {
          text-align: center;
