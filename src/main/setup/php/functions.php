@@ -14,19 +14,24 @@ if ( ! function_exists( 'generate_setup' ) ) {
     }
 
     // Added for loging page logo
+    // TODO: Verify changes for round logo
 	function custom_login_logo() {
-		?>
-		<style type="text/css">
-			body.login div#login h1 a {
-				background-image: url('https://oopscoder.com/wp-content/uploads/2025/04/login_logo.png');
-				background-size: contain;
-				width: 220px;
-				height: 100px;
-			}
-		</style>
-		<?php
-	}
-	add_action('login_head', 'custom_login_logo');
+        ?>
+        <style type="text/css">
+            body.login div#login h1 a {
+                background-image: url('https://oopscoder.com/wp-content/uploads/2025/04/login_logo.png');
+                background-size: cover;
+                background-position: center;
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                display: block;
+                margin: 0 auto 20px;
+            }
+        </style>
+        <?php
+    }
+    add_action('login_head', 'custom_login_logo');
 
 	// Optional: Change login link URL and title
 	add_filter('login_headerurl', function() { return home_url(); });

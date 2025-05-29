@@ -6,6 +6,15 @@
      max-width: 150px !important;
     /* Adjust the size as needed */
      height: auto !important;
+     border-radius: 4px;
+     margin: 10px 0;
+}
+/* Responsive Images in Posts */
+ .entry-content img {
+     display: block;
+     margin: 20px auto;
+     max-width: 100%;
+     height: auto;
 }
  .inside-header {
      padding: 10px;
@@ -95,67 +104,51 @@
 }
 /* Base font settings */
  body, p, li, .site {
-     font-family: 'Inter', 'Segoe UI', sans-serif !important;
+     font-family: 'Inter', 'Open Sans', sans-serif;
      font-size: 17px;
      line-height: 1.7;
-     color: #2d2d2d;
+     color: #333;
+}
+/* Headings Style */
+ h1, h2, h3, h4, h5 {
+     font-family: 'Inter', 'Segoe UI', sans-serif;
+     font-weight: 600;
+     color: #111;
+     margin-top: 1.25em;
+     margin-bottom: 0.5em;
 }
 /* H1 – Page Title */
  h1 {
-     font-size: 2.5rem;
-     font-weight: 700;
-     color: #2c3e50;
-     margin-top: 0.5rem;
-     margin-bottom: 1.5rem;
-     border-bottom: 2px solid #e0e0e0;
      padding-bottom: 0.5rem;
+     border-bottom: 2px solid #e1e1e1;
 }
 /* H2 – Section Heading */
  h2 {
-     font-size: 2rem;
-     font-weight: 600;
-     color: #2c3e50;
-     margin-top: 0.5rem;
-     margin-bottom: 1.25rem;
-     border-left: 5px solid #3498db;
      padding-left: 0.75rem;
-}
-/* H3 – Subsection Heading */
- h3 {
-     font-size: 1.6rem;
-     font-weight: 600;
-     color: #2e3a59;
-     margin-top: 1.75rem;
-}
-/* H4 – Minor Subsection Heading */
- h4 {
-     font-size: 1.3rem;
-     font-weight: 600;
-     color: #2e3a59;
-     margin-top: 1.5rem;
-}
-/* H5 – Optional Inline or Utility Titles */
- h5 {
-     font-size: 1.1rem;
-     color: #555;
-     font-weight: 600;
-     margin-top: 1.25rem;
-     letter-spacing: 0.5px;
+     border-left: 5px solid #3498db;
 }
  hr {
      margin-top: 2em;
      margin-bottom: 2.5em;
      height: 2px;
-     background-color: #e0e0e0;
+     background-color: #e1e1e1;
 }
  hr.thin-border {
      margin-top: 2em;
      margin-bottom: 2em;
      height: 1px;
-     background-color: #e0e0e0;
+     background-color: #e1e1e1;
 }
- p {
-     margin-bottom: 16px;
+/* Post Layout Enhancements */
+ .single-post .entry-content p {
+     margin-bottom: 1.2em;
+}
+ p + ul:not(.toc_list) {
+     margin-top: -0.6em !important;
+    /* reduce the gap between p and ul */
+}
+ blockquote p {
+     margin-bottom: 0 !important;
 }
  li {
      margin-bottom: 10px;
@@ -166,10 +159,10 @@
 /* Use Fira Code for code blocks */
  pre, code, kbd, samp {
      font-family: 'Fira Code', monospace !important;
-     font-size: 15px !important;
+     font-size: 14px !important;
      line-height: 1.6;
-     background: #f5f5f5;
-     padding: 5px;
+     background: #f4f4f4;
+     padding: 2px;
      border-radius: 4px;
 }
 /*Style Code Blocks for Tech Blogs*/
@@ -272,7 +265,7 @@
 /* Menu links */
  .widget_nav_menu li a, .sidebar-series li a {
      text-decoration: none;
-     font-size: 15px;
+     font-size: 14px;
      display: inline-block;
 }
  .widget_nav_menu li.current-menu-item > a {
@@ -285,11 +278,11 @@
      margin-top: 6px;
 }
  .widget ul li ul a {
-     font-size: 14px;
+     font-size: 13px;
 }
  .widget_nav_menu ul ul {
      display: none;
-     border-left: 1px solid #e0e0e0;
+     border-left: 1px solid #e1e1e1;
      padding-left: 9px;
 }
 /* Open submenu */
@@ -301,7 +294,7 @@
      color: #005a9c;
      cursor: pointer;
      display: inline-block;
-     font-size: 14px;
+     font-size: 13px;
      margin-right: 5px;
      vertical-align: middle;
      transition: transform 0.2s ease;
@@ -312,7 +305,7 @@
 }
 /* Sidebar learning series */
  .sidebar-series-text {
-     font-size: 15px;
+     font-size: 14px;
      color: #444;
     /* better contrast */
      padding: 6px 0;
@@ -324,7 +317,7 @@
 }
  ol.custom-numbered li {
      counter-increment: item;
-     font-size: 15px;
+     font-size: 14px;
      color: #005a9c;
      position: relative;
      line-height: 1.6;
@@ -354,10 +347,10 @@
      margin-bottom: 4px;
     /* Tighter space between comments */
      padding: 10px 0;
-     font-size: 15px !important;
+     font-size: 14px !important;
     /* Smaller readable font */
      line-height: 1.5;
-     border-bottom: 1px solid #e0e0e0 !important;
+     border-bottom: 1px solid #e1e1e1 !important;
     /* Subtle separator line */
 }
  .widget_recent_comments li:last-child {
@@ -369,7 +362,7 @@
      color: #666;
 }
  .wp-block-latest-comments__comment-excerpt p {
-     font-size: 15px;
+     font-size: 14px;
      color: #444;
     /* better contrast */
      line-height: 1.4;
@@ -388,7 +381,7 @@
 }
 /* Base layout for each comment */
  .wpd-comment {
-     border: 1px solid #e0e0e0;
+     border: 1px solid #e1e1e1;
      border-radius: 8px;
      padding: 15px 20px;
      margin-bottom: 15px;
@@ -396,7 +389,7 @@
      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
 }
  .wpd-comment-date {
-     font-size: 13px;
+     font-size: 12.5px;
      color: #666;
      margin-left: 10px;
 }
@@ -419,7 +412,7 @@
      transition: background-color 0.3s ease;
 }
  .wpd-reply-button:hover {
-     background-color: #e0e0e0;
+     background-color: #e1e1e1;
      cursor: pointer;
 }
 /* Threaded replies indent */
@@ -469,14 +462,24 @@
      margin-bottom: 2.5rem;
 }
  blockquote {
-     border-left: 4px solid #0000000D;
-     padding: 10px;
-     margin: 0 0 1.2em;
+     border-left: 4px solid #0000001D;
+     padding-left: 15px;
+     color: #555;
+     background: #f8fbff;
+     margin: 20px 0;
      font-size: 0.95em;
      font-style: italic;
      border-radius: 4px;
 }
 /* Make TOC numbers bold and aligned */
+ #toc_container {
+     background: #f7f7f7;
+     border: 1px solid #e1e1e1;
+     padding: 15px;
+     margin: 20px 0;
+     border-radius: 6px;
+     font-size: 14px;
+}
  #toc_container ol, #toc_container ul {
      list-style: none;
      padding-left: 2em;
@@ -484,7 +487,7 @@
 }
  #toc_container li {
      position: relative;
-     font-size: 15px !important;
+     font-size: 14px !important;
 }
  #toc_container li::before {
      position: absolute;
@@ -537,7 +540,7 @@
      #left-sidebar {
          width: 14%;
         /* Reduce the width of the sidebar */
-         font-size: 15px !important;
+         font-size: 14px !important;
         /* Adjust size as needed */
     }
     /* Main Content Area */
@@ -549,7 +552,7 @@
      #right-sidebar {
          width: 16%;
         /* Reduce the width of the sidebar */
-         font-size: 15px !important;
+         font-size: 14px !important;
         /* Adjust size as needed */
     }
     /* Top-level menu items */
@@ -571,21 +574,6 @@
     }
      .page-header {
          padding: 20px !important;
-    }
-     h1 {
-         font-size: 2rem;
-    }
-     h2 {
-         font-size: 1.75rem;
-    }
-     h3 {
-         font-size: 1.4rem;
-    }
-     h4 {
-         font-size: 1.2rem;
-    }
-     h5 {
-         font-size: 1rem;
     }
      .container {
          padding: 0 10px;
