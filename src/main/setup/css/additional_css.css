@@ -109,6 +109,9 @@
      line-height: 1.7;
      color: #333;
 }
+ body {
+     background-color: #d8d8d8 !important;
+}
 /* Headings Style */
  h1, h2, h3, h4, h5 {
      font-family: 'Inter', 'Segoe UI', sans-serif;
