@@ -94,30 +94,30 @@
      font-family: 'Inter', sans-serif !important;
 }
  a:not(h1 a):not(h2 a):not(h3 a) {
-     color: #005a9c !important;
+     color: #0074cc !important;
 }
  a:not(h1 a):not(h2 a):not(h3 a):hover, a:not(h1 a):not(h2 a):not(h3 a):focus {
-     color: #003e6b !important;
+     color: #004a99 !important;
 }
  a.read-more, .custom-footer a {
      text-decoration: underline !important;
 }
 /* Base font settings */
  body, p, li, .site {
-     font-family: 'Inter', 'Open Sans', sans-serif;
-     font-size: 17px;
-     line-height: 1.7;
-     color: #333;
+     font-family: 'Inter', 'Roboto', sans-serif !important;
+     font-size: 16px;
+     line-height: 1.6;
+     color: #1E1E1E;
 }
  body {
-     background-color: #d8d8d8 !important;
+     background-color: #f0f0f1 !important;
 }
 /* Headings Style */
  h1, h2, h3, h4, h5 {
-     font-family: 'Inter', 'Segoe UI', sans-serif;
+     font-family: 'Merriweather', serif;
      font-weight: 600;
-     color: #111;
-     margin-top: 1.25em;
+     color: #1E1E1E;
+     margin-top: 1.2em;
      margin-bottom: 0.5em;
 }
 /* H1 – Page Title */
