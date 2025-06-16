@@ -29,13 +29,13 @@
 }
 /* Make the site container a flexbox */
  .separate-containers .site-main {
-     margin: 15px;
+     margin: 12px;
 }
  .separate-containers .inside-left-sidebar, .separate-containers .inside-right-sidebar {
-     margin: 15px 0;
+     margin: 12px 0;
 }
  .page-header, .sidebar .widget, .site-main>* {
-     margin-bottom: 15px;
+     margin-bottom: 12px;
 }
  .separate-containers .comments-area {
      padding: 5px 15px;
@@ -467,12 +467,12 @@
 }
  blockquote {
      border-left: 4px solid #0000001D;
-     padding-left: 20px;
+     padding: 10px 15px;
      color: #555;
-     margin: 10px 0;
+     margin-left: 20px;
+     margin-bottom: 20px;
      font-size: 0.95em;
      font-style: italic;
-     border-radius: 4px;
 }
 /* Make TOC numbers bold and aligned */
  #toc_container {
