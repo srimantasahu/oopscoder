@@ -69,7 +69,7 @@
      margin-top: 1em !important;
 }
  .entry-summary {
-     margin-top: 1em !important;
+     margin-top: 0.5em !important;
 }
  .entry-meta {
      margin-top: 0.5em !important;
@@ -77,6 +77,19 @@
      font-size: 0.85rem;
      color: #666;
     /* Light gray for subtle metadata */
+}
+/* Hide all meta ONLY on homepage */
+ .home .posted-on,
+ .home .byline,
+ .home .cat-links,
+ .home .comments-link {
+    display: none !important;
+}
+/* Show meta everywhere else */
+ .blog .entry-meta,
+ .archive .entry-meta,
+ .single .entry-meta {
+    display: block !important;
 }
 /* Removed extra padding of 20px around left n right widgets */
  .widget-area .widget {
@@ -396,10 +409,10 @@
  .wp-block-latest-comments .avatar, .wp-block-latest-comments__comment-avatar {
      height: 2em;
      width: 2em;
-     margin-right: 6px;
+     margin-right: 0px;
 }
  .has-avatars .wp-block-latest-comments__comment .wp-block-latest-comments__comment-excerpt, .has-avatars .wp-block-latest-comments__comment .wp-block-latest-comments__comment-meta {
-     margin-left: 2.25em;
+     margin-left: 2.5em;
 }
 /* Removed extra margin of 50px above article rating */
  #comments {
@@ -559,7 +572,7 @@
  @media (min-width: 769px) {
     /* Refactored padding of 40px from inside article */
      .inside-article, .page-header {
-         padding: 20px 30px !important;
+         padding: 15px 25px !important;
     }
     /* Squeeze Sidebar */
      #left-sidebar {
