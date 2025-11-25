@@ -71,6 +71,24 @@
  .entry-summary {
      margin-top: 0.5em !important;
 }
+ .inside-article .entry-summary p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;  /* Shows exactly 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+ /* Clamp latest comment excerpt to 5 lines (desktop + mobile) */
+ .wp-block-latest-comments__comment-excerpt {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 5 !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* Hide date in Latest Comments block */
+ .wp-block-latest-comments__comment-date {
+    display: none !important;
+}
  .entry-meta {
      margin-top: 0.5em !important;
     /* Small space between summary and meta info */
@@ -107,15 +125,18 @@
      transition: color 0.3s ease;
      font-family: 'Inter', sans-serif !important;
 }
- a:not(h1 a):not(h2 a):not(h3 a) {
+ a {
      color: #005a9c !important;
 }
- a:not(h1 a):not(h2 a):not(h3 a):hover, a:not(h1 a):not(h2 a):not(h3 a):focus {
+ a:hover, a:focus {
      color: #003660 !important;
 }
- a.read-more, .custom-footer a {
-     text-decoration: underline !important;
-}
+ /* hide read more */
+ .inside-article .read-more,
+ .inside-article .entry-summary .more-link,
+ .inside-article .more-link {
+     display: none !important;
+ }
 /* Base font settings */
  body, p, li, .site {
      font-family: 'Inter', 'Roboto', sans-serif !important;
