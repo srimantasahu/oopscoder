@@ -117,11 +117,11 @@ if ( ! function_exists( 'generate_setup' ) ) {
 		if ( ! is_singular() ) {
 			$params = array(
 				'before' => sprintf(
-					'<h3 class="entry-title"%2$s><a href="%1$s" rel="bookmark">',
+					'<h4 class="entry-title"%2$s><a href="%1$s" rel="bookmark">',
 					esc_url( get_permalink() ),
 					'microdata' === generate_get_schema_type() ? ' itemprop="headline"' : ''
 				),
-				'after' => '</a></h3>',
+				'after' => '</a></h4>',
 			);
 		}
 
