@@ -9,6 +9,11 @@
      border-radius: 4px;
      margin: 10px 0;
 }
+ .site-info {
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.9;
+}
 /* Responsive Images in Posts */
  .entry-content img {
      display: block;
@@ -16,16 +21,15 @@
      max-width: 100%;
      height: auto;
 }
- .inside-header {
-     padding: 10px;
-}
- .inside-site-info {
+ .inside-header,
+.inside-site-info {
      padding: 10px;
 }
 /* Ensure full height */
  html, body {
      height: 100%;
      margin: 0;
+	 	 background-color: #e1e1e1 !important;
 }
 /* Make the site container a flexbox */
  .separate-containers .site-main {
@@ -62,6 +66,9 @@
      overflow: hidden;
     /* Prevent child content from breaking border */
 }
+ .inside-article {
+		 padding: 20px 24px !important;
+}
  .entry-title {
      margin-top: 0px;
 }
@@ -70,6 +77,24 @@
 }
  .entry-summary {
      margin-top: 0.5em !important;
+}
+ .inside-article .entry-summary p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;  /* Shows exactly 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+ /* Clamp latest comment excerpt to 5 lines (desktop + mobile) */
+ .wp-block-latest-comments__comment-excerpt {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 5 !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* Hide date in Latest Comments block */
+ .wp-block-latest-comments__comment-date {
+    display: none !important;
 }
  .entry-meta {
      margin-top: 0.5em !important;
@@ -93,7 +118,7 @@
 }
 /* Removed extra padding of 20px around left n right widgets */
  .widget-area .widget {
-     padding: 10px 5px !important;
+     padding: 12px 14px !important;
 }
 /*Optimize Blog Post Width for Readability*/
  .single-post .inside-article {
@@ -107,20 +132,23 @@
      transition: color 0.3s ease;
      font-family: 'Inter', sans-serif !important;
 }
- a:not(h1 a):not(h2 a):not(h3 a) {
+ a {
      color: #005a9c !important;
 }
- a:not(h1 a):not(h2 a):not(h3 a):hover, a:not(h1 a):not(h2 a):not(h3 a):focus {
+ a:hover, a:focus {
      color: #003660 !important;
 }
- a.read-more, .custom-footer a {
-     text-decoration: underline !important;
-}
+ /* hide read more */
+ .inside-article .read-more,
+ .inside-article .entry-summary .more-link,
+ .inside-article .more-link {
+     display: none !important;
+ }
 /* Base font settings */
  body, p, li, .site {
      font-family: 'Inter', 'Roboto', sans-serif !important;
      font-size: 0.95rem;
-     line-height: 1.6;
+     line-height: 1.65;
      color: #1E1E1E;
 }
  body {
@@ -144,25 +172,20 @@
 /* Section Headings */
  h2 {
      font-size: 1.75rem;
-     line-height: 2.25rem;
      padding-left: 0.75rem;
      border-left: 5px solid #3498db;
 }
  h3 {
      font-size: 1.5rem;
-     line-height: 2rem;
 }
  h4 {
      font-size: 1.25rem;
-     line-height: 1.75rem;
 }
  h5 {
      font-size: 1.1rem;
-     line-height: 1.5rem;
 }
  h6 {
      font-size: 1rem;
-     line-height: 1.4rem;
 }
  hr {
      height: 2px;
@@ -174,7 +197,16 @@
 }
 /* Post Layout Enhancements */
  .single-post .entry-content p {
-     margin-bottom: 1.2em;
+     margin-bottom: 1em;
+}
+ .single-post .entry-content li {
+     margin-bottom: 6px;
+}
+ .single-post .entry-content h2,
+.single-post .entry-content h3,
+.single-post .entry-content h4 {
+     margin-bottom: 0.6em;
+		 margin-top: 1.2em;
 }
  p + ul:not(.toc_list) {
      margin-top: -0.6em !important;
@@ -193,7 +225,6 @@
  pre, code, kbd, samp {
      font-family: 'Fira Code', monospace !important;
      font-size: 0.8rem !important;
-     line-height: 1.6;
      background: #f5f5f5;
      padding: 0.25rem 0.5rem;
      border-radius: 4px;
@@ -227,7 +258,7 @@
      border: none;
      font-size: 0.9rem;
 }
- code {
+ .code {
      color: #d63384;
 }
  code[class*="language-"] {
@@ -237,7 +268,6 @@
  .responsive-table {
      width: 100%;
      overflow-x: auto;
-     -webkit-overflow-scrolling: touch;
      margin-bottom: 1em;
 }
 /* Make the table not exceed its container */
@@ -245,7 +275,6 @@
      width: 100%;
      border-collapse: collapse;
      word-break: break-word;
-     margin-bottom: 0em;
 }
 /* Prevent table cells from forcing layout overflow */
  .responsive-table th, .responsive-table td {
@@ -269,7 +298,9 @@
  .main-navigation .main-nav ul li a {
      font-size: 0.85rem;
      min-width: 120px;
-     line-height: 30px;
+     line-height: 20px;
+	   padding: 12px 16px;
+     font-weight: 600;
 }
  .main-navigation .main-nav ul ul li a {
      line-height: 1.25;
@@ -282,7 +313,6 @@
      max-width: 120px;
      text-align: center !important;
      padding: 10px;
-     width: auto;
      background-color: #f9f9f9;
      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
@@ -326,7 +356,6 @@
  .toggle-icon {
      color: #005a9c;
      cursor: pointer;
-     display: inline-block;
      font-size: 0.8rem;
      margin-right: 5px;
      vertical-align: middle;
@@ -445,14 +474,11 @@
      padding: 5px 12px;
      background-color: #f3f3f3;
      border-radius: 6px;
-     color: #333;
      border: none;
      margin-top: 10px;
-     transition: background-color 0.3s ease;
 }
  .wpd-reply-button:hover {
      background-color: #e1e1e1;
-     cursor: pointer;
 }
 /* Threaded replies indent */
  .wpd-comment.wpd-comment-level-1, .wpd-comment.wpd-comment-level-2, .wpd-comment.wpd-comment-level-3 {
@@ -474,12 +500,9 @@
      display: inline-block;
      padding: 2px 6px;
      margin: 3px 3px 0 0;
-     font-size: 13.5px;
-     line-height: 1.4;
      background-color: #f0f4f8;
      color: #333;
-     text-decoration: none;
-     transition: background-color 0.3s ease;
+     transition: 0.3s;
 }
  .cat-links a {
      border-radius: 4px;
@@ -493,10 +516,6 @@
      color: #111;
     /* Darker text on hover for contrast */
 }
- .cat-links, .tags-links {
-     margin-bottom: 3px;
-    /* Slight spacing below category and tags blocks */
-}
  .section-block {
      margin-bottom: 2.5rem;
 }
@@ -505,7 +524,6 @@
      padding: 12px 15px;
      color: #555;
      margin-left: 20px;
-     margin-bottom: 20px;
      font-size: 0.95rem;
      font-style: italic;
 }
@@ -518,14 +536,14 @@
      border-radius: 6px;
      font-size: 0.85rem;
 }
+ #toc_container li {
+     position: relative;
+     font-size: 0.85rem !important;
+}
  #toc_container ol, #toc_container ul {
      list-style: none;
      padding-left: 2em;
      counter-reset: section;
-}
- #toc_container li {
-     position: relative;
-     font-size: 14px !important;
 }
  #toc_container li::before {
      position: absolute;
@@ -536,6 +554,7 @@
  #toc_container > ul > li {
      counter-increment: section;
      counter-reset: subsection;
+	 	 position: relative;
 }
  #toc_container > ul > li::before {
      content: counter(section, decimal-leading-zero) ". ";
@@ -554,8 +573,6 @@
     /* A., B., C. */
      position: absolute;
      left: -1.6em;
-     width: 2em;
-     display: inline-block;
 }
 /* Back-to-top button above footer content */
  .generate-back-to-top {
@@ -566,17 +583,13 @@
      z-index: 999;
 }
  a.generate-back-to-top {
-     background-color: rgba(0, 0, 0, 0.1);
+     background-color: rgba(0,0,0,0.1);
 }
 /* Desktop Layout */
  @media (min-width: 769px) {
-    /* Refactored padding of 40px from inside article */
-     .inside-article, .page-header {
-         padding: 15px 25px !important;
-    }
     /* Squeeze Sidebar */
      #left-sidebar {
-         width: 14%;
+         width: 15%;
         /* Reduce the width of the sidebar */
          font-size: 14px !important;
         /* Adjust size as needed */
@@ -585,10 +598,10 @@
      .content-area {
          flex: 1 !important;
          width: auto !important;
-         max-width: 70% !important;
+         max-width: 65% !important;
     }
      #right-sidebar {
-         width: 16%;
+         width: 15%;
         /* Reduce the width of the sidebar */
          font-size: 14px !important;
         /* Adjust size as needed */
@@ -606,16 +619,18 @@
 }
 /* Mobile Layout */
  @media (max-width: 768px) {
-    /* Refactored padding of 40px from inside article */
-     .inside-article {
-         padding: 10px 15px !important;
-    }
      .page-header {
          padding: 20px !important;
     }
      .container {
          padding: 0 10px;
     }
+	  .widget-area .widget {
+     		 padding: 10px 12px !important;
+		}
+	  .inside-article {
+			 	 padding: 16px 20px !important;
+}
      .main-navigation .inside-navigation {
          flex-direction: column;
          align-items: end;
@@ -636,9 +651,8 @@
          padding: 5px;
     }
      .main-navigation .main-nav ul li a {
-         padding-left: 20px;
-         padding-right: 20px;
-         line-height: 3;
+         padding: 12px 16px;
+         font-weight: 600;
     }
      .menu-toggle {
          padding: 7.5px 20px;
